@@ -1,0 +1,96 @@
+# Cloud Workflows: monthly cap for Google Maps JavaScript API map loads.
+# Runs hourly (Cloud Scheduler). Reads this month's billable map loads from Cloud Monitoring
+# (quota metric maps-backend.googleapis.com/billable_default). When the month total reaches
+# monthlyLimit, the daily quota override is set to 0 (Google Maps stops loading); otherwise it is
+# kept at dailyLimit, so the map is unblocked automatically when a new month starts.
+# Optional execution argument: {"monthlyLimit": 9000, "dailyLimit": 1000}
+main:
+  params: [args]
+  steps:
+    - init:
+        assign:
+          - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - monthlyLimit: ${default(map.get(args, "monthlyLimit"), 9000)}
+          - dailyLimit: ${default(map.get(args, "dailyLimit"), 1000)}
+          - now: ${sys.now()}
+          - nowText: ${time.format(now, "UTC")}
+          - monthStart: ${text.substring(nowText, 0, 7) + "-01T00:00:00Z"}
+          - period: ${string(int(now - time.parse(monthStart)) + 120) + "s"}
+          - limitUrl: ${"https://serviceusage.googleapis.com/v1beta1/projects/" + project + "/services/maps-backend.googleapis.com/consumerQuotaMetrics/maps-backend.googleapis.com%2Fbillable_default/limits/%2Fd%2Fproject"}
+          - used: 0
+    - getUsage:
+        call: http.get
+        args:
+          url: ${"https://monitoring.googleapis.com/v3/projects/" + project + "/timeSeries"}
+          auth:
+            type: OAuth2
+          query:
+            filter: 'metric.type="serviceruntime.googleapis.com/quota/rate/net_usage" AND resource.type="consumer_quota" AND resource.label.service="maps-backend.googleapis.com" AND metric.label.quota_metric="maps-backend.googleapis.com/billable_default"'
+            interval.startTime: ${monthStart}
+            interval.endTime: ${nowText}
+            aggregation.alignmentPeriod: ${period}
+            aggregation.perSeriesAligner: ALIGN_SUM
+            aggregation.crossSeriesReducer: REDUCE_SUM
+        result: usageResp
+    - sumUsage:
+        for:
+          value: series
+          in: ${default(map.get(usageResp.body, "timeSeries"), [])}
+          steps:
+            - addSeries:
+                for:
+                  value: p
+                  in: ${series.points}
+                  steps:
+                    - add:
+                        assign:
+                          - used: ${used + int(p.value.int64Value)}
+    - getQuota:
+        call: http.get
+        args:
+          url: ${limitUrl}
+          auth:
+            type: OAuth2
+        result: quotaResp
+    - pick:
+        assign:
+          - bucket: ${quotaResp.body.quotaBuckets[0]}
+          - current: ${int(bucket.effectiveLimit)}
+          - want: ${dailyLimit}
+    - overLimit:
+        switch:
+          - condition: ${used >= monthlyLimit}
+            assign:
+              - want: 0
+    - same:
+        switch:
+          - condition: ${current == want}
+            return: ${"month " + monthStart + " used=" + string(used) + "/" + string(monthlyLimit) + " daily limit stays " + string(current)}
+    - hasOverride:
+        switch:
+          - condition: ${"consumerOverride" in bucket}
+            next: patchOverride
+        next: createOverride
+    - patchOverride:
+        call: http.patch
+        args:
+          url: ${"https://serviceusage.googleapis.com/v1beta1/" + bucket.consumerOverride.name}
+          auth:
+            type: OAuth2
+          query:
+            force: true
+          body:
+            overrideValue: ${string(want)}
+        next: done
+    - createOverride:
+        call: http.post
+        args:
+          url: ${limitUrl + "/consumerOverrides"}
+          auth:
+            type: OAuth2
+          query:
+            force: true
+          body:
+            overrideValue: ${string(want)}
+    - done:
+        return: ${"month " + monthStart + " used=" + string(used) + "/" + string(monthlyLimit) + " daily limit " + string(current) + " -> " + string(want)}
