@@ -3,8 +3,8 @@
 # When a metric's month total reaches its monthly limit, its daily quota override is set to 0 (requests stop);
 # otherwise the daily limit is kept, so everything unblocks automatically when a new month starts.
 #   Maps JavaScript API map loads   9,000 / month, 1,000 / day   (free usage 10,000 / month)
-#   Places API (New) place details    900 / month,   200 / day   (free usage  1,000 / month)
-#   Places API (New) place photos     900 / month,   200 / day   (free usage  1,000 / month)
+#   Places API (New) place details  1,500 / month,   500 / day   (free usage  1,000 / month; above that is billed)
+#   Places API (New) place photos   1,500 / month,   500 / day   (free usage  1,000 / month; above that is billed)
 # Optional execution argument for testing: {"monthlyLimit": 0} applies that monthly limit to every target.
 main:
   params: [args]
@@ -14,8 +14,8 @@ main:
           - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
           - targets:
               - {service: "maps-backend.googleapis.com", metric: "maps-backend.googleapis.com/billable_default", monthly: 9000, daily: 1000}
-              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPlaceRequest", monthly: 900, daily: 200}
-              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPhotoMediaRequest", monthly: 900, daily: 200}
+              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPlaceRequest", monthly: 1500, daily: 500}
+              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPhotoMediaRequest", monthly: 1500, daily: 500}
           - testLimit: ${map.get(args, "monthlyLimit")}
           - now: ${sys.now()}
           - nowText: ${time.format(now, "UTC")}

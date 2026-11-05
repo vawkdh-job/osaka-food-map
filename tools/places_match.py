@@ -100,6 +100,10 @@ for r in d['restaurants']:
                 continue
             if r.get('lat') and km((r['lat'], r['lon']), (lat, lon)) > 0.6:
                 continue                                   # same name but far from the researched spot → another branch
+            num = re.findall(r'\d+(?:-\d+)+', unicodedata.normalize('NFKC', r['address'] or '').replace('丁目', '-').replace('番地', '-').replace('番', '-').replace('号', ''))
+            gaddr = unicodedata.normalize('NFKC', p.get('formattedAddress', '')).replace('丁目', '-').replace('−', '-').replace('番地', '-')
+            if num and num[0].rstrip('-') not in gaddr:
+                continue                                   # our street number must appear in Google's address
             best = p
             break
         if best:
