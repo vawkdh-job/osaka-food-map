@@ -30,6 +30,9 @@ button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:3px solid #64b5c6;outline-offset:2px}
 #map{position:fixed;inset:0;z-index:1;background:#eef1f2}
+body.gmap #map{bottom:var(--map-b,0px)}
+#gm .gm-style{font-family:inherit}
+.hotelPop{font-size:14px;line-height:1.5;padding:2px 2px 0}
 /* core MapLibre layout rules (also in vendor css) so pins never misplace if that file is slow */
 .maplibregl-map{font-family:inherit;overflow:hidden}.maplibregl-canvas{position:absolute;left:0;top:0}.maplibregl-marker{position:absolute;top:0;left:0;will-change:transform}
 .maplibregl-ctrl-bottom-left{bottom:var(--sheet-h);transition:bottom .25s}
@@ -272,7 +275,7 @@ body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
     <div id="providers"></div>
     <label class="radio"><input type="checkbox" id="poiToggle"><span>지도에 다른 가게·시설 아이콘도 표시<small>꺼 두면 맛집 핀만 또렷하게 보여요 (한글 지도)</small></span></label>
     <h3>오프라인 대비 (로밍·지하용)</h3>
-    <p style="margin:0">우메다·후쿠시마·나카노시마·난바 일대 지도를 휴대폰에 미리 저장합니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
+    <p style="margin:0">우메다·후쿠시마·나카노시마·난바 일대의 예비 지도(한글 OpenFreeMap + 국토지리원)를 휴대폰에 저장합니다. 인터넷이 끊겨 구글 지도가 안 뜨면 이 지도로 바뀝니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
     <button class="btn wide" id="precacheBtn">지도 미리 저장</button>
     <div class="progress" id="precacheBar" hidden><i></i></div>
     <p id="precacheText" style="font-size:12.5px;margin:6px 0 0"></p>
@@ -310,7 +313,7 @@ body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
 </div>
 
 <script src="vendor/maplibre-gl.js"></script>
-<script>const APP_DATA=/*__DATA__*/;const APP_BUILD="__BUILD__";</script>
+<script>const APP_DATA=/*__DATA__*/;const APP_BUILD="__BUILD__";const GMAPS_KEY="__GMAPS_KEY__";</script>
 <script>
 (function(){
 'use strict';
@@ -350,7 +353,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:false,rating:'all',kind:'all',region:'all',favOnly:false,
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v3','ko'),showPoi:LS.get('ofm.showPoi',false)};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false)};
 const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
 let me=null; // {lat,lon,acc,t}
 let rows=[];
@@ -361,15 +364,16 @@ const GSI_ATTR='<a href="https://maps.gsi.go.jp/development/ichiran.html" target
 const OSM_ATTR='© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
 const OFM_ATTR='<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> '+OSM_ATTR;
 const PROVIDERS={
-  ko:{type:'vector',name:'한글 지도 (기본)',desc:'역·동네·명소 이름을 한국어로 · 역은 일본어도 함께',style:'https://tiles.openfreemap.org/styles/liberty'},
+  google:{type:'google',name:'구글 지도 (한국어, 기본)',desc:'구글 지도와 같은 한글 표기 · 구글 약관상 미리 저장은 안 됨',noPrecache:true},
+  ko:{type:'vector',name:'한글 지도 (OpenFreeMap)',desc:'역·동네·명소 이름을 한국어로 · 역은 일본어도 함께',style:'https://tiles.openfreemap.org/styles/liberty'},
   kolight:{type:'vector',name:'한글 지도 · 연한 색',desc:'색이 연해서 핀이 더 잘 보임',style:'https://tiles.openfreemap.org/styles/positron'},
   gsi:{type:'raster',name:'국토지리원 지도 (일본어)',desc:'일본 정부 지도 · 한글 지도가 안 될 때 예비용',tiles:['https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'],maxzoom:18,attribution:GSI_ATTR},
   gsistd:{type:'raster',name:'국토지리원 표준 지도 (일본어)',desc:'색이 진하고 도로·철도 구분이 뚜렷함',tiles:['https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'],maxzoom:18,attribution:GSI_ATTR},
   osm:{type:'raster',name:'OpenStreetMap (일본어)',desc:'가게·편의점까지 표시 · 미리 저장은 안 됨',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],maxzoom:19,noPrecache:true,attribution:OSM_ATTR},
   esri:{type:'raster',name:'Esri 도로 지도',desc:'예전 버전에서 쓰던 지도',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'],maxzoom:18,attribution:'Tiles © Esri'}
 };
-const DEFAULT_PROVIDER='ko',PROV_KEY='ofm.provider.v3';
-const MENU_ORDER=['ko','kolight','gsi','gsistd','osm','esri'],ORDER=['ko','gsi','osm','esri'];
+const DEFAULT_PROVIDER='google',PROV_KEY='ofm.provider.v4';
+const MENU_ORDER=['google','ko','kolight','gsi','gsistd','osm','esri'],ORDER=['google','ko','gsi','osm','esri'];
 /* zoom levels (MapLibre zoom = Leaflet zoom − 1) */
 const Z={min:9,max:18.5,cluster:16,pick:14,list:16,me:15,hotel:15,fit:15};
 function webglOK(){try{const c=document.createElement('canvas');return!!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}}
@@ -395,17 +399,28 @@ async function koStyle(url){
 }
 const rasterStyle=P=>({version:8,sources:{base:{type:'raster',tiles:P.tiles,tileSize:256,maxzoom:P.maxzoom,attribution:P.attribution}},
   layers:[{id:'bg',type:'background',paint:{'background-color':'#eef1f2'}},{id:'base',type:'raster',source:'base'}]});
-let map=null,mapReady=false,tileStats={ok:0,err:0},tried=new Set(),provToken=0;
+/* Two map engines share one small API (MapLibre's names, MapLibre zoom units):
+   getZoom zoomIn zoomOut project unproject easeTo fitBounds getContainer resize on once remove.
+   'gm' = Google Maps JS (Korean labels, default) · 'ml' = MapLibre GL (OpenFreeMap Korean / raster fallbacks). */
+let map=null,engine='none',mapReady=false,tileStats={ok:0,err:0},tried=new Set(),provToken=0;
 const mapQueue=[];const whenMap=f=>mapReady?f():mapQueue.push(f);
 async function setProvider(key,auto){
   if(!PROVIDERS[key])key=DEFAULT_PROVIDER;
-  if(!window.maplibregl||!webglOK())return mapUnavailable();
+  const P=PROVIDERS[key];
   S.provider=key;if(!auto)LS.set(PROV_KEY,key);
   tried.add(key);tileStats={ok:0,err:0};const token=++provToken;renderProviders();
-  const P=PROVIDERS[key];let style;
+  if(P.type==='google')return startGoogle(token);
+  if(!window.maplibregl||!webglOK())return mapUnavailable();
+  let style;
   try{style=P.type==='vector'?await koStyle(P.style):rasterStyle(P)}catch(e){if(token===provToken){tileStats.err=99;checkTiles()}return}
   if(token!==provToken)return;
-  if(!map)createMap(style);else map.setStyle(style,{diff:false});
+  if(engine==='ml')map.setStyle(style,{diff:false});else{destroyMap();createMap(style)}
+}
+function destroyMap(){
+  if(map){try{map.remove()}catch(e){}}
+  map=null;engine='none';mapReady=false;
+  markers.clear();clusterMarkers=[];hotelMarker=null;meMarker=null;meAcc=null;meCone=null;
+  document.body.classList.remove('gmap');const el=$('#map');el.className='';el.innerHTML='';
 }
 function mapUnavailable(){showMapStatus('이 기기(브라우저)에서는 지도를 표시할 수 없어요. 목록·길찾기는 그대로 쓸 수 있어요.')}
 function checkTiles(){
@@ -423,7 +438,22 @@ window.addEventListener('online',()=>{hideMapStatus();if(!map||tileStats.ok===0)
 window.addEventListener('offline',()=>toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.'));
 $('#retryBtn').onclick=retryTiles;
 
+/* events shared by both engines */
+function wireMap(){
+  map.on('zoomend',()=>{renderMarkers();updateMeAcc()});
+  map.on('zoom',updateMeAcc);
+  map.on('dragstart',()=>{if(follow){follow=false;if(me)setLocState('on')}});
+  let centerTimer=0;map.on('moveend',()=>{if(S.ref==='center'){clearTimeout(centerTimer);centerTimer=setTimeout(()=>refresh({markers:false}),250)}});
+  map.on('click',e=>{const t=e.originalEvent&&e.originalEvent.target;if(t&&t.closest&&t.closest('.mk'))return;if(!isDesktop()&&sheetState==='full')setSheet('half')});
+}
+function onMapLoaded(){
+  addHotel();fitRows(false);
+  mapReady=true;mapQueue.splice(0).forEach(f=>f());renderMarkers();if(me)drawMe();
+}
+const mkMarker=(el,ll)=>engine==='gm'?map.marker(el,ll):new maplibregl.Marker({element:el,anchor:'center'}).setLngLat(ll);
+
 function createMap(style){
+  engine='ml';
   map=new maplibregl.Map({container:'map',style,center:[HOTEL.lon,HOTEL.lat],zoom:12,minZoom:Z.min,maxZoom:Z.max,
     dragRotate:false,pitchWithRotate:false,touchPitch:false,renderWorldCopies:false,attributionControl:false,
     localIdeographFontFamily:KO_FONT,fadeDuration:0,clickTolerance:4});
@@ -431,20 +461,104 @@ function createMap(style){
   map.addControl(new maplibregl.AttributionControl({compact:true}),'bottom-left');
   map.on('sourcedata',e=>{if(e.tile){tileStats.ok++;if(tileStats.ok===1)hideMapStatus()}});
   map.on('error',e=>{const m=String((e&&e.error&&(e.error.message||e.error))||'');if(/\/fonts\/|sprite|glyph/i.test(m))return;tileStats.err++;checkTiles()});
-  map.on('zoomend',()=>{renderMarkers();updateMeAcc()});
-  map.on('zoom',updateMeAcc);
-  map.on('dragstart',()=>{if(follow){follow=false;if(me)setLocState('on')}});
-  let centerTimer=0;map.on('moveend',()=>{if(S.ref==='center'){clearTimeout(centerTimer);centerTimer=setTimeout(()=>refresh({markers:false}),250)}});
-  map.on('click',e=>{const t=e.originalEvent&&e.originalEvent.target;if(t&&t.closest&&t.closest('.mk'))return;if(!isDesktop()&&sheetState==='full')setSheet('half')});
+  wireMap();
   map.once('load',()=>{
     const at=document.querySelector('.maplibregl-ctrl-attrib');if(at){at.removeAttribute('open');at.classList.remove('maplibregl-compact-show')} // keep credits folded behind ⓘ
-    addHotel();fitRows(false);
-    mapReady=true;mapQueue.splice(0).forEach(f=>f());renderMarkers();
+    onMapLoaded();
   });
 }
 
+/* ---------- Google Maps engine ---------- */
+let gmLoad=null;
+function loadGoogle(){
+  if(window.google&&google.maps&&google.maps.OverlayView)return Promise.resolve();
+  if(!gmLoad)gmLoad=new Promise((res,rej)=>{
+    window.__gmReady=()=>google.maps.importLibrary('maps').then(()=>res(),rej);
+    const sc=document.createElement('script');sc.async=true;sc.onerror=()=>rej(new Error('script'));
+    sc.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(GMAPS_KEY)}&language=ko&region=JP&v=weekly&loading=async&callback=__gmReady`;
+    document.head.appendChild(sc);setTimeout(()=>rej(new Error('timeout')),15000);
+  }).catch(e=>{gmLoad=null;throw e});
+  return gmLoad;
+}
+// Google calls this when the key is rejected (wrong site, key or API not allowed)
+window.gm_authFailure=()=>googleFailed('auth');
+function googleFailed(why,token){
+  if(token!=null&&token!==provToken)return;
+  if(!PROVIDERS[S.provider]||PROVIDERS[S.provider].type!=='google')return;
+  S.gmFail=why;toast('구글 지도를 불러오지 못해 한글 지도(OpenFreeMap)로 보여 줘요.',5500);
+  setProvider('ko',true);
+}
+async function startGoogle(token){
+  if(!GMAPS_KEY)return googleFailed('nokey',token);
+  try{await loadGoogle()}catch(e){return googleFailed('load',token)}
+  if(token!==provToken)return;
+  destroyMap();
+  try{map=GoogleMap($('#map'))}catch(e){return googleFailed('init',token)}
+  engine='gm';document.body.classList.add('gmap');setSheet(sheetState==='desk'?'peek':sheetState);
+  wireMap();
+  const timer=setTimeout(()=>googleFailed('timeout',token),12000);
+  map.once('load',()=>{
+    clearTimeout(timer);if(token!==provToken)return;
+    tileStats.ok++;hideMapStatus();onMapLoaded();
+    // a key/billing problem shows Google's own error card instead of calling gm_authFailure
+    const chk=()=>{if(token===provToken&&engine==='gm'&&document.querySelector('#gm .gm-err-container,#gm .dismissButton'))googleFailed('error',token)};
+    [1200,3500,8000].forEach(t=>setTimeout(chk,t));
+  });
+}
+const gStyles=()=>S.showPoi?[]:[{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]},{featureType:'poi.business',stylers:[{visibility:'off'}]}];
+function GoogleMap(container){
+  const g=google.maps,div=document.createElement('div');div.id='gm';div.style.cssText='position:absolute;inset:0';container.appendChild(div);
+  const gm=new g.Map(div,{center:{lat:HOTEL.lat,lng:HOTEL.lon},zoom:13,minZoom:Z.min+1,maxZoom:20,gestureHandling:'greedy',
+    disableDefaultUI:true,clickableIcons:false,keyboardShortcuts:true,styles:gStyles(),backgroundColor:'#eef1f2'});
+  const recs=new Set();let onAdd;const added=new Promise(r=>onAdd=r);
+  class Overlay extends g.OverlayView{onAdd(){onAdd()}draw(){const pr=this.getProjection();if(pr)for(const m of recs)m._pos(pr)}onRemove(){}}
+  const ov=new Overlay();ov.setMap(gm);
+  const proj=()=>ov.getProjection();
+  const A={gm,
+    getZoom:()=>gm.getZoom()-1,
+    zoomIn:()=>gm.setZoom(gm.getZoom()+1),zoomOut:()=>gm.setZoom(gm.getZoom()-1),
+    project([lon,lat]){const p=proj().fromLatLngToContainerPixel(new g.LatLng(lat,lon));return{x:p.x,y:p.y}},
+    unproject([x,y]){const ll=proj().fromContainerPixelToLatLng(new g.Point(x,y));return{lat:ll.lat(),lng:ll.lng()}},
+    easeTo({center,zoom,offset=[0,0],duration}){
+      const gz=Math.round((zoom??A.getZoom())+1),wp=gm.getProjection(),k=2**gz;
+      const w=wp.fromLatLngToPoint(new g.LatLng(center[1],center[0]));
+      const c=wp.fromPointToLatLng(new g.Point(w.x-offset[0]/k,w.y-offset[1]/k));
+      if(gz!==gm.getZoom()){gm.setZoom(gz);gm.setCenter(c)}else if(duration)gm.panTo(c);else gm.setCenter(c);
+    },
+    fitBounds([[w,s],[e,n]],{padding,maxZoom}={}){
+      gm.fitBounds(new g.LatLngBounds({lat:s,lng:w},{lat:n,lng:e}),padding);
+      if(maxZoom!=null){const l=g.event.addListenerOnce(gm,'idle',()=>{if(gm.getZoom()>maxZoom+1)gm.setZoom(Math.floor(maxZoom+1))});setTimeout(()=>g.event.removeListener(l),2000)}
+    },
+    getContainer:()=>div,resize(){},triggerRepaint(){},getStyle:()=>null,getPadding:()=>({top:0,bottom:0,left:0,right:0}),
+    on(ev,fn){
+      if(ev==='zoomend'){let last=gm.getZoom();gm.addListener('idle',()=>{const z=gm.getZoom();if(z!==last){last=z;fn()}})}
+      else if(ev==='click')gm.addListener('click',e=>fn({originalEvent:e.domEvent}));
+      else{const name={zoom:'zoom_changed',dragstart:'dragstart',moveend:'idle'}[ev];if(name)gm.addListener(name,fn)}
+    },
+    once(ev,fn){if(ev==='load')Promise.all([added,new Promise(r=>g.event.addListenerOnce(gm,'tilesloaded',r))]).then(fn)},
+    remove(){recs.clear();ov.setMap(null);g.event.clearInstanceListeners(gm);div.remove()},
+    /* HTML marker positioned by the overlay, same interface as maplibregl.Marker */
+    marker(el,[lon,lat]){
+      const m={on:false,ll:new g.LatLng(lat,lon),off:{x:0,y:0},
+        _pos(pr){const p=pr.fromLatLngToDivPixel(m.ll);if(p)el.style.transform=`translate(${p.x+m.off.x}px,${p.y+m.off.y}px)`},
+        setLngLat([lo,la]){m.ll=new g.LatLng(la,lo);if(m.on&&proj())m._pos(proj());return m},
+        setOffset([x,y]){m.off={x,y};if(m.on&&proj())m._pos(proj());return m},
+        getOffset:()=>m.off,
+        addTo(){if(!m.on){m.on=true;el.style.position='absolute';el.style.left='0';el.style.top='0';
+          ov.getPanes().overlayMouseTarget.appendChild(el);g.OverlayView.preventMapHitsFrom(el);recs.add(m);if(proj())m._pos(proj())}return m},
+        remove(){if(m.on){m.on=false;recs.delete(m);el.remove()}return m}};
+      return m;
+    },
+    popup(html,[lon,lat]){const iw=new g.InfoWindow({content:html,position:{lat,lng:lon},pixelOffset:new g.Size(0,-34)});let open=false;
+      iw.addListener('closeclick',()=>open=false);
+      return{isOpen:()=>open,toggle(){if(open){iw.close();open=false}else{iw.open({map:gm});open=true}}}}
+  };
+  return A;
+}
+
 /* layout metrics: how much of the map is covered by the top bar and the sheet */
-function cover(){if(isDesktop())return{top:0,bottom:0};return{top:$('#topbar').getBoundingClientRect().bottom,bottom:sheetPx}}
+// with Google the map itself ends at the sheet (its logo must stay visible), with MapLibre the sheet floats over it
+function cover(){if(isDesktop())return{top:0,bottom:0};return{top:$('#topbar').getBoundingClientRect().bottom,bottom:engine==='gm'?0:sheetPx}}
 function panToVisible(ll,zoom,animate=true){
   if(!map)return;const c=cover();
   map.easeTo({center:[ll[1],ll[0]],zoom:zoom??map.getZoom(),offset:[0,(c.top-c.bottom)/2],duration:animate?450:0});
@@ -472,7 +586,7 @@ function pinFor(r){
   const el=document.createElement('div');el.className='mk';el.tabIndex=0;el.setAttribute('role','button');
   el.addEventListener('click',e=>{e.stopPropagation();select(r.id,{from:'map'})});
   el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();select(r.id,{from:'map'})}});
-  p={el,r,m:new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([r.lon,r.lat])};markers.set(r.id,p);return p;
+  p={el,r,m:mkMarker(el,[r.lon,r.lat])};markers.set(r.id,p);return p;
 }
 let clusterMarkers=[];
 // pins are wide pills drawn above their point, so group by box overlap rather than radius
@@ -499,26 +613,32 @@ function renderMarkers(){
     const lat=g.items[0].r.lat,lon=g.items[0].r.lon; // anchored on the best-rated member, so groups don't drift onto neighbours
     const open=()=>fitVisible(g.items.map(pt=>[pt.r.lat,pt.r.lon]),Z.cluster);
     el.addEventListener('click',e=>{e.stopPropagation();open()});el.addEventListener('keydown',e=>{if(e.key==='Enter')open()});
-    clusterMarkers.push(new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([lon,lat]).addTo(map));
+    clusterMarkers.push(mkMarker(el,[lon,lat]).addTo(map));
   }
 }
 function refreshIcon(id){const p=markers.get(id);if(p&&p.on){p.el.innerHTML=pinHtml(p.r);p.el.style.zIndex=S.selected===id?'5':''}}
 let hotelMarker=null;
 function addHotel(){
   const el=document.createElement('div');el.className='mk';el.innerHTML='<div class="hotelPin">⌂ 호텔</div>';
-  const pop=new maplibregl.Popup({offset:[0,-38],maxWidth:'290px',focusAfterOpen:false}).setHTML(`<b>⌂ ${esc(HOTEL.name)}</b><br><span style="color:#64767c">${esc(HOTEL.jp)}</span><div class="popLinks"><a href="${esc(dirUrl(HOTEL.jp+' '+HOTEL.address,2))}" target="_blank" rel="noopener">🧭 호텔로 가는 길</a><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(HOTEL.jp)}" target="_blank" rel="noopener">Google 지도</a></div>`);
-  hotelMarker=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([HOTEL.lon,HOTEL.lat]).setPopup(pop).addTo(map);
+  const html=`<div class="hotelPop"><b>⌂ ${esc(HOTEL.name)}</b><br><span style="color:#64767c">${esc(HOTEL.jp)}</span><div class="popLinks"><a href="${esc(dirUrl(HOTEL.jp+' '+HOTEL.address,2))}" target="_blank" rel="noopener">🧭 호텔로 가는 길</a><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(HOTEL.jp)}" target="_blank" rel="noopener">Google 지도</a></div></div>`;
+  if(engine==='gm'){
+    const pop=map.popup(html,[HOTEL.lon,HOTEL.lat]);el.addEventListener('click',e=>{e.stopPropagation();pop.toggle()});
+    hotelMarker=Object.assign(mkMarker(el,[HOTEL.lon,HOTEL.lat]).addTo(map),{getPopup:()=>pop,togglePopup:()=>pop.toggle()});
+  }else{
+    const pop=new maplibregl.Popup({offset:[0,-38],maxWidth:'290px',focusAfterOpen:false}).setHTML(html);
+    hotelMarker=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([HOTEL.lon,HOTEL.lat]).setPopup(pop).addTo(map);
+  }
 }
 /* ---- me: blue dot, accuracy circle, heading cone ---- */
 let meMarker=null,meAcc=null,meCone=null;
 function drawMe(){
   if(!map||!me)return;
   if(!meMarker){const el=document.createElement('div');el.className='mk meWrap';el.innerHTML='<div class="acc"></div><div class="cone" hidden></div><div class="me"></div>';
-    meAcc=el.querySelector('.acc');meCone=el.querySelector('.cone');meMarker=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([me.lon,me.lat]).addTo(map)}
+    meAcc=el.querySelector('.acc');meCone=el.querySelector('.cone');meMarker=mkMarker(el,[me.lon,me.lat]).addTo(map)}
   else meMarker.setLngLat([me.lon,me.lat]);
   updateMeAcc();
 }
-function updateMeAcc(){if(!meAcc||!me||!map)return;const mpp=40075016.686*Math.cos(me.lat*Math.PI/180)/(512*2**map.getZoom());const d=Math.min(2*me.acc/mpp,3000);meAcc.style.width=meAcc.style.height=d+'px'}
+function updateMeAcc(){if(!meAcc||!me||!map||!mapReady)return;const mpp=40075016.686*Math.cos(me.lat*Math.PI/180)/(512*2**map.getZoom());const d=Math.min(2*me.acc/mpp,3000);meAcc.style.width=meAcc.style.height=d+'px'}
 let headingStarted=false;
 function startHeading(){
   if(headingStarted||typeof window.DeviceOrientationEvent==='undefined')return;headingStarted=true;
@@ -632,8 +752,8 @@ window.addEventListener('popstate',()=>{if(S.view==='detail')closeDetail()});
 function toggleFav(id){fav.has(id)?fav.delete(id):fav.add(id);LS.set('ofm.fav.v5',[...fav]);if(S.favOnly)refresh();else{renderList();refreshIcon(id);if(S.view==='detail')renderDetail()}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-fav]');if(b){e.stopPropagation();toggleFav(+b.dataset.fav)}},true);
 async function copy(t){try{await navigator.clipboard.writeText(t);toast('주소를 복사했어요.')}catch(e){toast(t)}}
-let toastTimer=0;
-function toast(t,ms=4200){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),ms)}
+let toastTimer=0;const toasts=[];
+function toast(t,ms=4200){toasts.push(t);const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),ms)}
 
 /* ================= bottom sheet ================= */
 const sheet=$('#sheet');let sheetState='peek',sheetPx=0;
@@ -641,9 +761,12 @@ const safeProbe=document.createElement('div');safeProbe.style.cssText='position:
 function heights(){const H=window.innerHeight,top=$('#topbar').getBoundingClientRect().bottom,sb=safeProbe.getBoundingClientRect().height||0;
   return{peek:Math.min(178,Math.round(H*.29))+sb,half:Math.round(H*.5),full:Math.max(300,H-top-6)}}
 function applySheet(px){sheetPx=px;document.documentElement.style.setProperty('--sheet-h',px+'px')}
+let mapBottomTimer=0,mapBottom=0;
+// Google mode: shrink the map to end at the sheet — right away when the sheet shrinks, after its animation when it grows (no gap)
+function setMapBottom(px){clearTimeout(mapBottomTimer);const go=()=>{mapBottom=px;document.documentElement.style.setProperty('--map-b',px+'px')};if(px>mapBottom)mapBottomTimer=setTimeout(go,260);else go()}
 function setSheet(state){
-  if(isDesktop()){sheetState='desk';applySheet(0);document.body.className='';return}
-  sheetState=state;sheet.dataset.state=state;applySheet(heights()[state]);
+  if(isDesktop()){sheetState='desk';applySheet(0);setMapBottom(0);document.body.classList.remove('sheet-half','sheet-full');return}
+  sheetState=state;sheet.dataset.state=state;applySheet(heights()[state]);setMapBottom(sheetPx);
   document.body.classList.toggle('sheet-half',state==='half');document.body.classList.toggle('sheet-full',state==='full');
 }
 (function sheetDrag(){
@@ -750,7 +873,8 @@ $('#hotelDir').href=dirUrl(HOTEL.jp+' '+HOTEL.address,2);
 function renderProviders(){$('#providers').innerHTML=MENU_ORDER.map(k=>`<label class="radio"><input type="radio" name="prov" value="${k}" ${S.provider===k?'checked':''}><span>${PROVIDERS[k].name}<small>${PROVIDERS[k].desc}</small></span></label>`).join('');
   $('#providers').querySelectorAll('input').forEach(i=>i.onchange=()=>{tried=new Set();setProvider(i.value,false);hideMapStatus()})}
 $('#poiToggle').checked=S.showPoi;
-$('#poiToggle').onchange=e=>{S.showPoi=e.target.checked;LS.set('ofm.showPoi',S.showPoi);if(PROVIDERS[S.provider].type==='vector'){tried=new Set();setProvider(S.provider,true)}};
+$('#poiToggle').onchange=e=>{S.showPoi=e.target.checked;LS.set('ofm.showPoi',S.showPoi);
+  if(engine==='gm')map.gm.setOptions({styles:gStyles()});else if(PROVIDERS[S.provider].type==='vector'){tried=new Set();setProvider(S.provider,true)}};
 
 /* ---- offline: pre-save map tiles (served later by the service worker) ---- */
 const AREAS=[{s:34.681,w:135.472,n:34.717,e:135.514},{s:34.658,w:135.493,n:34.675,e:135.512}];
@@ -773,10 +897,11 @@ async function vectorUrls(P){
   return[...set];
 }
 $('#precacheBtn').onclick=async()=>{
-  const bar=$('#precacheBar'),txt=$('#precacheText'),P=PROVIDERS[S.provider];
+  const bar=$('#precacheBar'),txt=$('#precacheText'),google=PROVIDERS[S.provider].type==='google';
+  const P=google?PROVIDERS.ko:PROVIDERS[S.provider]; // Google's terms forbid saving its map, so save the backup maps instead
   let urls;
   try{urls=P.type==='vector'?[...await vectorUrls(P),...tileUrls('gsi')]:tileUrls()}catch(e){txt.textContent='지도 정보를 받지 못했어요. 연결이 좋을 때 다시 눌러 주세요.';return}
-  if(PROVIDERS[S.provider].noPrecache){txt.textContent='OpenStreetMap은 지도를 한꺼번에 내려받는 것이 금지돼 있어요. 지도 종류를 국토지리원으로 바꾼 뒤 눌러 주세요.';return}
+  if(P.noPrecache){txt.textContent='OpenStreetMap은 지도를 한꺼번에 내려받는 것이 금지돼 있어요. 지도 종류를 국토지리원으로 바꾼 뒤 눌러 주세요.';return}
   if(!navigator.serviceWorker||!navigator.serviceWorker.controller){txt.textContent='이 브라우저(또는 이 주소)에서는 미리 저장을 쓸 수 없어요. 한 번 둘러본 지도는 브라우저가 어느 정도 기억합니다.';return}
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
   bar.hidden=false;let done=0,fail=0;const btn=$('#precacheBtn');btn.disabled=true;
@@ -785,10 +910,10 @@ $('#precacheBtn').onclick=async()=>{
       try{const r=await fetch(u,{cache:'no-store'});if(!r.ok&&!extra)fail++}catch(e){if(!extra)fail++}done++;bar.firstElementChild.style.width=(done/urls.length*100)+'%';txt.textContent=`${done}/${urls.length}개 저장 중…`}}
   await Promise.all(Array.from({length:6},worker));
   btn.disabled=false;
-  txt.textContent=fail?`${urls.length-fail}/${urls.length}개 저장 (${fail}개 실패 — 연결이 좋을 때 다시 눌러 주세요)`:`✅ ${urls.length}개 저장 완료 (${P.name}${P.type==='vector'?' + 예비 일본어 지도':''})`;
+  txt.textContent=fail?`${urls.length-fail}/${urls.length}개 저장 (${fail}개 실패 — 연결이 좋을 때 다시 눌러 주세요)`:`✅ ${urls.length}개 저장 완료 (${P.name}${P.type==='vector'?' + 국토지리원 지도':''})${google?' · 인터넷이 끊기면 이 지도로 바뀌어요':''}`;
   if(!fail)LS.set('ofm.precached',{date:new Date().toISOString().slice(0,10),provider:S.provider,n:urls.length});
 };
-function precacheInfo(){const p=LS.get('ofm.precached',null);$('#precacheText').textContent=p?`마지막 저장: ${p.date} · ${PROVIDERS[p.provider]?.name||''} ${p.n}개`:`한글 지도 + 예비 일본어 지도 (10~20MB 정도). Wi-Fi에서 권장.`}
+function precacheInfo(){const p=LS.get('ofm.precached',null);$('#precacheText').textContent=p?`마지막 저장: ${p.date} · ${PROVIDERS[p.provider]?.name||''} ${p.n}개`:`구글 지도는 약관상 저장할 수 없어, 예비용 한글 지도(OpenFreeMap)와 국토지리원 지도를 저장해요 (10~20MB). Wi-Fi에서 권장.`}
 
 /* ---- in-app browser banner (KakaoTalk, LINE …) ---- */
 (function inApp(){
@@ -811,7 +936,7 @@ document.documentElement.style.setProperty('--top-h',$('#topbar').getBoundingCli
 setSheet('peek');
 refresh();
 precacheInfo();
-$('#buildInfo').textContent=`버전 ${APP_BUILD} · 지도 MapLibre ${window.maplibregl?(maplibregl.getVersion?maplibregl.getVersion():''):'(불러오지 못함)'}`;
+$('#buildInfo').textContent=`버전 ${APP_BUILD} · 지도: Google Maps / MapLibre ${window.maplibregl?(maplibregl.getVersion?maplibregl.getVersion():''):'(불러오지 못함)'}`;
 setInterval(()=>{const k=todayKey();if(k&&S.day!==k&&!S.dayTouched){S.day=k}if(isLive())refresh({markers:true})},60000);
 $('#day').addEventListener('change',()=>{S.dayTouched=true});
 // resume location automatically if the user already granted it
@@ -822,7 +947,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>

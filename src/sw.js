@@ -72,6 +72,8 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+  // Google Maps terms: never cache Google map tiles, scripts, fonts or images — let them go straight to the network
+  if (/(^|\.)(google\.com|googleapis\.com|gstatic\.com|ggpht\.com|googleusercontent\.com)$/.test(url.hostname)) return;
   if (url.hostname === 'tiles.openfreemap.org') {
     // tiles (.pbf), fonts and sprites are immutable per URL; styles and TileJSON are not
     if (/\.pbf$|\/fonts\/|\/sprites\//.test(url.pathname)) e.respondWith(cacheFirst(req, TILE_CACHE, MAX_TILES));

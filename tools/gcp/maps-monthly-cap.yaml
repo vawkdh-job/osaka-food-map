@@ -55,7 +55,7 @@ main:
     - pick:
         assign:
           - bucket: ${quotaResp.body.quotaBuckets[0]}
-          - current: ${int(bucket.effectiveLimit)}
+          - current: ${int(default(map.get(bucket, "effectiveLimit"), "0"))}  # a limit of 0 is omitted from the response
           - want: ${dailyLimit}
     - overLimit:
         switch:

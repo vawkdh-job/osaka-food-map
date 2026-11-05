@@ -68,6 +68,16 @@ async function newPhone(opts = {}) {
     });
   }
   await ctx.route(/^https?:\/\/(?!localhost)(?!.*(cartocdn|gsi\.go\.jp|openstreetmap|arcgisonline|openfreemap))/, r => r.abort()); // photos etc.
+  // Google Maps: blocked by default (exercises the MapLibre fallback); 'authfail' stubs a rejected key; 'real' lets it through
+  const gmode = opts.google || 'block';
+  log.google = { n: 0 };
+  await ctx.route(/^https:\/\/([a-z0-9-]+\.)*(googleapis\.com|gstatic\.com|google\.com|ggpht\.com)\//, async route => {
+    log.google.n++;
+    if (gmode === 'real') return route.continue().catch(() => {});
+    if (gmode === 'authfail' && route.request().url().includes('/maps/api/js'))
+      return route.fulfill({ status: 200, contentType: 'text/javascript', body: 'setTimeout(()=>window.gm_authFailure&&window.gm_authFailure(),50);' });
+    return route.abort('connectionrefused');
+  });
   if (opts.clock) await page.clock.setFixedTime(new Date(opts.clock));
   return { ctx, page, log };
 }
@@ -108,7 +118,8 @@ console.log('1. iPhone 13 · first open, no location permission');
   check(align.n > 0 && align.max < 1.5, 'pins sit exactly on their coordinates', JSON.stringify(align));
   const pad = await page.evaluate(() => window.__ofm.map().getPadding());
   check(pad.top === 0 && pad.bottom === 0, 'camera padding not left behind by fitBounds', JSON.stringify(pad));
-  check(await page.locator('#toast.show').count() === 1, 'hint toast about ◎ button shown');
+  const notes = await page.evaluate(() => ({ toasts: window.__ofm.toasts.slice(), engine: window.__ofm.engine(), why: window.__ofm.gmFail() }));
+  check(notes.engine === 'ml' && notes.why === 'load' && notes.toasts.some(t => t.includes('구글 지도를 불러오지 못해')), 'Google blocked → falls back to MapLibre with a notice', JSON.stringify({ e: notes.engine, why: notes.why }));
   await page.waitForTimeout(5000);
   await page.screenshot({ path: join(SHOTS, '01_iphone_first_open.png') });
   // pinch zoom with two fingers
@@ -301,6 +312,48 @@ console.log('10. Saved map works with no connection (service worker)');
   const off = await page.evaluate(() => ({ prov: window.__ofm.provider(), ok: window.__ofm.tiles().ok, ready: window.__ofm.ready() }));
   check(off.ready && off.prov === 'ko' && off.ok > 0, 'offline: Korean map still draws from saved tiles', JSON.stringify(off));
   await page.screenshot({ path: join(SHOTS, '11_offline_saved_map.png') });
+  await ctx.close();
+}
+
+console.log('11. Google rejects the key (gm_authFailure)');
+{
+  const { ctx, page, log } = await newPhone({ google: 'authfail' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(800);
+  const st = await page.evaluate(() => ({ engine: window.__ofm.engine(), why: window.__ofm.gmFail(), prov: window.__ofm.provider(), ok: window.__ofm.tiles().ok }));
+  check(st.engine === 'ml' && st.why === 'auth' && st.prov === 'ko' && st.ok > 0, 'auth failure → Korean OpenFreeMap map', JSON.stringify(st));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
+console.log('12. Real Google Maps (best effort, never fails the suite)');
+{
+  const { ctx, page, log } = await newPhone({ google: 'real' });
+  // serve this build at the real site address so Google sees the allowed referrer (the key only accepts vawkdh-job.github.io)
+  const SITE = 'https://vawkdh-job.github.io/osaka-food-map/';
+  await ctx.route(SITE + '**', route => { let p = new URL(route.request().url()).pathname.replace('/osaka-food-map', '') || '/'; if (p.endsWith('/')) p += 'index.html';
+    const f = join(ROOT, p); if (!existsSync(f)) return route.fulfill({ status: 404, body: '' });
+    return route.fulfill({ status: 200, contentType: TYPES[extname(f)] || 'application/octet-stream', body: readFileSync(f) }); });
+  await page.goto(SITE);
+  await page.waitForFunction(() => window.__ofm && (window.__ofm.ready() || window.__ofm.gmFail()), null, { timeout: 25000 }).catch(() => {});
+  await page.waitForTimeout(4000);
+  const st = await page.evaluate(() => { const a = window.__ofm, m = a.map(); const out = { engine: a.engine(), why: a.gmFail() || null, ready: a.ready(), prov: a.provider() };
+    if (a.engine() === 'gm' && a.ready()) { const errs = [], c = m.getContainer().getBoundingClientRect();
+      for (const [, p] of a.markers) { if (!p.on) continue; const r = p.el.getBoundingClientRect(), q = m.project([p.r.lon, p.r.lat]);
+        errs.push(Math.hypot(r.left - c.left - q.x - (p.m.getOffset().x || 0), r.top - c.top - q.y)); }
+      out.pins = errs.length; out.maxErr = Math.max(0, ...errs); out.errCard = !!document.querySelector('#gm .gm-err-container,#gm .dismissButton');
+      out.logo = !!document.querySelector('#gm a[href*="maps.google.com"], #gm img[alt="Google"]');
+      const g = m.getContainer().getBoundingClientRect(), sh = document.querySelector('#sheet').getBoundingClientRect(); out.mapBottom = Math.round(g.bottom); out.sheetTop = Math.round(sh.top); }
+    return out; });
+  console.log('  ℹ real Google:', JSON.stringify(st), 'google requests', log.google.n);
+  await page.screenshot({ path: join(SHOTS, '12_real_google.png') });
+  if (st.engine === 'gm' && st.ready) {
+    await page.locator('#locBtn').count();
+    const it = page.locator('.item').first(); await it.click(); await page.waitForTimeout(1500);
+    const vis = await page.evaluate(() => { const p = document.querySelector('.pin.sel'); if (!p) return null; const r = p.getBoundingClientRect();
+      return { y: Math.round(r.bottom), top: Math.round(document.querySelector('#topbar').getBoundingClientRect().bottom), sheet: Math.round(document.querySelector('#sheet').getBoundingClientRect().top) }; });
+    console.log('  ℹ real Google selected pin:', JSON.stringify(vis));
+    await page.screenshot({ path: join(SHOTS, '13_real_google_detail.png') });
+  }
   await ctx.close();
 }
 

@@ -12,6 +12,9 @@ const data = JSON.parse(read('src/data.json'));
 let html = read('src/app.html');
 if (!html.includes('/*__DATA__*/')) throw new Error('missing data placeholder');
 html = html.split('/*__DATA__*/').join(JSON.stringify(data));
+// Google Maps browser key (public by design; restricted to this site + Maps JavaScript API in Google Cloud)
+const cfg = existsSync(url('src/config.json')) ? JSON.parse(read('src/config.json')) : {};
+html = html.split('__GMAPS_KEY__').join(cfg.googleMapsKey || '');
 
 // vendor files (MapLibre GL JS) are served next to index.html and cached by the service worker
 mkdirSync(url('vendor/'), { recursive: true });
