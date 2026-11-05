@@ -306,6 +306,15 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
   await page.screenshot({ path: join(SHOTS, '06_iphone_sunday_open_now.png') });
   await ctx.close();
 }
+{ // Saturday 00:30: places open from Friday evening past midnight are open now
+  const { ctx, page } = await newPhone({ clock: '2026-11-14T00:30:00+09:00' });
+  await page.goto(URL0); await page.waitForTimeout(800);
+  const late = await page.evaluate(() => { const D = APP_DATA.restaurants.filter(r => (r.hours.fri || []).some(([, b]) => b >= '25:30'));
+    return D.map(r => ({ n: r.name, s: window.__ofm.status(r, window.__ofm.S.day) })); });
+  check(late.length > 0 && late.every(x => x.s.kind === 'open' || x.s.kind === 'closing') && late.every(x => /새벽|아침/.test(x.s.text)),
+    'after midnight: last night’s late shops show open (“새벽 N:00까지”)', late.slice(0, 3).map(x => x.n + ' ' + x.s.text).join(' / '));
+  await ctx.close();
+}
 
 console.log('7. Tile server failures');
 {
@@ -434,10 +443,12 @@ console.log('12. Real Google Maps (best effort, never fails the suite)');
       open: document.querySelector('#gOpen')?.textContent, live: (document.querySelector('#gLive')?.innerText || '').slice(0, 160), photo: !!document.querySelector('#gLive .gPhoto img'),
       photoOk: (() => { const i = document.querySelector('#gLive .gPhoto img'); return i ? i.complete && i.naturalWidth > 0 : null })() }));
     console.log('  ℹ real Google live details:', JSON.stringify(live));
-    await page.evaluate(() => window.__ofm.closeDetail()); await page.locator('#sort').selectOption('google');
-    await page.waitForFunction(() => window.__ofm.gCache.size >= 20, null, { timeout: 25000 }).catch(() => {}); await page.waitForTimeout(1500);
-    const gs = await page.evaluate(() => { const v = window.__ofm.rows().filter(x => x.r && window.__ofm.gRating(x.r) != null).map(x => window.__ofm.gRating(x.r)); return { loaded: window.__ofm.gCache.size, sorted: v.every((x, i) => !i || x <= v[i - 1]), top: v.slice(0, 5) }; });
-    console.log('  ℹ real Google sort:', JSON.stringify(gs));
+    if (process.env.GOOGLE_SORT === '1') { // 20 Places requests from the trip budget: opt-in only
+      await page.evaluate(() => window.__ofm.closeDetail()); await page.locator('#sort').selectOption('google');
+      await page.waitForFunction(() => window.__ofm.gCache.size >= 20, null, { timeout: 25000 }).catch(() => {}); await page.waitForTimeout(1500);
+      const gs = await page.evaluate(() => { const v = window.__ofm.rows().filter(x => x.r && window.__ofm.gRating(x.r) != null).map(x => window.__ofm.gRating(x.r)); return { loaded: window.__ofm.gCache.size, sorted: v.every((x, i) => !i || x <= v[i - 1]), top: v.slice(0, 5) }; });
+      console.log('  ℹ real Google sort:', JSON.stringify(gs));
+    }
     await page.evaluate(() => document.querySelector('#gLive')?.scrollIntoView()); await page.waitForTimeout(1500);
     await page.screenshot({ path: join(SHOTS, '14_real_google_live.png') });
     await page.screenshot({ path: join(SHOTS, '13_real_google_detail.png') });

@@ -501,25 +501,29 @@ const isDesktop=()=>window.matchMedia('(min-width:900px)').matches;
 
 /* ================= time & opening hours (Japan time) ================= */
 const TRIP=[{key:'fri',date:'2026-11-13',label:'금 11/13',long:'금요일 11/13'},{key:'sat',date:'2026-11-14',label:'토 11/14',long:'토요일 11/14'},{key:'sun',date:'2026-11-15',label:'일 11/15',long:'일요일 11/15'}];
-const DAYNAME={fri:'금',sat:'토',sun:'일'};
+const DAYNAME={fri:'금',sat:'토',sun:'일'},PREV_DAY={sat:'fri',sun:'sat'};
 const JST_FMT=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
 // Japan time, recomputed at most once a second (status() runs for every shop on every refresh)
 let jstCache=null,jstAt=0;
 function jstNow(){const t=Date.now();if(jstCache&&t-jstAt<1000)return jstCache;const p={};for(const x of JST_FMT.formatToParts(new Date(t)))p[x.type]=x.value;
   jstAt=t;return jstCache={date:`${p.year}-${p.month}-${p.day}`,min:(+p.hour%24)*60+(+p.minute)}}
 const toMin=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
+// live status wording for closing times after midnight: 24:00 → 자정, 26:30 → 새벽 2:30, 31:00 → 아침 7:00
+const untilT=t=>{const m=toMin(t);if(m<1440)return t;if(m===1440)return '자정';const x=m-1440,hh=Math.floor(x/60);return `${hh<6?'새벽':'아침'} ${hh}:${String(x%60).padStart(2,'0')}`};
 const fmtT24=t=>{const m=toMin(t);return m>=1440?`익일 ${Math.floor(m/60)-24}:${String(m%60).padStart(2,'0')}`:t};
 const fmtRanges=h=>h.map(([a,b])=>`${a}–${fmtT24(b)}`).join(', ');
 function todayKey(){const n=jstNow(),t=TRIP.find(t=>t.date===n.date);return t?t.key:null}
 function isLive(){return S.day===todayKey()}
 /* status of restaurant r on trip day `day`; when that day is today (Japan time) the status is live. */
 function status(r,day){
-  const h=r.hours[day];
+  const h=r.hours[day],live=isLive()&&day===S.day,now=live?jstNow().min:0;
+  const openSt=(B,b)=>B-now<=45?{kind:'closing',text:`곧 마감 · ${untilT(b)}까지`}:{kind:'open',text:`영업 중 · ${untilT(b)}까지`};
+  if(live){const prev=PREV_DAY[day]&&r.hours[PREV_DAY[day]];   // still open from last night (Fri 18:00–28:00 at Sat 00:30)
+    if(prev)for(const[,b]of prev){const B=toMin(b)-1440;if(B>0&&now<B)return openSt(B,b)}}
   if(h==null)return{kind:'unknown',text:'영업시간 확인 필요'};
   if(!h.length)return{kind:'closed',text:`${DAYNAME[day]}요일 휴무`};
-  if(!isLive()||day!==S.day)return{kind:'hours',text:`${DAYNAME[day]} ${fmtRanges(h)}`};
-  const now=jstNow().min;
-  for(const[a,b]of h){const A=toMin(a),B=toMin(b);if(now>=A&&now<B)return B-now<=45?{kind:'closing',text:`곧 마감 · ${b}까지`}:{kind:'open',text:`영업 중 · ${b}까지`}}
+  if(!live)return{kind:'hours',text:`${DAYNAME[day]} ${fmtRanges(h)}`};
+  for(const[a,b]of h){const A=toMin(a),B=toMin(b);if(now>=A&&now<B)return openSt(B,b)}
   const next=h.find(([a])=>toMin(a)>now);
   return next?{kind:'later',text:`${next[0]} 오픈`}:{kind:'done',text:'오늘 영업 종료'};
 }
