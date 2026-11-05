@@ -53,10 +53,10 @@ body.gmap #map{bottom:var(--map-b,0px)}
 .iconBtn{flex:0 0 46px;height:46px;border-radius:50%;border:0;background:#fff;box-shadow:0 2px 10px #0f2f3a2e;font-size:22px;font-weight:900;color:var(--brand);display:grid;place-items:center}
 .chips{display:flex;gap:6px;margin:8px -10px 0;padding:0 10px 4px;overflow-x:auto;scrollbar-width:none;pointer-events:auto}
 .chips::-webkit-scrollbar{display:none}
-.chip{position:relative;flex:0 0 auto;display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 13px;border-radius:18px;border:1px solid #d5dfe2;background:#fff;box-shadow:0 1px 5px #0f2f3a1f;font-size:14px;font-weight:700;color:#2f4c55;white-space:nowrap}
+.chip{position:relative;flex:0 0 auto;display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 13px;border-radius:18px;border:1px solid #d5dfe2;background:#fff;box-shadow:0 1px 5px #0f2f3a1f;font-size:14px;font-weight:700;color:#2f4c55;white-space:nowrap}
 .chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .chip.sel{padding:0 26px 0 12px}
-.chip.sel::after{content:"";position:absolute;right:11px;top:15px;border:5px solid transparent;border-top-color:currentColor;pointer-events:none}
+.chip.sel::after{content:"";position:absolute;right:11px;top:17px;border:5px solid transparent;border-top-color:currentColor;pointer-events:none}
 .chip select{position:absolute;inset:0;opacity:0;width:100%;font-size:16px;cursor:pointer}
 .banner{margin-top:8px;background:#fff7e6;border:1px solid #f3c56b;color:#6b4a07;border-radius:12px;padding:9px 12px;font-size:13px;line-height:1.45;display:flex;gap:8px;align-items:center;box-shadow:0 2px 10px #0f2f3a1f}
 .banner[hidden]{display:none}
@@ -113,8 +113,8 @@ body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none
 .headRow{display:flex;align-items:center;gap:8px}
 .headRow b{font-size:16px;white-space:nowrap}
 .headRow .spacer{flex:1}
-.mini{position:relative;display:inline-flex;align-items:center;height:34px;padding:0 24px 0 10px;border:1px solid #d5dfe2;border-radius:10px;font-size:13px;font-weight:750;color:#2f4c55;background:#fff;white-space:nowrap;max-width:46vw;overflow:hidden;text-overflow:ellipsis}
-.mini::after{content:"";position:absolute;right:9px;top:14px;border:4.5px solid transparent;border-top-color:currentColor}
+.mini{position:relative;display:inline-flex;align-items:center;height:40px;padding:0 24px 0 10px;border:1px solid #d5dfe2;border-radius:10px;font-size:13px;font-weight:750;color:#2f4c55;background:#fff;white-space:nowrap;max-width:46vw;overflow:hidden;text-overflow:ellipsis}
+.mini::after{content:"";position:absolute;right:9px;top:17px;border:4.5px solid transparent;border-top-color:currentColor}
 .mini select{position:absolute;inset:0;opacity:0;width:100%;font-size:16px}
 .mini.isMe{border-color:#9cc3f5;color:var(--me);background:#f2f7fe}
 .sheetBody{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 0 calc(var(--safe-b) + 12px)}
@@ -380,7 +380,10 @@ const isDesktop=()=>window.matchMedia('(min-width:900px)').matches;
 const TRIP=[{key:'fri',date:'2026-11-13',label:'금 11/13',long:'금요일 11/13'},{key:'sat',date:'2026-11-14',label:'토 11/14',long:'토요일 11/14'},{key:'sun',date:'2026-11-15',label:'일 11/15',long:'일요일 11/15'}];
 const DAYNAME={fri:'금',sat:'토',sun:'일'};
 const JST_FMT=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
-function jstNow(){const p={};for(const x of JST_FMT.formatToParts(new Date()))p[x.type]=x.value;return{date:`${p.year}-${p.month}-${p.day}`,min:(+p.hour%24)*60+(+p.minute)}}
+// Japan time, recomputed at most once a second (status() runs for every shop on every refresh)
+let jstCache=null,jstAt=0;
+function jstNow(){const t=Date.now();if(jstCache&&t-jstAt<1000)return jstCache;const p={};for(const x of JST_FMT.formatToParts(new Date(t)))p[x.type]=x.value;
+  jstAt=t;return jstCache={date:`${p.year}-${p.month}-${p.day}`,min:(+p.hour%24)*60+(+p.minute)}}
 const toMin=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
 const fmtT24=t=>{const m=toMin(t);return m>=1440?`익일 ${Math.floor(m/60)-24}:${String(m%60).padStart(2,'0')}`:t};
 const fmtRanges=h=>h.map(([a,b])=>`${a}–${fmtT24(b)}`).join(', ');
@@ -719,7 +722,7 @@ const waitOf=r=>WAIT[(r.wait&&r.wait.level)||'unknown']||WAIT.unknown;
 const PRICE=['','¥ ~1,500','¥¥ ~4,000','¥¥¥ ~8,000','¥¥¥¥ 8,000~'];
 const yen=r=>r.price?'¥'.repeat(r.price):'';
 const isHyaku=r=>Array.isArray(r.hyakumeiten)&&r.hyakumeiten.length>0;
-const hyakuText=r=>isHyaku(r)?[...new Set(r.hyakumeiten.map(h=>h.year))].sort((a,b)=>b-a).map(y=>`'${String(y).slice(2)}`).join(' '):'';
+const hyakuText=r=>isHyaku(r)?[...new Set(r.hyakumeiten.map(h=>h.year).filter(Boolean))].sort((a,b)=>b-a).map(y=>`'${String(y).slice(2)}`).join(' '):'';
 const TOP100=new Set(DATA.filter(r=>r.tabelog!=null).sort((a,b)=>b.tabelog-a.tabelog).slice(0,100).map(r=>r.id));
 const HYAKU100=new Set(DATA.filter(isHyaku).sort((a,b)=>(b.tabelog??0)-(a.tabelog??0)).slice(0,100).map(r=>r.id));
 const opensBy=(r,day,min)=>Array.isArray(r.hours[day])&&r.hours[day].some(([a])=>toMin(a)<=min);
@@ -771,6 +774,11 @@ function itemHtml({r,d}){
   <div class="line"><span class="walk">${S.ref==='hotel'||(S.ref==='me'&&!me)?'호텔에서 ':S.ref==='center'?'지도 중심에서 ':''}${distText(d)}</span><span class="st ${st.kind}">${esc(st.text)}</span>${w.s?`<span class="tag w${w.k|0}">⏱ ${w.s}</span>`:''}${off.length&&st.kind!=='closed'?`<span class="tag warnTag">${off.join('·')} 휴무</span>`:''}</div></div>
   <button class="favBtn${fav.has(r.id)?' on':''}" data-fav="${r.id}" aria-label="${esc(r.name)} 찜하기" aria-pressed="${fav.has(r.id)}">★</button></div>`;
 }
+const LIST_STEP=30;let listMore=[],listTail='';
+function moreList(){const el=$('#listMore');if(!el||!listMore.length)return;
+  const next=listMore.splice(0,LIST_STEP);el.insertAdjacentHTML('beforebegin',next.map(x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x)).join(''));
+  if(!listMore.length){el.insertAdjacentHTML('afterend',listTail);el.remove()}}
+$('#sheetBody').addEventListener('scroll',()=>{const b=$('#sheetBody');if(listMore.length&&b.scrollTop+b.clientHeight>b.scrollHeight-600)moreList()},{passive:true});
 function renderList(){
   const n=rows.filter(x=>x.r).length;
   $('#count').textContent=`${n}곳`;
@@ -781,10 +789,13 @@ function renderList(){
   const c=refPoint(),gq=S.genre!=='all'?GENRES.find(g=>g.key===S.genre):null;
   const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
   const body=$('#sheetBody'),keep=body.scrollTop;
-  $('#list').innerHTML=n?hint+rows.map(x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x)).join('')+gLink
+  // render the first rows now and the rest as the list is scrolled (keeps filter taps fast on slower phones)
+  const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
+  listMore=rows.slice(LIST_STEP);listTail=gLink;
+  $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':gLink)
     :`<p class="empty">조건에 맞는 식당이 없어요. 필터를 줄여 보세요.</p>${filterCount()?'<button class="btn wide" id="clearFilters">필터 초기화</button>':''}${gLink}`;
   const cf=$('#clearFilters');if(cf)cf.onclick=resetFilters;
-  if(S.view==='list')body.scrollTop=keep;
+  if(S.view==='list'){while(listMore.length&&body.scrollHeight<keep+body.clientHeight+600)moreList();body.scrollTop=keep}
 }
 function refName(){return S.ref==='me'&&me?'내 위치':S.ref==='center'?'지도 중심':'호텔'}
 function refresh({markers:withMarkers=true}={}){compute();renderList();if(withMarkers)renderMarkers();if(S.view==='detail'&&S.selected)renderDetail();updateChips()}
@@ -880,6 +891,13 @@ function renderDetail(){
 function detailStatus(r,st,live){const long=TRIP.find(t=>t.key===S.day).long;if(live)return '오늘 '+st.text;
   if(st.kind==='hours')return `${long} 영업 ${fmtRanges(r.hours[S.day])}`;if(st.kind==='closed')return `${long} 휴무`;return `${long} · ${st.text}`}
 
+/* open right now (Japan time) according to Google's weekly periods; null when Google has no hours */
+function googleOpenNow(p){
+  if(!p||!p.periods||!p.periods.length)return p&&p.open!=null?p.open:null;
+  if(p.periods.length===1&&p.periods[0].cd==null)return true; // open 24 hours
+  const n=jstNow(),[y,m,d]=n.date.split('-').map(Number),dow=new Date(Date.UTC(y,m-1,d)).getUTCDay(),now=dow*1440+n.min,W=7*1440;
+  return p.periods.some(x=>{if(x.cd==null)return false;let a=x.od*1440+x.o,b=x.cd*1440+x.c;if(b<=a)b+=W;return(now>=a&&now<b)||(now+W>=a&&now+W<b)});
+}
 /* live Google Places details (rating, open now, payment, one photo) — fetched on demand, never stored */
 const gCache=new Map();
 async function googleLive(r){
@@ -891,17 +909,20 @@ async function googleLive(r){
       const pl=new Place({id:r.placeId,requestedLanguage:'ko'});
       await pl.fetchFields({fields:['rating','userRatingCount','regularOpeningHours','utcOffsetMinutes','paymentOptions','photos','googleMapsURI','businessStatus','formattedAddress']});
       let open;try{open=await pl.isOpen()}catch(e){}
-      const wd=(pl.regularOpeningHours&&pl.regularOpeningHours.weekdayDescriptions)||[];
-      p={rating:pl.rating,count:pl.userRatingCount,open,status:pl.businessStatus,pay:pl.paymentOptions,photos:pl.photos||[],uri:pl.googleMapsURI,addr:pl.formattedAddress,days:wd.slice(4,7)};gCache.set(r.placeId,p)}
+      const oh=pl.regularOpeningHours,wd=(oh&&oh.weekdayDescriptions)||[];
+      const periods=((oh&&oh.periods)||[]).map(x=>({od:x.open&&x.open.day,o:x.open?x.open.hour*60+x.open.minute:0,cd:x.close?x.close.day:null,c:x.close?x.close.hour*60+x.close.minute:null}));
+      p={rating:pl.rating,count:pl.userRatingCount,open,status:pl.businessStatus,pay:pl.paymentOptions,photos:pl.photos||[],uri:pl.googleMapsURI,addr:pl.formattedAddress,days:wd.slice(4,7),periods};gCache.set(r.placeId,p)}
     if(S.selected!==id||!$('#gScore'))return;
     $('#gScore b').textContent=p.rating!=null?p.rating.toFixed(1):'–';$('#gCount').textContent=p.count?`리뷰 ${p.count.toLocaleString()} · 실시간`:'실시간';
-    if(p.open!=null)$('#gOpen').innerHTML=`<span class="tag ${p.open?'ok':'warnTag'}">구글: ${p.open?'지금 영업 중':'지금 영업 안 함'}</span>`;
+    const gNow=googleOpenNow(p);
+    if(gNow!=null){const ours=status(r,S.day).kind,oursOpen=isLive()?(ours==='open'||ours==='closing'):null;
+      $('#gOpen').innerHTML=`<span class="tag ${gNow?'ok':'warnTag'}">구글: ${gNow?'지금 영업 중':'지금 영업 안 함'}</span>${oursOpen!=null&&oursOpen!==gNow?' <small class="bad">조사값과 달라요 · 구글 기준을 따르세요</small>':''}`}
     const pay=p.pay,bits=[];
     if(pay){if(pay.acceptsCreditCards!=null)bits.push(`카드 ${pay.acceptsCreditCards?'○':'✕'}`);if(pay.acceptsNfc!=null)bits.push(`터치결제 ${pay.acceptsNfc?'○':'✕'}`);if(pay.acceptsCashOnly)bits.push('<b class="bad">현금만</b>')}
     const closed=p.status&&p.status!=='OPERATIONAL'?`<div class="warnBox">⚠ 구글 표시: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'} — 다른 곳을 고르세요.</div>`:'';
     const ph=p.photos[0];
     const photo=ph?`<a class="gPhoto" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(ph.getURI({maxHeight:360}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진 ${p.photos.length>1?`(${p.photos.length}장 더 보기 ›)`:''}</small></a>`:'';
-    const hrs=p.days&&p.days.length===3&&TRIP.some(t=>r.hours[t.key]==null)?`<p class="note">🕘 구글 영업시간<br>${p.days.map(esc).join('<br>')}</p>`:'';
+    const hrs=p.days&&p.days.length===3?`<p class="note">🕘 구글 영업시간 (최신)<br>${p.days.map(esc).join('<br>')}</p>`:'';
     $('#gLive').innerHTML=closed+hrs+(bits.length?`<p class="note">💳 구글 결제 정보: ${bits.join(' · ')}</p>`:'')+photo;
     if(!r.address&&p.addr){const a=$('#copyAddr');if(a){a.innerHTML=`<small>주소 (Google · 눌러서 복사 · 택시 기사님께 보여 주기)</small>${esc(r.jp)}<br>${esc(p.addr.replace(/^〒\d{3}-\d{4}\s*/,''))}`;a.onclick=()=>copy(`${r.jp} ${p.addr}`)}}
   }catch(e){if(S.selected===id&&$('#gCount'))$('#gCount').textContent=r.google!=null?'이전 조사값':'불러오지 못함'}
@@ -1054,7 +1075,7 @@ function renderGenres(){
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
 $('#genreGrid').addEventListener('click',e=>{const b=e.target.closest('[data-genre]');if(!b)return;S.genre=b.dataset.genre;closeModal('#genres');
   if(S.view==='detail')closeDetail();if(!S.sortTouched&&S.ref==='me'&&me)S.sort='nearby';refresh();$('#sheetBody').scrollTop=0;
-  if(!isDesktop()&&sheetState==='peek')setSheet('half');if(!(S.ref==='me'&&me))fitRows()});
+  if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()});
 
 /* ---- filters ---- */
 function renderFilters(){
@@ -1078,7 +1099,14 @@ $('#filterBody').addEventListener('click',e=>{const b=e.target.closest('button')
 $('#filterBody').addEventListener('change',e=>{const i=e.target.closest('[data-f]');if(!i)return;S.f[i.dataset.f]=i.checked;refresh();renderFilters()});
 function resetFilters(){S.f=defaultFilters();S.genre='all';S.list='all';S.openOnly=false;refresh();if(!$('#filters').hidden)renderFilters()}
 $('#filterReset').onclick=resetFilters;
-$('#filterApply').onclick=()=>{closeModal('#filters');if(!isDesktop()&&sheetState==='peek')setSheet('half');if(!(S.ref==='me'&&me))fitRows()};
+$('#filterApply').onclick=()=>{closeModal('#filters');if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()};
+/* after choosing a menu or filters: with my location on, frame me + the results within walking distance; otherwise all results */
+function fitNearOrAll(){
+  if(!(S.ref==='me'&&me)){fitRows();return}
+  const near=rows.filter(x=>x.r&&walkMin(x.d)<=NEAR_MIN).slice(0,15).map(x=>[x.r.lat,x.r.lon]);
+  if(!near.length){fitRows();return}
+  fitVisible([...near,[me.lat,me.lon]],Z.fit);
+}
 
 /* ---- Japanese phrase card ---- */
 const PHRASES=[

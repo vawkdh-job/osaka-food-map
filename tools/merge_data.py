@@ -54,6 +54,8 @@ def parse_hours(v):
         if end <= start:
             end += 24 * 60          # past midnight
         out.append([f"{int(a):02d}:{b}", f"{end // 60:02d}:{end % 60:02d}"])
+    # a break written in brackets (e.g. 15:00-15:30 休憩) parses as a range inside another one: drop it
+    out = [x for x in out if not any(y is not x and y[0] <= x[0] and x[1] <= y[1] for y in out)]
     return out or None
 
 

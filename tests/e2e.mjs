@@ -316,7 +316,7 @@ console.log('9. Service worker: app opens with no connection');
   const controlled = await page.evaluate(() => !!navigator.serviceWorker.controller);
   await ctx.setOffline(true);
   await page.reload().catch(() => {}); await page.waitForTimeout(1500);
-  const n = await page.locator('.item').count().catch(() => 0);
+  const n = await page.evaluate(() => document.querySelectorAll('.item').length ? window.__ofm.rows().filter(x => x.r).length : 0).catch(() => 0);
   check(controlled && n >= 150, 'offline reload still shows every restaurant', `controlled=${controlled}, items=${n}`);
   await ctx.close();
 }
