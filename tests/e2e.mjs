@@ -260,6 +260,15 @@ console.log('5. Bottom sheet drag and filters');
   const top = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).map(x => x.r.tabelog));
   check(top.length === 100 && top.every((v, i) => i === 0 || v <= top[i - 1]), 'Tabelog TOP 100 list, sorted', top.length + ' shops, last ' + top[top.length - 1]);
   await page.locator('#listSel').selectOption('all');
+  await page.locator('#sort').selectOption('hyaku'); await page.waitForTimeout(200);
+  const hk = await page.evaluate(() => { const R = window.__ofm.rows(), i = R.findIndex(x => x.divider), yes = (i < 0 ? R : R.slice(0, i)).map(x => x.r);
+    const key = r => [r.hyakumeiten.length, Math.max(...r.hyakumeiten.map(h => h.year || 0))];
+    return { n: yes.length, allHy: yes.every(r => r.hyakumeiten.length > 0), ordered: yes.every((r, j) => !j || key(yes[j - 1])[0] > key(r)[0] || (key(yes[j - 1])[0] === key(r)[0] && key(yes[j - 1])[1] >= key(r)[1])),
+      after: i < 0 || R.slice(i + 1).every(x => !x.r.hyakumeiten.length) }; });
+  check(hk.n > 0 && hk.allHy && hk.ordered && hk.after, '백명점순: 百名店 shops first, most selections/latest year first', JSON.stringify(hk));
+  await page.locator('#sort').selectOption('google'); await page.waitForTimeout(200);
+  check(/구글 평점은 실시간/.test(await page.locator('#list').innerText()), '구글 평점순 explains that ratings load live');
+  await page.locator('#sort').selectOption('tabelog'); await page.waitForTimeout(200);
   await page.screenshot({ path: join(SHOTS, '05_iphone_sheet_full_filtered.png') });
   await ctx.close();
 }
@@ -412,6 +421,10 @@ console.log('12. Real Google Maps (best effort, never fails the suite)');
       open: document.querySelector('#gOpen')?.textContent, live: (document.querySelector('#gLive')?.innerText || '').slice(0, 160), photo: !!document.querySelector('#gLive .gPhoto img'),
       photoOk: (() => { const i = document.querySelector('#gLive .gPhoto img'); return i ? i.complete && i.naturalWidth > 0 : null })() }));
     console.log('  ℹ real Google live details:', JSON.stringify(live));
+    await page.evaluate(() => window.__ofm.closeDetail()); await page.locator('#sort').selectOption('google');
+    await page.waitForFunction(() => window.__ofm.gCache.size >= 20, null, { timeout: 25000 }).catch(() => {}); await page.waitForTimeout(1500);
+    const gs = await page.evaluate(() => { const v = window.__ofm.rows().filter(x => x.r && window.__ofm.gRating(x.r) != null).map(x => window.__ofm.gRating(x.r)); return { loaded: window.__ofm.gCache.size, sorted: v.every((x, i) => !i || x <= v[i - 1]), top: v.slice(0, 5) }; });
+    console.log('  ℹ real Google sort:', JSON.stringify(gs));
     await page.evaluate(() => document.querySelector('#gLive')?.scrollIntoView()); await page.waitForTimeout(1500);
     await page.screenshot({ path: join(SHOTS, '14_real_google_live.png') });
     await page.screenshot({ path: join(SHOTS, '13_real_google_detail.png') });

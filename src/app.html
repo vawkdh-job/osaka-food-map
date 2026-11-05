@@ -399,7 +399,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
       <label class="mini" id="refMini"><span id="refText">⌂ 호텔 기준</span><select id="ref" aria-label="거리 기준점">
         <option value="me">📍 내 위치 기준</option><option value="hotel">⌂ 호텔 기준</option><option value="center">✛ 지도 중심 기준</option></select></label>
       <label class="mini"><span id="sortText">타베로그순</span><select id="sort" aria-label="정렬">
-        <option value="nearby">근처 평점순</option><option value="distance">가까운 순</option><option value="tabelog">타베로그순</option><option value="wait">대기 짧은 순</option></select></label>
+        <option value="nearby">근처 평점순</option><option value="distance">가까운 순</option><option value="tabelog">타베로그순</option><option value="google">구글 평점순</option><option value="hyaku">백명점순</option><option value="wait">대기 짧은 순</option></select></label>
     </div>
   </div>
   <div class="sheetBody" id="sheetBody">
@@ -915,6 +915,13 @@ function compute(){
   let rs=DATA.filter(r=>passes(r)).map(r=>({r,d:km(ref,r)}));
   const byT=(a,b)=>(b.r.tabelog??0)-(a.r.tabelog??0)||a.r.id-b.r.id;
   if(S.sort==='tabelog')rs.sort(byT);
+  else if(S.sort==='hyaku'){const hk=r=>{const h=r.hyakumeiten||[];return [h.length,Math.max(0,...h.map(x=>x.year||0))]};
+    const yes=rs.filter(x=>isHyaku(x.r)).sort((a,b)=>{const x=hk(a.r),y=hk(b.r);return y[0]-x[0]||y[1]-x[1]||byT(a,b)}),no=rs.filter(x=>!isHyaku(x.r)).sort(byT);
+    rs=yes.length&&no.length?[...yes,{divider:'백명점이 아닌 곳 (타베로그순)'},...no]:yes.length?yes:no}
+  else if(S.sort==='google'){const known=rs.filter(x=>gRating(x.r)!=null).sort((a,b)=>gRating(b.r)-gRating(a.r)||(gCount(b.r)-gCount(a.r))||byT(a,b)),
+      unk=rs.filter(x=>gRating(x.r)==null).sort((a,b)=>a.d-b.d);
+    rs=known.length&&unk.length?[...known,{divider:'구글 평점을 아직 안 불러온 곳 (가까운 순)'},...unk]:known.length?known:unk;
+    queueGoogleRatings()}
   else if(S.sort==='distance')rs.sort((a,b)=>a.d-b.d);
   else if(S.sort==='wait')rs.sort((a,b)=>waitOf(a.r).k-waitOf(b.r).k||byT(a,b));
   else{const near=rs.filter(x=>walkMin(x.d)<=NEAR_MIN).sort(byT),far=rs.filter(x=>walkMin(x.d)>NEAR_MIN).sort((a,b)=>a.d-b.d);
@@ -926,7 +933,7 @@ function payTag(r){const p=r.pay||{};if(p.card===true)return '<span class="ch pa
 const streetUrl=r=>`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${r.lat},${r.lon}`;
 function itemHtml({r,d}){
   const st=status(r,S.day),off=closedOn(r),w=waitOf(r);
-  const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'',r.google!=null?`<span>구글 ${fmtG(r.google)}</span>`:'',r.price?`<span>${yen(r)}</span>`:'',`<span>${esc(r.genre)}</span>`,r.area?`<span>${esc(r.area)}</span>`:''].filter(Boolean).join('<i>·</i>');
+  const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'',gRating(r)!=null?`<span>구글 ${fmtG(gRating(r))}</span>`:'',r.price?`<span>${yen(r)}</span>`:'',`<span>${esc(r.genre)}</span>`,r.area?`<span>${esc(r.area)}</span>`:''].filter(Boolean).join('<i>·</i>');
   const chips=[w.s?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
   const from=S.ref==='hotel'||(S.ref==='me'&&!me)?'호텔에서 ':S.ref==='center'?'지도 중심에서 ':'';
   return `<div class="item${S.selected===r.id?' sel':''}" role="listitem" data-id="${r.id}" tabindex="0">${thumb(r)}
@@ -949,6 +956,8 @@ function renderList(){
   const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const near=rows.findIndex(x=>x.divider);const nn=near<0?n:near;hint=`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?gname+' ':''}${nn}곳을 평점 높은 순으로 보여 줘요.</p>`}
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
+  if(S.sort==='google'){const known=rows.filter(x=>x.r&&gRating(x.r)!=null).length,more=rows.filter(x=>x.r&&gRating(x.r)==null&&x.r.placeId).length;
+    hint=`<p class="hint">구글 평점은 실시간으로 불러와요 (가까운 곳부터 ${G_BATCH}곳씩)${gBusy?' · 불러오는 중…':` · ${known}곳 확인`}${more&&!gBusy?` · <button class="linkBtn" id="gMore">${Math.min(G_BATCH,more)}곳 더 불러오기</button>`:''}</p>`+hint}
   const plainList=!S.q&&S.list==='all',hidden=scoped()?DATA.filter(r=>passes(r,'vis')).length-n:0;
   const expand=hidden>0?`<button class="expand" data-expand="1">▾ 숨긴 ${hidden}곳도 보기 <small>종류별 평점 ${CAT_MAX}위 밖</small></button>`
     :S.showAll&&plainList?`<button class="expand" data-expand="0">▴ 종류별 상위 ${CAT_MAX}곳만 보기</button>`:'';
@@ -962,6 +971,7 @@ function renderList(){
   $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
     :`<p class="empty">조건에 맞는 식당이 없어요. ${hidden?'숨긴 가게까지 보거나 ':''}필터를 줄여 보세요.</p>${expand}${filterCount()?'<button class="btn wide" id="clearFilters">필터 초기화</button>':''}${gLink}`;
   const cf=$('#clearFilters');if(cf)cf.onclick=resetFilters;
+  const gm=$('#gMore');if(gm)gm.onclick=e=>{e.stopPropagation();gWant+=G_BATCH;queueGoogleRatings();renderList()};
   if(S.view==='list'){while(listMore.length&&body.scrollHeight<keep+body.clientHeight+600)moreList();body.scrollTop=keep}
 }
 let catShown=null;
@@ -1083,19 +1093,42 @@ function googleOpenNow(p){
   return p.periods.some(x=>{if(x.cd==null)return false;let a=x.od*1440+x.o,b=x.cd*1440+x.c;if(b<=a)b+=W;return(now>=a&&now<b)||(now+W>=a&&now+W<b)});
 }
 /* live Google Places details (rating, open now, payment, one photo) — fetched on demand, never stored */
-const gCache=new Map();
-async function googleLive(r){
-  if(!r.placeId||!GMAPS_KEY)return;
-  const id=r.id;
-  try{
-    let p=gCache.get(r.placeId);
-    if(!p){await loadGoogle();const{Place}=await google.maps.importLibrary('places');
+const gCache=new Map(),gInflight=new Map();   // Google details live in memory for this visit only (never stored)
+function fetchG(r){
+  if(!r.placeId||!GMAPS_KEY)return Promise.resolve(null);
+  if(gCache.has(r.placeId))return Promise.resolve(gCache.get(r.placeId));
+  if(gInflight.has(r.placeId))return gInflight.get(r.placeId);
+  const job=(async()=>{await loadGoogle();const{Place}=await google.maps.importLibrary('places');
       const pl=new Place({id:r.placeId,requestedLanguage:'ko'});
       await pl.fetchFields({fields:['rating','userRatingCount','regularOpeningHours','utcOffsetMinutes','paymentOptions','photos','googleMapsURI','businessStatus','formattedAddress']});
       let open;try{open=await pl.isOpen()}catch(e){}
       const oh=pl.regularOpeningHours,wd=(oh&&oh.weekdayDescriptions)||[];
       const periods=((oh&&oh.periods)||[]).map(x=>({od:x.open&&x.open.day,o:x.open?x.open.hour*60+x.open.minute:0,cd:x.close?x.close.day:null,c:x.close?x.close.hour*60+x.close.minute:null}));
-      p={rating:pl.rating,count:pl.userRatingCount,open,status:pl.businessStatus,pay:pl.paymentOptions,photos:pl.photos||[],uri:pl.googleMapsURI,addr:pl.formattedAddress,days:wd.slice(4,7),periods};gCache.set(r.placeId,p)}
+      const p={rating:pl.rating,count:pl.userRatingCount,open,status:pl.businessStatus,pay:pl.paymentOptions,photos:pl.photos||[],uri:pl.googleMapsURI,addr:pl.formattedAddress,days:wd.slice(4,7),periods};
+      gCache.set(r.placeId,p);return p})().finally(()=>gInflight.delete(r.placeId));
+  gInflight.set(r.placeId,job);return job;
+}
+const gLive=r=>r.placeId?gCache.get(r.placeId):null;
+const gRating=r=>{const p=gLive(r);return p&&p.rating!=null?p.rating:r.google??null};
+const gCount=r=>{const p=gLive(r);return (p&&p.count)||0};
+/* Google sort: fetch ratings for the nearest shops in the current list, G_BATCH at a time (each is one Google request) */
+const G_BATCH=20;let gWant=G_BATCH,gBusy=false,gSortKey='',gFailToast=false;
+function gPending(){const ref=refPoint();return DATA.filter(r=>passes(r)&&r.placeId).map(r=>({r,d:km(ref,r)})).sort((a,b)=>a.d-b.d).slice(0,gWant).filter(x=>!gCache.has(x.r.placeId)).map(x=>x.r)}
+function queueGoogleRatings(){
+  const key=[S.genre,S.list,S.q,S.ref,S.showAll,filterCount()].join('|');if(key!==gSortKey){gSortKey=key;gWant=G_BATCH}
+  if(gBusy||!GMAPS_KEY||S.gmFail)return;
+  const todo=gPending();if(!todo.length)return;
+  gBusy=true;let i=0,failed=0;
+  const worker=async()=>{while(i<todo.length){const r=todo[i++];try{await fetchG(r)}catch(e){failed++}}};
+  Promise.all([worker(),worker(),worker(),worker()]).then(()=>{gBusy=false;
+    if(failed&&failed===todo.length){if(!gFailToast){gFailToast=true;toast('구글 평점을 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.',3500)}return}
+    if(S.sort==='google'){const keep=$('#sheetBody').scrollTop;refresh();$('#sheetBody').scrollTop=keep}});
+}
+async function googleLive(r){
+  if(!r.placeId||!GMAPS_KEY)return;
+  const id=r.id;
+  try{
+    const p=await fetchG(r);
     if(S.selected!==id||!$('#gScore'))return;
     $('#gScore b').textContent=p.rating!=null?p.rating.toFixed(1):'–';$('#gCount').textContent=p.count?`리뷰 ${p.count.toLocaleString()} · 실시간`:'실시간';
     const gNow=googleOpenNow(p);
@@ -1399,7 +1432,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>
