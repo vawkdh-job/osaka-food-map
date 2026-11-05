@@ -11,12 +11,11 @@
 <meta name="apple-mobile-web-app-title" content="오사카 맛집">
 <meta name="description" content="오사카 맛집 30곳: 타베로그·구글 평점, 내 위치 기준 가까운 맛집, 금·토·일 영업시간">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>오사카 미식 지도</title>
 <style>
-/*__LEAFLET_CSS__*/
-/*__CLUSTER_CSS__*/
 :root{
   --brand:#1d5a6c;--brand-2:#2a7489;--ink:#172a30;--muted:#64767c;--line:#e2e8ea;--soft:#f3f6f7;
   --t1:#c2410c;--t2:#e8590c;--t3:#a16207;--t4:#5b6b78;--tna:#8a969b;
@@ -30,12 +29,17 @@ button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:3px solid #64b5c6;outline-offset:2px}
-#map{position:fixed;inset:0;z-index:1;background:#e9eef0}
-.leaflet-container{font-family:inherit;background:#e9eef0}
-.leaflet-gl-layer{pointer-events:none}
-.maplibregl-map{position:relative;overflow:hidden}.maplibregl-canvas-container,.maplibregl-canvas{position:absolute;left:0;top:0}
-.leaflet-bottom{bottom:var(--sheet-h);transition:bottom .25s}
-.leaflet-control-attribution{font-size:10px;max-width:70vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#ffffffd9!important}
+#map{position:fixed;inset:0;z-index:1;background:#eef1f2}
+/* core MapLibre layout rules (also in vendor css) so pins never misplace if that file is slow */
+.maplibregl-map{font-family:inherit;overflow:hidden}.maplibregl-canvas{position:absolute;left:0;top:0}.maplibregl-marker{position:absolute;top:0;left:0;will-change:transform}
+.maplibregl-ctrl-bottom-left{bottom:var(--sheet-h);transition:bottom .25s}
+.maplibregl-ctrl-attrib{font-size:10px}
+.mk{width:0;height:0;cursor:pointer;outline:none}
+.mk:focus-visible .pin,.mk:focus-visible .cl{box-shadow:0 0 0 3px #64b5c6}
+.meWrap{pointer-events:none;cursor:default}
+.acc{position:absolute;left:0;top:0;transform:translate(-50%,-50%);border-radius:50%;background:#1a73e81c;border:1px solid #1a73e866;pointer-events:none}
+.cone{position:absolute;left:0;top:0;width:50px;height:50px;transform-origin:50% 100%;background:radial-gradient(circle at 50% 100%,#1a73e8a0 0,#1a73e800 72%);clip-path:polygon(50% 100%,12% 0,88% 0);pointer-events:none}
+.cone[hidden]{display:none}
 
 /* ---------- top bar ---------- */
 .topbar{position:fixed;z-index:30;left:0;right:0;top:0;padding:calc(var(--safe-t) + 8px) 10px 6px;pointer-events:none}
@@ -72,7 +76,6 @@ a{color:inherit;text-decoration:none}
 body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none}
 
 /* ---------- pins ---------- */
-.pinIcon,.clIcon,.meIcon,.hotelIcon{background:none;border:0}
 .pin{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% - 7px));display:flex;align-items:center;gap:3px;height:30px;padding:0 8px 0 6px;border-radius:15px;background:var(--t4);color:#fff;font-size:13.5px;font-weight:850;white-space:nowrap;border:2px solid #fff;box-shadow:0 2px 7px #0b2a3666;letter-spacing:-.2px}
 .pin::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border:6px solid transparent;border-top-color:#fff;border-bottom:0}
 .pin .pe{font-size:14px;line-height:1}
@@ -88,7 +91,8 @@ body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none
 .me{position:absolute;left:0;top:0;width:20px;height:20px;transform:translate(-50%,-50%);border-radius:50%;background:var(--me);border:3px solid #fff;box-shadow:0 0 0 1px #1a73e855,0 2px 6px #0006}
 .me::after{content:"";position:absolute;inset:-9px;border-radius:50%;background:#1a73e833;animation:mePulse 2s infinite}
 @keyframes mePulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.6);opacity:0}}
-.leaflet-popup-content{margin:12px 14px;font-size:14px;line-height:1.5}
+.maplibregl-popup-content{padding:12px 14px;font-size:14px;line-height:1.5;border-radius:12px;box-shadow:0 6px 20px #0003}
+.maplibregl-popup-close-button{font-size:20px;width:30px;height:30px}
 .popLinks{display:flex;gap:6px;margin-top:8px}.popLinks a{flex:1;text-align:center;background:var(--soft);border-radius:8px;padding:8px;font-weight:800;color:var(--brand);font-size:13px}
 
 /* ---------- toast / status ---------- */
@@ -199,7 +203,7 @@ body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
   .sheetHead{cursor:default}.handle{display:none}
   .fabs{bottom:22px!important;opacity:1!important;pointer-events:auto!important}
   body.sheet-half .fabs .minor{display:grid}
-  .leaflet-bottom{bottom:0}
+  .maplibregl-ctrl-bottom-left{bottom:0}
   .toast{left:416px;right:auto;bottom:22px}.mapStatus{left:412px}
   .modal{align-items:center}.panel{border-radius:18px}
 }
@@ -266,6 +270,7 @@ body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
     </div>
     <h3>지도 종류</h3>
     <div id="providers"></div>
+    <label class="radio"><input type="checkbox" id="poiToggle"><span>지도에 다른 가게·시설 아이콘도 표시<small>꺼 두면 맛집 핀만 또렷하게 보여요 (한글 지도)</small></span></label>
     <h3>오프라인 대비 (로밍·지하용)</h3>
     <p style="margin:0">우메다·후쿠시마·나카노시마·난바 일대 지도를 휴대폰에 미리 저장합니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
     <button class="btn wide" id="precacheBtn">지도 미리 저장</button>
@@ -304,8 +309,7 @@ body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
   </div>
 </div>
 
-<script>/*__LEAFLET_JS__*/</script>
-<script>/*__CLUSTER_JS__*/</script>
+<script src="vendor/maplibre-gl.js"></script>
 <script>const APP_DATA=/*__DATA__*/;const APP_BUILD="__BUILD__";</script>
 <script>
 (function(){
@@ -346,76 +350,64 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:false,rating:'all',kind:'all',region:'all',favOnly:false,
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v3','ko')};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v3','ko'),showPoi:LS.get('ofm.showPoi',false)};
 const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
 let me=null; // {lat,lon,acc,t}
 let rows=[];
 
-/* ================= map ================= */
-const map=L.map('map',{zoomControl:false,minZoom:10,maxZoom:19,zoomSnap:1,tapTolerance:12,worldCopyJump:false,attributionControl:true});
-map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
+/* ================= map (MapLibre GL) ================= */
+const KO_FONT="'Apple SD Gothic Neo','Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif";
 const GSI_ATTR='<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
-const OFM_ATTR='<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
+const OSM_ATTR='© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
+const OFM_ATTR='<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> '+OSM_ATTR;
 const PROVIDERS={
-  ko:{type:'vector',name:'한글 지도 (기본)',desc:'역·동네·명소 이름을 한국어로 표시 (한국어 이름이 없는 곳은 일본어)',style:'https://tiles.openfreemap.org/styles/liberty'},
+  ko:{type:'vector',name:'한글 지도 (기본)',desc:'역·동네·명소 이름을 한국어로 · 역은 일본어도 함께',style:'https://tiles.openfreemap.org/styles/liberty'},
   kolight:{type:'vector',name:'한글 지도 · 연한 색',desc:'색이 연해서 핀이 더 잘 보임',style:'https://tiles.openfreemap.org/styles/positron'},
-  gsi:{name:'일본 국토지리원 지도 (일본어)',desc:'일본 정부 지도 · 한글 지도가 안 될 때 예비용',url:'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
-    opt:{maxNativeZoom:18,maxZoom:19,attribution:GSI_ATTR}},
-  gsistd:{name:'국토지리원 표준 지도',desc:'색이 진하고 도로·철도 구분이 뚜렷함',url:'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
-    opt:{maxNativeZoom:18,maxZoom:19,attribution:GSI_ATTR}},
-  osm:{name:'OpenStreetMap',desc:'가게·편의점까지 표시 · 미리 저장은 안 됨',url:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',noPrecache:true,
-    opt:{maxNativeZoom:19,maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}},
-  esri:{name:'Esri 도로 지도',desc:'예전 버전에서 쓰던 지도',url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-    opt:{maxNativeZoom:18,maxZoom:19,attribution:'Tiles © Esri'}}
+  gsi:{type:'raster',name:'국토지리원 지도 (일본어)',desc:'일본 정부 지도 · 한글 지도가 안 될 때 예비용',tiles:['https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'],maxzoom:18,attribution:GSI_ATTR},
+  gsistd:{type:'raster',name:'국토지리원 표준 지도 (일본어)',desc:'색이 진하고 도로·철도 구분이 뚜렷함',tiles:['https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'],maxzoom:18,attribution:GSI_ATTR},
+  osm:{type:'raster',name:'OpenStreetMap (일본어)',desc:'가게·편의점까지 표시 · 미리 저장은 안 됨',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],maxzoom:19,noPrecache:true,attribution:OSM_ATTR},
+  esri:{type:'raster',name:'Esri 도로 지도',desc:'예전 버전에서 쓰던 지도',tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'],maxzoom:18,attribution:'Tiles © Esri'}
 };
 const DEFAULT_PROVIDER='ko',PROV_KEY='ofm.provider.v3';
 const MENU_ORDER=['ko','kolight','gsi','gsistd','osm','esri'],ORDER=['ko','gsi','osm','esri'];
-const KO_FONT="'Apple SD Gothic Neo','Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif";
-/* MapLibre (vector map) is loaded only when a Korean map is used */
-let mlPromise=null;
-function loadMaplibre(){
-  if(window.maplibregl&&L.maplibreGL)return Promise.resolve();
-  if(!mlPromise)mlPromise=new Promise((res,rej)=>{const add=(src,next)=>{const t=document.createElement('script');t.src=src;t.onload=next;t.onerror=()=>rej(new Error('load '+src));document.head.appendChild(t)};
-    add('vendor/maplibre-gl.js',()=>add('vendor/leaflet-maplibre-gl.js',res))}).catch(e=>{mlPromise=null;throw e});
-  return mlPromise;
-}
+/* zoom levels (MapLibre zoom = Leaflet zoom − 1) */
+const Z={min:9,max:18.5,cluster:16,pick:14,list:16,me:15,hotel:15,fit:15};
 function webglOK(){try{const c=document.createElement('canvas');return!!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}}
+const TRANSIT=/transit|station|railway|subway|airport/i;
 const styleCache={};
-/* fetch the OpenFreeMap style and switch every place/road/POI label to the Korean OSM name (name:ko), falling back to the local name */
+/* OpenFreeMap style → Korean labels: place/road names use OSM name:ko and fall back to the local name;
+   stations show Korean with the Japanese name underneath (to match signs); shop/facility icons are hidden
+   so they don't compete with the restaurant pins (menu toggle). */
 async function koStyle(url){
-  if(styleCache[url])return styleCache[url];
+  const key=url+'|'+S.showPoi;if(styleCache[key])return styleCache[key];
   const r=await fetch(url);if(!r.ok)throw new Error('style '+r.status);
   const st=await r.json();
-  for(const l of st.layers||[]){const tf=l.layout&&l.layout['text-field'];if(tf&&JSON.stringify(tf).includes('name'))l.layout['text-field']=['coalesce',['get','name:ko'],['get','name']]}
-  for(const src of Object.values(st.sources||{}))if(src.type==='vector')src.attribution=OFM_ATTR;
-  return styleCache[url]=st;
-}
-let provToken=0;
-let base=null,tileStats=null,tried=new Set();
-function setProvider(key,auto){
-  if(!PROVIDERS[key])key=DEFAULT_PROVIDER;
-  if(base){map.removeLayer(base);base=null}
-  let P=PROVIDERS[key];
-  if(P.type==='vector'&&!webglOK()){tried.add(key);if(!auto)toast('이 기기에서는 한글 지도를 쓸 수 없어 일본어 지도로 보여 줘요.');key='gsi';P=PROVIDERS.gsi}
-  S.provider=key;if(!auto)LS.set(PROV_KEY,key);
-  tried.add(key);tileStats={ok:0,err:0};const token=++provToken;
-  if(P.type==='vector'){
-    renderProviders();
-    Promise.all([loadMaplibre(),koStyle(P.style)]).then(([,style])=>{
-      if(token!==provToken)return;
-      base=L.maplibreGL({style,localIdeographFontFamily:KO_FONT,padding:.1,fadeDuration:0,attributionControl:{customAttribution:OFM_ATTR}}).addTo(map);
-      const gl=base.getMaplibreMap();
-      gl.on('sourcedata',e=>{if(e.tile&&token===provToken){tileStats.ok++;if(tileStats.ok===1)hideMapStatus()}});
-      gl.on('error',e=>{if(token!==provToken)return;const msg=String(e&&e.error&&e.error.message||'');if(/glyph|sprite|font/i.test(msg))return;tileStats.err++;checkTiles()});
-    }).catch(()=>{if(token!==provToken)return;tileStats.err=99;checkTiles()});
-    return;
+  const ko=['coalesce',['get','name:ko'],['get','name']];
+  const two=['case',['has','name:ko'],['format',['get','name:ko'],{},'\n',{},['get','name'],{'font-scale':0.78}],['format',['get','name'],{}]];
+  for(const l of st.layers||[]){
+    const lay=l.layout=l.layout||{},tf=lay['text-field'];
+    const transit=TRANSIT.test(l.id)||TRANSIT.test(JSON.stringify(l.filter||''));
+    if(l['source-layer']==='poi'&&!transit&&!S.showPoi)lay.visibility='none';
+    if(tf&&JSON.stringify(tf).includes('name'))lay['text-field']=transit&&l['source-layer']==='poi'?two:ko;
   }
-  base=L.tileLayer(P.url,Object.assign({keepBuffer:3,updateWhenIdle:false,crossOrigin:false},P.opt));
-  base.on('tileload',()=>{tileStats.ok++;if(tileStats.ok===1)hideMapStatus()});
-  base.on('tileerror',()=>{tileStats.err++;checkTiles()});
-  base.addTo(map);base.bringToBack();
-  renderProviders();
+  for(const src of Object.values(st.sources||{}))if(src.type==='vector')src.attribution=OFM_ATTR;
+  return styleCache[key]=st;
 }
+const rasterStyle=P=>({version:8,sources:{base:{type:'raster',tiles:P.tiles,tileSize:256,maxzoom:P.maxzoom,attribution:P.attribution}},
+  layers:[{id:'bg',type:'background',paint:{'background-color':'#eef1f2'}},{id:'base',type:'raster',source:'base'}]});
+let map=null,mapReady=false,tileStats={ok:0,err:0},tried=new Set(),provToken=0;
+const mapQueue=[];const whenMap=f=>mapReady?f():mapQueue.push(f);
+async function setProvider(key,auto){
+  if(!PROVIDERS[key])key=DEFAULT_PROVIDER;
+  if(!window.maplibregl||!webglOK())return mapUnavailable();
+  S.provider=key;if(!auto)LS.set(PROV_KEY,key);
+  tried.add(key);tileStats={ok:0,err:0};const token=++provToken;renderProviders();
+  const P=PROVIDERS[key];let style;
+  try{style=P.type==='vector'?await koStyle(P.style):rasterStyle(P)}catch(e){if(token===provToken){tileStats.err=99;checkTiles()}return}
+  if(token!==provToken)return;
+  if(!map)createMap(style);else map.setStyle(style,{diff:false});
+}
+function mapUnavailable(){showMapStatus('이 기기(브라우저)에서는 지도를 표시할 수 없어요. 목록·길찾기는 그대로 쓸 수 있어요.')}
 function checkTiles(){
   // switch only on repeated hard errors with nothing loaded; slowness alone never switches
   if(tileStats.ok>0||tileStats.err<6)return;
@@ -427,53 +419,117 @@ function checkTiles(){
 function retryTiles(){tried=new Set();hideMapStatus();setProvider(LS.get(PROV_KEY,DEFAULT_PROVIDER),true)}
 function showMapStatus(t){$('#mapStatusText').textContent=t;$('#mapStatus').hidden=false}
 function hideMapStatus(){$('#mapStatus').hidden=true}
-window.addEventListener('online',()=>{hideMapStatus();if(!base||tileStats.ok===0)retryTiles();else if(base.redraw)base.redraw();else setProvider(S.provider,true)});
+window.addEventListener('online',()=>{hideMapStatus();if(!map||tileStats.ok===0)retryTiles();else map.triggerRepaint()});
 window.addEventListener('offline',()=>toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.'));
 $('#retryBtn').onclick=retryTiles;
 
-/* layout metrics: how much of the map is covered by the top bar and the sheet */
-function cover(){if(isDesktop())return{top:0,bottom:0};return{top:$('#topbar').getBoundingClientRect().bottom,bottom:sheetPx}}
-function panToVisible(latlng,zoom,animate=true){
-  zoom=zoom??map.getZoom();const c=cover(),H=map.getSize().y;
-  const dy=H/2-(c.top+(H-c.top-c.bottom)/2);
-  const pt=map.project(latlng,zoom).add([0,dy]);
-  map.setView(map.unproject(pt,zoom),zoom,{animate});
-}
-function fitVisible(bounds,maxZoom=16){
-  const c=cover();
-  map.fitBounds(bounds,{paddingTopLeft:[30,c.top+34],paddingBottomRight:[isDesktop()?80:70,c.bottom+30],maxZoom});
+function createMap(style){
+  map=new maplibregl.Map({container:'map',style,center:[HOTEL.lon,HOTEL.lat],zoom:12,minZoom:Z.min,maxZoom:Z.max,
+    dragRotate:false,pitchWithRotate:false,touchPitch:false,renderWorldCopies:false,attributionControl:false,
+    localIdeographFontFamily:KO_FONT,fadeDuration:0,clickTolerance:4});
+  map.touchZoomRotate.disableRotation();map.keyboard.disableRotation();
+  map.addControl(new maplibregl.AttributionControl({compact:true}),'bottom-left');
+  map.on('sourcedata',e=>{if(e.tile){tileStats.ok++;if(tileStats.ok===1)hideMapStatus()}});
+  map.on('error',e=>{const m=String((e&&e.error&&(e.error.message||e.error))||'');if(/\/fonts\/|sprite|glyph/i.test(m))return;tileStats.err++;checkTiles()});
+  map.on('zoomend',()=>{renderMarkers();updateMeAcc()});
+  map.on('zoom',updateMeAcc);
+  map.on('dragstart',()=>{if(follow){follow=false;if(me)setLocState('on')}});
+  let centerTimer=0;map.on('moveend',()=>{if(S.ref==='center'){clearTimeout(centerTimer);centerTimer=setTimeout(()=>refresh({markers:false}),250)}});
+  map.on('click',e=>{const t=e.originalEvent&&e.originalEvent.target;if(t&&t.closest&&t.closest('.mk'))return;if(!isDesktop()&&sheetState==='full')setSheet('half')});
+  map.once('load',()=>{
+    const at=document.querySelector('.maplibregl-ctrl-attrib');if(at){at.removeAttribute('open');at.classList.remove('maplibregl-compact-show')} // keep credits folded behind ⓘ
+    addHotel();fitRows(false);
+    mapReady=true;mapQueue.splice(0).forEach(f=>f());renderMarkers();
+  });
 }
 
-/* ---- markers ---- */
+/* layout metrics: how much of the map is covered by the top bar and the sheet */
+function cover(){if(isDesktop())return{top:0,bottom:0};return{top:$('#topbar').getBoundingClientRect().bottom,bottom:sheetPx}}
+function panToVisible(ll,zoom,animate=true){
+  if(!map)return;const c=cover();
+  map.easeTo({center:[ll[1],ll[0]],zoom:zoom??map.getZoom(),offset:[0,(c.top-c.bottom)/2],duration:animate?450:0});
+}
+function boundsOf(pts){let w=180,s=90,e=-180,n=-90;for(const[la,lo]of pts){w=Math.min(w,lo);e=Math.max(e,lo);s=Math.min(s,la);n=Math.max(n,la)}return[[w,s],[e,n]]}
+function fitVisible(pts,maxZoom=Z.fit,animate=true){
+  if(!map||!pts.length)return;const c=cover();
+  map.fitBounds(boundsOf(pts),{padding:{top:c.top+40,bottom:c.bottom+34,left:34,right:isDesktop()?84:72},maxZoom,duration:animate?500:0});
+}
+function visibleCenter(){const c=cover(),el=map.getContainer(),H=el.clientHeight;const ll=map.unproject([el.clientWidth/2,c.top+(H-c.top-c.bottom)/2]);return{lat:ll.lat,lon:ll.lng}}
+
+/* ---- pins & clusters (HTML markers) ---- */
 const tierT=v=>v==null?'tna':v>=3.75?'t1':v>=3.65?'t2':v>=3.55?'t3':'t4';
 const tierG=v=>v==null?'tna':v>=4.4?'t1':v>=4.2?'t2':v>=4.0?'t3':'t4';
 const useG=()=>S.sort==='google';
 const fmtT=v=>v==null?'–':v.toFixed(2), fmtG=v=>v==null?'–':v.toFixed(1);
+const score=r=>(useG()?r.google:r.tabelog)??0;
 function pinHtml(r){
   const g=useG(),v=g?r.google:r.tabelog,st=status(r,S.day),dim=st.kind==='closed'||st.kind==='done';
   return `<div class="pin ${g?tierG(v):tierT(v)}${dim?' closed':''}${fav.has(r.id)?' fav':''}${S.selected===r.id?' sel':''}"><span class="pe">${r.emoji}</span><b>${g?'G '+fmtG(v):fmtT(v)}</b>${st.kind==='closed'?'<i>휴</i>':''}</div>`;
 }
-const pinIcon=r=>L.divIcon({className:'pinIcon',html:pinHtml(r),iconSize:[0,0],iconAnchor:[0,0]});
-const cluster=L.markerClusterGroup({maxClusterRadius:46,disableClusteringAtZoom:17,spiderfyOnMaxZoom:true,showCoverageOnHover:false,zoomToBoundsOnClick:false,
-  iconCreateFunction(c){const ms=c.getAllChildMarkers(),g=useG();const best=Math.max(...ms.map(m=>(g?m.__r.google:m.__r.tabelog)??0));
-    return L.divIcon({className:'clIcon',html:`<div class="cl ${g?tierG(best):tierT(best)}"><b>${ms.length}곳</b><small>최고 ${g?fmtG(best):fmtT(best)}</small></div>`,iconSize:[0,0]})}});
-cluster.on('clusterclick',e=>{if(map.getZoom()>=17)e.layer.spiderfy();else fitVisible(e.layer.getBounds(),17)});
-map.addLayer(cluster);
-const markers=new Map();
-function renderMarkers(){
-  cluster.clearLayers();markers.clear();
-  const ms=rows.filter(x=>x.r).map(({r})=>{const m=L.marker([r.lat,r.lon],{icon:pinIcon(r),title:`${r.name} · 타베로그 ${fmtT(r.tabelog)}`,alt:r.name,keyboard:true,riseOnHover:true});
-    m.__r=r;m.on('click',()=>select(r.id,{from:'map'}));markers.set(r.id,m);if(S.selected===r.id)m.setZIndexOffset(1000);return m});
-  cluster.addLayers(ms);
+const markers=new Map(); // id → {el,m,r}
+function pinFor(r){
+  let p=markers.get(r.id);if(p)return p;
+  const el=document.createElement('div');el.className='mk';el.tabIndex=0;el.setAttribute('role','button');
+  el.addEventListener('click',e=>{e.stopPropagation();select(r.id,{from:'map'})});
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();select(r.id,{from:'map'})}});
+  p={el,r,m:new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([r.lon,r.lat])};markers.set(r.id,p);return p;
 }
-function refreshIcon(id){const m=markers.get(id);if(m){m.setIcon(pinIcon(m.__r));m.setZIndexOffset(S.selected===id?1000:0);cluster.refreshClusters(m)}}
-const hotelMarker=L.marker([HOTEL.lat,HOTEL.lon],{icon:L.divIcon({className:'hotelIcon',html:'<div class="hotelPin">⌂ 호텔</div>',iconSize:[0,0]}),zIndexOffset:0,title:HOTEL.name})
-  .bindPopup(()=>`<b>⌂ ${esc(HOTEL.name)}</b><br><span style="color:#64767c">${esc(HOTEL.jp)}</span><div class="popLinks"><a href="${esc(dirUrl(HOTEL.jp+' '+HOTEL.address,2))}" target="_blank" rel="noopener">🧭 호텔로 가는 길</a><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(HOTEL.jp)}" target="_blank" rel="noopener">Google 지도</a></div>`,{autoPanPaddingTopLeft:[20,140],autoPanPaddingBottomRight:[20,200]}).addTo(map);
-let meMarker=null,meCircle=null;
+let clusterMarkers=[];
+// pins are wide pills drawn above their point, so group by box overlap rather than radius
+const near=(a,b,wide)=>wide?Math.abs(a.x-b.x)<70&&Math.abs(a.y-b.y)<40:Math.abs(a.x-b.x)<44&&Math.abs(a.y-b.y)<24;
+function renderMarkers(){
+  if(!map||!mapReady)return;
+  const items=rows.filter(x=>x.r).map(x=>x.r),z=map.getZoom(),show=new Set(items.map(r=>r.id));
+  for(const[id,p]of markers)if(!show.has(id)&&p.on){p.m.remove();p.on=false}
+  clusterMarkers.forEach(m=>m.remove());clusterMarkers=[];
+  const pts=items.map(r=>({r,p:map.project([r.lon,r.lat])})).sort((a,b)=>score(b.r)-score(a.r));
+  const wide=z<Z.cluster,groups=[];
+  for(const pt of pts){const g=groups.find(g=>near(g.p,pt.p,wide));if(g)g.items.push(pt);else groups.push({p:pt.p,items:[pt]})}
+  for(const g of groups){
+    if(z>=Z.cluster||g.items.length===1){ // single pins; pins in the same building are spread sideways
+      g.items.forEach((pt,i)=>{const p=pinFor(pt.r);p.el.innerHTML=pinHtml(pt.r);p.el.style.zIndex=S.selected===pt.r.id?'5':'';
+        p.el.setAttribute('aria-label',`${pt.r.name} 타베로그 ${fmtT(pt.r.tabelog)}`);
+        p.m.setOffset([(i-(g.items.length-1)/2)*62,0]);if(!p.on){p.m.addTo(map);p.on=true}});
+      continue;
+    }
+    g.items.forEach(pt=>{const p=markers.get(pt.r.id);if(p&&p.on){p.m.remove();p.on=false}});
+    const best=Math.max(...g.items.map(pt=>score(pt.r))),gq=useG(),el=document.createElement('div');
+    el.className='mk';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',`${g.items.length}곳 묶음, 눌러서 확대`);
+    el.innerHTML=`<div class="cl ${gq?tierG(best):tierT(best)}"><b>${g.items.length}곳</b><small>최고 ${gq?fmtG(best):fmtT(best)}</small></div>`;
+    const lat=g.items[0].r.lat,lon=g.items[0].r.lon; // anchored on the best-rated member, so groups don't drift onto neighbours
+    const open=()=>fitVisible(g.items.map(pt=>[pt.r.lat,pt.r.lon]),Z.cluster);
+    el.addEventListener('click',e=>{e.stopPropagation();open()});el.addEventListener('keydown',e=>{if(e.key==='Enter')open()});
+    clusterMarkers.push(new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([lon,lat]).addTo(map));
+  }
+}
+function refreshIcon(id){const p=markers.get(id);if(p&&p.on){p.el.innerHTML=pinHtml(p.r);p.el.style.zIndex=S.selected===id?'5':''}}
+let hotelMarker=null;
+function addHotel(){
+  const el=document.createElement('div');el.className='mk';el.innerHTML='<div class="hotelPin">⌂ 호텔</div>';
+  const pop=new maplibregl.Popup({offset:[0,-38],maxWidth:'290px',focusAfterOpen:false}).setHTML(`<b>⌂ ${esc(HOTEL.name)}</b><br><span style="color:#64767c">${esc(HOTEL.jp)}</span><div class="popLinks"><a href="${esc(dirUrl(HOTEL.jp+' '+HOTEL.address,2))}" target="_blank" rel="noopener">🧭 호텔로 가는 길</a><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(HOTEL.jp)}" target="_blank" rel="noopener">Google 지도</a></div>`);
+  hotelMarker=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([HOTEL.lon,HOTEL.lat]).setPopup(pop).addTo(map);
+}
+/* ---- me: blue dot, accuracy circle, heading cone ---- */
+let meMarker=null,meAcc=null,meCone=null;
+function drawMe(){
+  if(!map||!me)return;
+  if(!meMarker){const el=document.createElement('div');el.className='mk meWrap';el.innerHTML='<div class="acc"></div><div class="cone" hidden></div><div class="me"></div>';
+    meAcc=el.querySelector('.acc');meCone=el.querySelector('.cone');meMarker=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat([me.lon,me.lat]).addTo(map)}
+  else meMarker.setLngLat([me.lon,me.lat]);
+  updateMeAcc();
+}
+function updateMeAcc(){if(!meAcc||!me||!map)return;const mpp=40075016.686*Math.cos(me.lat*Math.PI/180)/(512*2**map.getZoom());const d=Math.min(2*me.acc/mpp,3000);meAcc.style.width=meAcc.style.height=d+'px'}
+let headingStarted=false;
+function startHeading(){
+  if(headingStarted||typeof window.DeviceOrientationEvent==='undefined')return;headingStarted=true;
+  const on=e=>{let h=null;if(typeof e.webkitCompassHeading==='number')h=e.webkitCompassHeading;else if(e.absolute&&typeof e.alpha==='number')h=360-e.alpha;
+    if(h==null||isNaN(h)||!meCone)return;h=(h+((screen.orientation&&screen.orientation.angle)||0))%360;meCone.hidden=false;meCone.style.transform=`translate(-50%,-100%) rotate(${h}deg)`};
+  const add=()=>{window.addEventListener('deviceorientationabsolute',on,true);window.addEventListener('deviceorientation',on,true)};
+  if(typeof DeviceOrientationEvent.requestPermission==='function')DeviceOrientationEvent.requestPermission().then(s=>{if(s==='granted')add()}).catch(()=>{});else add();
+}
 
 /* ================= list ================= */
-function visibleCenter(){const c=cover(),sz=map.getSize(),ll=map.containerPointToLatLng(L.point(sz.x/2,c.top+(sz.y-c.top-c.bottom)/2));return{lat:ll.lat,lon:ll.lng}}
-function refPoint(){if(S.ref==='me'&&me)return me;if(S.ref==='center')return visibleCenter();return HOTEL}
+function refPoint(){if(S.ref==='me'&&me)return me;if(S.ref==='center'&&map)return visibleCenter();return HOTEL}
 function passes(r){
   if(S.region!=='all'&&r.region!==S.region)return false;
   if(S.kind!=='all'&&r.kind!==S.kind)return false;
@@ -559,13 +615,12 @@ function select(id,{from='list'}={}){
   $('#list').hidden=true;$('#detail').hidden=false;sheet.classList.add('detailing');renderDetail();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState!=='half')setSheet('half');
   if(prev&&prev!==id)refreshIcon(prev);
-  const m=markers.get(id);
-  if(!m){ // filtered out → clear filters so the pin can be shown
+  if(!rows.some(x=>x.r&&x.r.id===id)){ // filtered out → clear filters so the pin can be shown
     Object.assign(S,{q:'',openOnly:false,rating:'all',kind:'all',region:'all',favOnly:false});$('#q').value='';refresh();
   }
   refreshIcon(id);
-  const z=from==='map'?Math.max(map.getZoom(),15):Math.max(map.getZoom(),17);
-  setTimeout(()=>panToVisible([r.lat,r.lon],z),from==='map'?0:60);
+  whenMap(()=>{const z=from==='map'?Math.max(map.getZoom(),Z.pick):Math.max(map.getZoom(),Z.list);
+    setTimeout(()=>panToVisible([r.lat,r.lon],z),from==='map'?0:60)});
 }
 function closeDetail(){
   const prev=S.selected;S.selected=null;S.view='list';
@@ -601,7 +656,7 @@ function setSheet(state){
     const H=heights(),proj=sheetPx-vel*180;const st=Object.keys(H).reduce((a,k)=>Math.abs(H[k]-proj)<Math.abs(H[a]-proj)?k:a,'peek');setSheet(st)};
   head.addEventListener('pointerup',end);head.addEventListener('pointercancel',end);
 })();
-window.addEventListener('resize',()=>{setSheet(sheetState==='desk'?'peek':sheetState);document.documentElement.style.setProperty('--top-h',$('#topbar').getBoundingClientRect().bottom+'px');map.invalidateSize()});
+window.addEventListener('resize',()=>{setSheet(sheetState==='desk'?'peek':sheetState);document.documentElement.style.setProperty('--top-h',$('#topbar').getBoundingClientRect().bottom+'px');if(map)map.resize()});
 
 /* ================= geolocation ================= */
 let watchId=null,follow=false,firstFix=true,lastListPos=null,warned=false;
@@ -617,17 +672,14 @@ function startLocate(){
 }
 function onPos(p){
   const c=p.coords;me={lat:c.latitude,lon:c.longitude,acc:c.accuracy,t:p.timestamp};
-  const ll=[me.lat,me.lon];
-  if(!meMarker){meMarker=L.marker(ll,{icon:L.divIcon({className:'meIcon',html:'<div class="me"></div>',iconSize:[0,0]}),interactive:false,keyboard:false,zIndexOffset:1500}).addTo(map);
-    meCircle=L.circle(ll,{radius:me.acc,color:'#1a73e8',weight:1,opacity:.5,fillColor:'#1a73e8',fillOpacity:.1,interactive:false}).addTo(map)}
-  else{meMarker.setLatLng(ll);meCircle.setLatLng(ll).setRadius(me.acc)}
+  const ll=[me.lat,me.lon];whenMap(drawMe);
   setLocState(follow?'follow':'on');
   const fromHotel=km(me,HOTEL);
   if(firstFix){firstFix=false;
     if(fromHotel<=OSAKA_KM){
       if(!S.refTouched||S.ref==='me'){S.ref='me'}
       if(!S.sortTouched){S.sort='nearby'}
-      refresh();panToVisible(ll,16);
+      refresh();whenMap(()=>panToVisible(ll,Z.me));
       toast(`📍 내 위치를 찾았어요 (오차 약 ${Math.round(me.acc)}m). 근처 맛집을 평점순으로 보여 줘요.`);
     }else{
       farToast(fromHotel);
@@ -636,7 +688,7 @@ function onPos(p){
     lastListPos=me;return;
   }
   if(fromHotel<=OSAKA_KM&&S.ref!=='me'&&!S.refTouched){S.ref='me';if(!S.sortTouched)S.sort='nearby';refresh();lastListPos=me}
-  if(follow&&fromHotel<=OSAKA_KM)map.panTo(ll,{animate:true});
+  if(follow&&fromHotel<=OSAKA_KM&&mapReady)panToVisible(ll);
   if(S.ref==='me'&&(!lastListPos||km(lastListPos,me)>0.03)){lastListPos=me;refresh({markers:false})}
 }
 function onPosErr(e){
@@ -646,11 +698,11 @@ function onPosErr(e){
 }
 function farToast(d){toast(`📍 위치 확인 완료! 지금은 오사카에서 약 ${Math.round(d)}km 떨어져 있어요. 거리 기준은 호텔로 두고, 오사카에 도착하면 자동으로 내 위치 기준으로 바뀌어요.`,7000)}
 locBtn.onclick=()=>{
+  startHeading(); // compass permission must be asked from a tap (iPhone)
   if(watchId==null||!me){startLocate();return}
   const d=km(me,HOTEL);if(d>OSAKA_KM){farToast(d);return} // the Japan map has no detail outside Japan
-  follow=true;setLocState('follow');panToVisible([me.lat,me.lon],Math.max(map.getZoom(),16));
+  follow=true;setLocState('follow');whenMap(()=>panToVisible([me.lat,me.lon],Math.max(map.getZoom(),Z.me)));
 };
-map.on('dragstart',()=>{if(follow){follow=false;if(me)setLocState('on')}});
 function showLocHelp(reason){const p=$('#locReason');p.hidden=!reason;p.textContent=reason||'';openModal('#locHelp')}
 $('#locRetry').onclick=()=>{closeModal('#locHelp');startLocate()};
 $('#locHelpBtn').onclick=()=>{closeModal('#menu');showLocHelp('')};
@@ -684,12 +736,10 @@ let qTimer=0;$('#q').addEventListener('input',e=>{clearTimeout(qTimer);qTimer=se
 $('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){e.target.blur();if(!isDesktop())setSheet('half')}});
 $('#list').addEventListener('click',e=>{const it=e.target.closest('.item');if(it&&!e.target.closest('[data-fav]'))select(+it.dataset.id)});
 $('#list').addEventListener('keydown',e=>{const it=e.target.closest('.item');if(it&&e.key==='Enter'){e.preventDefault();select(+it.dataset.id)}});
-function fitRows(){const pts=rows.filter(x=>x.r).map(x=>[x.r.lat,x.r.lon]);if(!pts.length)return;pts.push([HOTEL.lat,HOTEL.lon]);fitVisible(L.latLngBounds(pts),16)}
-$('#fitBtn').onclick=fitRows;
-$('#hotelBtn').onclick=()=>{panToVisible([HOTEL.lat,HOTEL.lon],16);setTimeout(()=>hotelMarker.openPopup(),350)};
-$('#zoomIn').onclick=()=>map.zoomIn();$('#zoomOut').onclick=()=>map.zoomOut();
-let centerTimer=0;map.on('moveend',()=>{if(S.ref==='center'){clearTimeout(centerTimer);centerTimer=setTimeout(()=>refresh({markers:false}),250)}});
-map.on('click',()=>{if(!isDesktop()&&sheetState==='full')setSheet('half')});
+function fitRows(animate=true){const pts=rows.filter(x=>x.r).map(x=>[x.r.lat,x.r.lon]);if(!pts.length)return;pts.push([HOTEL.lat,HOTEL.lon]);fitVisible(pts,Z.fit,animate)}
+$('#fitBtn').onclick=()=>fitRows();
+$('#hotelBtn').onclick=()=>whenMap(()=>{panToVisible([HOTEL.lat,HOTEL.lon],Z.hotel);setTimeout(()=>{if(!hotelMarker.getPopup().isOpen())hotelMarker.togglePopup()},500)});
+$('#zoomIn').onclick=()=>map&&map.zoomIn();$('#zoomOut').onclick=()=>map&&map.zoomOut();
 
 /* ---- modals ---- */
 function openModal(s){$(s).hidden=false}
@@ -699,14 +749,16 @@ $('#menuBtn').onclick=()=>openModal('#menu');
 $('#hotelDir').href=dirUrl(HOTEL.jp+' '+HOTEL.address,2);
 function renderProviders(){$('#providers').innerHTML=MENU_ORDER.map(k=>`<label class="radio"><input type="radio" name="prov" value="${k}" ${S.provider===k?'checked':''}><span>${PROVIDERS[k].name}<small>${PROVIDERS[k].desc}</small></span></label>`).join('');
   $('#providers').querySelectorAll('input').forEach(i=>i.onchange=()=>{tried=new Set();setProvider(i.value,false);hideMapStatus()})}
+$('#poiToggle').checked=S.showPoi;
+$('#poiToggle').onchange=e=>{S.showPoi=e.target.checked;LS.set('ofm.showPoi',S.showPoi);if(PROVIDERS[S.provider].type==='vector'){tried=new Set();setProvider(S.provider,true)}};
 
 /* ---- offline: pre-save map tiles (served later by the service worker) ---- */
 const AREAS=[{s:34.681,w:135.472,n:34.717,e:135.514},{s:34.658,w:135.493,n:34.675,e:135.512}];
 function tileXY(lat,lon,z){const n=2**z,s=Math.sin(lat*Math.PI/180);return[Math.floor((lon+180)/360*n),Math.floor((.5-Math.log((1+s)/(1-s))/(4*Math.PI))*n)]}
 function tileUrls(key=S.provider){
-  const P=PROVIDERS[key];if(P.type==='vector')return[];const sub=P.opt.subdomains||'',set=new Set();
+  const P=PROVIDERS[key];if(P.type==='vector')return[];const set=new Set();
   for(const a of AREAS)for(let z=12;z<=17;z++){const[x0,y0]=tileXY(a.n,a.w,z),[x1,y1]=tileXY(a.s,a.e,z);
-    for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++)set.add(P.url.replace('{s}',sub?sub[Math.abs(x+y)%sub.length]:'').replace('{z}',z).replace('{x}',x).replace('{y}',y).replace('{r}',L.Browser.retina?'@2x':''))}
+    for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++)set.add(P.tiles[0].replace('{z}',z).replace('{x}',x).replace('{y}',y))}
   return[...set];
 }
 async function vectorUrls(P){
@@ -724,13 +776,13 @@ $('#precacheBtn').onclick=async()=>{
   const bar=$('#precacheBar'),txt=$('#precacheText'),P=PROVIDERS[S.provider];
   let urls;
   try{urls=P.type==='vector'?[...await vectorUrls(P),...tileUrls('gsi')]:tileUrls()}catch(e){txt.textContent='지도 정보를 받지 못했어요. 연결이 좋을 때 다시 눌러 주세요.';return}
-  const corsUrls=new Set(P.type==='vector'?urls.filter(u=>u.includes('openfreemap')):[]);
   if(PROVIDERS[S.provider].noPrecache){txt.textContent='OpenStreetMap은 지도를 한꺼번에 내려받는 것이 금지돼 있어요. 지도 종류를 국토지리원으로 바꾼 뒤 눌러 주세요.';return}
   if(!navigator.serviceWorker||!navigator.serviceWorker.controller){txt.textContent='이 브라우저(또는 이 주소)에서는 미리 저장을 쓸 수 없어요. 한 번 둘러본 지도는 브라우저가 어느 정도 기억합니다.';return}
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
   bar.hidden=false;let done=0,fail=0;const btn=$('#precacheBtn');btn.disabled=true;
   const q=urls.slice();
-  async function worker(){while(q.length){const u=q.shift();try{await fetch(u,corsUrls.has(u)?{cache:'no-store'}:{mode:'no-cors',cache:'no-store'})}catch(e){fail++}done++;bar.firstElementChild.style.width=(done/urls.length*100)+'%';txt.textContent=`${done}/${urls.length}개 저장 중…`}}
+  async function worker(){while(q.length){const u=q.shift();const extra=/\/fonts\/|sprite/.test(u); // fonts/icons are nice-to-have; Hangul is drawn with the phone's own font
+      try{const r=await fetch(u,{cache:'no-store'});if(!r.ok&&!extra)fail++}catch(e){if(!extra)fail++}done++;bar.firstElementChild.style.width=(done/urls.length*100)+'%';txt.textContent=`${done}/${urls.length}개 저장 중…`}}
   await Promise.all(Array.from({length:6},worker));
   btn.disabled=false;
   txt.textContent=fail?`${urls.length-fail}/${urls.length}개 저장 (${fail}개 실패 — 연결이 좋을 때 다시 눌러 주세요)`:`✅ ${urls.length}개 저장 완료 (${P.name}${P.type==='vector'?' + 예비 일본어 지도':''})`;
@@ -758,9 +810,8 @@ setProvider(S.provider,true);
 document.documentElement.style.setProperty('--top-h',$('#topbar').getBoundingClientRect().bottom+'px');
 setSheet('peek');
 refresh();
-fitRows();
 precacheInfo();
-$('#buildInfo').textContent=`버전 ${APP_BUILD} · 지도 라이브러리 Leaflet ${L.version}`;
+$('#buildInfo').textContent=`버전 ${APP_BUILD} · 지도 MapLibre ${window.maplibregl?(maplibregl.getVersion?maplibregl.getVersion():''):'(불러오지 못함)'}`;
 setInterval(()=>{const k=todayKey();if(k&&S.day!==k&&!S.dayTouched){S.day=k}if(isLive())refresh({markers:true})},60000);
 $('#day').addEventListener('change',()=>{S.dayTouched=true});
 // resume location automatically if the user already granted it
@@ -771,7 +822,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={tiles:()=>tileStats,glStyle:()=>base&&base.getMaplibreMap?base.getMaplibreMap().getStyle():null,S,map,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>

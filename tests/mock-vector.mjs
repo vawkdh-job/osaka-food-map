@@ -23,6 +23,8 @@ const LAYERS = {
   ]),
   water: fc([{ type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [[[135.46, 34.6925], [135.53, 34.6935], [135.53, 34.6905], [135.46, 34.6895], [135.46, 34.6925]]] } }]),
   housenumber: fc([pt(135.4990, 34.6990, { housenumber: '12' })]),
+  poi: fc([pt(135.4985, 34.7010, { name: '大阪', 'name:ko': '오사카', class: 'railway', subclass: 'station' }),
+           pt(135.5000, 34.6940, { name: 'ローソン', class: 'shop' })]),
 };
 const INDEX = Object.fromEntries(Object.entries(LAYERS).map(([k, v]) => [k, new geojsonvt(v, { maxZoom: 14, indexMaxZoom: 4, indexMaxPoints: 0 })]));
 
@@ -38,6 +40,10 @@ export function style(name) {
       { id: 'place_label', type: 'symbol', source: 'openmaptiles', 'source-layer': 'place',
         layout: { 'text-field': ['coalesce', ['get', 'name:latin'], ['get', 'name']], 'text-font': ['Noto Sans Regular'], 'text-size': 18 },
         paint: { 'text-color': '#333', 'text-halo-color': '#fff', 'text-halo-width': 2 } },
+      { id: 'poi_transit', type: 'symbol', source: 'openmaptiles', 'source-layer': 'poi', filter: ['==', 'class', 'railway'],
+        layout: { 'text-field': '{name}', 'text-font': ['Noto Sans Regular'], 'text-size': 15 }, paint: { 'text-color': '#1d4f91', 'text-halo-color': '#fff', 'text-halo-width': 2 } },
+      { id: 'poi_r1', type: 'symbol', source: 'openmaptiles', 'source-layer': 'poi', filter: ['==', 'class', 'shop'],
+        layout: { 'text-field': ['get', 'name'], 'text-font': ['Noto Sans Regular'] } },
       { id: 'housenumber', type: 'symbol', source: 'openmaptiles', 'source-layer': 'housenumber',
         layout: { 'text-field': '{housenumber}', 'text-font': ['Noto Sans Regular'] } },
     ],

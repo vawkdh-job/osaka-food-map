@@ -3,11 +3,11 @@
    - Map tiles and restaurant photos: cache first, so viewed or pre-saved areas work offline. */
 const VERSION = '__BUILD__';
 const APP_CACHE = 'ofm-app-' + VERSION;
-const TILE_CACHE = 'ofm-tiles-v2'; // v1 held CARTO "API KEY REQUIRED" placeholder tiles
+const TILE_CACHE = 'ofm-tiles-v3'; // v1: CARTO "API KEY REQUIRED" tiles; v2: opaque (no-cors) tiles MapLibre can't use
 const IMG_CACHE = 'ofm-img-v1';
 const VEC_CACHE = 'ofm-vec-meta-v1';
 const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png',
-  './vendor/maplibre-gl.js', './vendor/leaflet-maplibre-gl.js'];
+  './vendor/maplibre-gl.js', './vendor/maplibre-gl.css'];
 const TILE_HOSTS = ['cyberjapandata.gsi.go.jp', 'tile.openstreetmap.org', 'server.arcgisonline.com'];
 const MAX_TILES = 4000, MAX_IMGS = 120;
 
@@ -29,7 +29,8 @@ async function trim(name, max) {
 async function cacheFirst(req, name, max) {
   const c = await caches.open(name);
   const hit = await c.match(req, { ignoreVary: true });
-  if (hit) return hit;
+  // an opaque (no-cors) copy can't answer a CORS request such as a MapLibre tile fetch
+  if (hit && !(hit.type === 'opaque' && req.mode === 'cors')) return hit;
   const res = await fetch(req);
   if (res && (res.ok || res.type === 'opaque')) {
     c.put(req, res.clone()).then(() => { if (Math.random() < 0.05) trim(name, max); });

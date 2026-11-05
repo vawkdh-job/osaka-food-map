@@ -7,6 +7,7 @@ import { readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = '1'; // let page.route see service-worker fetches
 const { chromium, devices } = createRequire(import.meta.url)('playwright');
 import { routeOFM } from './mock-vector.mjs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -14,7 +15,7 @@ const SHOTS = process.argv[2] || join(ROOT, 'tests', 'shots');
 mkdirSync(SHOTS, { recursive: true });
 
 // ---------- static server (localhost counts as a secure context, like https) ----------
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   if (p.endsWith('/')) p += 'index.html';
@@ -63,31 +64,32 @@ async function newPhone(opts = {}) {
       const mode = t[key] || 'ok';
       if (mode === 'fail') return route.abort('connectionrefused');
       if (typeof mode === 'number') await new Promise(r => setTimeout(r, mode));
-      try { await route.fulfill({ status: 200, contentType: 'image/png', body: TILE[key] }); } catch {}
+      try { await route.fulfill({ status: 200, contentType: 'image/png', headers: { 'access-control-allow-origin': '*' }, body: TILE[key] }); } catch {}
     });
   }
   await ctx.route(/^https?:\/\/(?!localhost)(?!.*(cartocdn|gsi\.go\.jp|openstreetmap|arcgisonline|openfreemap))/, r => r.abort()); // photos etc.
   if (opts.clock) await page.clock.setFixedTime(new Date(opts.clock));
   return { ctx, page, log };
 }
+const ready = page => page.waitForFunction(() => window.__ofm && window.__ofm.ready(), null, { timeout: 20000 }).catch(() => {});
 const appState = page => page.evaluate(() => { const a = window.__ofm; return { sort: a.S.sort, ref: a.S.ref, day: a.S.day, view: a.S.view, provider: a.provider(),
   rows: a.rows().filter(x => x.r).map(x => ({ id: x.r.id, region: x.r.region, d: x.d })), me: a.me(), sheet: a.sheetPx() }; });
-const visibleIcons = page => page.evaluate(() => [...document.querySelectorAll('.leaflet-marker-pane .pin, .leaflet-marker-pane .cl')].length);
+const visibleIcons = page => page.evaluate(() => [...document.querySelectorAll('.mk .pin, .mk .cl')].length);
 
 // ======================================================================
 console.log('1. iPhone 13 · first open, no location permission');
 {
   const { ctx, page, log } = await newPhone();
-  await page.goto(URL0); await page.waitForTimeout(1500);
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(800);
   const st = await appState(page);
   check(st.rows.length === 30, '30 restaurants listed', String(st.rows.length));
   check(st.sort === 'tabelog' && st.ref === 'hotel', 'default sort Tabelog, distance from hotel');
-  const counts = await page.evaluate(() => { let n = 0; document.querySelectorAll('.leaflet-marker-pane .pin').forEach(() => n++);
-    document.querySelectorAll('.leaflet-marker-pane .cl b').forEach(b => n += parseInt(b.textContent)); return n; });
+  const counts = await page.evaluate(() => { let n = 0; document.querySelectorAll('.mk .pin').forEach(() => n++);
+    document.querySelectorAll('.mk .cl b').forEach(b => n += parseInt(b.textContent)); return n; });
   check(counts === 30, 'pins + cluster members account for all 30', String(counts));
   const first = await page.locator('.item').first().innerText();
   check(first.includes('무기토멘스케') && first.includes('3.90'), 'top item is highest Tabelog (3.90)');
-  const pinText = await page.locator('.leaflet-marker-pane .pin b').first().innerText().catch(() => '');
+  const pinText = await page.locator('.mk .pin b').first().innerText().catch(() => '');
   check(/^\d\.\d\d$/.test(pinText), 'pins show Tabelog score', pinText);
   const ui = await page.evaluate(() => { const H = innerHeight, top = document.querySelector('#topbar').getBoundingClientRect().bottom, sh = document.querySelector('#sheet').getBoundingClientRect().top;
     return { mapVisiblePct: Math.round((sh - top) / H * 100), searchFont: getComputedStyle(document.querySelector('#q')).fontSize }; });
@@ -97,18 +99,27 @@ console.log('1. iPhone 13 · first open, no location permission');
   const tf = await page.evaluate(() => { const st = window.__ofm.glStyle(); return st && Object.fromEntries(st.layers.filter(l => l.layout && l.layout['text-field']).map(l => [l.id, JSON.stringify(l.layout['text-field'])])); });
   check(tf && tf.place_label === '["coalesce",["get","name:ko"],["get","name"]]' && tf.housenumber === '"{housenumber}"', 'labels use name:ko → Japanese fallback; house numbers untouched', JSON.stringify(tf));
   check((await page.evaluate(() => window.__ofm.tiles().ok)) > 0, 'vector tiles rendered');
+  check(tf && tf.poi_transit && tf.poi_transit.includes('format') && tf.poi_transit.includes('name:ko'), 'station labels: Korean with Japanese underneath', tf && tf.poi_transit);
+  const poiVis = await page.evaluate(() => { const st = window.__ofm.glStyle(); const v = id => (st.layers.find(l => l.id === id).layout || {}).visibility || 'visible'; return { shop: v('poi_r1'), transit: v('poi_transit') }; });
+  check(poiVis.shop === 'none' && poiVis.transit === 'visible', 'shop icons hidden, stations kept', JSON.stringify(poiVis));
+  const align = await page.evaluate(() => { const a = window.__ofm, m = a.map(); const out = [];
+    for (const [id, p] of a.markers) { if (!p.on) continue; const r = p.el.getBoundingClientRect(), q = m.project([p.r.lon, p.r.lat]), c = m.getContainer().getBoundingClientRect();
+      out.push(Math.hypot(r.left - c.left - q.x - (p.m.getOffset().x || 0), r.top - c.top - q.y)); } return { n: out.length, max: Math.max(0, ...out) }; });
+  check(align.n > 0 && align.max < 1.5, 'pins sit exactly on their coordinates', JSON.stringify(align));
+  const pad = await page.evaluate(() => window.__ofm.map().getPadding());
+  check(pad.top === 0 && pad.bottom === 0, 'camera padding not left behind by fitBounds', JSON.stringify(pad));
   check(await page.locator('#toast.show').count() === 1, 'hint toast about ◎ button shown');
   await page.waitForTimeout(5000);
   await page.screenshot({ path: join(SHOTS, '01_iphone_first_open.png') });
   // pinch zoom with two fingers
-  const z0 = await page.evaluate(() => window.__ofm.map.getZoom());
+  const z0 = await page.evaluate(() => window.__ofm.map().getZoom());
   const cdp = await ctx.newCDPSession(page);
   const pts = (d) => [{ x: 195 - d, y: 330, id: 1 }, { x: 195 + d, y: 330, id: 2 }];
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: pts(30) });
   for (let d = 30; d <= 130; d += 10) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: pts(d) }); await page.waitForTimeout(16); }
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await page.waitForTimeout(800);
-  const z1 = await page.evaluate(() => window.__ofm.map.getZoom());
+  const z1 = await page.evaluate(() => window.__ofm.map().getZoom());
   check(z1 > z0, 'two-finger pinch zooms the map', `${z0} → ${z1}`);
   check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
   await ctx.close();
@@ -117,7 +128,7 @@ console.log('1. iPhone 13 · first open, no location permission');
 console.log('2. Location granted, standing at Dotonbori');
 {
   const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 25 } });
-  await page.goto(URL0); await page.waitForTimeout(2500);
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
   const st = await appState(page);
   check(!!st.me, 'location acquired automatically (permission already granted)');
   check(st.ref === 'me' && st.sort === 'nearby', 'switched to “near me, by rating”', `${st.ref}/${st.sort}`);
@@ -126,7 +137,7 @@ console.log('2. Location granted, standing at Dotonbori');
   check(nearTop.every(r => r.d < 1.2), 'top 8 within ~20 min walk', nearTop.map(r => r.d.toFixed(2)).join(','));
   const scores = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).slice(0, 6).map(x => x.r.tabelog));
   check(scores.every((v, i) => i === 0 || v <= scores[i - 1]), 'nearby group sorted by Tabelog', scores.join(','));
-  check(await page.locator('.meIcon .me').count() === 1, 'blue “me” dot on map');
+  check(await page.locator('.meWrap .me').count() === 1, 'blue “me” dot on map');
   check(await page.locator('#locBtn.follow, #locBtn.on').count() === 1, 'location button shows active');
   const head = await page.locator('.item').first().innerText();
   check(/도보 \d+분/.test(head), 'list shows walking minutes', head.split('\n').find(l => l.includes('도보')));
@@ -150,7 +161,7 @@ console.log('2. Location granted, standing at Dotonbori');
 console.log('3. Location in Seoul (testing before the trip)');
 {
   const { ctx, page, log } = await newPhone({ geo: { latitude: 37.5665, longitude: 126.978, accuracy: 30 } });
-  await page.goto(URL0); await page.waitForTimeout(2500);
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
   const st = await appState(page);
   check(!!st.me && st.ref === 'hotel', 'location shown but distances stay hotel-based');
   check((await page.locator('#toast').innerText()).includes('오사카에서 약'), 'explains it will switch once in Osaka');
@@ -236,14 +247,14 @@ console.log('7. Tile server failures');
 console.log('8. Desktop and small phone layouts');
 {
   const { ctx, page, log } = await newPhone({ device: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 } });
-  await page.goto(URL0); await page.waitForTimeout(2500);
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
   await page.screenshot({ path: join(SHOTS, '08_desktop.png') });
   check(log.errors.length === 0, 'desktop: no JS errors', log.errors.join(' | '));
   await ctx.close();
 }
 {
   const { ctx, page, log } = await newPhone({ device: devices['iPhone SE'] });
-  await page.goto(URL0); await page.waitForTimeout(2500);
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
   const pct = await page.evaluate(() => Math.round((document.querySelector('#sheet').getBoundingClientRect().top - document.querySelector('#topbar').getBoundingClientRect().bottom) / innerHeight * 100));
   check(pct >= 45, 'iPhone SE: map area with sheet collapsed', pct + '%');
   await page.screenshot({ path: join(SHOTS, '09_iphone_se.png') });
@@ -252,7 +263,7 @@ console.log('8. Desktop and small phone layouts');
 }
 {
   const { ctx, page, log } = await newPhone({ device: devices['Pixel 7'], geo: { latitude: 34.7025, longitude: 135.4959, accuracy: 40 } });
-  await page.goto(URL0); await page.waitForTimeout(2500);
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
   const st = await appState(page);
   check(st.rows.slice(0, 5).every(r => r.region === 'north'), 'Android at Osaka Station: Umeda places first');
   await page.screenshot({ path: join(SHOTS, '10_android_umeda.png') });
@@ -271,6 +282,25 @@ console.log('9. Service worker: app opens with no connection');
   await page.reload().catch(() => {}); await page.waitForTimeout(1500);
   const n = await page.locator('.item').count().catch(() => 0);
   check(controlled && n === 30, 'offline reload still shows all 30 restaurants', `controlled=${controlled}, items=${n}`);
+  await ctx.close();
+}
+
+console.log('10. Saved map works with no connection (service worker)');
+{
+  const { ctx, page } = await newPhone({ sw: true });
+  await page.goto(URL0);
+  await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 10000 }).catch(() => {});
+  await page.reload(); await ready(page);
+  await page.locator('#menuBtn').click();
+  await page.locator('#precacheBtn').click();
+  await page.waitForFunction(() => /저장 완료|실패/.test(document.querySelector('#precacheText').textContent), null, { timeout: 90000 }).catch(() => {});
+  const txt = await page.locator('#precacheText').innerText();
+  check(txt.includes('저장 완료'), 'map pre-save finished', txt);
+  await ctx.setOffline(true);
+  await page.reload().catch(() => {}); await ready(page); await page.waitForTimeout(2500);
+  const off = await page.evaluate(() => ({ prov: window.__ofm.provider(), ok: window.__ofm.tiles().ok, ready: window.__ofm.ready() }));
+  check(off.ready && off.prov === 'ko' && off.ok > 0, 'offline: Korean map still draws from saved tiles', JSON.stringify(off));
+  await page.screenshot({ path: join(SHOTS, '11_offline_saved_map.png') });
   await ctx.close();
 }
 
