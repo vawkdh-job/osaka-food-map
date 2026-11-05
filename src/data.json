@@ -1,0 +1,1408 @@
+{
+ "verifiedOn": "2026-11-05",
+ "hotel": {
+  "name": "리가 로열 호텔 오사카",
+  "jp": "リーガロイヤルホテル大阪",
+  "lat": 34.6903,
+  "lon": 135.4873,
+  "address": "大阪府大阪市北区中之島5-3-68"
+ },
+ "restaurants": [
+  {
+   "id": 1,
+   "name": "무기토멘스케",
+   "jp": "麦と麺助",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "라멘",
+   "emoji": "🍜",
+   "tabelog": 3.9,
+   "google": 4.4,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "정교한 간장 라멘. 카운터 위주로 6인 동시 착석이 어렵습니다.",
+   "address": "大阪府大阪市北区豊崎3-4-12",
+   "lat": 34.711311,
+   "lon": 135.500013,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/92190/640x640_rect_92190154.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27104891/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "16:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "16:00"
+     ]
+    ]
+   },
+   "closed": "화요일",
+   "warn": "토요일 저녁은 X(트위터) 사전 예약제"
+  },
+  {
+   "id": 2,
+   "name": "다케우치 우동",
+   "jp": "本格手打 たけうちうどん店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.77,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "닭튀김 붓카케 우동이 인기. 카운터 16석 내외.",
+   "address": "大阪府大阪市北区豊崎5-2-19",
+   "lat": 34.712397,
+   "lon": 135.499601,
+   "coordConf": "high",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/252539/640x640_rect_1ae439fb74cb8e33eb62ba22318fd3d7.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27006684/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:30"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "14:30"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": "면이 다 떨어지면 일찍 마감"
+  },
+  {
+   "id": 3,
+   "name": "우동보 오사카 본점",
+   "jp": "うどん棒 大阪本店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.78,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "사누키 우동과 튀김으로 유명한 전문점.",
+   "address": "大阪府大阪市北区梅田1-1-3 大阪駅前第3ビル B2F",
+   "lat": 34.699131,
+   "lon": 135.499405,
+   "coordConf": "medium",
+   "image": "https://cdn-ak.f.st-hatena.com/images/fotolife/k/kon-kon/20240726/20240726114053.jpg",
+   "credit": "はてなブログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27003766/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:00"
+     ]
+    ]
+   },
+   "closed": "비정기 (공식 홈페이지에 월별 공지)",
+   "warn": "휴무일이 매달 달라요. 가기 전 공식 홈페이지 확인"
+  },
+  {
+   "id": 4,
+   "name": "키스케",
+   "jp": "うどん屋 きすけ",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.76,
+   "google": 4.3,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "쫄깃한 우동과 도미 어묵 튀김이 유명합니다.",
+   "address": "大阪府大阪市北区鶴野町4-1",
+   "lat": 34.709305,
+   "lon": 135.501608,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/201276/640x640_rect_b65f940bc43c2ce2abd71b0504c5e147.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27015342/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "16:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "화요일, 첫째·셋째·다섯째 수요일",
+   "warn": null
+  },
+  {
+   "id": 5,
+   "name": "모에요 멘스케",
+   "jp": "燃えよ麺助",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "라멘",
+   "emoji": "🍜",
+   "tabelog": 3.76,
+   "google": 4.4,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "오리 육수 라멘으로 유명하며 대기 가능성이 큽니다.",
+   "address": "大阪府大阪市福島区福島5-12-21",
+   "lat": 34.696341,
+   "lon": 135.486883,
+   "coordConf": "high",
+   "image": "https://cdn-ak.f.st-hatena.com/images/fotolife/D/Deo1030/20220718/20220718225147.jpg",
+   "credit": "はてなブログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27091454/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "16:00"
+     ]
+    ]
+   },
+   "closed": "월요일",
+   "warn": "카운터 9석"
+  },
+  {
+   "id": 6,
+   "name": "오도루 우동 우메다점",
+   "jp": "踊るうどん 梅田店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.76,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "버섯튀김·고기·온천달걀 우동. 오사카역 앞 빌딩 지하.",
+   "address": "大阪府大阪市北区梅田1-1-3 大阪駅前第3ビル B2F",
+   "lat": 34.698807,
+   "lon": 135.499221,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/330728/640x640_rect_1ac1ef6828a073ac7b1e1a4873ef6e17.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27015312/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "연중무휴",
+   "warn": null
+  },
+  {
+   "id": 7,
+   "name": "우동 산쿠",
+   "jp": "うどん 讃く",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.76,
+   "google": 4.0,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "통밀 우동과 상큼한 스다치 조합.",
+   "address": "大阪府大阪市福島区福島2-8-3",
+   "lat": 34.69454,
+   "lon": 135.486971,
+   "coordConf": "medium",
+   "image": "https://stat.ameba.jp/user_images/20221010/20/panasuke2000/76/df/j/o1080081015186608220.jpg",
+   "credit": "Amebaブログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27066859/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "15:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "15:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "15:00"
+     ]
+    ]
+   },
+   "closed": "화요일",
+   "warn": "2026년 봄에 금요일 임시휴무가 있었음"
+  },
+  {
+   "id": 8,
+   "name": "라멘 진세이 JET",
+   "jp": "ラーメン人生JET",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "라멘",
+   "emoji": "🍜",
+   "tabelog": 3.75,
+   "google": 4.0,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "진한 닭 육수 라멘.",
+   "address": "大阪府大阪市福島区福島7-12-2",
+   "lat": 34.698616,
+   "lon": 135.486614,
+   "coordConf": "high",
+   "image": "https://i0.wp.com/osaka-gourmet01.com/wp-content/uploads/2018/08/c954e9fc471f9a73d07909ed8a084e33.jpg?fit=728%2C728&ssl=1",
+   "credit": "大阪グルメブログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27050827/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "연중무휴",
+   "warn": null
+  },
+  {
+   "id": 9,
+   "name": "큐 야무 철도",
+   "jp": "旧ヤム鐵道",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "카레",
+   "emoji": "🍛",
+   "tabelog": 3.71,
+   "google": 4.0,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "특색 있는 향신료 카레. LUCUA 1100 지하.",
+   "address": "大阪府大阪市北区梅田3-1-3 ルクアイーレ B2F",
+   "lat": 34.702598,
+   "lon": 135.494573,
+   "coordConf": "low",
+   "image": "https://www.torakichi.osaka/2015PHOTO/05kyuyamu/5.jpg",
+   "credit": "とら吉",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27084538/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "LUCUA 휴관일에 따름",
+   "warn": null
+  },
+  {
+   "id": 10,
+   "name": "키지 스카이빌딩점",
+   "jp": "きじ 梅田スカイビル店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "오코노미야키",
+   "emoji": "🥞",
+   "tabelog": 3.68,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "전망대와 묶어 갈 수 있는 오코노미야키. 대기 가능성 높음.",
+   "address": "大阪府大阪市北区大淀中1-1-90 梅田スカイビル B1F",
+   "lat": 34.705384,
+   "lon": 135.490502,
+   "coordConf": "low",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/278242/640x640_rect_031e5d7d1be130cf9745824688f7cdae.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27000322/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "목요일",
+   "warn": null
+  },
+  {
+   "id": 11,
+   "name": "하나쿠지라 본점",
+   "jp": "花くじら 本店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "오뎅",
+   "emoji": "🍢",
+   "tabelog": 3.66,
+   "google": 4.3,
+   "seat": "6명 이상 전화 예약 가능",
+   "seatTag": "reserve",
+   "seatLabel": "6인 전화 예약",
+   "desc": "어묵·무 등 일본식 오뎅.",
+   "address": "大阪府大阪市福島区福島2-8-2",
+   "lat": 34.694576,
+   "lon": 135.487086,
+   "coordConf": "high",
+   "image": "https://stat.ameba.jp/user_images/20250606/11/onose-masao/99/9e/j/o0600045015610767524.jpg",
+   "credit": "Amebaブログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27001230/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "16:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "16:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "16:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "연말연시, 8월",
+   "warn": null
+  },
+  {
+   "id": 12,
+   "name": "만료 히고바시점",
+   "jp": "万両 肥後橋店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "야키니쿠",
+   "emoji": "🥩",
+   "tabelog": 3.65,
+   "google": null,
+   "seat": "예약 추천",
+   "seatTag": "reserve",
+   "seatLabel": "예약 추천",
+   "desc": "금요일 저녁 6인 예약 우선 후보. 호텔에서 비교적 가까움.",
+   "address": "大阪府大阪市西区土佐堀1-6-10 土佐堀トキワビル 1F",
+   "lat": 34.690133,
+   "lon": 135.492359,
+   "coordConf": "medium",
+   "image": "https://stat.ameba.jp/user_images/20250112/16/eririnko5842/12/33/j/o1080080915532320795.jpg",
+   "credit": "Amebaブログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27088182/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "14:30"
+     ],
+     [
+      "16:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "24:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "24:00"
+     ]
+    ]
+   },
+   "closed": "월요일",
+   "warn": "평일 점심은 함박스테이크만"
+  },
+  {
+   "id": 13,
+   "name": "만료 미나미모리마치점",
+   "jp": "万両 南森町店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "야키니쿠",
+   "emoji": "🥩",
+   "tabelog": 3.63,
+   "google": null,
+   "seat": "예약 추천",
+   "seatTag": "reserve",
+   "seatLabel": "예약 추천",
+   "desc": "품질 좋은 야키니쿠. 예약 가능하나 인기 높음.",
+   "address": "大阪府大阪市北区南森町1-2-14 ロイヤルハイツ 1F",
+   "lat": 34.696257,
+   "lon": 135.509685,
+   "coordConf": "high",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/15207/640x640_rect_15207167.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27002291/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "16:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "16:00",
+      "24:00"
+     ]
+    ],
+    "sun": [
+     [
+      "16:00",
+      "24:00"
+     ]
+    ]
+   },
+   "closed": "월요일·공휴일",
+   "warn": "예약이 약 2개월 밀려 있다는 후기 있음"
+  },
+  {
+   "id": 14,
+   "name": "엔도 스시 중앙시장점",
+   "jp": "ゑんどう寿司 中央市場店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "스시",
+   "emoji": "🍣",
+   "tabelog": 3.59,
+   "google": 4.4,
+   "seat": "대기 확인",
+   "seatTag": "check",
+   "seatLabel": "좌석 확인",
+   "desc": "중앙도매시장 인근 초밥 전문점. 영업 시간 확인 필요.",
+   "address": "大阪府大阪市福島区野田1-1-86 大阪市中央卸売市場",
+   "lat": 34.684042,
+   "lon": 135.477384,
+   "coordConf": "medium",
+   "image": "https://image.co-trip.jp/common/userpost/images_l/202209/96114_03101828_main_28589619.jpg",
+   "credit": "ことりっぷ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27002698/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "05:00",
+      "14:00"
+     ]
+    ],
+    "sat": [
+     [
+      "05:00",
+      "14:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null
+  },
+  {
+   "id": 15,
+   "name": "그릴 론 한큐삼번가점",
+   "jp": "グリル ロン 阪急三番街店",
+   "region": "north",
+   "area": "우메다·후쿠시마",
+   "kind": "양식",
+   "emoji": "🍳",
+   "tabelog": 3.49,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "함박스테이크·오므라이스. 약 20석, 예약 불가.",
+   "address": "大阪府大阪市北区芝田1-1-3 阪急三番街 南館B2F",
+   "lat": 34.70536,
+   "lon": 135.498569,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/127231/640x640_rect_127231530.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27002481/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "한큐삼번가 휴관일에 따름",
+   "warn": null
+  },
+  {
+   "id": 16,
+   "name": "멘야 조로쿠",
+   "jp": "麺屋 丈六 なんば店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "라멘",
+   "emoji": "🍜",
+   "tabelog": 3.73,
+   "google": 3.8,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "진한 간장 육수의 라멘. 좁은 골목의 인기 가게.",
+   "address": "大阪府大阪市中央区難波千日前6-16",
+   "lat": 34.663723,
+   "lon": 135.504868,
+   "coordConf": "high",
+   "image": "https://blog-imgs-158.fc2.com/t/u/s/tushio/20250331125805481.jpg",
+   "credit": "USHIO BLOG",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27084754/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null
+  },
+  {
+   "id": 17,
+   "name": "치토세 본점",
+   "jp": "千とせ 本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.72,
+   "google": 4.1,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "니쿠스이(소고기 국물 요리)로 유명.",
+   "address": "大阪府大阪市中央区難波千日前8-1",
+   "lat": 34.664028,
+   "lon": 135.50393,
+   "coordConf": "medium",
+   "image": "https://assets.st-note.com/img/1762657320-WRta8fH0mqzL5Q2Cnvr3IeGB.jpg?fit=bounds&height=640&quality=85&width=640",
+   "credit": "note",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27002763/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "10:30",
+      "14:30"
+     ]
+    ],
+    "sat": [
+     [
+      "10:30",
+      "14:30"
+     ]
+    ],
+    "sun": [
+     [
+      "10:30",
+      "14:30"
+     ]
+    ]
+   },
+   "closed": "화요일",
+   "warn": "예전 정보에는 금요일도 휴무. 재료 소진 시 마감"
+  },
+  {
+   "id": 18,
+   "name": "크레프리 알숑",
+   "jp": "クレープリー・アルション",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "카페·디저트",
+   "emoji": "☕",
+   "tabelog": 3.72,
+   "google": 4.3,
+   "seat": "4명 이상 예약 불가·현장 대기",
+   "seatTag": "hard",
+   "seatLabel": "현장 대기",
+   "desc": "크레프와 갈레트 전문점. 식사 이용에 한해 예약 가능.",
+   "address": "大阪府大阪市中央区難波1-4-18",
+   "lat": 34.667401,
+   "lon": 135.502242,
+   "coordConf": "high",
+   "image": "https://image.co-trip.jp/content/14renewal_images_l/638934/sectionImage_8_1_20231222195833163.jpg",
+   "credit": "ことりっぷ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27003897/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "정보 없음",
+   "warn": null
+  },
+  {
+   "id": 19,
+   "name": "나니와 멘지로",
+   "jp": "なにわ麺次郎",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "라멘",
+   "emoji": "🍜",
+   "tabelog": 3.71,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "맑은 조개 육수 라멘. 긴테쓰 오사카난바역 내부.",
+   "address": "大阪府大阪市中央区難波4-1-17 近鉄大阪難波駅構内",
+   "lat": 34.667164,
+   "lon": 135.498994,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/257297/640x640_rect_ee1fef1d16447633a06e5a2aae051dbe.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27112089/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:30"
+     ]
+    ]
+   },
+   "closed": "셋째 화요일",
+   "warn": "긴테쓰 오사카난바역 개찰구 안쪽"
+  },
+  {
+   "id": 20,
+   "name": "살롱 드 테 알숑",
+   "jp": "サロン・ド・テ・アルション 法善寺本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "카페·디저트",
+   "emoji": "☕",
+   "tabelog": 3.7,
+   "google": 4.3,
+   "seat": "예약 확인",
+   "seatTag": "check",
+   "seatLabel": "예약 확인",
+   "desc": "홍차와 케이크로 유명한 카페. 좌석이 제한적입니다.",
+   "address": "大阪府大阪市中央区難波1-6-20",
+   "lat": 34.668061,
+   "lon": 135.501957,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/95472/640x640_rect_95472675.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001538/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "closed": "비정기",
+   "warn": "20:00에 닫는다는 정보도 있음"
+  },
+  {
+   "id": 21,
+   "name": "후쿠타로 본점",
+   "jp": "福太郎 本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "오코노미야키",
+   "emoji": "🥞",
+   "tabelog": 3.69,
+   "google": 4.2,
+   "seat": "대기·소규모",
+   "seatTag": "hard",
+   "seatLabel": "6인 어려움",
+   "desc": "네기야키와 오코노미야키 백명점. 예약 불가.",
+   "address": "大阪府大阪市中央区千日前2-3-17",
+   "lat": 34.665581,
+   "lon": 135.504533,
+   "coordConf": "low",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/274831/640x640_rect_fed95b1e712b1ece3055440fb5c91d41.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27002665/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "23:30"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "23:30"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "23:30"
+     ]
+    ]
+   },
+   "closed": "연말연시",
+   "warn": "평일은 저녁만 영업"
+  },
+  {
+   "id": 22,
+   "name": "준킷사 아메리칸",
+   "jp": "純喫茶 アメリカン",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "카페·디저트",
+   "emoji": "☕",
+   "tabelog": 3.64,
+   "google": 3.8,
+   "seat": "6인 비교적 유리",
+   "seatTag": "ok",
+   "seatLabel": "6인 OK",
+   "desc": "복고풍 실내, 핫케이크·커피. 약 245석 규모.",
+   "address": "大阪府大阪市中央区道頓堀1-7-4",
+   "lat": 34.668363,
+   "lon": 135.502935,
+   "coordConf": "high",
+   "image": "https://news.walkerplus.com/article/137323/768922_615.jpg",
+   "credit": "Walkerplus",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27005758/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "21:45"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "21:45"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "21:45"
+     ]
+    ]
+   },
+   "closed": "연중무휴",
+   "warn": null
+  },
+  {
+   "id": 23,
+   "name": "아지노야 본점",
+   "jp": "味乃家 本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "오코노미야키",
+   "emoji": "🥞",
+   "tabelog": 3.59,
+   "google": 4.2,
+   "seat": "예약 추천",
+   "seatTag": "reserve",
+   "seatLabel": "예약 추천",
+   "desc": "토요일 점심 추천. 사전 예약 확인 가능.",
+   "address": "大阪府大阪市中央区難波1-7-16 現代こいさんビル 2F",
+   "lat": 34.668055,
+   "lon": 135.500957,
+   "coordConf": "high",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/205477/640x640_rect_0bc91e3f627dec505ca5d97ba2497f55.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001439/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "월요일",
+   "warn": null
+  },
+  {
+   "id": 24,
+   "name": "도톤보리 이마이 본점",
+   "jp": "道頓堀 今井 本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "우동",
+   "emoji": "🍲",
+   "tabelog": 3.58,
+   "google": 4.2,
+   "seat": "6인 비교적 유리",
+   "seatTag": "ok",
+   "seatLabel": "6인 OK",
+   "desc": "키츠네 우동과 육수. 일반 식사는 현장 대기.",
+   "address": "大阪府大阪市中央区道頓堀1-7-22",
+   "lat": 34.668629,
+   "lon": 135.502685,
+   "coordConf": "high",
+   "image": "https://cdn.sarah30.com/reviews/photos/000/701/844/x_large/9eec214f28899c584341df8602b08f6de43770bc.jpg",
+   "credit": "SARAH",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001289/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "수요일, 넷째 화요일",
+   "warn": null
+  },
+  {
+   "id": 25,
+   "name": "모에기",
+   "jp": "Moegi お好み焼き",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "오코노미야키",
+   "emoji": "🥞",
+   "tabelog": 3.56,
+   "google": 4.7,
+   "seat": "예약 확인",
+   "seatTag": "check",
+   "seatLabel": "예약 확인",
+   "desc": "오코노미야키 전문점. 이전한 현 주소 확인.",
+   "address": "大阪府大阪市中央区難波千日前7-2 河原ハイツ 1F",
+   "lat": 34.663589,
+   "lon": 135.504721,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/318921/640x640_rect_62b5c1a48e1fd554f22487828c5739d3.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27113630/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "24:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "24:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null
+  },
+  {
+   "id": 26,
+   "name": "구로몬 미요시",
+   "jp": "黒門 三よ志",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "오코노미야키",
+   "emoji": "🥞",
+   "tabelog": 3.54,
+   "google": null,
+   "seat": "대기 확인",
+   "seatTag": "check",
+   "seatLabel": "좌석 확인",
+   "desc": "구로몬시장 일대 부침개·교자 후보.",
+   "address": "大阪府大阪市中央区日本橋1-16-4",
+   "lat": 34.666441,
+   "lon": 135.507588,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/132397/640x640_rect_ff3c9a6c0c135055d204763275644fc9.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27000399/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "월·목·일요일, 공휴일",
+   "warn": null
+  },
+  {
+   "id": 27,
+   "name": "리쿠로 아저씨 난바 본점",
+   "jp": "りくろーおじさんの店 なんば本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "카페·디저트",
+   "emoji": "☕",
+   "tabelog": 3.51,
+   "google": 4.2,
+   "seat": "포장 추천",
+   "seatTag": "takeout",
+   "seatLabel": "포장 추천",
+   "desc": "따뜻한 치즈케이크를 포장해서 나눠 먹기 좋음.",
+   "address": "大阪府大阪市中央区難波3-2-28",
+   "lat": 34.666111,
+   "lon": 135.501512,
+   "coordConf": "high",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/245572/640x640_rect_7a418913dc69e2d650cb55ffe869cabc.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27002336/",
+   "fav": false,
+   "hours": {
+    "fri": [
+     [
+      "09:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "09:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "09:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "정보 없음",
+   "warn": "1층 매장 기준. 2층 카페는 11:30–18:00(금)/19:00(토·일)"
+  },
+  {
+   "id": 28,
+   "name": "와나카 센니치마에 본점",
+   "jp": "たこ焼道楽 わなか 千日前本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "타코야키",
+   "emoji": "🐙",
+   "tabelog": 3.49,
+   "google": 4.3,
+   "seat": "포장 추천",
+   "seatTag": "takeout",
+   "seatLabel": "포장 추천",
+   "desc": "오사카 대표 타코야키. 간단히 나눠 먹기 좋음.",
+   "address": "大阪府大阪市中央区難波千日前11-19",
+   "lat": 34.665196,
+   "lon": 135.503414,
+   "coordConf": "medium",
+   "image": "https://tblg.k-img.com/restaurant/images/Rvw/324494/640x640_rect_d1b3483ab6a2eae49df0012687c1f908.jpg",
+   "credit": "食べログ",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27002320/",
+   "fav": false,
+   "hours": {
+    "fri": null,
+    "sat": null,
+    "sun": null
+   },
+   "closed": "연중무휴",
+   "warn": "영업시간이 출처마다 달라요 (대략 10:00–21:00)"
+  },
+  {
+   "id": 29,
+   "name": "홋쿄쿠세이 신사이바시 본점",
+   "jp": "北極星 心斎橋本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "양식",
+   "emoji": "🍳",
+   "tabelog": 3.42,
+   "google": 4.2,
+   "seat": "6인 비교적 유리",
+   "seatTag": "ok",
+   "seatLabel": "6인 OK",
+   "desc": "일본식 오므라이스를 차분하게 즐길 수 있는 곳.",
+   "address": "大阪府大阪市中央区西心斎橋2-7-27",
+   "lat": 34.669656,
+   "lon": 135.498725,
+   "coordConf": "high",
+   "image": "https://imgcp.aacdn.jp/img-a/800/auto/aa/gm/article/3/9/9/4/0/2/800__ZmFhM2NjYWI3ODcz.jpg",
+   "credit": "All About",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001274/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "정보 없음",
+   "warn": null
+  },
+  {
+   "id": 30,
+   "name": "마루후쿠 커피 센니치마에",
+   "jp": "丸福珈琲店 千日前本店",
+   "region": "south",
+   "area": "난바·신사이바시",
+   "kind": "카페·디저트",
+   "emoji": "☕",
+   "tabelog": 3.42,
+   "google": 4.2,
+   "seat": "6인 비교적 유리",
+   "seatTag": "ok",
+   "seatLabel": "6인 OK",
+   "desc": "오래된 일본식 카페. 핫케이크와 진한 커피.",
+   "address": "大阪府大阪市中央区千日前1-9-1",
+   "lat": 34.667565,
+   "lon": 135.50405,
+   "coordConf": "high",
+   "image": "https://cdn.sarah30.com/reviews/photos/000/746/917/large/950b0f3ac661174134ca721c26109c7947c29178.jpg",
+   "credit": "SARAH",
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001450/",
+   "fav": true,
+   "hours": {
+    "fri": [
+     [
+      "08:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "08:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "1월 1일",
+   "warn": null
+  }
+ ]
+}
