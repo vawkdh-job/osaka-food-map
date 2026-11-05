@@ -108,6 +108,7 @@ body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none
 /* ---------- bottom sheet ---------- */
 .sheet{position:fixed;z-index:40;left:0;right:0;bottom:0;height:var(--sheet-h);background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -4px 24px #0f2f3a2e;display:flex;flex-direction:column;transition:height .25s cubic-bezier(.2,.8,.2,1)}
 .sheet.dragging{transition:none}
+@media (max-width:899px){.sheet:not([data-state=full]) .sheetBody{overflow-y:hidden;touch-action:pan-x}}
 .sheetHead{flex:0 0 auto;padding:7px 14px 7px;touch-action:none;cursor:grab;user-select:none}
 .handle{width:42px;height:5px;border-radius:3px;background:#cfd8db;margin:0 auto 7px}
 .headRow{display:flex;align-items:center;gap:8px}
@@ -1191,15 +1192,30 @@ function setSheet(state){
   sheetState=state;sheet.dataset.state=state;applySheet(heights()[state]);setMapBottom(sheetPx);
   document.body.classList.toggle('sheet-half',state==='half');document.body.classList.toggle('sheet-full',state==='full');
 }
+/* Sheet dragging, like Google/Naver Maps:
+   - the top strip drags anywhere, also over the 기준/정렬 menus (a plain tap still opens them);
+   - when the sheet is not full, dragging the list itself moves the sheet (the list scrolls once it is full);
+   - when full and scrolled to the top, pulling the list down brings the sheet down. */
 (function sheetDrag(){
-  const head=$('#sheetHead');let y0=0,h0=0,moved=false,lastY=0,lastT=0,vel=0,active=false;
-  head.addEventListener('pointerdown',e=>{if(isDesktop()||e.target.closest('select,button,label'))return;active=true;moved=false;y0=lastY=e.clientY;lastT=e.timeStamp;h0=sheetPx;sheet.classList.add('dragging');head.setPointerCapture(e.pointerId)});
-  head.addEventListener('pointermove',e=>{if(!active)return;const dy=e.clientY-y0;if(Math.abs(dy)>6)moved=true;if(!moved)return;
-    const H=heights();applySheet(Math.max(H.peek*.75,Math.min(H.full,h0-dy)));const dt=e.timeStamp-lastT;if(dt>0)vel=(e.clientY-lastY)/dt;lastY=e.clientY;lastT=e.timeStamp});
-  const end=()=>{if(!active)return;active=false;sheet.classList.remove('dragging');
-    if(!moved){setSheet(sheetState==='peek'?'half':sheetState==='half'?'full':'half');return}
-    const H=heights(),proj=sheetPx-vel*180;const st=Object.keys(H).reduce((a,k)=>Math.abs(H[k]-proj)<Math.abs(H[a]-proj)?k:a,'peek');setSheet(st)};
-  head.addEventListener('pointerup',end);head.addEventListener('pointercancel',end);
+  const head=$('#sheetHead'),body=$('#sheetBody');let y0=0,h0=0,moved=false,lastY=0,lastT=0,vel=0,active=false,pid=null,tmode=null,tx0=0;
+  const begin=(y,t)=>{y0=lastY=y;lastT=t;h0=sheetPx;moved=false;vel=0};
+  const move=(y,t)=>{const dy=y-y0;if(!moved&&Math.abs(dy)>6){moved=true;sheet.classList.add('dragging')}if(!moved)return false;
+    const H=heights();applySheet(Math.max(H.peek*.75,Math.min(H.full,h0-dy)));const dt=t-lastT;if(dt>0)vel=(y-lastY)/dt;lastY=y;lastT=t;return true};
+  const finish=tap=>{sheet.classList.remove('dragging');
+    if(!moved){if(tap)setSheet(sheetState==='peek'?'half':sheetState==='half'?'full':'half');return}
+    moved=false;const H=heights(),proj=sheetPx-vel*180;setSheet(Object.keys(H).reduce((a,k)=>Math.abs(H[k]-proj)<Math.abs(H[a]-proj)?k:a,'peek'))};
+  head.addEventListener('pointerdown',e=>{if(isDesktop()||e.button>0)return;active=true;pid=e.pointerId;begin(e.clientY,e.timeStamp)});
+  // follow the pointer over the whole window (a mouse leaves the strip at once); capture only after it really moves
+  window.addEventListener('pointermove',e=>{if(!active||e.pointerId!==pid)return;const was=moved;if(move(e.clientY,e.timeStamp)&&!was)try{head.setPointerCapture(pid)}catch(_){}});
+  const end=e=>{if(!active||e.pointerId!==pid)return;active=false;const onMenu=!!(e.target.closest&&e.target.closest('select,label,button'));finish(e.type==='pointerup'&&!onMenu&&head.contains(e.target))};
+  window.addEventListener('pointerup',end);window.addEventListener('pointercancel',end);
+  body.addEventListener('touchstart',e=>{if(isDesktop()||e.touches.length!==1){tmode='native';return}const t=e.touches[0];tmode=null;tx0=t.clientX;begin(t.clientY,e.timeStamp)},{passive:true});
+  body.addEventListener('touchmove',e=>{if(tmode==='native')return;const t=e.touches[0],dx=t.clientX-tx0,dy=t.clientY-y0;
+    if(tmode==null){if(Math.abs(dx)<3&&Math.abs(dy)<3)return;
+      tmode=Math.abs(dx)>Math.abs(dy)?'native':sheetState!=='full'||(body.scrollTop<=0&&dy>0)?'drag':'native'}
+    if(tmode==='drag'){if(e.cancelable)e.preventDefault();move(t.clientY,e.timeStamp)}},{passive:false});
+  const tend=()=>{if(tmode==='drag')finish(false);tmode=null};
+  body.addEventListener('touchend',tend);body.addEventListener('touchcancel',tend);
 })();
 window.addEventListener('resize',()=>{setSheet(sheetState==='desk'?'peek':sheetState);document.documentElement.style.setProperty('--top-h',$('#topbar').getBoundingClientRect().bottom+'px');if(map)map.resize()});
 

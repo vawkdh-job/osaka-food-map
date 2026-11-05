@@ -214,6 +214,19 @@ console.log('5. Bottom sheet drag and filters');
   await page.mouse.up(); await page.waitForTimeout(400);
   const h1 = (await appState(page)).sheet;
   check(h1 > h0 + 200, 'dragging the handle up expands the sheet', `${h0} → ${h1}px`);
+  { // finger drags: on the 정렬 menu, on the list itself, and pulling a full list down from the top
+    const cdp = await page.context().newCDPSession(page), H = await page.evaluate(() => innerHeight);
+    const t = (type, x, y) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
+    const fdrag = async (x, y0, y1) => { await t('touchStart', x, y0); for (let i = 1; i <= 12; i++) { await t('touchMove', x, y0 + (y1 - y0) * i / 12); await page.waitForTimeout(16); } await t('touchEnd'); await page.waitForTimeout(450); };
+    const sh = () => page.evaluate(() => document.querySelector('#sheet').dataset.state);
+    await page.evaluate(() => window.__ofm.setSheet('peek')); await page.waitForTimeout(400);
+    const so = await page.locator('#sortText').boundingBox(); await fdrag(so.x + so.width / 2, so.y + so.height / 2, 150); const a = await sh();
+    const so2 = await page.locator('#sortText').boundingBox(); await fdrag(so2.x + so2.width / 2, so2.y + so2.height / 2, H - 100); const b = await sh();
+    const bd = await page.locator('#sheetBody').boundingBox(); await fdrag(200, bd.y + 50, 140); const c = await sh();
+    await page.locator('#sheetBody').evaluate(e => e.scrollTop = 0); const bd2 = await page.locator('#sheetBody').boundingBox(); await fdrag(200, bd2.y + 40, bd2.y + 380); const d = await sh();
+    check(a === 'full' && b === 'peek' && c === 'full' && d !== 'full', 'finger drags move the sheet (on the menus, on the list, pull-down from the top)', [a, b, c, d].join(' → '));
+    await cdp.detach();
+  }
   await page.locator('#filterChip').click(); await page.locator('[data-mint="3.7"]').click(); await page.waitForTimeout(150);
   const applyTxt = await page.locator('#filterApply').innerText();
   await page.locator('#filterApply').click(); await page.waitForTimeout(200);
