@@ -224,6 +224,16 @@ console.log('5. Bottom sheet drag and filters');
   await page.locator('#genreChip').click(); await page.locator('[data-genre="udon"]').click(); await page.waitForTimeout(200);
   const kinds = await page.evaluate(() => [...new Set(window.__ofm.rows().filter(x => x.r).map(x => x.r.genre))]);
   check(kinds.length === 1 && kinds[0] === '우동', '“뭐 먹지?” picker → udon only', kinds.join(','));
+  check((await page.locator('#catBar .cat.on').innerText()).includes('우동'), 'the picked menu shows in the food-type strip');
+  await page.locator('#catBar .cat.on').click(); await page.waitForTimeout(200);   // ✕ clears it
+  await page.locator('#catBar [data-cat="c-noodle"]').click(); await page.waitForTimeout(200);
+  const noodle = await page.evaluate(() => { const R = window.__ofm.rows().filter(x => x.r);
+    return { n: R.length, all: R.every(x => window.__ofm.catsOf(x.r).includes('c-noodle')), g: [...new Set(R.map(x => x.r.genre))] }; });
+  check(noodle.n > 0 && noodle.all && noodle.g.length >= 2, 'food-type strip → 면요리 groups several menus', `${noodle.n}: ${noodle.g.join(',')}`);
+  await page.locator('#catBar [data-cat="c-noodle"]').click(); await page.waitForTimeout(200);
+  check(await page.evaluate(() => window.__ofm.S.genre === 'all'), 'tapping the selected food type again clears it');
+  const untyped = await page.evaluate(() => APP_DATA.restaurants.filter(r => !window.__ofm.catsOf(r).length).map(r => r.name));
+  check(untyped.length === 0, 'every shop belongs to at least one food type', untyped.join(','));
   await page.locator('#filterChip').click(); await page.locator('#filterReset').click(); await page.locator('[data-f="card"]').check(); await page.waitForTimeout(150);
   const cards = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).every(x => x.r.pay.card === true));
   check(cards, 'card-payment filter keeps only card-OK shops');

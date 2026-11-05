@@ -343,6 +343,17 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .phr{border:0;background:var(--soft);border-radius:14px}
 .toast{border-radius:14px;background:#0f172aee}
 @media (min-width:900px){.panel{border-radius:22px}.panel::before{display:none}.searchRow .iconBtn{background:var(--soft)}}
+
+/* food-type strip */
+.catBar{position:sticky;top:0;z-index:3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 10px;background:#fff}
+.catBar::-webkit-scrollbar{display:none}
+.cat{flex:none;display:inline-flex;align-items:center;gap:5px;height:38px;padding:0 13px;border:0;border-radius:19px;background:var(--soft);font-size:14px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.cat .ce{font-size:17px;line-height:1}.cat small{font-size:11.5px;font-weight:650;color:var(--muted);margin-left:1px}
+.cat.on{background:var(--ink);color:#fff}.cat.on small{color:#cbd5e1}.cat:disabled{opacity:.4}
+.sheet.detailing .catBar{display:none}
+.gH{font-size:14px;font-weight:800;color:var(--ink2);margin:14px 2px 8px}.gH:first-child{margin-top:4px}
+.gGrid{grid-template-columns:repeat(4,1fr)}.gBtn{min-height:86px;padding:10px 2px}.gBtn span{font-size:27px}.gBtn b{font-size:12.5px;word-break:keep-all}
+@media (max-width:360px){.gGrid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -355,7 +366,6 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
   </div>
   <div class="chips" id="chips">
     <button class="chip big" id="genreChip">🍽 뭐 먹지?</button>
-    <button class="chip" id="cafeChip" aria-pressed="false">☕ 카페</button>
     <label class="chip sel on" id="dayChip"><span id="dayText">금 11/13</span><select id="day" aria-label="요일 선택"></select></label>
     <button class="chip" id="openChip" aria-pressed="false">휴무 제외</button>
     <label class="chip sel" id="listChip"><span id="listText">전체 목록</span><select id="listSel" aria-label="목록">
@@ -389,6 +399,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
     </div>
   </div>
   <div class="sheetBody" id="sheetBody">
+    <div class="catBar" id="catBar" aria-label="음식 종류"></div>
     <div id="list" role="list"></div>
     <div id="detail" class="detail" hidden></div>
   </div>
@@ -425,7 +436,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="genreTitle">
     <button class="closeX" data-close aria-label="닫기">×</button>
     <h2 id="genreTitle">뭐 먹고 싶어요?</h2>
-    <div class="gGrid" id="genreGrid"></div>
+    <div id="genreGrid"></div>
   </div>
 </div>
 <div class="modal" id="filters" hidden>
@@ -820,6 +831,24 @@ const GENRES=[
   {key:'yoshoku',label:'양식·오므라이스',emoji:'🍳',g:['양식·오므라이스']},{key:'chinese',label:'교자·중식',emoji:'🥟',g:['교자·중식']},
   {key:'cafe',label:'카페·디저트·빵',emoji:'☕',g:['카페·디저트','킷사텐','빵']},{key:'etc',label:'기타',emoji:'🍽',g:['기타']}];
 const genreOf=r=>GENRES.find(x=>x.g.includes(r.genre))||GENRES[GENRES.length-1];
+/* broad food types on top of the detailed menus; Japanese tags (genreJp) let a shop sit in several */
+const tagsOf=r=>r.genreJp||[],hasTag=(r,l)=>tagsOf(r).some(t=>l.includes(t)),isG=(r,l)=>l.includes(r.genre);
+const CATS=[
+  {key:'c-noodle',label:'면요리',emoji:'🍜',q:'ラーメン うどん そば',test:r=>isG(r,['라멘','츠케멘','우동','소바'])||hasTag(r,['ラーメン','つけ麺','うどん','そば','かすうどん','油そば','まぜそば','うどんすき'])},
+  {key:'c-meat',label:'고기',emoji:'🥩',q:'焼肉 焼き鳥 ステーキ',test:r=>isG(r,['야키니쿠','야키토리'])||hasTag(r,['焼肉','ホルモン','ステーキ','ハンバーグ','焼き鳥','しゃぶしゃぶ'])},
+  {key:'c-fried',label:'튀김·카츠',emoji:'🍤',q:'串カツ とんかつ 天ぷら',test:r=>isG(r,['쿠시카츠','돈카츠'])||hasTag(r,['串揚げ','串カツ','とんかつ','天ぷら','唐揚げ'])},
+  {key:'c-kona',label:'오코노미·타코',emoji:'🥞',q:'お好み焼き たこ焼き',test:r=>isG(r,['오코노미야키','타코야키'])||hasTag(r,['お好み焼き','たこ焼き','もんじゃ焼き'])},
+  {key:'c-sea',label:'스시·해산물',emoji:'🍣',q:'寿司 海鮮',test:r=>isG(r,['스시','해산물·덮밥'])||hasTag(r,['寿司','海鮮','海鮮丼','鮮魚店'])},
+  {key:'c-rice',label:'밥·카레·양식',emoji:'🍛',q:'カレー 洋食 丼',test:r=>isG(r,['카레','양식·오므라이스','해산물·덮밥'])||hasTag(r,['カレー','スパイスカレー','インドカレー','カレーライス','オムライス','ハヤシライス','洋食'])},
+  {key:'c-china',label:'중식·교자',emoji:'🥟',q:'中華 餃子',test:r=>isG(r,['교자·중식'])||hasTag(r,['中華料理','餃子','飲茶・点心'])},
+  {key:'c-bar',label:'술집·이자카야',emoji:'🍶',q:'居酒屋 立ち飲み',test:r=>isG(r,['야키토리','이자카야','오뎅','쿠시카츠'])||hasTag(r,['居酒屋'])},
+  {key:'c-snack',label:'간식·길거리',emoji:'🍡',q:'食べ歩き',test:r=>isG(r,['타코야키'])||hasTag(r,['肉まん','ジュースバー','ジューススタンド','ソフトクリーム','アイスクリーム','大福'])||/りくろー|551/.test(r.jp)},
+  {key:'c-cafe',label:'카페',emoji:'☕',q:'カフェ 喫茶店',test:r=>isG(r,['킷사텐'])||hasTag(r,['カフェ','喫茶店','コーヒー専門店','紅茶専門店','コーヒースタンド'])||(isG(r,['카페·디저트'])&&!tagsOf(r).length&&!/りくろー|クレープ/.test(r.jp))},
+  {key:'c-sweet',label:'디저트',emoji:'🍰',q:'スイーツ',test:r=>hasTag(r,['スイーツ','ケーキ','チョコレート','パンケーキ','かき氷','フルーツパーラー','甘味処','和菓子','大福','ソフトクリーム','アイスクリーム'])||/りくろー|クレープ|アルション/.test(r.jp)},
+  {key:'c-bread',label:'빵',emoji:'🥐',q:'パン屋',test:r=>isG(r,['빵'])||hasTag(r,['パン','ベーグル'])}];
+const catsOf=r=>r._cats||(r._cats=CATS.filter(c=>c.test(r)).map(c=>c.key));
+const pickOf=k=>CATS.find(c=>c.key===k)||GENRES.find(g=>g.key===k)||null;
+const matchPick=(r,k)=>k==='all'||(k.startsWith('c-')?catsOf(r).includes(k):genreOf(r).key===k);
 const REGIONS={all:'지역 전체',north:'기타 (우메다·덴마·후쿠시마·나카노시마)',south:'미나미 (난바·신사이바시·도톤보리)',tennoji:'신세카이·덴노지',bay:'오사카항 (가이유칸)'};
 const WAIT={none:{t:'대기 거의 없음',s:'대기 없음',k:0},short:{t:'대기 짧음 (~15분)',s:'대기 짧음',k:1},medium:{t:'대기 보통 (15~40분)',s:'대기 보통',k:2},
   unknown:{t:'대기 정보 없음',s:'',k:2.5},long:{t:'대기 김 (40분~)',s:'대기 김',k:3},very_long:{t:'대기 매우 김 (1시간~)',s:'대기 매우 김',k:4}};
@@ -839,7 +868,7 @@ function passes(r,ignore){
   if(S.list==='top'&&!TOP100.has(r.id))return false;
   if(S.list==='hyaku'&&!HYAKU100.has(r.id))return false;
   if(S.list==='fav'&&!fav.has(r.id))return false;
-  if(S.genre!=='all'&&ignore!=='genre'&&genreOf(r).key!==S.genre)return false;
+  if(S.genre!=='all'&&ignore!=='genre'&&!matchPick(r,S.genre))return false;
   if(f.region!=='all'&&r.region!==f.region)return false;
   if(f.minT&&(r.tabelog==null||r.tabelog<f.minT))return false;
   if(f.prices.length&&!f.prices.includes(r.price))return false;
@@ -853,7 +882,7 @@ function passes(r,ignore){
   if(f.late&&!openAfter(r,S.day,22*60))return false;
   if(S.openOnly){const k=status(r,S.day).kind;if(isLive()?!(k==='open'||k==='closing'||k==='unknown'):k==='closed')return false}
   if(S.q){const q=S.q.toLowerCase();
-    const hay=[r.name,r.jp,r.genre,genreOf(r).label,r.area,r.desc,r.address,r.mustTry,(r.genreJp||[]).join(' '),isHyaku(r)?'백명점 百名店':''];
+    const hay=[r.name,r.jp,r.genre,genreOf(r).label,catsOf(r).map(k=>pickOf(k).label).join(' '),r.area,r.desc,r.address,r.mustTry,(r.genreJp||[]).join(' '),isHyaku(r)?'백명점 百名店':''];
     if(!hay.some(v=>v&&String(v).toLowerCase().includes(q)))return false}
   return true;
 }
@@ -894,11 +923,11 @@ function renderList(){
   const n=rows.filter(x=>x.r).length;
   $('#count').textContent=`${n}곳`;
   let hint='';
-  const gname=S.genre!=='all'?GENRES.find(g=>g.key===S.genre).label:'';
+  const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const near=rows.findIndex(x=>x.divider);const nn=near<0?n:near;hint=`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?gname+' ':''}${nn}곳을 평점 높은 순으로 보여 줘요.</p>`}
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
-  const c=refPoint(),gq=S.genre!=='all'?GENRES.find(g=>g.key===S.genre):null;
-  const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
+  const c=refPoint(),gq=gp;
+  const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.q||gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
   const body=$('#sheetBody'),keep=body.scrollTop;
   // render the first rows now and the rest as the list is scrolled (keeps filter taps fast on slower phones)
   const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
@@ -908,8 +937,18 @@ function renderList(){
   const cf=$('#clearFilters');if(cf)cf.onclick=resetFilters;
   if(S.view==='list'){while(listMore.length&&body.scrollHeight<keep+body.clientHeight+600)moreList();body.scrollTop=keep}
 }
+let catShown=null;
+function renderCats(){
+  const bar=$('#catBar'),sl=bar.scrollLeft,base=DATA.filter(r=>passes(r,'genre'));
+  const cur=S.genre!=='all'&&!S.genre.startsWith('c-')?pickOf(S.genre):null;   // a detailed menu picked in "뭐 먹지?"
+  const items=[{key:'all',label:'전체',emoji:'🍽'},...(cur?[cur]:[]),...CATS];
+  bar.innerHTML=items.map(c=>{const n=c.key==='all'?base.length:base.filter(r=>matchPick(r,c.key)).length,on=S.genre===c.key;
+    return `<button class="cat${on?' on':''}" data-cat="${c.key}" aria-pressed="${on}" ${n||on||c.key==='all'?'':'disabled'}><span class="ce">${c.emoji}</span>${esc(c.label)}${on&&c.key!=='all'?' ✕':''}<small>${n}</small></button>`}).join('');
+  bar.scrollLeft=sl;
+  if(catShown!==S.genre){catShown=S.genre;const on=bar.querySelector('.cat.on');if(on)bar.scrollLeft=Math.max(0,on.offsetLeft-16)}
+}
 function refName(){return S.ref==='me'&&me?'내 위치':S.ref==='center'?'지도 중심':'호텔'}
-function refresh({markers:withMarkers=true}={}){compute();renderList();if(withMarkers)renderMarkers();if(S.view==='detail'&&S.selected)renderDetail();updateChips()}
+function refresh({markers:withMarkers=true}={}){compute();renderCats();renderList();if(withMarkers)renderMarkers();if(S.view==='detail'&&S.selected)renderDetail();updateChips()}
 
 /* ================= detail ================= */
 function dirUrl(dest,dk){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=${dk<1.6?'walking':'transit'}`}
@@ -1162,8 +1201,7 @@ function selText(sel){return sel.options[sel.selectedIndex]?.text||''}
 function updateChips(){
   $('#day').value=S.day;$('#dayText').textContent=selText($('#day'));
   const oc=$('#openChip');oc.textContent=isLive()?'🟢 지금 영업 중':'휴무 제외';oc.classList.toggle('on',S.openOnly);oc.setAttribute('aria-pressed',S.openOnly);
-  const g=GENRES.find(x=>x.key===S.genre&&x.key!=='cafe');$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
-  const cc=$('#cafeChip'),isCafe=S.genre==='cafe';cc.classList.toggle('on',isCafe);cc.setAttribute('aria-pressed',isCafe);cc.textContent=isCafe?'☕ 카페 ✕':'☕ 카페';
+  const g=S.genre!=='all'?pickOf(S.genre):null;$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
   $('#listSel').value=S.list;$('#listText').textContent=selText($('#listSel'));$('#listChip').classList.toggle('on',S.list!=='all');
   const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
@@ -1188,16 +1226,17 @@ $('#zoomIn').onclick=()=>map&&map.zoomIn();$('#zoomOut').onclick=()=>map&&map.zo
 
 /* ---- "뭐 먹지?" genre picker ---- */
 function renderGenres(){
-  const cnt=k=>DATA.filter(r=>passes(r,'genre')&&(k==='all'||genreOf(r).key===k)).length;
-  $('#genreGrid').innerHTML=[{key:'all',label:'전체',emoji:'🍽'},...GENRES].map(g=>{const n=cnt(g.key);
-    return `<button class="gBtn${S.genre===g.key?' on':''}" data-genre="${g.key}" ${n||g.key==='all'?'':'disabled'}><span>${g.emoji}</span><b>${g.label}</b><small>${n}곳</small></button>`}).join('');
+  const base=DATA.filter(r=>passes(r,'genre')),cnt=k=>base.filter(r=>matchPick(r,k)).length;
+  const btn=g=>{const n=cnt(g.key);return `<button class="gBtn${S.genre===g.key?' on':''}" data-genre="${g.key}" ${n||g.key==='all'?'':'disabled'}><span>${g.emoji}</span><b>${g.label.replace(/·/g,'·<wbr>')}</b><small>${n}곳</small></button>`};
+  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류</h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽'},...CATS].map(btn).join('')}</div>
+    <h3 class="gH">세부 메뉴</h3><div class="gGrid">${GENRES.map(btn).join('')}</div>`;
 }
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
 function setGenre(k){S.genre=k;
   if(S.view==='detail')closeDetail();if(!S.sortTouched&&S.ref==='me'&&me)S.sort='nearby';refresh();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()}
 $('#genreGrid').addEventListener('click',e=>{const b=e.target.closest('[data-genre]');if(!b)return;closeModal('#genres');setGenre(b.dataset.genre)});
-$('#cafeChip').onclick=()=>setGenre(S.genre==='cafe'?'all':'cafe');
+$('#catBar').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b||b.disabled)return;const k=b.dataset.cat;setGenre(k===S.genre&&k!=='all'?'all':k)});
 
 /* ---- filters ---- */
 function renderFilters(){
@@ -1331,7 +1370,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={CATS,catsOf,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>
