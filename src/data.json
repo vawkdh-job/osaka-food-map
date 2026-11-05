@@ -16016,6 +16016,2166 @@
    "confidence": "low",
    "src": "minami_noodles",
    "coordDate": "2026-11-05"
+  },
+  {
+   "id": 205,
+   "name": "몰 앤 호소이 커피즈",
+   "jp": "モール&ホソイコーヒーズ",
+   "genre": "킷사텐",
+   "emoji": "☕",
+   "genreJp": [
+    "喫茶店",
+    "コーヒー専門店"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区伏見町3-3-3 芝川ビル B1F",
+   "lat": 34.689117,
+   "lon": 135.50184,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJ0X2gq-bmAGARZv4A_1thZMA",
+   "tabelog": 3.7,
+   "tabelogReviews": 497,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27020048/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2021,
+     "list": "喫茶店 百名店"
+    },
+    {
+     "year": 2022,
+     "list": "喫茶店 百名店"
+    },
+    {
+     "year": 2026,
+     "list": "喫茶店 百名店"
+    }
+   ],
+   "budgetLunch": "～￥999 / ￥1,000～￥1,999 (리뷰 집계)",
+   "budgetDinner": "￥1,000～￥1,999 (리뷰 집계)",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 9,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "카운터 9석뿐이라 만석이면 대기. 입구 안내문에 '1팀 최대 2명, 1시간 정도 이용' 규칙이 있다는 후기",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "1팀 2명까지·조용한 1인 손님 위주 공간이라 아이 동반 가족에겐 비추천",
+   "foreignMenu": null,
+   "mustTry": "아이리시 커피, 오구라(팥) 치즈케이크, 모닝 크로크무슈",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "19:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "19:00"
+     ]
+    ]
+   },
+   "closed": "월요일 (공휴일은 대체로 영업, 12:00-19:00)",
+   "warn": null,
+   "desc": "1927년 지은 등록유형문화재 시바카와 빌딩 지하, 옛 금고실을 살린 카운터 9석 커피집. 1팀 2명까지라 6명 가족은 나눠서 들러야 합니다. 요도야바시역 11번 출구 도보 30초.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27020048/",
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
+    "http://mole-and-hosoicoffees.com/information/",
+    "https://rurubu.jp/andmore/article/20500",
+    "https://www.hotpepper.jp/strJ000753539/"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 206,
+   "name": "빅토리",
+   "jp": "ビクトリー",
+   "genre": "킷사텐",
+   "emoji": "☕",
+   "genreJp": [
+    "喫茶店",
+    "サンドイッチ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市西区江戸堀1-23-31",
+   "lat": 34.689614,
+   "lon": 135.493234,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJs2l_n_DmAGARQjF7TMejaDU",
+   "tabelog": 3.66,
+   "tabelogReviews": 469,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27000271/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2022,
+     "list": "喫茶店 百名店"
+    },
+    {
+     "year": 2026,
+     "list": "喫茶店 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": 14,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "개점 직후 3팀 대기 후기, 대기 없는 날도 있음",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "카틀피시 샌드(오징어튀김 샌드위치), 삼색 샌드 세트",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "17:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "17:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일 (부정기 휴무 있음)",
+   "warn": null,
+   "desc": "1928년 창업한 샌드위치 전문 노포 킷사, 샌드위치 종류가 매우 많습니다. 현금만 가능, 테이블 14석. 히고바시역 인근(에도보리).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27000271/",
+    "https://tabelog.com/kissaten/osaka/A2701/A270102/rank/",
+    "https://map.yahoo.co.jp/v3/place/Yy1ScOGVbaA",
+    "https://www.hotpepper.jp/strJ000109455/",
+    "https://retty.me/area/PRE27/ARE91/SUB9103/100000039151/",
+    "https://hommachi-blog.com/hommachi_gourmet/20231023-22640"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 207,
+   "name": "모토 커피",
+   "jp": "モトコーヒー",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区北浜2-1-1 北浜ライオンビルディング",
+   "lat": 34.692074,
+   "lon": 135.506469,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJAzzg9N3mAGARH2ZW0c4HEXs",
+   "tabelog": 3.64,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27049833/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": 20,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": "혼잡 시 발권(번호표)제, 발권 때 테라스석 희망 선택",
+   "wait": {
+    "level": "medium",
+    "note": "평일에도 줄이 자주 생기고 주말 13-15시가 가장 붐빔. 1층 카운터에서 주문·계산 후 층 선택",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "티라미수, 카페라테",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "18:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "18:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "18:00"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무 (식べ로그는 정휴일 표기 없음, 일·공휴일 휴무라는 옛 정보도 있음)",
+   "warn": null,
+   "desc": "라이온 다리(나니와바시) 옆 도사보리강 강변 테라스 카페로 지하·2층·3층마다 분위기가 다릅니다. 식べ로그 기준 현금만 가능(캐시리스 가능이라는 타 사이트 정보와 상충). 기타하마역 26번 출구 바로 앞.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27049833/",
+    "https://tabelog.com/osaka/A2701/A270102/27049833/dtlrvwlst/B521137612/",
+    "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+    "https://cafesnap.me/store/406",
+    "https://rurubu.jp/andmore/article/3163"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 208,
+   "name": "카페 토키오나",
+   "jp": "カフェトキオナ",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ",
+    "パスタ",
+    "ベーグル"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区天神橋1-12-19",
+   "lat": 34.694608,
+   "lon": 135.511799,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJZbQOgdfmAGARM6XGeV0QEw8",
+   "tabelog": 3.63,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27065349/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": "～￥1,000 (Retty 기준)",
+   "budgetDinner": "～￥2,000 (Retty 기준)",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "아침부터 줄이 생긴다는 SNS 후기. 구체적인 대기 시간 정보는 없음",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "꿀 레몬 토스트 모닝(7-11시), 푸딩",
+   "hours": {
+    "fri": [
+     [
+      "07:00",
+      "18:00"
+     ]
+    ],
+    "sat": [
+     [
+      "07:00",
+      "18:00"
+     ]
+    ],
+    "sun": [
+     [
+      "07:00",
+      "18:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "덴마바시에서 텐진바시 1초메로 이전한 레트로 감성 카페로, 아침 7시부터 문을 열어 모닝이 인기입니다. 오사카텐만구역 도보 4분, 미나미모리마치역 도보 5-6분. 카드·PayPay 가능(옛 정보는 카드 불가).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270103/27065349/",
+    "https://tabelog.com/cafe/osaka/A2701/A270103/rank/",
+    "https://retty.me/area/PRE27/ARE92/SUB62105/100001493222/",
+    "https://www.tiktok.com/@uzami_chan_/video/7394796291177319688",
+    "https://tabelog.com/matome/15153/"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 209,
+   "name": "카페 아마데우스 스토리",
+   "jp": "Cafe AMADEUS STORY",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市北区中之島3-6-32 ダイビル本館 1F",
+   "lat": 34.693307,
+   "lon": 135.492645,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJAQDAWvHmAGARlC9j1QBadmM",
+   "tabelog": 3.63,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27073953/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 52,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "애플 슈트루델(¥1,200), 독일식 '뮌헨 플레이트' 런치, 달마이어 커피·홍차",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "18:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "19:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "19:00"
+     ]
+    ]
+   },
+   "closed": "월요일 (공휴일이면 영업하고 수요일 휴무라는 정보도 있음)",
+   "warn": null,
+   "desc": "독일 달마이어 브랜드의 일본 총대리점 직영 카페로, 옛 다이빌딩 의장을 재현한 레트로 빌딩 1층에 있습니다. 테이블 38·테라스 8·카운터 6석으로 넓어 단체도 편하고 리가로얄호텔에서 가깝습니다(와타나베바시역 도보 1-4분).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270108/27073953/dtlmenu/drink/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270108/27073953/",
+    "https://tabelog.com/cafe/osaka/A2701/A270108/rank/",
+    "https://retty.me/area/PRE27/ARE91/SUB9103/100000822447/",
+    "https://www.hotpepper.jp/strJ001131558/",
+    "https://co-trip.jp/article/707471"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 210,
+   "name": "옥시모론 기타하마",
+   "jp": "オクシモロン 北浜",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ",
+    "カレー"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区北浜1-1-22",
+   "lat": 34.69163,
+   "lon": 135.507799,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJtfMIdt7mAGARgJnpPQxLyfg",
+   "tabelog": 3.62,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27101191/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥1,000～￥1,999",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "unknown",
+   "seatNote": null,
+   "seatLabel": "좌석 확인",
+   "seatTag": "check",
+   "reservation": "possible",
+   "onlineQueue": "혼잡 시 이름 적는 기장제",
+   "wait": {
+    "level": "short",
+    "note": "줄 없이 기장(이름 적기)제로 안내된다는 후기. 예약은 오픈 시간대만, 2주 전~전날까지 가능",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "와풍 키마 카레(¥1,490), 디저트(아마이모노)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "17:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "17:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "17:30"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "가마쿠라에서 시작한 '카레와 단 것' 카페의 기타하마점으로, 다이쇼 시대 나가야를 개조한 1·2층 공간입니다. 카드·전자머니·PayPay 가능. 좌석 수는 확인 못 함.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270102/27101191/dtlphotolst/3/smp2/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270102/27101191/dtlmap/",
+    "https://rurubu.jp/andmore/spot/81263314",
+    "https://retty.me/area/PRE27/ARE91/SUB9104/100001383322/",
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 211,
+   "name": "엘머스 그린 카페",
+   "jp": "エルマーズグリーンカフェ",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区高麗橋1-7-3 北浜プラザ 1F",
+   "lat": 34.689103,
+   "lon": 135.506835,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJP43nLd7mAGARcejdRczokkg",
+   "tabelog": 3.62,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27043334/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 40,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "평일 점심엔 1인 손님으로 붐빈다는 소개",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "자가배전 스페셜티 커피, 홈메이드 케이크·빵",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "19:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "18:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "18:00"
+     ]
+    ]
+   },
+   "closed": "무휴 (부정기 휴무 있음)",
+   "warn": null,
+   "desc": "기타하마역 출구와 바로 연결된 기타하마 플라자 1층의 자가배전 커피 카페입니다. 캐시리스 결제는 가능하다고 하나 카드 브랜드는 미확인. 좌석 40석(CafeSnap).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270102/27043334/dtlmap/",
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
+    "https://cafesnap.me/store/410",
+    "https://r.gnavi.co.jp/j3z5brd10000/",
+    "https://travel.yahoo.co.jp/kanko/spot-00016931/"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 212,
+   "name": "리가로얄 메인 라운지",
+   "jp": "リーガロイヤルホテル大阪 メインラウンジ",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市北区中之島5-3-68 リーガロイヤルホテル大阪 1F",
+   "lat": 34.690268,
+   "lon": 135.487168,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJK50cpFjmAGAROBIjVdkdM3w",
+   "tabelog": 3.61,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27011908/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 167,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": "TableCheck 온라인 예약",
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "케이크 세트(커피·홍차 포함 ¥2,277), 쇼트케이크 세트(¥2,530), 애프터눈티",
+   "hours": {
+    "fri": [
+     [
+      "09:00",
+      "18:30"
+     ]
+    ],
+    "sat": [
+     [
+      "09:00",
+      "18:30"
+     ]
+    ],
+    "sun": [
+     [
+      "09:00",
+      "18:30"
+     ]
+    ]
+   },
+   "closed": "무휴",
+   "warn": null,
+   "desc": "숙소인 리가로얄호텔 1층 로비 라운지. 가족이 묵는 리가로얄호텔 1층 로비 라운지로, 샹들리에와 정원 뷰의 167석 대형 공간이라 6명도 쉽게 앉을 수 있습니다. 결제 수단은 검색으로 확인 못 함(호텔이라 카드 가능할 가능성 높음). 식べ로그 예산 표기는 애프터눈티 기준 ¥6,000-7,999.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://www.rihga.co.jp/osaka/restaurant/list/mainlounge",
+    "https://www.rihga.co.jp/osaka/restaurant/list/mainlounge/menu/alacarte.html",
+    "https://tabelog.com/osaka/A2701/A270108/27011908/party/",
+    "https://tabelog.com/cafe/osaka/A2701/A270108/rank/",
+    "https://www.tablecheck.com/rihga-osaka-mainlounge"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 213,
+   "name": "타카무라 커피 로스터즈",
+   "jp": "タカムラ コーヒーロースターズ",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市西区江戸堀2-2-18",
+   "lat": 34.687283,
+   "lon": 135.491105,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJb3Q3lfnmAGARP7CUdaGq3P8",
+   "tabelog": 3.59,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27072286/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": "～￥1,000 (Retty 기준)",
+   "budgetDinner": "～￥2,000 (Retty 기준)",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 53,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "자가배전 스페셜티 커피(핸드드립), 와인 시음",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "19:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "19:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "19:30"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "창고를 개조한 넓은 로프트형 공간의 와인숍 겸 로스터리 카페로 테라스석도 많습니다. 나카노시마역 도보 5분, 히고바시역 도보 10분. 좌석 53석(식べ로그), 카드·PayPay 가능(Retty).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27072286/",
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
+    "https://hitosara.com/0031226877/",
+    "https://retty.me/area/PRE27/ARE91/SUB9103/100000842070/",
+    "https://cafesnap.me/store/467/menu"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 214,
+   "name": "세이요사칸 (서양다관)",
+   "jp": "西洋茶館",
+   "genre": "킷사텐",
+   "emoji": "☕",
+   "genreJp": [
+    "喫茶店",
+    "紅茶専門店"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区天神橋4-6-14",
+   "lat": 34.703166,
+   "lon": 135.511539,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJUwazsMbmAGARs4kKsCY3L-g",
+   "tabelog": 3.59,
+   "tabelogReviews": 822,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27002275/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": null,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 43,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "애프터눈티 세트(음료 포함 약 ¥2,350), 밀크티, 진열장 케이크",
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "연중무휴",
+   "warn": null,
+   "desc": "홍차 100종 이상을 갖춘 영국풍 앤티크 티하우스로, 텐진바시스지 상점가(4초메)에 있습니다. 카드 불가, PayPay 등 QR 결제 가능. 오기마치역·덴마역 도보권.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270103/27002275/dtlrvwlst/",
+    "https://tabelog.com/matome/27176/",
+    "https://tabelog.com/cafe/osaka/A2701/A270103/rank/",
+    "https://www.hotpepper.jp/strJ000109532/",
+    "https://knowlelog.net/review/seiyo-sakan-afternoon-tea"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 215,
+   "name": "몬디알 카페 328 골드러시",
+   "jp": "MONDIAL KAFFEE 328 GOLD RUSH",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ",
+    "スイーツ"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島2-8-22 FUKUDA B.D 1F",
+   "lat": 34.69526,
+   "lon": 135.486809,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJA4Pr4l_mAGARBXz7mcCrigQ",
+   "tabelog": 3.58,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27088252/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 25,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": "핫페퍼 넷 예약 가능",
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "라테아트 카페라테, 에스프레소 음료",
+   "hours": {
+    "fri": [
+     [
+      "08:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "08:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무 (연말연시)",
+   "warn": null,
+   "desc": "신후쿠시마역 70m·JR 후쿠시마역 200m의 에스프레소 카페로, 밤 11시까지 열어 저녁 식사 후 들르기 좋습니다. 셀프 주문, 카드(VISA/Master/Amex)·PayPay 가능.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270108/27088252/dtlrvwlst/B128068854/",
+    "https://tabelog.com/cafe/osaka/A2701/A270108/rank/",
+    "https://www.hotpepper.jp/strJ001274465/",
+    "https://retty.me/area/PRE27/ARE618/SUB8903/100001243272/",
+    "https://mondial-kaffee328.com/"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 216,
+   "name": "킷사 선샤인",
+   "jp": "喫茶サンシャイン",
+   "genre": "킷사텐",
+   "emoji": "☕",
+   "genreJp": [
+    "喫茶店"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区梅田1-1-3 大阪駅前第3ビル B2F",
+   "lat": 34.699138,
+   "lon": 135.499839,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJpToQwuzmAGAR5yRA6Ki8YL0",
+   "tabelog": 3.57,
+   "tabelogReviews": 432,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27149249/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2022,
+     "list": "喫茶店 百名店"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": null,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "토·일·공휴일은 종일, 평일은 11-15시에 줄이 생기기 쉬움. 이전 오픈 직후 개점 전부터 20명 가까이 줄 선 기사",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "한 장씩 전용 팬에 굽는 핫케이크, 오므라이스·푸딩·크림소다",
+   "hours": {
+    "fri": [
+     [
+      "07:30",
+      "19:45"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "18:30"
+     ]
+    ],
+    "sun": [
+     [
+      "08:00",
+      "18:30"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무 (매달 바뀜, X @kissa_sunshine 에서 공지. 2025년 10월엔 월·수 일부 휴무)",
+   "warn": null,
+   "desc": "1973년 창업한 우메다 지하 노포 킷사로, 2025년 5월 오사카역전 제3빌딩 B2로 이전했습니다(옛 테이블·의자 그대로). 백명점 선정은 이전 전 점포 기준. 결제 수단·좌석 수는 확인 못 함.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27149249/",
+    "https://tabelog.com/osaka/A2701/A270101/27038064/dtlrvwlst/B213745699/",
+    "https://www.kissa-sunshine.jp/blog/",
+    "https://www.lmaga.jp/news/2025/05/916833/",
+    "https://news.yahoo.co.jp/expert/articles/79b9f25ac2950d5058ac4bd0a3df03b94c5b48af",
+    "https://x.com/kissa_sunshine/status/1972824108686774488",
+    "https://tabelog.com/cafe/osaka/A2701/A270101/rank/"
+   ],
+   "confidence": "medium",
+   "src": "kita_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 217,
+   "name": "다만 뤼미에르 다카시마야 오사카점",
+   "jp": "ダマン リュミエール 高島屋大阪店",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区難波5-1-5 大阪タカシマヤ 2F",
+   "lat": 34.66451,
+   "lon": 135.501312,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJ3eR2kGznAGARgZWes6Mhrz8",
+   "tabelog": 3.64,
+   "tabelogReviews": 440,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27055738/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST"
+    }
+   ],
+   "budgetLunch": "￥2,000～￥2,999",
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 36,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "대기 정보 없음. 예약은 평일만, 2명 이상(조건 있음)",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "다만 뤼미에르 특제 팬케이크(약 1,650엔) + 다만 프레르 홍차 세트",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "다카시마야 오사카점 휴관일에 따름 (별도 정기휴무 미확인)",
+   "warn": null,
+   "desc": "프랑스 홍차 브랜드 다만 프레르와 프렌치 '리뤼미에르'가 함께 만든 티살롱. 난바 다카시마야 2층이라 카드 결제가 되고, 최대 6명 개인실이 있어 가족끼리 앉기 좋음. 좌석 수는 36석(식베로그)·40석(정리 기사)으로 출처마다 다름.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27055738/",
+    "https://tabelog.com/osaka/A2701/A270202/27055738/dtlrvwlst/B441950403/",
+    "https://tabelog.com/cafe/osaka/A2701/A270202/rank/",
+    "https://www.takashimaya.co.jp/osaka/emg/?id=1181",
+    "https://tabelog.com/matome/25375/"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 218,
+   "name": "야마구치 과일 (후르츠 파라)",
+   "jp": "FRUIT GARDEN 山口果物",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "フルーツパーラー",
+    "かき氷",
+    "ジューススタンド"
+   ],
+   "area": "다니마치6초메·가라호리",
+   "region": "south",
+   "address": "大阪府大阪市中央区上本町西2-1-9 広栄ビル1F",
+   "lat": 34.673502,
+   "lon": 135.520331,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJlQNJj0nnAGARoglcBgQorp8",
+   "tabelog": 3.65,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270204/27004780/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2023,
+     "list": "スイーツ WEST"
+    },
+    {
+     "year": 2026,
+     "list": "スイーツ WEST"
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 20,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "2023년경 후기: 입장까지 15분 정도 대기 (1회 방문 기준)",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "제철 과일 가득 프렌치토스트, 과일 산도(딸기 산도), 샤인머스캣 프리미엄 파르페",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "19:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "19:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "19:00"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무",
+   "warn": null,
+   "desc": "다니마치6초메역 도보 5분, 과일가게가 직영하는 과일 파를러. 20석(카운터 8 + 테이블)이라 6명이 한 테이블에 앉기는 어려움. 다른 기사에는 20:00(L.O.19:30)까지로 나와 있고, 결제 수단은 확인하지 못함.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270204/27004780/dtlrvwlst/B507736964/",
+    "https://tabelog.com/osaka/rstLst/SC1004/",
+    "https://www.walkerplus.com/article/223697/",
+    "https://tabelog.com/sweets/osaka/A2701/A270201/rank/"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 219,
+   "name": "에크추아 가라호리 '구라' 본점",
+   "jp": "エクチュア からほり「蔵」本店",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "チョコレート",
+    "カフェ"
+   ],
+   "area": "다니마치6초메·가라호리",
+   "region": "south",
+   "address": "大阪府大阪市中央区谷町6-17-43 練内",
+   "lat": 34.675233,
+   "lon": 135.512646,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJS1MFbTnnAGARkukhD7soTQ4",
+   "tabelog": 3.72,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270204/27000958/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2023,
+     "list": "スイーツ WEST"
+    },
+    {
+     "year": 2026,
+     "list": "スイーツ WEST"
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 27,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "평일 14시경엔 바로 입장했다는 후기. 휴일엔 이용시간 제한이 있을 수 있음, 1층 판매 코너는 붐빔",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "오리지널 파르페(직원이 초콜릿 소스를 부어 줌, 세트 약 1,925엔), 창업 때부터 내온 초콜릿 드링크(밀크·스위트·다크), 초코 케이크 '호리'",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "가라호리의 옛 저택을 살린 복합시설 '練(렌)' 안, 창고(蔵)를 고친 초콜릿 전문 카페. 1층은 판매, 2층이 카페(카운터 4·테이블 15석). 마쓰야마치역 바로 앞, 다니마치6초메역에서도 가까움.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270204/27000958/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270204/27000958/",
+    "https://retty.me/restaurant/100000018001/",
+    "https://tabelog.com/matome/16203/"
+   ],
+   "confidence": "high",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 220,
+   "name": "토링턴 티룸",
+   "jp": "トリントン ティールーム",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ",
+    "パンケーキ"
+   ],
+   "area": "다니마치6초메·가라호리",
+   "region": "south",
+   "address": "大阪府大阪市中央区上本町西2-5-56",
+   "lat": 34.674544,
+   "lon": 135.519134,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJkxsL30nnAGAR6wQq2qb0JXI",
+   "tabelog": 3.61,
+   "tabelogReviews": 304,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270204/27067721/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST"
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 16,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "점심·주말 등 혼잡할 때는 90분 이용 제한. 예약 가능(06-6191-9870)",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "크럼펫 크림티, 클로티드 크림·잼을 곁들인 빅 스콘, 스티키 토피 푸딩 티타임 세트(1,950엔)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "18:30"
+     ]
+    ],
+    "sat": [
+     [
+      "10:30",
+      "18:30"
+     ]
+    ],
+    "sun": [
+     [
+      "10:30",
+      "18:30"
+     ]
+    ]
+   },
+   "closed": "월요일 (공휴일이면 다음 날 화요일)",
+   "warn": null,
+   "desc": "영국식 앤티크 인테리어의 홍차 전문 티룸으로 크럼펫·스콘이 간판 메뉴. 16석뿐이고 카드·전자머니가 안 되니 현금을 준비해야 함. 애프터눈 티 세트(3,350엔)는 평일 한정.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270204/27067721/",
+    "https://tabelog.com/osaka/A2701/A270204/27067721/dtlmenu/",
+    "https://tabelog.com/osaka/A2701/A270204/27067721/dtlrvwlst/B245539333/",
+    "https://tabelog.com/matome/16203/"
+   ],
+   "confidence": "high",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 221,
+   "name": "몬디알 카페 328 기타호리에",
+   "jp": "モンディアルカフェ328 北堀江",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ"
+   ],
+   "area": "호리에·니시오하시",
+   "region": "south",
+   "address": "大阪府大阪市西区北堀江1-6-16 フォレステージュ北堀江 1F",
+   "lat": 34.674206,
+   "lon": 135.496063,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJKRhAOQXnAGARA4VXxYrcD1I",
+   "tabelog": 3.61,
+   "tabelogReviews": 666,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27082472/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": "カフェ WEST"
+    }
+   ],
+   "budgetLunch": "～￥999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 41,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "대기 정보 없음. 주말 아침 8시 반 오픈 전부터 테라스에 손님이 있다는 후기. 카운터에서 주문·선결제",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "헤드 바리스타의 라테아트 카페라테, 모닝 세트",
+   "hours": {
+    "fri": [
+     [
+      "08:30",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:30",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "08:30",
+      "21:00"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무 (연말연시 휴업)",
+   "warn": null,
+   "desc": "요쓰바시역 4번 출구에서 1분 거리. 41석(테이블 26·창가 카운터 4·테라스 11)으로 넓음. 카드(VISA·Master·JCB·AMEX·Diners)와 PayPay 가능, 전자머니는 출처마다 다름. 근처 'GUT WOLF' 등 같은 이름의 지점과 헷갈리지 말 것.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270201/27082472/dtlrvwlst/B193664409/",
+    "https://s.tabelog.com/en/osaka/A2701/A270201/27082472/",
+    "https://tabelog.com/tw/R22/rstLst/SC/16/",
+    "https://tabelog.com/cafe/osaka/A2701/A270201/rank/",
+    "https://aumo.jp/articles/65991"
+   ],
+   "confidence": "high",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 222,
+   "name": "메오토젠자이",
+   "jp": "夫婦善哉",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "甘味処"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区難波1-2-10 法善寺MEOUTOビル",
+   "lat": 34.667867,
+   "lon": 135.502413,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJKbDiuBTnAGARryEZl-uyI6k",
+   "tabelog": 3.58,
+   "tabelogReviews": 426,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27015375/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "～￥999",
+   "budgetDinner": "～￥999",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 18,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "대기 정보 없음",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "한 사람 분이 두 그릇으로 나오는 단팥죽 '메오토젠자이'(약 815엔), 여름엔 빙수",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "무휴",
+   "warn": null,
+   "desc": "법선사 요코초 입구의 유명 단팥죽집으로, 오다 사쿠노스케 소설 '메오토젠자이'의 무대. 1층 테이블 5개 18석. Retty에는 22:30까지로 나와 있음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27015375/",
+    "https://tabelog.com/osaka/A2701/A270202/27015375/dtlrvwlst/B116103754/",
+    "https://tabelog.com/cafe/osaka/A2701/A270202/rank/",
+    "https://www.gltjp.com/ja/directory/item/15293/",
+    "https://retty.me/restaurant/100000050125/"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 223,
+   "name": "리로 커피 킷사",
+   "jp": "リロ珈琲喫茶",
+   "genre": "킷사텐",
+   "emoji": "☕",
+   "genreJp": [
+    "喫茶店",
+    "カフェ"
+   ],
+   "area": "신사이바시·아메무라",
+   "region": "south",
+   "address": "大阪府大阪市中央区心斎橋筋2-7-25 金子ビル2F",
+   "lat": 34.671042,
+   "lon": 135.501027,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJJ-oVXvHnAGARiWcwafO8H-8",
+   "tabelog": 3.57,
+   "tabelogReviews": 365,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27105524/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "～￥999",
+   "budgetDinner": "～￥999",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 24,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "평일 2팀 대기로 약 10분. 줄이 길어 여러 번 포기했다는 후기도 있음",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "어린이·유아 동반 가능 (식베로그 표기)",
+   "foreignMenu": null,
+   "mustTry": "원두와 추출법을 골라 마시는 자가배전 스페셜티 커피, 커피 플로트, 그린티 라테프레소, 자가제 커피젤리",
+   "hours": {
+    "fri": [
+     [
+      "13:00",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": "무휴 (연말연시 제외)",
+   "warn": null,
+   "desc": "LiLo Coffee Roasters의 2호점으로, 46년 된 킷사텐을 이어받아 2018년에 열었고 레트로한 2층 공간이 특징. 카드·전자머니는 안 되고 PayPay만 가능. 다른 출처에는 22:00까지로 나와 있음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27105524/",
+    "https://tabelog.com/osaka/A2701/A270201/27105524/dtlrvwlst/B415878458/",
+    "https://www.walkerplus.com/article/166981/",
+    "https://rurubu.jp/andmore/article/19916",
+    "https://tabelog.com/kissaten/osaka/A2701/rank/"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 224,
+   "name": "테이블스 카페",
+   "jp": "TABLES CAFE",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ",
+    "パンケーキ"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区心斎橋筋2-5-15 クロスホテル大阪 1F",
+   "lat": 34.669702,
+   "lon": 135.500785,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJw9117BPnAGAROF1tqtAaaFo",
+   "tabelog": 3.56,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27057383/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥1,000～￥1,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 67,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "대기 정보 없음",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "separated",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "팬케이크, 계절 한정 과일 파르페 (2026년 가을: 안노이모 브륄레 파르페·안노이모 크림 베리 팬케이크)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "무휴 (대관 등으로 일찍 닫거나 임시 휴무하는 날 있음)",
+   "warn": null,
+   "desc": "도톤보리 에비스바시 근처 크로스호텔 오사카 1층의 넓은 소파석 카페. 좌석 수는 67석·80석으로 출처마다 다르지만 6명이 앉기 쉬움. 카드(은련 포함)·교통계 IC·PayPay 가능.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27057383/table/",
+    "https://tabelog.com/osaka/A2701/A270202/27057383/dtlrvwlst/B237727582/",
+    "https://www.hotpepper.jp/strJ001006557/",
+    "https://tabelog.com/cafe/osaka/A2701/A270202/rank/",
+    "https://tabelog.com/matome/23577/"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 225,
+   "name": "센나리야 커피",
+   "jp": "千成屋珈琲",
+   "genre": "킷사텐",
+   "emoji": "☕",
+   "genreJp": [
+    "喫茶店"
+   ],
+   "area": "신세카이·덴노지",
+   "region": "tennoji",
+   "address": "大阪府大阪市浪速区恵美須東3-4-15",
+   "lat": 34.649499,
+   "lon": 135.505961,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJa3OsyYrdAGARpyxFpBM59Qc",
+   "tabelog": 3.62,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270206/27017860/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2021,
+     "list": "喫茶店"
+    }
+   ],
+   "budgetLunch": "～￥999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 34,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "본점은 대기가 길다는 후기 있음. 바로 옆 '센나리야 커피 스탠드'(테이크아웃 위주, 3.25)는 비교적 한산",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "원조 믹스주스, 생과일과 아이스를 얹은 로열 믹스주스(약 950엔)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "19:00"
+     ]
+    ],
+    "sat": [
+     [
+      "09:00",
+      "19:00"
+     ]
+    ],
+    "sun": [
+     [
+      "09:00",
+      "19:00"
+     ]
+    ]
+   },
+   "closed": "정기휴무 없음 (Retty에는 목요일 휴무로 나와 있어 확인 필요)",
+   "warn": null,
+   "desc": "신세카이 장장요코초의 킷사텐으로, 과일가게에서 시작해 믹스주스를 처음 만든 곳으로 알려짐. 동물원앞역 도보 2분. 카드가 된다는 후기와 현금만 받는다는 후기가 엇갈림.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270206/27017860/",
+    "https://tabelog.com/osaka/A2701/A270206/27017860/dtlrvwlst/B507631405/",
+    "https://tabelog.com/en/osaka/A2701/A270206/27110190/",
+    "https://www.gltjp.com/ja/directory/item/14725/",
+    "https://retty.me/restaurant/100001476158/"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 226,
+   "name": "구포 (젤라토)",
+   "jp": "GUFO",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "ソフトクリーム",
+    "アイスクリーム"
+   ],
+   "area": "호리에·니시오하시",
+   "region": "south",
+   "address": "大阪府大阪市西区北堀江1-11-9 U+ビル 1F",
+   "lat": 34.673571,
+   "lon": 135.495472,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJ2xSOawXnAGARY6CoS-5vKpI",
+   "tabelog": 3.64,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27092229/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2023,
+     "list": "アイス・ジェラート"
+    },
+    {
+     "year": 2026,
+     "list": "アイス・ジェラート"
+    }
+   ],
+   "budgetLunch": "～￥999",
+   "budgetDinner": "～￥999",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 6,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "대기 정보 없음. 테이크아웃 가능",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "유모차 입장 가능",
+   "foreignMenu": null,
+   "mustTry": "카르피자니 소프트크림 (밀크 또는 헤이즐넛 베이스 + 토핑 선택)",
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "18:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "18:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "18:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "요쓰바시역 도보 3분 골목의 소프트크림 가게. 6석뿐이라 가족에게는 사실상 테이크아웃 디저트 코스. 카드는 JCB·AMEX만. 예전 기사에는 금~일 12:00-21:00으로 나와 있어 시간 확인 필요. 카페 WEST 2025에도 선정됐다는 목록 표기가 있으나 미확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270201/27092229/dtlrvwlst/B508486596/",
+    "https://tabelog.com/osaka/A2701/A270201/27092229/dtlrvwlst/B510930085/",
+    "https://tabelog.com/sweets/osaka/A2701/A270201/rank/",
+    "https://rurubu.jp/andmore/article/11791"
+   ],
+   "confidence": "medium",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 227,
+   "name": "웨스트우드 베이커스",
+   "jp": "ウエストウッドベーカーズ",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "パンケーキ",
+    "ハンバーガー",
+    "カフェ"
+   ],
+   "area": "호리에·니시오하시",
+   "region": "south",
+   "address": "大阪府大阪市西区南堀江1-16-9",
+   "lat": 34.670518,
+   "lon": 135.495294,
+   "coordSrc": "google",
+   "coordConf": "low",
+   "placeId": "ChIJg9gnrg_nAGARfDIsGthwh7s",
+   "tabelog": 3.56,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27072989/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 18,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "대기 정보 없음",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "베이컨&에그 팬케이크, 주말·공휴일 한정 도넛",
+   "hours": {
+    "fri": null,
+    "sat": null,
+    "sun": null
+   },
+   "closed": "정기휴무 없음 (오래된 정보)",
+   "warn": null,
+   "desc": "JR난바역 근처 미나미호리에의 미국식 팬케이크·버거 카페로, 아침부터 팬케이크를 먹을 수 있음. 18석(카운터 4, 2인 테이블 5개, 4인 테이블 1개). 영업시간은 출처마다 9:00-16:00/16:30 또는 9:00-19:00으로 달라 확인 필요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27072989/",
+    "https://tabelog.com/osaka/C27106/C79450/rstLst/lunch/",
+    "https://retty.me/restaurant/100000807537/",
+    "https://macaro-ni.jp/95511?page=2"
+   ],
+   "confidence": "low",
+   "src": "minami_cafes",
+   "coordDate": "2026-11-05"
   }
  ],
  "schema": 2,

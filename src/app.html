@@ -913,7 +913,7 @@ function refresh({markers:withMarkers=true}={}){compute();renderList();if(withMa
 
 /* ================= detail ================= */
 function dirUrl(dest,dk){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=${dk<1.6?'walking':'transit'}`}
-const gUrl=r=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.jp+' '+r.address)}${r.placeId?'&query_place_id='+encodeURIComponent(r.placeId):''}`;
+const gUrl=r=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((r.jp+' '+(r.address||'')).trim())}${r.placeId?'&query_place_id='+encodeURIComponent(r.placeId):''}`;
 const gDirUrl=(r,d)=>dirUrl(r.jp+' '+r.address,d)+(r.placeId?'&destination_place_id='+encodeURIComponent(r.placeId):'');
 const gNearUrl=(word,c)=>`https://www.google.com/maps/search/${encodeURIComponent(word)}/@${c.lat},${c.lon},17z`;
 const ytUrl=q=>`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
