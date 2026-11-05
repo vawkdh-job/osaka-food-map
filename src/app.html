@@ -355,6 +355,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
   </div>
   <div class="chips" id="chips">
     <button class="chip big" id="genreChip">🍽 뭐 먹지?</button>
+    <button class="chip" id="cafeChip" aria-pressed="false">☕ 카페</button>
     <label class="chip sel on" id="dayChip"><span id="dayText">금 11/13</span><select id="day" aria-label="요일 선택"></select></label>
     <button class="chip" id="openChip" aria-pressed="false">휴무 제외</button>
     <label class="chip sel" id="listChip"><span id="listText">전체 목록</span><select id="listSel" aria-label="목록">
@@ -1161,7 +1162,8 @@ function selText(sel){return sel.options[sel.selectedIndex]?.text||''}
 function updateChips(){
   $('#day').value=S.day;$('#dayText').textContent=selText($('#day'));
   const oc=$('#openChip');oc.textContent=isLive()?'🟢 지금 영업 중':'휴무 제외';oc.classList.toggle('on',S.openOnly);oc.setAttribute('aria-pressed',S.openOnly);
-  const g=GENRES.find(x=>x.key===S.genre);$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
+  const g=GENRES.find(x=>x.key===S.genre&&x.key!=='cafe');$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
+  const cc=$('#cafeChip'),isCafe=S.genre==='cafe';cc.classList.toggle('on',isCafe);cc.setAttribute('aria-pressed',isCafe);cc.textContent=isCafe?'☕ 카페 ✕':'☕ 카페';
   $('#listSel').value=S.list;$('#listText').textContent=selText($('#listSel'));$('#listChip').classList.toggle('on',S.list!=='all');
   const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
@@ -1191,9 +1193,11 @@ function renderGenres(){
     return `<button class="gBtn${S.genre===g.key?' on':''}" data-genre="${g.key}" ${n||g.key==='all'?'':'disabled'}><span>${g.emoji}</span><b>${g.label}</b><small>${n}곳</small></button>`}).join('');
 }
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
-$('#genreGrid').addEventListener('click',e=>{const b=e.target.closest('[data-genre]');if(!b)return;S.genre=b.dataset.genre;closeModal('#genres');
+function setGenre(k){S.genre=k;
   if(S.view==='detail')closeDetail();if(!S.sortTouched&&S.ref==='me'&&me)S.sort='nearby';refresh();$('#sheetBody').scrollTop=0;
-  if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()});
+  if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()}
+$('#genreGrid').addEventListener('click',e=>{const b=e.target.closest('[data-genre]');if(!b)return;closeModal('#genres');setGenre(b.dataset.genre)});
+$('#cafeChip').onclick=()=>setGenre(S.genre==='cafe'?'all':'cafe');
 
 /* ---- filters ---- */
 function renderFilters(){
