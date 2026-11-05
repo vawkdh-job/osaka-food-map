@@ -1,23 +1,28 @@
-# Cloud Workflows: monthly cap for Google Maps JavaScript API map loads.
-# Runs hourly (Cloud Scheduler). Reads this month's billable map loads from Cloud Monitoring
-# (quota metric maps-backend.googleapis.com/billable_default). When the month total reaches
-# monthlyLimit, the daily quota override is set to 0 (Google Maps stops loading); otherwise it is
-# kept at dailyLimit, so the map is unblocked automatically when a new month starts.
-# Optional execution argument: {"monthlyLimit": 9000, "dailyLimit": 1000}
+# Cloud Workflows: monthly caps for the Google APIs used by the app.
+# Runs hourly (Cloud Scheduler, 07–23 JST). Reads this month's usage of each quota metric from Cloud Monitoring.
+# When a metric's month total reaches its monthly limit, its daily quota override is set to 0 (requests stop);
+# otherwise the daily limit is kept, so everything unblocks automatically when a new month starts.
+#   Maps JavaScript API map loads   9,000 / month, 1,000 / day   (free usage 10,000 / month)
+#   Places API (New) place details    900 / month,   200 / day   (free usage  1,000 / month)
+#   Places API (New) place photos     900 / month,   200 / day   (free usage  1,000 / month)
+# Optional execution argument for testing: {"monthlyLimit": 0} applies that monthly limit to every target.
 main:
   params: [args]
   steps:
     - init:
         assign:
           - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
-          - monthlyLimit: ${default(map.get(args, "monthlyLimit"), 9000)}
-          - dailyLimit: ${default(map.get(args, "dailyLimit"), 1000)}
+          - targets:
+              - {service: "maps-backend.googleapis.com", metric: "maps-backend.googleapis.com/billable_default", monthly: 9000, daily: 1000}
+              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPlaceRequest", monthly: 900, daily: 200}
+              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPhotoMediaRequest", monthly: 900, daily: 200}
+          - testLimit: ${map.get(args, "monthlyLimit")}
           - now: ${sys.now()}
           - nowText: ${time.format(now, "UTC")}
           - monthStart: ${text.substring(nowText, 0, 7) + "-01T00:00:00Z"}
           - period: ${string(int(now - time.parse(monthStart)) + 120) + "s"}
-          - limitUrl: ${"https://serviceusage.googleapis.com/v1beta1/projects/" + project + "/services/maps-backend.googleapis.com/consumerQuotaMetrics/maps-backend.googleapis.com%2Fbillable_default/limits/%2Fd%2Fproject"}
-          - used: 0
+          - usage: {}
+          - results: []
     - getUsage:
         call: http.get
         args:
@@ -25,12 +30,13 @@ main:
           auth:
             type: OAuth2
           query:
-            filter: 'metric.type="serviceruntime.googleapis.com/quota/rate/net_usage" AND resource.type="consumer_quota" AND resource.label.service="maps-backend.googleapis.com" AND metric.label.quota_metric="maps-backend.googleapis.com/billable_default"'
+            filter: 'metric.type="serviceruntime.googleapis.com/quota/rate/net_usage" AND resource.type="consumer_quota" AND metric.label.quota_metric=one_of("maps-backend.googleapis.com/billable_default","places.googleapis.com/GetPlaceRequest","places.googleapis.com/GetPhotoMediaRequest")'
             interval.startTime: ${monthStart}
             interval.endTime: ${nowText}
             aggregation.alignmentPeriod: ${period}
             aggregation.perSeriesAligner: ALIGN_SUM
             aggregation.crossSeriesReducer: REDUCE_SUM
+            aggregation.groupByFields: metric.label.quota_metric
         result: usageResp
     - sumUsage:
         for:
@@ -44,53 +50,59 @@ main:
                   steps:
                     - add:
                         assign:
-                          - used: ${used + int(p.value.int64Value)}
-    - getQuota:
-        call: http.get
-        args:
-          url: ${limitUrl}
-          auth:
-            type: OAuth2
-        result: quotaResp
-    - pick:
-        assign:
-          - bucket: ${quotaResp.body.quotaBuckets[0]}
-          - current: ${int(default(map.get(bucket, "effectiveLimit"), "0"))}  # a limit of 0 is omitted from the response
-          - want: ${dailyLimit}
-    - overLimit:
-        switch:
-          - condition: ${used >= monthlyLimit}
-            assign:
-              - want: 0
-    - same:
-        switch:
-          - condition: ${current == want}
-            return: ${"month " + monthStart + " used=" + string(used) + "/" + string(monthlyLimit) + " daily limit stays " + string(current)}
-    - hasOverride:
-        switch:
-          - condition: ${"consumerOverride" in bucket}
-            next: patchOverride
-        next: createOverride
-    - patchOverride:
-        call: http.patch
-        args:
-          url: ${"https://serviceusage.googleapis.com/v1beta1/" + bucket.consumerOverride.name}
-          auth:
-            type: OAuth2
-          query:
-            force: true
-          body:
-            overrideValue: ${string(want)}
-        next: done
-    - createOverride:
-        call: http.post
-        args:
-          url: ${limitUrl + "/consumerOverrides"}
-          auth:
-            type: OAuth2
-          query:
-            force: true
-          body:
-            overrideValue: ${string(want)}
+                          - usage[series.metric.labels.quota_metric]: ${default(map.get(usage, series.metric.labels.quota_metric), 0) + int(p.value.int64Value)}
+    - eachTarget:
+        for:
+          value: t
+          in: ${targets}
+          steps:
+            - getQuota:
+                call: http.get
+                args:
+                  url: ${"https://serviceusage.googleapis.com/v1beta1/projects/" + project + "/services/" + t.service + "/consumerQuotaMetrics/" + text.url_encode(t.metric) + "/limits/%2Fd%2Fproject"}
+                  auth:
+                    type: OAuth2
+                result: quotaResp
+            - decide:
+                assign:
+                  - bucket: ${quotaResp.body.quotaBuckets[0]}
+                  - current: ${int(default(map.get(bucket, "effectiveLimit"), "0"))}  # a limit of 0 is omitted from the response
+                  - used: ${default(map.get(usage, t.metric), 0)}
+                  - monthly: ${default(testLimit, t.monthly)}
+                  - want: ${t.daily}
+            - over:
+                switch:
+                  - condition: ${used >= monthly}
+                    assign:
+                      - want: 0
+            - change:
+                switch:
+                  - condition: ${current == want}
+                    next: note
+                  - condition: ${"consumerOverride" in bucket}
+                    call: http.patch
+                    args:
+                      url: ${"https://serviceusage.googleapis.com/v1beta1/" + bucket.consumerOverride.name}
+                      auth:
+                        type: OAuth2
+                      query:
+                        force: true
+                      body:
+                        overrideValue: ${string(want)}
+                    next: note
+                next: create
+            - create:
+                call: http.post
+                args:
+                  url: ${"https://serviceusage.googleapis.com/v1beta1/projects/" + project + "/services/" + t.service + "/consumerQuotaMetrics/" + text.url_encode(t.metric) + "/limits/%2Fd%2Fproject/consumerOverrides"}
+                  auth:
+                    type: OAuth2
+                  query:
+                    force: true
+                  body:
+                    overrideValue: ${string(want)}
+            - note:
+                assign:
+                  - results: ${list.concat(results, text.split(t.metric, "/")[1] + " " + string(used) + "/" + string(monthly) + " daily " + string(current) + "->" + string(want))}
     - done:
-        return: ${"month " + monthStart + " used=" + string(used) + "/" + string(monthlyLimit) + " daily limit " + string(current) + " -> " + string(want)}
+        return: ${results}
