@@ -18176,6 +18176,3318 @@
    "confidence": "low",
    "src": "minami_cafes",
    "coordDate": "2026-11-05"
+  },
+  {
+   "id": 228,
+   "name": "고큐 (웨스틴 호텔 오사카)",
+   "jp": "故宮",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "広東料理",
+    "飲茶・点心"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区大淀中1-1-20 ウェスティンホテル大阪 3F",
+   "lat": 34.704583,
+   "lon": 135.489714,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJeaipYYjmAGARJSMjd4fMUqE",
+   "tabelog": 3.75,
+   "tabelogReviews": 516,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27002558/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    },
+    {
+     "year": 2024,
+     "list": "中国料理 WEST"
+    },
+    {
+     "year": 2023,
+     "list": "中国料理 WEST"
+    },
+    {
+     "year": 2021,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": "￥6,000～￥7,999",
+   "budgetDinner": "￥10,000～￥14,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 98,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "호텔 레스토랑이라 예약 후 방문 권장",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "호텔 레스토랑, 개별실 2실(최대 16명, 실료 5,000~8,000엔)",
+   "foreignMenu": null,
+   "mustTry": "불도장(佛跳墻) 등 광둥 전통요리, 딤섬",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ]
+   },
+   "closed": "연중무휴 (식당 페이지 기준)",
+   "warn": null,
+   "desc": "웨스틴 호텔 오사카 3층의 광둥요리 명점으로 중국요리 백명점 단골. 6인 가족은 개별실 예약이 가장 편함 (금연 표기는 一休 페이지 기준).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27002558/",
+    "https://selection.tabelog.com/osaka/A2701/A270101/27002558/",
+    "https://restaurant.ikyu.com/100659/plan11883711"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 229,
+   "name": "젠도",
+   "jp": "善道",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理"
+   ],
+   "area": "기타신치",
+   "region": "north",
+   "address": "大阪府大阪市北区堂島1-3-14",
+   "lat": 34.696507,
+   "lon": 135.497157,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJOVAY9O3mAGARgfYRNbBV8uM",
+   "tabelog": 3.71,
+   "tabelogReviews": 575,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27065615/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    },
+    {
+     "year": 2024,
+     "list": "中国料理 WEST"
+    },
+    {
+     "year": 2023,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 12,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "12석뿐이라 사실상 예약 필수 (온라인 예약은 전날까지, 2인 이상)",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "카운터 8석 + 안쪽 반개별 테이블 4석뿐이라 6인 가족은 어려움",
+   "foreignMenu": null,
+   "mustTry": "게살 양상추 볶음밥(カニとレタスの炒飯)",
+   "hours": {
+    "fri": [
+     [
+      "18:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "기타신치의 캐주얼 중화 바로 알려진 백명점. 저녁만 영업하고 좌석이 적어 소인원 방문용.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27065615/",
+    "https://tabelog.com/osaka/A2701/A270101/27065615/dtlrvwlst/B447819146/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 230,
+   "name": "오퍼스 원",
+   "jp": "オーパス ワン",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "広東料理"
+   ],
+   "area": "닛폰바시·구로몬",
+   "region": "south",
+   "address": "大阪府大阪市中央区高津3-3-29 プレステージ高津 1F",
+   "lat": 34.66592,
+   "lon": 135.509375,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJS4RBY0HnAGARb3U0DwURubA",
+   "tabelog": 3.7,
+   "tabelogReviews": 227,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27000369/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": "￥5,000～￥5,999",
+   "budgetDinner": "￥15,000～￥19,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 34,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "예약제 고급 해산물 중화라 예약 권장",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "테이블 26석, 개별실 없음 (전세 가능)",
+   "foreignMenu": null,
+   "mustTry": "중화풍 생선회(中華風お造り), 활어 해산물 요리 (대부분 시가)",
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "월요일, 셋째 화요일",
+   "warn": null,
+   "desc": "구로몬 시장 근처, 불길이 오르는 주방을 보며 먹는 해산물 광둥요리 백명점. 저녁은 1.5만 엔 이상이라 점심(5~6천 엔대) 이용이 현실적. 결제수단 미확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27000369/",
+    "https://retty.me/restaurant/100000019323/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 231,
+   "name": "주고쿠사이 에스사와다",
+   "jp": "中国菜エスサワダ",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市北区西天満4-6-28 ニュー真砂ビル 1F",
+   "lat": 34.696307,
+   "lon": 135.505085,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJk4U_R-jmAGARIMVfrcB6lUM",
+   "tabelog": 3.69,
+   "tabelogReviews": 473,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27095063/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    },
+    {
+     "year": 2024,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": "￥5,000～￥5,999",
+   "budgetDinner": "￥10,000～￥14,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 27,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "코스 중심이라 예약 권장",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "전석 테이블 27석, 개별실 없음",
+   "foreignMenu": null,
+   "mustTry": "셰프 오마카세 런치 코스(약 5,500~6,050엔)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "부정기",
+   "warn": null,
+   "desc": "미슐랭 1스타(2018~23) 경력의 모던 중화로 사와다 반점의 본가. 나니와바시역 도보 5분이라 리가 로열 호텔에서 가까움.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27095063/",
+    "https://selection.tabelog.com/osaka/A2701/A270102/27095063/",
+    "https://restaurant.ikyu.com/110386/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 232,
+   "name": "광둥요리 민세이 힐튼플라자 웨스트점",
+   "jp": "廣東料理 民生 ヒルトンプラザウエスト店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "広東料理"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区梅田2-2-2 ヒルトンプラザウエスト B2F",
+   "lat": 34.699824,
+   "lon": 135.49536,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJX-ERO43mAGAR1fXPzKIE1t0",
+   "tabelog": 3.68,
+   "tabelogReviews": 1420,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27006463/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 92,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "평일에도 점심 줄이 길다는 후기 다수. 점심 예약은 코스 주문 시에만",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "반개별실(2~20명) 있음 — 지정은 전화로 문의",
+   "foreignMenu": null,
+   "mustTry": "오징어 튀김(イカ天ぷら), 한정 무시 볶음밥 런치(죽·수프 리필)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "1월 1일, 6월 첫째 월요일 (건물 휴관일)",
+   "warn": null,
+   "desc": "고베 모토마치 노포 민세이의 니시우메다 지점. 92석 대형점이라 가족 단위로 쓰기 좋고 저녁은 예약 추천.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://selection.tabelog.com/osaka/A2701/A270101/27006463/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27006463/table/",
+    "https://gurunavi.com/en/k065430/rst"
+   ],
+   "confidence": "high",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 233,
+   "name": "라오후차이 한신우메다점",
+   "jp": "老虎菜 阪神梅田店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "四川料理"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区梅田1-13-13 阪神百貨店 9F",
+   "lat": 34.701073,
+   "lon": 135.497902,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJJXhccGvnAGARKIdYQVMoTsc",
+   "tabelog": 3.67,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27124951/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 34,
+   "seatTypes": [
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "오픈 직후에도 대기가 생겼다는 후기. 주말·피크엔 좌석만이라도 예약 권장",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "한신백화점 9층 식당가, 개별실 있음",
+   "foreignMenu": null,
+   "mustTry": "마파두부, 충칭 우육면(重慶牛肉麺)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "백화점 휴무일에 따름 (부정기)",
+   "warn": null,
+   "desc": "고베 셋쓰모토야마의 예약 어려운 사천 중화 분점. 후기 기준 점심 약 2,000엔, 저녁 약 5,000엔(코스 8,800~11,000엔). 베이징덕은 3일 전 전화 예약. 백명점 표기는 본점 선정과 혼동된 페이지도 있음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270101/27124951/dtlrvwlst/B444217365/",
+    "https://s.tabelog.com/en/osaka/A2701/A270101/27124951/",
+    "https://tabelog.com/chinese/osaka/A2701/A270101/rank/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 234,
+   "name": "덴페이 기타신치 본점",
+   "jp": "天平 北新地本店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "餃子"
+   ],
+   "area": "기타신치",
+   "region": "north",
+   "address": "大阪府大阪市北区曽根崎新地1-8-12",
+   "lat": 34.697522,
+   "lon": 135.500042,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJT2PSOuzmAGARNKNETgRadOc",
+   "tabelog": 3.65,
+   "tabelogReviews": 1255,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27000184/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": "餃子"
+    },
+    {
+     "year": 2021,
+     "list": "餃子"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥2,000～￥2,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": 19,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "예약 불가·19석이라 피크엔 대기 가능, 체류 40분 제한",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "1인 20개(또는 15개)부터 주문, 4인 테이블 2개",
+   "foreignMenu": null,
+   "mustTry": "한입 교자(ひと口餃子) — 메뉴는 교자와 츠케모노뿐",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "26:00"
+     ]
+    ],
+    "sat": [
+     [
+      "16:00",
+      "24:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "1955년 창업한 오사카 '한입 교자'의 발상지로 알려진 노포. 현금만 가능.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27000184/",
+    "https://tabelog.com/osaka/A2701/A270101/27000184/dtlrvwlst/B121821250/"
+   ],
+   "confidence": "high",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 235,
+   "name": "주카 슌사이 모리모토",
+   "jp": "中華旬彩 森本",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "飲茶・点心"
+   ],
+   "area": "신사이바시·아메무라",
+   "region": "south",
+   "address": "大阪府大阪市中央区心斎橋筋1-4-14 燕京ビル B1F",
+   "lat": 34.672826,
+   "lon": 135.501644,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJLQrn0hbnAGARvK2yWOLKsV4",
+   "tabelog": 3.6,
+   "tabelogReviews": 1748,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27086074/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 48,
+   "seatTypes": [],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "점심 행렬점으로 소개됨 (구체적 대기시간 미확인). 코스는 2인 이상 점심도 예약 가능",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "48석, 단체 연회 가능",
+   "foreignMenu": null,
+   "mustTry": "침닭(よだれ鶏), 마파두부",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "수요일 (화요일·부정기라는 정보도 있음)",
+   "warn": null,
+   "desc": "신사이바시역 5번 출구 도보 3분, 지하 1층의 미슐랭 게재 중화. 점심 정식이 가성비 좋기로 유명. 카드 가능 여부는 랭킹 페이지 근거라 확인 필요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27086074/",
+    "https://selection.tabelog.com/osaka/A2701/A270201/27086074/",
+    "https://guide.michelin.com/jp/ja/osaka-region/osaka/restaurant/chukashunsai-morimoto"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 236,
+   "name": "교자 다테야마 우메다점",
+   "jp": "餃子 立山 梅田店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "餃子"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区大淀南1-4-19",
+   "lat": 34.703834,
+   "lon": 135.489831,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJj2Q0VojmAGARo739UtyKhlg",
+   "tabelog": 3.6,
+   "tabelogReviews": 328,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27084060/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": "餃子"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥1,000～￥1,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 11,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "'줄 설 각오' 후기. 예약은 오픈 후 1시간 이내 입점분만 가능",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "카운터 11석뿐이라 6인 동시 착석 어려움",
+   "foreignMenu": null,
+   "mustTry": "바삭한 구이 교자 (여러 종류)",
+   "hours": {
+    "fri": [
+     [
+      "18:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "목요일 + 부정기 휴무",
+   "warn": null,
+   "desc": "오사카역 도보 약 12분(우메다 스카이빌딩 방면)의 교자 백명점. 교자가 떨어지면 일찍 닫음 — 영업일은 인스타그램 확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27084060/",
+    "https://gurunavi.com/en/kdgy100/rst",
+    "https://retty.me/theme/100012000/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 237,
+   "name": "후쿠류엔",
+   "jp": "福龍園",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "四川料理",
+    "中華料理"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区天満4-16-8 ハイツ天満宮 1F",
+   "lat": 34.695826,
+   "lon": 135.514145,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJ4X9BRtrmAGARnm6l71IF6sA",
+   "tabelog": 3.6,
+   "tabelogReviews": 621,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27002221/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥2,000～￥2,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": 15,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "15석 소형점이라 피크엔 대기 가능",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "테이블 8석",
+   "foreignMenu": null,
+   "mustTry": "마파두부 (천젠민 계보)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "오사카텐만구역 도보 약 5분, 천젠민의 손제자가 하는 사천 마치추카 백명점. 현금만. 점수는 페이지별 3.60~3.67.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270103/27002221/",
+    "https://tabelog.com/osaka/A2701/A270103/27002221/dtlrvwlst/B512339719/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 238,
+   "name": "추나 바루 도지마",
+   "jp": "中菜バル 堂島",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "四川料理"
+   ],
+   "area": "기타신치",
+   "region": "north",
+   "address": "大阪府大阪市北区曽根崎新地2-4-7 酒井ビル 1F",
+   "lat": 34.697255,
+   "lon": 135.493774,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJhwFaQyPnAGARIF_z7GW60aQ",
+   "tabelog": 3.55,
+   "tabelogReviews": 523,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27119385/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥4,000～￥4,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 28,
+   "seatTypes": [
+    "counter",
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "점심은 재료 소진 시 일찍 마감",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "6인까지 반개별실 있음",
+   "foreignMenu": null,
+   "mustTry": "최강 마파두부(最強麻婆豆府) 런치, 마라 요리·훠궈",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "17:30",
+      "22:30"
+     ]
+    ],
+    "sat": [
+     [
+      "17:30",
+      "22:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "추나 라보 조요(中菜Labo.朝陽)의 2호점인 사천 계열 중화 바. 점심은 현금만, 저녁은 카드 가능 (테이블 차지 330엔).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27119385/",
+    "https://tabelog.com/osaka/A2701/A270101/27119385/table/",
+    "https://job.tabelog.com/restaurants?id=27119385"
+   ],
+   "confidence": "high",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 239,
+   "name": "교자노 단짱 미쿠니테이 야와타스지점",
+   "jp": "餃子のだんちゃん 三国亭 八幡筋店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "餃子"
+   ],
+   "area": "신사이바시·아메무라",
+   "region": "south",
+   "address": "大阪府大阪市中央区東心斎橋2-1-15 八千代会館 1F",
+   "lat": 34.671145,
+   "lon": 135.505389,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJee4hlxXnAGARqDVkQk10paY",
+   "tabelog": 3.54,
+   "tabelogReviews": 267,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27050894/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": "餃子"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": true,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 16,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "예약 추천 가게로 소개됨",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "카운터 16석뿐",
+   "foreignMenu": null,
+   "mustTry": "교자",
+   "hours": {
+    "fri": [
+     [
+      "18:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "18:00",
+      "24:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "나가호리바시역 도보 4분, 심야까지 하는 교자 백명점(2024). 예전 정보엔 19:00~새벽 3:30 영업으로 나와 있어 시간 확인 필요. 예산·결제수단 미확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270201/27050894/",
+    "https://tabelog.com/gyouza/osaka/A2701/A270201/rank/",
+    "https://retty.me/theme/101043506/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 240,
+   "name": "추나 라보 조요",
+   "jp": "中菜Labo.朝陽",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "四川料理"
+   ],
+   "area": "기타신치",
+   "region": "north",
+   "address": "大阪府大阪市北区堂島1-3-8 堂島リンデンビル B1F",
+   "lat": 34.69634,
+   "lon": 135.497741,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJPQPm5e3mAGARPkoRKe4Cwlk",
+   "tabelog": 3.52,
+   "tabelogReviews": 620,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27081015/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2021,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥5,000～￥5,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 28,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "점심 예약은 코스만(11:30/13:00 시작)",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "4인 테이블 5개",
+   "foreignMenu": null,
+   "mustTry": "최강 마파두부 세트, 탄탄면",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "18:00",
+      "21:30"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일 + 부정기",
+   "warn": null,
+   "desc": "폐업한 명점 '瑞兆' 계보의 마파두부 명가. 점심은 현금만이라는 정보가 있음. 점수는 페이지에 따라 3.52~3.58.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27081015/",
+    "https://tabelog.com/osaka/A2701/A270101/27081015/dtlrvwlst/B444033986/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 241,
+   "name": "다키타니 한텐",
+   "jp": "瀧谷飯店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理"
+   ],
+   "area": "호리에·니시오하시",
+   "region": "south",
+   "address": "大阪府大阪市西区新町1-14-39 日宝立売堀ビル 1F",
+   "lat": 34.678908,
+   "lon": 135.495315,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJCbGn8o3nAGARw5Lrw_i__rk",
+   "tabelog": 3.52,
+   "tabelogReviews": 237,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27136187/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥5,000～￥5,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 30,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "혼잡 시 카운터석 안내될 수 있음",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "테이블 26석, 20명 이하 전세 가능",
+   "foreignMenu": null,
+   "mustTry": "마파두부 (화·목·토 한정 마파두부 런치)",
+   "hours": {
+    "fri": [
+     [
+      "17:30",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "17:30",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:30",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "월요일, 둘째 일요일",
+   "warn": null,
+   "desc": "경력 30년 셰프의 정통이면서 친근한 중화. 혼마치역 22·23번 출구 도보 5분. 결제수단 미확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27136187/",
+    "https://tabelog.com/chinese/osaka/A2701/A270201/rank/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 242,
+   "name": "마사무네 광둥 시보사이 사와다 우메다 에스트점",
+   "jp": "正宗広東私房菜サワダ 梅田エスト店",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "広東料理"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区角田町3-25 梅田エスト E-30",
+   "lat": 34.704742,
+   "lon": 135.501296,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJFdGNRjnnAGARj6f625ZrFco",
+   "tabelog": 3.51,
+   "tabelogReviews": 519,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27139271/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 60,
+   "seatTypes": [
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "저녁 좌석만 예약 시 1인 330엔 예약료",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "개별실 2~14명 (코스 이용 시)",
+   "foreignMenu": null,
+   "mustTry": null,
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "없음 (상업시설 휴관일 제외)",
+   "warn": null,
+   "desc": "에스사와다 계열의 광둥 가정요리점으로 한큐 오사카우메다역 3층 남쪽 개찰구 도보 약 3분. 주말에도 통으로 영업해 가족 이용이 쉬움.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://selection.tabelog.com/osaka/A2701/A270101/27139271/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27139271/"
+   ],
+   "confidence": "high",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 243,
+   "name": "교자 쇼쿠도",
+   "jp": "餃子食堂",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "餃子",
+    "居酒屋"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区天神橋3-8-24 メゾン扇町 1F",
+   "lat": 34.701982,
+   "lon": 135.511329,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJZfroWADnAGARZr7O4mYNr9U",
+   "tabelog": 3.51,
+   "tabelogReviews": 299,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27140879/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥3,000～￥3,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 40,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "교자, 라멘 (후기에서 호평)",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "25:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "25:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "25:00"
+     ]
+    ]
+   },
+   "closed": "없음 (매일 영업 표기)",
+   "warn": null,
+   "desc": "2024년 4월 오픈, 오기마치역 도보 4분의 교자 식당 겸 이자카야로 덴마 교자 랭킹 1위. 저녁 전용.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270103/27140879/",
+    "https://tabelog.com/gyouza/osaka/A2701/A270103/rank/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 244,
+   "name": "미와테이",
+   "jp": "みわ亭",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島6-14-5 福島民放ビル 1F",
+   "lat": 34.700655,
+   "lon": 135.487443,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJX2U4CGLmAGAR3hrIX0JupBQ",
+   "tabelog": 3.49,
+   "tabelogReviews": 496,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27003684/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "中国料理 WEST"
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥2,000～￥2,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 22,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "점심 행렬 생기지만 평일 10분 정도 기다렸다는 후기",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "테이블 16석",
+   "foreignMenu": null,
+   "mustTry": "특제 새우 칠리소스(特製エビのピリ辛ソース)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일",
+   "warn": null,
+   "desc": "후쿠시마역 근처 새우 요리로 유명한 마치추카, 중국요리 백명점 2026. 점수는 페이지에 따라 3.49~3.53.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27003684/",
+    "https://tabelog.com/osaka/A2701/A270108/27003684/dtlrvwlst/?trailing_slash=true&type=0",
+    "https://tabelog.com/chinese/osaka/A2701/A270108/rank/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 245,
+   "name": "마파두부 신",
+   "jp": "麻婆豆腐シン",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "麻婆豆腐"
+   ],
+   "area": "호리에·니시오하시",
+   "region": "south",
+   "address": "大阪府大阪市西区新町1-25-3 8R Bld.5 1F",
+   "lat": 34.676038,
+   "lon": 135.495188,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJT6JZMQXnAGARWyE-p7l1dHs",
+   "tabelog": 3.48,
+   "tabelogReviews": 280,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27132480/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥3,000～￥3,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 18,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "unknown",
+   "seatNote": null,
+   "seatLabel": "좌석 확인",
+   "seatTag": "check",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "신짱 마파두부(달콤 매콤) 1,300엔",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:30",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "18:30",
+      "22:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일",
+   "warn": null,
+   "desc": "니시오하시역 도보 4분의 마파두부 전문점. 점심은 현금·PayPay만, 카드는 저녁에. 점수는 3.48~3.50 사이를 오감.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27132480/",
+    "https://tabelog.com/en/osaka/A2701/A270201/27132480/dtlmenu/"
+   ],
+   "confidence": "medium",
+   "src": "chinese",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 246,
+   "name": "우나지로",
+   "jp": "うな次郎",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "うなぎ"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区紅梅町3-14 ヤマツタビル 1F",
+   "lat": 34.699352,
+   "lon": 135.512726,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJcR1Fw8TmAGARLgaePYiZMRM",
+   "tabelog": 3.72,
+   "tabelogReviews": 603,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27040987/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": "うなぎ"
+    }
+   ],
+   "budgetLunch": "￥3,000～￥3,999",
+   "budgetDinner": "￥5,000～￥5,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 16,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "오픈 전부터 줄이 생기고 평일에도 정오 전 만석이라는 후기. 예약은 점심·저녁 각 2팀 한정",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "우나주(우마키·고바치·기모스이 포함)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ],
+    "sat": null,
+    "sun": [
+     [
+      "11:00",
+      "17:00"
+     ]
+    ]
+   },
+   "closed": "월요일(첫째 화요일도 휴무라는 표기 있음)",
+   "warn": null,
+   "desc": "2026 우나기 백명점에 선정된 간사이식 지야키(찌지 않고 굽는) 장어 전문점. 16석(카운터 4·테이블 3)뿐이라 6명은 나눠 앉거나 예약 필요, 장어 소진 시 조기 종료.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270103/27040987/",
+    "https://gourmet.watch.impress.co.jp/docs/news/2126918.html"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 247,
+   "name": "스시 후쿠시마",
+   "jp": "寿司福島",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司",
+    "海鮮"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島1-2-17 ミートミー梅田西 1F",
+   "lat": 34.694357,
+   "lon": 135.48779,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJfzaNbQDnAGARrUgx-dzqWfY",
+   "tabelog": 3.69,
+   "tabelogReviews": 147,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27141561/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥5,000～￥5,999",
+   "budgetDinner": "￥15,000～￥19,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 24,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": "타베로그 온라인 예약(코스) / 단품은 전화 예약",
+   "wait": {
+    "level": "unknown",
+    "note": "예약 위주. 주말 점심 온라인 예약은 12:00 시작 코스(카운터)만",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "점심 니기리 코스",
+   "hours": {
+    "fri": [
+     [
+      "18:00",
+      "23:00"
+     ]
+    ],
+    "sat": null,
+    "sun": null
+   },
+   "closed": "부정기 휴무",
+   "warn": null,
+   "desc": "2024년 개업(구 鮨 天翔), 신후쿠시마역 1분. 저녁은 1.5만엔 이상이라 점심(5천엔대) 이용 추천이며 8인 카운터와 테이블석이 있음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270108/27141561/",
+    "https://selection.tabelog.com/osaka/A2701/A270108/27141561/",
+    "https://tabelog.com/osaka/A2701/A270108/rstLst/lunch/RC010201/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 248,
+   "name": "스시 히데조",
+   "jp": "鮨 ひでぞう",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区難波千日前8-3 山下ビル 1F",
+   "lat": 34.663909,
+   "lon": 135.503993,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJW6XVMmrnAGARCb1zVZNRmwI",
+   "tabelog": 3.63,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27094403/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥3,000～￥3,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "unknown",
+   "seatNote": null,
+   "seatLabel": "좌석 확인",
+   "seatTag": "check",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "예약이 매우 어렵다는 후기. 2시간제",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "니기리 스시",
+   "hours": {
+    "fri": [
+     [
+      "16:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "16:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "16:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "난바의 생선가게 계열 '우오야 히데조' 그룹의 스시 전문점. 표기 예산은 3천엔대지만 실제 후기 평균은 5~8천엔.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270202/27094403/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27094403/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 249,
+   "name": "스미야키 우나후지 오사카우메다점",
+   "jp": "炭焼 うな富士 大阪梅田店",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "うなぎ",
+    "ひつまぶし"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区大深町5-54 グラングリーン大阪 南館 3F",
+   "lat": 34.702633,
+   "lon": 135.491795,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJhfNRYwDnAGARit2qHOxO2qo",
+   "tabelog": 3.62,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27146873/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 73,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": "식당 온라인 예약 페이지",
+   "wait": {
+    "level": "medium",
+    "note": "예약하고 가도 가게 밖에 대기 줄이 있었고 12시쯤 거의 만석이라는 후기. 예약 권장",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "3인 이상 개별실 있음",
+   "foreignMenu": null,
+   "mustTry": "히쓰마부시, 우나주",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무",
+   "warn": null,
+   "desc": "나고야 명물 장어집 '우나후지'의 오사카 1호점(2025년 3월 개업, 그랑그린 오사카). 큼직한 장어를 센 숯불에 구워 고소하며, 73석·개별실이 있어 가족 6명도 앉기 쉬움.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270101/27146873/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27146873/",
+    "https://tabelog.com/unagi/osaka/A2701/rank/"
+   ],
+   "confidence": "high",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 250,
+   "name": "아지사이",
+   "jp": "味菜",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "海鮮丼",
+    "割烹"
+   ],
+   "area": "기타신치",
+   "region": "north",
+   "address": "大阪府大阪市北区曽根崎新地1-5-4 岩伸スプレットビル 1F",
+   "lat": 34.697733,
+   "lon": 135.497483,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJOVAY9O3mAGARht54C6Tot9Q",
+   "tabelog": 3.61,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27018581/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥10,000～￥14,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 24,
+   "seatTypes": [
+    "counter",
+    "tatami",
+    "private"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "점심은 준비 수량이 떨어지면 종료",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "호리고타쓰 좌식석·개별실(10~20명) 있음",
+   "foreignMenu": null,
+   "mustTry": "점심 가이센동(해산물덮밥, 최근 약 2,200엔), 더블 가이센동",
+   "hours": {
+    "fri": null,
+    "sat": null,
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "기타신치 노포 갓포(일식 요릿집)로, 점심 해산물덮밥이 저렴하고 푸짐하기로 유명. 저녁은 1만엔대라 점심 이용 추천, 호텔에서 걸어갈 수 있는 거리.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270101/27018581/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27018581/",
+    "https://tabelog.com/matome/22762/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 251,
+   "name": "혼케 시바토",
+   "jp": "本家柴藤",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "うなぎ"
+   ],
+   "area": "나카노시마·기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区高麗橋2-5-2",
+   "lat": 34.69001,
+   "lon": 135.503754,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJi5dnq9_mAGARJUbfBRYFNjU",
+   "tabelog": 3.59,
+   "tabelogReviews": 433,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27000005/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 50,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "점심엔 1시간 안에 만석이 되고 정오에 줄이 생긴다는 후기. 장어가 품절되기도 해 예약 권장(점심 우선 예약)",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "오사카 마무시(장어덮밥), 시바토류 오히쓰마무시",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "20:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "20:30"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일",
+   "warn": null,
+   "desc": "교호 연간(1700년대) 창업이라는 300년 노포로 오사카식 '가미가타 구이' 장어를 내는 곳. 호텔(나카노시마)에서 가까우며, 굽는 데 시간이 걸리니 여유 있게 방문.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270102/27000005/",
+    "https://jp.openrice.com/en/osaka-kobe/r-honke-shibato-kitahama-yodoyabashi-higobashi-japanese-food-other-kaiseki-traditional-course-meal-r388030",
+    "https://retty.me/restaurant/100000040008/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 252,
+   "name": "우나기시 겐사이",
+   "jp": "鰻師玄斎",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "うなぎ"
+   ],
+   "area": "신사이바시·아메무라",
+   "region": "south",
+   "address": "大阪府大阪市中央区東心斎橋2-1-14 ZOOMビル 2F",
+   "lat": 34.671212,
+   "lon": 135.505446,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJW44CCF7nAGARbh2KeTU3AuE",
+   "tabelog": 3.59,
+   "tabelogReviews": 70,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270201/27158704/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥8,000～￥9,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 8,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "12시 오픈 때 예약 손님으로 만석이었다는 후기. 예약 권장",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "카운터 8석뿐이라 아이 동반·6명 동석은 어려움",
+   "foreignMenu": null,
+   "mustTry": "우나주 한 마리 '사쿠사쿠'(5,280엔), 장어 샤부샤부 코스",
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "21:00"
+     ]
+    ]
+   },
+   "closed": "확인 안 됨 (매일 통영업 표기)",
+   "warn": null,
+   "desc": "2026년 8월 말 개업한 신생 장어집으로 아이치현 잇시키산 암컷 장어를 간사이식으로 구움. 카운터 8석이라 2~3명씩 나눠 가는 용도.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270201/27158704/",
+    "https://tabelog.com/osaka/A2701/A270201/27158704/dtlrvwlst/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 253,
+   "name": "다치스시 히데조",
+   "jp": "立ち鮨 ひでぞう",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "立ち食い寿司",
+    "寿司"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区道頓堀1-2-12 近松家ビル 1F",
+   "lat": 34.668386,
+   "lon": 135.505289,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJLxKWhPHnAGARP2uLW-imBGk",
+   "tabelog": 3.58,
+   "tabelogReviews": 275,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27134358/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥3,000～￥3,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "standing"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "서서 먹는 가게라 아이 동반은 짧게만",
+   "foreignMenu": null,
+   "mustTry": "1관씩 주문하는 니기리",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "15:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "15:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "월요일",
+   "warn": null,
+   "desc": "히데조 그룹의 서서 먹는 스시집(닛폰바시역 약 170m). 예약 불가·카드 불가(PayPay 가능)로, 다른 가게 대기가 길 때 잠깐 들르기 좋음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270202/27134358/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27134358/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 254,
+   "name": "도쿄 치쿠요테이 미나미미도점",
+   "jp": "東京竹葉亭 南御堂店",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "うなぎ",
+    "日本料理"
+   ],
+   "area": "혼마치",
+   "region": "north",
+   "address": "大阪府大阪市中央区久太郎町4-1-15 南御堂ビルディング 2F",
+   "lat": 34.680246,
+   "lon": 135.500115,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJ2Z9YpKDnAGARogKWVVPsk8A",
+   "tabelog": 3.54,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270106/27114343/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥4,000～￥4,999",
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": "타베로그 온라인 예약",
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "최대 6인 개별실 있음",
+   "foreignMenu": null,
+   "mustTry": "장어덮밥, 점심 한정 '御堂弁当'(장어 반덮밥 포함)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "확인 안 됨",
+   "warn": null,
+   "desc": "도쿄 긴자의 에도 시대 장어 노포 '치쿠요테이'의 오사카 지점(혼마치역 2분, 오사카 엑셀호텔도큐 건물 2층). 영업시간은 구루나비 기준이라 휴무일은 미확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270106/27114343/",
+    "https://r.gnavi.co.jp/kdj6600/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 255,
+   "name": "스시사카바 텟페이",
+   "jp": "鮨酒場てっぺい",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司",
+    "居酒屋"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区堂山町梅田地下街3-1 ホワイティうめだ イーストモール NOMOKA",
+   "lat": 34.702519,
+   "lon": 135.501883,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJjeyY993nAGARonNg1EcAOX8",
+   "tabelog": 3.54,
+   "tabelogReviews": 791,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27129935/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥3,000～￥3,999",
+   "budgetDinner": "￥4,000～￥4,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 29,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": "타베로그 온라인 예약(6명 초과는 전화)",
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "아이 동반 가능 표기. 긴 카운터석만 있음",
+   "foreignMenu": null,
+   "mustTry": "오마카세 니기리 코스(4,800엔대), 모둠 사시미",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "1월 1일, 홀수 달 셋째 목요일",
+   "warn": null,
+   "desc": "우메다 지하상가 NOMOKA의 스시 술집으로 타베로그 핫레스토랑 2025·2026 수상. 오전 11시부터 밤까지 통영업이라 시간 맞추기 쉬우나 카운터 전용.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270101/27129935/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27129935/dtlmenu/",
+    "https://retty.me/restaurant/100001661744/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 256,
+   "name": "우나기 욘다이메 키쿠카와 힐튼플라자웨스트점",
+   "jp": "うなぎ四代目菊川 ヒルトンプラザウエスト大阪店",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "うなぎ"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区梅田2-2-2 ヒルトンプラザウエスト B2F",
+   "lat": 34.699862,
+   "lon": 135.495219,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJdwp334zmAGARpkYTraOhs_M",
+   "tabelog": 3.52,
+   "tabelogReviews": 608,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27128437/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥4,000～￥4,999",
+   "budgetDinner": "￥5,000～￥5,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 46,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": "타베로그 온라인 예약",
+   "wait": {
+    "level": "unknown",
+    "note": "예약 시 90분제(회석은 2시간제)",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "2·4·6·8인 개별실 있음",
+   "foreignMenu": null,
+   "mustTry": "가바야키 잇폰주(장어 한 마리, 5,880엔), 잇폰 히쓰마부시",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "시설 휴관일에 따름",
+   "warn": null,
+   "desc": "기후·세키의 장어 노포 계열로 한 마리를 통째로 올린 '잇폰주'가 간판. 니시우메다 역 바로 앞 빌딩 지하라 접근이 쉽고 6인 개별실이 있음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270101/27128437/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27128437/dtlmenu/",
+    "https://tabelog.com/unagi/osaka/A2701/rank/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 257,
+   "name": "스시와쇼쿠 코로안 난바",
+   "jp": "鮨和食 紅炉庵 なんば",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司",
+    "日本料理",
+    "天ぷら"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区難波4-3-21 ZAナンバビル 1F",
+   "lat": 34.665989,
+   "lon": 135.499471,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJ6S60OyTnAGARQduG3AbknDw",
+   "tabelog": 3.52,
+   "tabelogReviews": 449,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27130348/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥2,000～￥2,999",
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 42,
+   "seatTypes": [
+    "counter",
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": "타베로그 온라인 예약",
+   "wait": {
+    "level": "unknown",
+    "note": "예약 필수라는 후기. 2시간제, 오토시 600엔",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "아이 동반 가능 표기, 6인 개별실 있음",
+   "foreignMenu": null,
+   "mustTry": "에도마에 스시와 제철 덴푸라",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "22:30"
+     ]
+    ]
+   },
+   "closed": "연말연시",
+   "warn": null,
+   "desc": "난바역 1분 거리의 스시·일식집. 4인 테이블 7개와 6인 개별실이 있어 가족 단체에 적합하고, 점심은 2~3천엔대.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270202/27130348/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27130348/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 258,
+   "name": "요시노스시",
+   "jp": "吉野寿司",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司",
+    "箱寿司",
+    "持ち帰り"
+   ],
+   "area": "혼마치",
+   "region": "north",
+   "address": "大阪府大阪市中央区淡路町3-4-14",
+   "lat": 34.687094,
+   "lon": 135.501883,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJKZ-MfOHmAGAR4w9achPpfBk",
+   "tabelog": 3.51,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270106/27000011/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥2,000～￥2,999",
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 24,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "none",
+    "note": "현재 테이크아웃만 영업이라는 표기",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "포장해서 호텔에서 먹는 용도",
+   "foreignMenu": null,
+   "mustTry": "하코즈시(상자 초밥) 도시락",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "14:00"
+     ]
+    ],
+    "sat": [],
+    "sun": []
+   },
+   "closed": "토·일요일·공휴일",
+   "warn": "지금은 포장(테이크아웃)만 돼요. 여행 기간에는 금요일 낮에만 열어요.",
+   "desc": "덴포 연간(1841년) 창업한 오사카 하코즈시(상자 초밥)의 대표 노포. 현재 포장 판매만 하며 주말 휴무라 금요일 오전에만 가능(난바 다카시마야 지점도 포장 판매).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270106/27000011/",
+    "https://tabiiro.jp/gourmet/s/303286-osaka-yoshino-sushi/",
+    "https://www.timeout.jp/osaka/ja/レストラン/yoshino-sushi"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 259,
+   "name": "아나바 텐마점",
+   "jp": "穴場 天満店",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司",
+    "居酒屋"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区天神橋4-12-7",
+   "lat": 34.705848,
+   "lon": 135.511889,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJv7_RR8fmAGARzO_LEJuIKNA",
+   "tabelog": 3.49,
+   "tabelogReviews": 693,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27005842/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥2,000～￥2,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 66,
+   "seatTypes": [
+    "table",
+    "counter"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": "전화 예약(17시 이후, 1주 전부터)",
+   "wait": {
+    "level": "long",
+    "note": "예약이 사실상 필수, 예약 없이 가면 거절되는 경우가 많다는 후기(2014·2020년 후기 중심)",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "가족·아이 동반 이용 장면으로 소개됨",
+   "foreignMenu": null,
+   "mustTry": "큼직한 네타의 니기리(데카네타 스시)",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "22:30"
+     ]
+    ],
+    "sat": [
+     [
+      "15:00",
+      "22:30"
+     ]
+    ],
+    "sun": [
+     [
+      "15:00",
+      "22:30"
+     ]
+    ]
+   },
+   "closed": "화요일",
+   "warn": null,
+   "desc": "점수는 3.49지만 JR 텐마역 1분, 큰 네타·저렴한 가격으로 줄 서는 덴마 스시 격전지의 대표 인기점. 테이블 60석이라 6명도 예약하면 앉기 쉬움.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270103/27005842/",
+    "https://tabelog.com/en/osaka/A2701/A270103/27005842/"
+   ],
+   "confidence": "high",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 260,
+   "name": "회전스시 사카에 한큐히가시도리점",
+   "jp": "回転すし さかえ 阪急東通り店",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "回転寿司"
+   ],
+   "area": "우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区堂山町3-12 玄風ビル 1F",
+   "lat": 34.702737,
+   "lon": 135.502841,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJh7C7RZPmAGARUGg_xSybBOM",
+   "tabelog": 3.49,
+   "tabelogReviews": 470,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27002305/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥1,000～￥1,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 30,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": null,
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "금요일 18시경 대기 없음, 22시경 거의 만석이라는 후기",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "회전 카운터석만 있음",
+   "foreignMenu": null,
+   "mustTry": "균일가 접시 스시(2관 154엔~, 2026년 후기)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "31:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "31:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "31:00"
+     ]
+    ]
+   },
+   "closed": "수요일",
+   "warn": null,
+   "desc": "점수는 3.49지만 우메다 한큐히가시도리의 현지인 단골 회전초밥으로 전 접시 균일가·심야 영업이 강점. 카운터 30석이라 6명은 나눠 앉을 가능성.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270101/27002305/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27002305/",
+    "https://tabelog.com/matome/14154/"
+   ],
+   "confidence": "high",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 261,
+   "name": "뉴 스시센터 하루키야 우라난바점",
+   "jp": "ニューすしセンター 春木屋 裏なんば店",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司",
+    "海鮮"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区難波千日前14-2",
+   "lat": 34.664179,
+   "lon": 135.503356,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJlxfUs03nAGAR_g0ebuOyndo",
+   "tabelog": 3.49,
+   "tabelogReviews": 275,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27131541/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥2,000～￥2,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 47,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": null,
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": "가게 앞 이름 기입 대기표(호출 시 부재하면 삭제)",
+   "wait": {
+    "level": "short",
+    "note": "대기 2팀에 20분 정도였다는 후기",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "사시미 모둠(사카나모리), 니기리",
+   "hours": {
+    "fri": [
+     [
+      "14:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "12:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "12:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "12월 31일, 1월 1일",
+   "warn": null,
+   "desc": "우라난바 도구야스지 쪽의 가성비 스시 술집으로 1~3층 47석. 점수 3.49지만 저렴한 가격과 회 모둠으로 인기(후기상 실제 지출 4~6천엔).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270202/27131541/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27131541/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 262,
+   "name": "스시마사 나카점",
+   "jp": "すし政 中店",
+   "genre": "스시",
+   "emoji": "🍣",
+   "genreJp": [
+    "寿司"
+   ],
+   "area": "덴마·덴진바시스지",
+   "region": "north",
+   "address": "大阪府大阪市北区天神橋5-6-19",
+   "lat": 34.707633,
+   "lon": 135.511622,
+   "coordSrc": "google",
+   "coordConf": "high",
+   "placeId": "ChIJKasjt7jmAGARwnxO3QaJgoA",
+   "tabelog": 3.48,
+   "tabelogReviews": 643,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270103/27002278/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥2,000～￥2,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": null,
+    "cashOnly": null
+   },
+   "seats": 50,
+   "seatTypes": [
+    "counter",
+    "table",
+    "tatami"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "'항상 붐빈다'는 후기",
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "2층 좌식(다다미) 25석, 3명 이상 예약 가능",
+   "foreignMenu": null,
+   "mustTry": "니기리 모리아와세 런치(원코인대), 붓으로 간장을 바르는 옛 방식",
+   "hours": {
+    "fri": [
+     [
+      "11:10",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:10",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:10",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "월요일",
+   "warn": null,
+   "desc": "점수는 3.48이지만 덴진바시스지 상점가에서 50년 넘게 사랑받는 저렴한 서민 스시 노포. 2층 다다미방이 있어 6명 가족에 적합, 카드·전자머니 불가.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270103/27002278/",
+    "https://tabelog.com/en/osaka/A2701/A270103/27002278/",
+    "https://tabelog.com/matome/15245/"
+   ],
+   "confidence": "high",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
+  },
+  {
+   "id": 263,
+   "name": "카니도라쿠 본점",
+   "jp": "かに道楽 本店",
+   "genre": "해산물·덮밥",
+   "emoji": "🐟",
+   "genreJp": [
+    "かに"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市中央区道頓堀1-6-18",
+   "lat": 34.668799,
+   "lon": 135.501487,
+   "coordSrc": "google",
+   "coordConf": "medium",
+   "placeId": "ChIJVVVFgBPnAGARLbCliBbVOI8",
+   "tabelog": 3.42,
+   "tabelogReviews": 619,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001516/",
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": null,
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "table",
+    "tatami",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": null,
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": false
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "2~8인 개별실·호리고타쓰석 있음",
+   "foreignMenu": null,
+   "mustTry": "게 코스 요리, 테이크아웃 '카니만'(게 찐빵)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "연중무휴",
+   "warn": null,
+   "desc": "점수는 3.4대지만 움직이는 대형 게 간판으로 도톤보리의 상징인 게 요리 본점(선정 이유: 오사카 대표 명소). 개별실이 많아 가족 6명 식사에 편하고, 9명 이상이면 인근 나카점·히가시점 권장.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270202/27001516/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27001516/",
+    "https://www.hotpepper.jp/strJ000018294/"
+   ],
+   "confidence": "medium",
+   "src": "seafood",
+   "coordDate": "2026-11-05"
   }
  ],
  "schema": 2,
