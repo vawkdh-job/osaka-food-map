@@ -344,7 +344,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:false,rating:'all',kind:'all',region:'all',favOnly:false,
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider','carto')};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v2','gsi')};
 const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
 let me=null; // {lat,lon,acc,t}
 let rows=[];
@@ -352,20 +352,24 @@ let rows=[];
 /* ================= map ================= */
 const map=L.map('map',{zoomControl:false,minZoom:10,maxZoom:19,zoomSnap:1,tapTolerance:12,worldCopyJump:false,attributionControl:true});
 map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
+const GSI_ATTR='<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
 const PROVIDERS={
-  carto:{name:'기본 지도 (CARTO)',desc:'선명한 고해상도 · 가장 빠름',url:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    opt:{subdomains:'abcd',maxNativeZoom:18,maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> © <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'}},
-  gsi:{name:'일본 국토지리원 지도',desc:'일본 정부 지도 · 건물·지명 상세',url:'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
-    opt:{maxNativeZoom:18,maxZoom:19,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>'}},
+  gsi:{name:'기본 지도 (일본 국토지리원 · 연한 색)',desc:'일본 정부 지도 · 키 불필요 · 핀이 잘 보임',url:'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
+    opt:{maxNativeZoom:18,maxZoom:19,attribution:GSI_ATTR}},
+  gsistd:{name:'국토지리원 표준 지도',desc:'색이 진하고 도로·철도 구분이 뚜렷함',url:'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
+    opt:{maxNativeZoom:18,maxZoom:19,attribution:GSI_ATTR}},
+  osm:{name:'OpenStreetMap',desc:'가게·편의점까지 표시 · 미리 저장은 안 됨',url:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',noPrecache:true,
+    opt:{maxNativeZoom:19,maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}},
   esri:{name:'Esri 도로 지도',desc:'예전 버전에서 쓰던 지도',url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
     opt:{maxNativeZoom:18,maxZoom:19,attribution:'Tiles © Esri'}}
 };
-const ORDER=['carto','gsi','esri'];
+const DEFAULT_PROVIDER='gsi',PROV_KEY='ofm.provider.v2';
+const MENU_ORDER=['gsi','gsistd','osm','esri'],ORDER=['gsi','osm','esri'];
 let base=null,tileStats=null,tried=new Set();
 function setProvider(key,auto){
-  if(!PROVIDERS[key])key='carto';
+  if(!PROVIDERS[key])key=DEFAULT_PROVIDER;
   if(base)map.removeLayer(base);
-  const P=PROVIDERS[key];S.provider=key;if(!auto)LS.set('ofm.provider',key);
+  const P=PROVIDERS[key];S.provider=key;if(!auto)LS.set(PROV_KEY,key);
   tried.add(key);tileStats={ok:0,err:0};
   base=L.tileLayer(P.url,Object.assign({keepBuffer:3,updateWhenIdle:false,crossOrigin:false},P.opt));
   base.on('tileload',()=>{tileStats.ok++;if(tileStats.ok===1)hideMapStatus()});
@@ -381,7 +385,7 @@ function checkTiles(){
   if(next){toast(`지도 서버가 응답하지 않아 「${PROVIDERS[next].name}」로 바꿨어요.`);setProvider(next,true)}
   else showMapStatus('지도를 불러오지 못했어요. 데이터 연결을 확인해 주세요. 목록·길찾기는 그대로 쓸 수 있어요.');
 }
-function retryTiles(){tried=new Set();hideMapStatus();setProvider(LS.get('ofm.provider','carto'),true)}
+function retryTiles(){tried=new Set();hideMapStatus();setProvider(LS.get(PROV_KEY,DEFAULT_PROVIDER),true)}
 function showMapStatus(t){$('#mapStatusText').textContent=t;$('#mapStatus').hidden=false}
 function hideMapStatus(){$('#mapStatus').hidden=true}
 window.addEventListener('online',()=>{hideMapStatus();if(base){if(tileStats.ok===0)retryTiles();else base.redraw()}});
@@ -587,14 +591,13 @@ function onPos(p){
       refresh();panToVisible(ll,16);
       toast(`📍 내 위치를 찾았어요 (오차 약 ${Math.round(me.acc)}m). 근처 맛집을 평점순으로 보여 줘요.`);
     }else{
-      panToVisible(ll,Math.min(map.getZoom(),13));
-      toast(`📍 내 위치를 찾았어요. 지금은 오사카에서 약 ${Math.round(fromHotel)}km 떨어져 있어서 거리 기준은 호텔로 둘게요. 오사카에 도착하면 자동으로 내 위치 기준이 돼요.`,7000);
+      farToast(fromHotel);
       if(S.ref==='me'&&!S.refTouched)S.ref='hotel';refresh({markers:false});
     }
     lastListPos=me;return;
   }
   if(fromHotel<=OSAKA_KM&&S.ref!=='me'&&!S.refTouched){S.ref='me';if(!S.sortTouched)S.sort='nearby';refresh();lastListPos=me}
-  if(follow)map.panTo(ll,{animate:true});
+  if(follow&&fromHotel<=OSAKA_KM)map.panTo(ll,{animate:true});
   if(S.ref==='me'&&(!lastListPos||km(lastListPos,me)>0.03)){lastListPos=me;refresh({markers:false})}
 }
 function onPosErr(e){
@@ -602,8 +605,10 @@ function onPosErr(e){
     showLocHelp('위치 권한이 꺼져 있어요. 아래 방법으로 허용한 뒤 「다시 시도」를 눌러 주세요.');return}
   if(!me&&!warned){warned=true;setLocState('searching');toast(e.code===3?'위치를 찾는 데 시간이 걸리고 있어요. 하늘이 보이는 곳에서 더 빨라요.':'위치를 찾지 못했어요. 지하·건물 안에서는 GPS가 약해요. 계속 시도할게요.',6000)}
 }
+function farToast(d){toast(`📍 위치 확인 완료! 지금은 오사카에서 약 ${Math.round(d)}km 떨어져 있어요. 거리 기준은 호텔로 두고, 오사카에 도착하면 자동으로 내 위치 기준으로 바뀌어요.`,7000)}
 locBtn.onclick=()=>{
   if(watchId==null||!me){startLocate();return}
+  const d=km(me,HOTEL);if(d>OSAKA_KM){farToast(d);return} // the Japan map has no detail outside Japan
   follow=true;setLocState('follow');panToVisible([me.lat,me.lon],Math.max(map.getZoom(),16));
 };
 map.on('dragstart',()=>{if(follow){follow=false;if(me)setLocState('on')}});
@@ -653,7 +658,7 @@ function closeModal(s){$(s).hidden=true}
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))m.hidden=true}));
 $('#menuBtn').onclick=()=>openModal('#menu');
 $('#hotelDir').href=dirUrl(HOTEL.jp+' '+HOTEL.address,2);
-function renderProviders(){$('#providers').innerHTML=ORDER.map(k=>`<label class="radio"><input type="radio" name="prov" value="${k}" ${S.provider===k?'checked':''}><span>${PROVIDERS[k].name}<small>${PROVIDERS[k].desc}</small></span></label>`).join('');
+function renderProviders(){$('#providers').innerHTML=MENU_ORDER.map(k=>`<label class="radio"><input type="radio" name="prov" value="${k}" ${S.provider===k?'checked':''}><span>${PROVIDERS[k].name}<small>${PROVIDERS[k].desc}</small></span></label>`).join('');
   $('#providers').querySelectorAll('input').forEach(i=>i.onchange=()=>{tried=new Set();setProvider(i.value,false);hideMapStatus()})}
 
 /* ---- offline: pre-save map tiles (served later by the service worker) ---- */
@@ -667,6 +672,7 @@ function tileUrls(){
 }
 $('#precacheBtn').onclick=async()=>{
   const urls=tileUrls(),bar=$('#precacheBar'),txt=$('#precacheText');
+  if(PROVIDERS[S.provider].noPrecache){txt.textContent='OpenStreetMap은 지도를 한꺼번에 내려받는 것이 금지돼 있어요. 지도 종류를 국토지리원으로 바꾼 뒤 눌러 주세요.';return}
   if(!navigator.serviceWorker||!navigator.serviceWorker.controller){txt.textContent='이 브라우저(또는 이 주소)에서는 미리 저장을 쓸 수 없어요. 한 번 둘러본 지도는 브라우저가 어느 정도 기억합니다.';return}
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
   bar.hidden=false;let done=0,fail=0;const btn=$('#precacheBtn');btn.disabled=true;
@@ -707,7 +713,11 @@ $('#day').addEventListener('change',()=>{S.dayTouched=true});
 // resume location automatically if the user already granted it
 (async()=>{try{const p=navigator.permissions&&await navigator.permissions.query({name:'geolocation'});if(p&&p.state==='granted'){startLocate();return}}catch(e){}
   if(LS.get('ofm.locOn',false))startLocate();else setTimeout(()=>toast('◎ 버튼을 누르면 내 위치 근처 맛집을 평점순으로 보여 줘요.',5000),900)})();
-if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='file:'){
+  const hadCtrl=!!navigator.serviceWorker.controller;let reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
 window.__ofm={S,map,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>

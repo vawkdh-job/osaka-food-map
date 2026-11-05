@@ -44,17 +44,18 @@ async function makeTile(size, label) {
   }, { size, label });
   return Buffer.from(b64, 'base64');
 }
-const TILE = { carto: await makeTile(512, 'carto@2x'), gsi: await makeTile(256, 'gsi'), esri: await makeTile(256, 'esri') };
+const TILE = { gsi: await makeTile(256, 'gsi'), osm: await makeTile(256, 'osm'), esri: await makeTile(256, 'esri') };
 
 async function newPhone(opts = {}) {
   const ctx = await browser.newContext({ ...(opts.device || devices['iPhone 13']), serviceWorkers: opts.sw ? 'allow' : 'block',
     locale: 'ko-KR', timezoneId: opts.tz || 'Asia/Seoul', ...(opts.geo ? { geolocation: opts.geo, permissions: ['geolocation'] } : {}) });
   const page = await ctx.newPage();
-  const log = { errors: [], tiles: { carto: 0, gsi: 0, esri: 0 } };
+  const log = { errors: [], tiles: { gsi: 0, osm: 0, esri: 0, carto: 0 } };
   page.on('pageerror', e => log.errors.push(String(e)));
   page.on('console', m => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) log.errors.push(m.text()); });
   const t = opts.tiles || {};
-  for (const [key, pat] of [['carto', '**/*.basemaps.cartocdn.com/**'], ['gsi', '**/cyberjapandata.gsi.go.jp/**'], ['esri', '**/server.arcgisonline.com/**']]) {
+  await ctx.route('**/*.basemaps.cartocdn.com/**', r => { log.tiles.carto++; r.abort(); });
+  for (const [key, pat] of [['gsi', '**/cyberjapandata.gsi.go.jp/**'], ['osm', '**/tile.openstreetmap.org/**'], ['esri', '**/server.arcgisonline.com/**']]) {
     await ctx.route(pat, async route => {
       log.tiles[key]++;
       const mode = t[key] || 'ok';
@@ -63,7 +64,7 @@ async function newPhone(opts = {}) {
       try { await route.fulfill({ status: 200, contentType: 'image/png', body: TILE[key] }); } catch {}
     });
   }
-  await ctx.route(/^https?:\/\/(?!localhost)(?!.*(cartocdn|gsi\.go\.jp|arcgisonline))/, r => r.abort()); // photos etc.
+  await ctx.route(/^https?:\/\/(?!localhost)(?!.*(cartocdn|gsi\.go\.jp|openstreetmap|arcgisonline))/, r => r.abort()); // photos etc.
   if (opts.clock) await page.clock.setFixedTime(new Date(opts.clock));
   return { ctx, page, log };
 }
@@ -90,7 +91,7 @@ console.log('1. iPhone 13 · first open, no location permission');
     return { mapVisiblePct: Math.round((sh - top) / H * 100), searchFont: getComputedStyle(document.querySelector('#q')).fontSize }; });
   check(ui.mapVisiblePct >= 55, 'map has ≥55% of the screen free with sheet collapsed', ui.mapVisiblePct + '%');
   check(ui.searchFont === '16px', 'search box 16px (no iOS zoom on focus)');
-  check(log.tiles.carto > 0 && log.tiles.gsi === 0, 'CARTO @2x tiles requested, no fallback', JSON.stringify(log.tiles));
+  check(log.tiles.gsi > 0 && log.tiles.osm === 0 && log.tiles.carto === 0, 'GSI tiles requested, no CARTO, no fallback', JSON.stringify(log.tiles));
   check(await page.locator('#toast.show').count() === 1, 'hint toast about ◎ button shown');
   await page.waitForTimeout(5000);
   await page.screenshot({ path: join(SHOTS, '01_iphone_first_open.png') });
@@ -205,13 +206,13 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
 
 console.log('7. Tile server failures');
 {
-  const { ctx, page, log } = await newPhone({ tiles: { carto: 'fail' } });
+  const { ctx, page, log } = await newPhone({ tiles: { gsi: 'fail' } });
   await page.goto(URL0); await page.waitForTimeout(3000);
-  check((await appState(page)).provider === 'gsi', 'CARTO down → switches to GSI map', JSON.stringify(log.tiles));
+  check((await appState(page)).provider === 'osm', 'GSI down → switches to OpenStreetMap', JSON.stringify(log.tiles));
   await ctx.close();
 }
 {
-  const { ctx, page } = await newPhone({ tiles: { carto: 'fail', gsi: 'fail', esri: 'fail' } });
+  const { ctx, page } = await newPhone({ tiles: { gsi: 'fail', osm: 'fail', esri: 'fail' } });
   await page.goto(URL0); await page.waitForTimeout(4000);
   check(await page.locator('#mapStatus').isVisible(), 'all servers down → message with retry button (no fake map)');
   check((await appState(page)).rows.length === 30, 'list still works without tiles');
@@ -219,10 +220,10 @@ console.log('7. Tile server failures');
   await ctx.close();
 }
 {
-  const { ctx, page } = await newPhone({ tiles: { carto: 10000 } });
+  const { ctx, page } = await newPhone({ tiles: { gsi: 10000 } });
   await page.goto(URL0); await page.waitForTimeout(13000);
   const loaded = await page.evaluate(() => [...document.querySelectorAll('.leaflet-tile-loaded')].length);
-  check((await appState(page)).provider === 'carto' && loaded > 0, 'slow tiles (10 s) → waits, no switch, tiles appear', `${loaded} tiles`);
+  check((await appState(page)).provider === 'gsi' && loaded > 0, 'slow tiles (10 s) → waits, no switch, tiles appear', `${loaded} tiles`);
   await ctx.close();
 }
 

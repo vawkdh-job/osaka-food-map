@@ -47,4 +47,4 @@ git commit -am "…" && git push
 - 좌표·영업시간·타베로그 평점은 2026-11-05에 NAVITIME·MapFan·타베로그 검색 결과로 확인한 값입니다.
 - 구글 평점은 이전 조사값입니다.
 - 실시간 정보는 아니므로 방문 전 Google 지도·타베로그에서 한 번 더 확인하세요.
-- 지도: © OpenStreetMap contributors © CARTO / 地理院タイル / Esri.
+- 지도: 地理院タイル(국토지리원, 기본) / © OpenStreetMap contributors / Esri. (CARTO는 2026년부터 API 키가 필요해져 뺐습니다.)

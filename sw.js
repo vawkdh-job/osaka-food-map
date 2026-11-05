@@ -1,12 +1,12 @@
 /* Service worker: keeps the app usable on weak roaming data.
    - App files: network first (so updates arrive), cached copy when offline or slow.
    - Map tiles and restaurant photos: cache first, so viewed or pre-saved areas work offline. */
-const VERSION = '2026-11-05-3ad482c3';
+const VERSION = '2026-11-05-976de087';
 const APP_CACHE = 'ofm-app-' + VERSION;
-const TILE_CACHE = 'ofm-tiles-v1';
+const TILE_CACHE = 'ofm-tiles-v2'; // v1 held CARTO "API KEY REQUIRED" placeholder tiles
 const IMG_CACHE = 'ofm-img-v1';
 const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png'];
-const TILE_HOSTS = ['basemaps.cartocdn.com', 'cyberjapandata.gsi.go.jp', 'server.arcgisonline.com'];
+const TILE_HOSTS = ['cyberjapandata.gsi.go.jp', 'tile.openstreetmap.org', 'server.arcgisonline.com'];
 const MAX_TILES = 4000, MAX_IMGS = 120;
 
 self.addEventListener('install', e => {
@@ -15,7 +15,7 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(k => k.startsWith('ofm-app-') && k !== APP_CACHE).map(k => caches.delete(k))))
+    .then(keys => Promise.all(keys.filter(k => (k.startsWith('ofm-app-') && k !== APP_CACHE) || (k.startsWith('ofm-tiles-') && k !== TILE_CACHE)).map(k => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 
@@ -39,7 +39,7 @@ async function networkFirst(req) {
   const c = await caches.open(APP_CACHE);
   try {
     const res = await Promise.race([
-      fetch(req),
+      fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }), // revalidate past the 10-minute HTTP cache
       new Promise((_, rej) => setTimeout(() => rej(new Error('slow')), 6000)),
     ]);
     if (res && res.ok) c.put(req, res.clone());
