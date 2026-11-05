@@ -5,7 +5,9 @@ const VERSION = '__BUILD__';
 const APP_CACHE = 'ofm-app-' + VERSION;
 const TILE_CACHE = 'ofm-tiles-v2'; // v1 held CARTO "API KEY REQUIRED" placeholder tiles
 const IMG_CACHE = 'ofm-img-v1';
-const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png'];
+const VEC_CACHE = 'ofm-vec-meta-v1';
+const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png',
+  './vendor/maplibre-gl.js', './vendor/leaflet-maplibre-gl.js'];
 const TILE_HOSTS = ['cyberjapandata.gsi.go.jp', 'tile.openstreetmap.org', 'server.arcgisonline.com'];
 const MAX_TILES = 4000, MAX_IMGS = 120;
 
@@ -35,6 +37,20 @@ async function cacheFirst(req, name, max) {
   return res;
 }
 
+// Vector map style/TileJSON change when OpenFreeMap publishes new data: network first, cached copy offline.
+async function networkFirstExt(req) {
+  const c = await caches.open(VEC_CACHE);
+  try {
+    const res = await Promise.race([fetch(req), new Promise((_, rej) => setTimeout(() => rej(new Error('slow')), 6000))]);
+    if (res && res.ok) c.put(req.url, res.clone());
+    return res;
+  } catch (err) {
+    const hit = await c.match(req.url);
+    if (hit) return hit;
+    throw err;
+  }
+}
+
 async function networkFirst(req) {
   const c = await caches.open(APP_CACHE);
   try {
@@ -55,7 +71,11 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (TILE_HOSTS.some(h => url.hostname.endsWith(h))) {
+  if (url.hostname === 'tiles.openfreemap.org') {
+    // tiles (.pbf), fonts and sprites are immutable per URL; styles and TileJSON are not
+    if (/\.pbf$|\/fonts\/|\/sprites\//.test(url.pathname)) e.respondWith(cacheFirst(req, TILE_CACHE, MAX_TILES));
+    else e.respondWith(networkFirstExt(req));
+  } else if (TILE_HOSTS.some(h => url.hostname.endsWith(h))) {
     e.respondWith(cacheFirst(req, TILE_CACHE, MAX_TILES));
   } else if (url.origin === self.location.origin) {
     e.respondWith(networkFirst(req));

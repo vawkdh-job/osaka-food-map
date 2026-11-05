@@ -1,6 +1,6 @@
 // Builds the deployable site at the repo root: index.html (single file, Leaflet inlined), sw.js, manifest.
 // Usage: node tools/build.mjs
-import { readFileSync, writeFileSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, copyFileSync, mkdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
 const read = p => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
@@ -29,4 +29,8 @@ write('index.html', html);
 write('sw.js', read('src/sw.js').replaceAll('__BUILD__', stamp));
 copyFileSync(new URL('../src/manifest.webmanifest', import.meta.url), new URL('../manifest.webmanifest', import.meta.url));
 write('.nojekyll', '');
+// MapLibre (Korean vector map) is large, so it ships as separate files loaded on demand
+mkdirSync(new URL('../vendor/', import.meta.url), { recursive: true });
+copyFileSync(new URL('../node_modules/maplibre-gl/dist/maplibre-gl.js', import.meta.url), new URL('../vendor/maplibre-gl.js', import.meta.url));
+copyFileSync(new URL('../node_modules/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js', import.meta.url), new URL('../vendor/leaflet-maplibre-gl.js', import.meta.url));
 console.log(`built index.html (${(html.length / 1024).toFixed(0)} KB), version ${stamp}`);

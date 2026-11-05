@@ -32,6 +32,8 @@ a{color:inherit;text-decoration:none}
 :focus-visible{outline:3px solid #64b5c6;outline-offset:2px}
 #map{position:fixed;inset:0;z-index:1;background:#e9eef0}
 .leaflet-container{font-family:inherit;background:#e9eef0}
+.leaflet-gl-layer{pointer-events:none}
+.maplibregl-map{position:relative;overflow:hidden}.maplibregl-canvas-container,.maplibregl-canvas{position:absolute;left:0;top:0}
 .leaflet-bottom{bottom:var(--sheet-h);transition:bottom .25s}
 .leaflet-control-attribution{font-size:10px;max-width:70vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#ffffffd9!important}
 
@@ -344,7 +346,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:false,rating:'all',kind:'all',region:'all',favOnly:false,
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v2','gsi')};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v3','ko')};
 const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
 let me=null; // {lat,lon,acc,t}
 let rows=[];
@@ -353,8 +355,11 @@ let rows=[];
 const map=L.map('map',{zoomControl:false,minZoom:10,maxZoom:19,zoomSnap:1,tapTolerance:12,worldCopyJump:false,attributionControl:true});
 map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
 const GSI_ATTR='<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>';
+const OFM_ATTR='<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
 const PROVIDERS={
-  gsi:{name:'기본 지도 (일본 국토지리원 · 연한 색)',desc:'일본 정부 지도 · 키 불필요 · 핀이 잘 보임',url:'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
+  ko:{type:'vector',name:'한글 지도 (기본)',desc:'역·동네·명소 이름을 한국어로 표시 (한국어 이름이 없는 곳은 일본어)',style:'https://tiles.openfreemap.org/styles/liberty'},
+  kolight:{type:'vector',name:'한글 지도 · 연한 색',desc:'색이 연해서 핀이 더 잘 보임',style:'https://tiles.openfreemap.org/styles/positron'},
+  gsi:{name:'일본 국토지리원 지도 (일본어)',desc:'일본 정부 지도 · 한글 지도가 안 될 때 예비용',url:'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
     opt:{maxNativeZoom:18,maxZoom:19,attribution:GSI_ATTR}},
   gsistd:{name:'국토지리원 표준 지도',desc:'색이 진하고 도로·철도 구분이 뚜렷함',url:'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
     opt:{maxNativeZoom:18,maxZoom:19,attribution:GSI_ATTR}},
@@ -363,14 +368,48 @@ const PROVIDERS={
   esri:{name:'Esri 도로 지도',desc:'예전 버전에서 쓰던 지도',url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
     opt:{maxNativeZoom:18,maxZoom:19,attribution:'Tiles © Esri'}}
 };
-const DEFAULT_PROVIDER='gsi',PROV_KEY='ofm.provider.v2';
-const MENU_ORDER=['gsi','gsistd','osm','esri'],ORDER=['gsi','osm','esri'];
+const DEFAULT_PROVIDER='ko',PROV_KEY='ofm.provider.v3';
+const MENU_ORDER=['ko','kolight','gsi','gsistd','osm','esri'],ORDER=['ko','gsi','osm','esri'];
+const KO_FONT="'Apple SD Gothic Neo','Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif";
+/* MapLibre (vector map) is loaded only when a Korean map is used */
+let mlPromise=null;
+function loadMaplibre(){
+  if(window.maplibregl&&L.maplibreGL)return Promise.resolve();
+  if(!mlPromise)mlPromise=new Promise((res,rej)=>{const add=(src,next)=>{const t=document.createElement('script');t.src=src;t.onload=next;t.onerror=()=>rej(new Error('load '+src));document.head.appendChild(t)};
+    add('vendor/maplibre-gl.js',()=>add('vendor/leaflet-maplibre-gl.js',res))}).catch(e=>{mlPromise=null;throw e});
+  return mlPromise;
+}
+function webglOK(){try{const c=document.createElement('canvas');return!!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}}
+const styleCache={};
+/* fetch the OpenFreeMap style and switch every place/road/POI label to the Korean OSM name (name:ko), falling back to the local name */
+async function koStyle(url){
+  if(styleCache[url])return styleCache[url];
+  const r=await fetch(url);if(!r.ok)throw new Error('style '+r.status);
+  const st=await r.json();
+  for(const l of st.layers||[]){const tf=l.layout&&l.layout['text-field'];if(tf&&JSON.stringify(tf).includes('name'))l.layout['text-field']=['coalesce',['get','name:ko'],['get','name']]}
+  for(const src of Object.values(st.sources||{}))if(src.type==='vector')src.attribution=OFM_ATTR;
+  return styleCache[url]=st;
+}
+let provToken=0;
 let base=null,tileStats=null,tried=new Set();
 function setProvider(key,auto){
   if(!PROVIDERS[key])key=DEFAULT_PROVIDER;
-  if(base)map.removeLayer(base);
-  const P=PROVIDERS[key];S.provider=key;if(!auto)LS.set(PROV_KEY,key);
-  tried.add(key);tileStats={ok:0,err:0};
+  if(base){map.removeLayer(base);base=null}
+  let P=PROVIDERS[key];
+  if(P.type==='vector'&&!webglOK()){tried.add(key);if(!auto)toast('이 기기에서는 한글 지도를 쓸 수 없어 일본어 지도로 보여 줘요.');key='gsi';P=PROVIDERS.gsi}
+  S.provider=key;if(!auto)LS.set(PROV_KEY,key);
+  tried.add(key);tileStats={ok:0,err:0};const token=++provToken;
+  if(P.type==='vector'){
+    renderProviders();
+    Promise.all([loadMaplibre(),koStyle(P.style)]).then(([,style])=>{
+      if(token!==provToken)return;
+      base=L.maplibreGL({style,localIdeographFontFamily:KO_FONT,padding:.1,fadeDuration:0,attributionControl:{customAttribution:OFM_ATTR}}).addTo(map);
+      const gl=base.getMaplibreMap();
+      gl.on('sourcedata',e=>{if(e.tile&&token===provToken){tileStats.ok++;if(tileStats.ok===1)hideMapStatus()}});
+      gl.on('error',e=>{if(token!==provToken)return;const msg=String(e&&e.error&&e.error.message||'');if(/glyph|sprite|font/i.test(msg))return;tileStats.err++;checkTiles()});
+    }).catch(()=>{if(token!==provToken)return;tileStats.err=99;checkTiles()});
+    return;
+  }
   base=L.tileLayer(P.url,Object.assign({keepBuffer:3,updateWhenIdle:false,crossOrigin:false},P.opt));
   base.on('tileload',()=>{tileStats.ok++;if(tileStats.ok===1)hideMapStatus()});
   base.on('tileerror',()=>{tileStats.err++;checkTiles()});
@@ -382,13 +421,13 @@ function checkTiles(){
   if(tileStats.ok>0||tileStats.err<6)return;
   if(!navigator.onLine){showMapStatus('오프라인 상태예요. 연결되면 지도를 다시 불러옵니다.');return}
   const next=ORDER.find(k=>!tried.has(k));
-  if(next){toast(`지도 서버가 응답하지 않아 「${PROVIDERS[next].name}」로 바꿨어요.`);setProvider(next,true)}
+  if(next){toast(PROVIDERS[S.provider].type==='vector'?`한글 지도를 불러오지 못해 「${PROVIDERS[next].name}」로 보여 줘요.`:`지도 서버가 응답하지 않아 「${PROVIDERS[next].name}」로 바꿨어요.`);setProvider(next,true)}
   else showMapStatus('지도를 불러오지 못했어요. 데이터 연결을 확인해 주세요. 목록·길찾기는 그대로 쓸 수 있어요.');
 }
 function retryTiles(){tried=new Set();hideMapStatus();setProvider(LS.get(PROV_KEY,DEFAULT_PROVIDER),true)}
 function showMapStatus(t){$('#mapStatusText').textContent=t;$('#mapStatus').hidden=false}
 function hideMapStatus(){$('#mapStatus').hidden=true}
-window.addEventListener('online',()=>{hideMapStatus();if(base){if(tileStats.ok===0)retryTiles();else base.redraw()}});
+window.addEventListener('online',()=>{hideMapStatus();if(!base||tileStats.ok===0)retryTiles();else if(base.redraw)base.redraw();else setProvider(S.provider,true)});
 window.addEventListener('offline',()=>toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.'));
 $('#retryBtn').onclick=retryTiles;
 
@@ -664,26 +703,40 @@ function renderProviders(){$('#providers').innerHTML=MENU_ORDER.map(k=>`<label c
 /* ---- offline: pre-save map tiles (served later by the service worker) ---- */
 const AREAS=[{s:34.681,w:135.472,n:34.717,e:135.514},{s:34.658,w:135.493,n:34.675,e:135.512}];
 function tileXY(lat,lon,z){const n=2**z,s=Math.sin(lat*Math.PI/180);return[Math.floor((lon+180)/360*n),Math.floor((.5-Math.log((1+s)/(1-s))/(4*Math.PI))*n)]}
-function tileUrls(){
-  const P=PROVIDERS[S.provider],sub=P.opt.subdomains||'',set=new Set();
+function tileUrls(key=S.provider){
+  const P=PROVIDERS[key];if(P.type==='vector')return[];const sub=P.opt.subdomains||'',set=new Set();
   for(const a of AREAS)for(let z=12;z<=17;z++){const[x0,y0]=tileXY(a.n,a.w,z),[x1,y1]=tileXY(a.s,a.e,z);
     for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++)set.add(P.url.replace('{s}',sub?sub[Math.abs(x+y)%sub.length]:'').replace('{z}',z).replace('{x}',x).replace('{y}',y).replace('{r}',L.Browser.retina?'@2x':''))}
   return[...set];
 }
+async function vectorUrls(P){
+  const st=await koStyle(P.style),set=new Set([P.style]);
+  for(const src of Object.values(st.sources)){if(src.type!=='vector')continue;let tiles=src.tiles,maxz=src.maxzoom??14;
+    if(!tiles&&src.url){set.add(src.url);const tj=await(await fetch(src.url)).json();tiles=tj.tiles;maxz=tj.maxzoom??14}
+    for(const a of AREAS)for(let z=10;z<=Math.min(14,maxz);z++){const[x0,y0]=tileXY(a.n,a.w,z),[x1,y1]=tileXY(a.s,a.e,z);
+      for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++)set.add(tiles[0].replace('{z}',z).replace('{x}',x).replace('{y}',y))}}
+  const fonts=new Set();for(const l of st.layers)if(l.layout&&Array.isArray(l.layout['text-font']))fonts.add(l.layout['text-font'].join(','));
+  if(st.glyphs)for(const f of fonts)for(const r of['0-255','256-511','8192-8447'])set.add(st.glyphs.replace('{fontstack}',encodeURIComponent(f)).replace('{range}',r));
+  if(typeof st.sprite==='string')for(const x of['.json','.png','@2x.json','@2x.png'])set.add(st.sprite+x);
+  return[...set];
+}
 $('#precacheBtn').onclick=async()=>{
-  const urls=tileUrls(),bar=$('#precacheBar'),txt=$('#precacheText');
+  const bar=$('#precacheBar'),txt=$('#precacheText'),P=PROVIDERS[S.provider];
+  let urls;
+  try{urls=P.type==='vector'?[...await vectorUrls(P),...tileUrls('gsi')]:tileUrls()}catch(e){txt.textContent='지도 정보를 받지 못했어요. 연결이 좋을 때 다시 눌러 주세요.';return}
+  const corsUrls=new Set(P.type==='vector'?urls.filter(u=>u.includes('openfreemap')):[]);
   if(PROVIDERS[S.provider].noPrecache){txt.textContent='OpenStreetMap은 지도를 한꺼번에 내려받는 것이 금지돼 있어요. 지도 종류를 국토지리원으로 바꾼 뒤 눌러 주세요.';return}
   if(!navigator.serviceWorker||!navigator.serviceWorker.controller){txt.textContent='이 브라우저(또는 이 주소)에서는 미리 저장을 쓸 수 없어요. 한 번 둘러본 지도는 브라우저가 어느 정도 기억합니다.';return}
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
   bar.hidden=false;let done=0,fail=0;const btn=$('#precacheBtn');btn.disabled=true;
   const q=urls.slice();
-  async function worker(){while(q.length){const u=q.shift();try{await fetch(u,{mode:'no-cors',cache:'no-store'})}catch(e){fail++}done++;bar.firstElementChild.style.width=(done/urls.length*100)+'%';txt.textContent=`${done}/${urls.length}장 저장 중…`}}
+  async function worker(){while(q.length){const u=q.shift();try{await fetch(u,corsUrls.has(u)?{cache:'no-store'}:{mode:'no-cors',cache:'no-store'})}catch(e){fail++}done++;bar.firstElementChild.style.width=(done/urls.length*100)+'%';txt.textContent=`${done}/${urls.length}개 저장 중…`}}
   await Promise.all(Array.from({length:6},worker));
   btn.disabled=false;
-  txt.textContent=fail?`${urls.length-fail}/${urls.length}장 저장 (${fail}장 실패 — 연결이 좋을 때 다시 눌러 주세요)`:`✅ ${urls.length}장 저장 완료 (${PROVIDERS[S.provider].name}, 확대 12~17단계)`;
+  txt.textContent=fail?`${urls.length-fail}/${urls.length}개 저장 (${fail}개 실패 — 연결이 좋을 때 다시 눌러 주세요)`:`✅ ${urls.length}개 저장 완료 (${P.name}${P.type==='vector'?' + 예비 일본어 지도':''})`;
   if(!fail)LS.set('ofm.precached',{date:new Date().toISOString().slice(0,10),provider:S.provider,n:urls.length});
 };
-function precacheInfo(){const p=LS.get('ofm.precached',null);$('#precacheText').textContent=p?`마지막 저장: ${p.date} · ${PROVIDERS[p.provider]?.name||''} ${p.n}장`:`약 ${tileUrls().length}장 (10~25MB 정도). Wi-Fi에서 권장.`}
+function precacheInfo(){const p=LS.get('ofm.precached',null);$('#precacheText').textContent=p?`마지막 저장: ${p.date} · ${PROVIDERS[p.provider]?.name||''} ${p.n}개`:`한글 지도 + 예비 일본어 지도 (10~20MB 정도). Wi-Fi에서 권장.`}
 
 /* ---- in-app browser banner (KakaoTalk, LINE …) ---- */
 (function inApp(){
@@ -712,13 +765,13 @@ setInterval(()=>{const k=todayKey();if(k&&S.day!==k&&!S.dayTouched){S.day=k}if(i
 $('#day').addEventListener('change',()=>{S.dayTouched=true});
 // resume location automatically if the user already granted it
 (async()=>{try{const p=navigator.permissions&&await navigator.permissions.query({name:'geolocation'});if(p&&p.state==='granted'){startLocate();return}}catch(e){}
-  if(LS.get('ofm.locOn',false))startLocate();else setTimeout(()=>toast('◎ 버튼을 누르면 내 위치 근처 맛집을 평점순으로 보여 줘요.',5000),900)})();
+  if(LS.get('ofm.locOn',false))startLocate();else setTimeout(()=>{if(!$('#toast').classList.contains('show'))toast('◎ 버튼을 누르면 내 위치 근처 맛집을 평점순으로 보여 줘요.',5000)},900)})();
 if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='file:'){
   const hadCtrl=!!navigator.serviceWorker.controller;let reloaded=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={S,map,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={tiles:()=>tileStats,glStyle:()=>base&&base.getMaplibreMap?base.getMaplibreMap().getStyle():null,S,map,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>
