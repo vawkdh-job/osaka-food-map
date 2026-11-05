@@ -344,6 +344,10 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .toast{border-radius:14px;background:#0f172aee}
 @media (min-width:900px){.panel{border-radius:22px}.panel::before{display:none}.searchRow .iconBtn{background:var(--soft)}}
 
+/* show-all controls */
+.hint.scope{margin-bottom:2px}.linkBtn{border:0;background:none;padding:6px 2px;font:inherit;font-weight:750;color:var(--brand);text-decoration:underline;text-underline-offset:3px}
+.expand{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 32px);margin:14px 16px 6px;min-height:48px;border:0;border-radius:14px;background:var(--soft);color:var(--brand);font-size:15px;font-weight:750}
+.expand small{font-size:12px;font-weight:600;color:var(--muted)}
 /* food-type strip */
 .catBar{position:sticky;top:0;z-index:3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 10px;background:#fff}
 .catBar::-webkit-scrollbar{display:none}
@@ -415,6 +419,8 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
       <button class="btn" id="locHelpBtn">📍 내 위치 도움말</button>
       <button class="btn" id="phraseBtn">🗣 일본어 회화 카드</button>
     </div>
+    <h3>보여 줄 식당</h3>
+    <label class="radio"><input type="checkbox" id="showAllToggle"><span>모든 식당 보기<small>끄면 음식 종류마다 평점 상위 10곳만 보여요 (찜한 가게와 검색 결과는 항상 보여요)</small></span></label>
     <h3>지도 종류</h3>
     <div id="providers"></div>
     <label class="radio"><input type="checkbox" id="poiToggle"><span>지도에 다른 가게·시설 아이콘도 표시<small>꺼 두면 맛집 핀만 또렷하게 보여요 (한글 지도)</small></span></label>
@@ -526,7 +532,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:false,genre:'all',list:'all',f:{region:'all',minT:0,prices:[],card:false,ic:false,shortWait:false,group6:false,reserve:false,nonSmoking:false,morning:false,late:false},
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false)};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false)};
 const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
 let me=null; // {lat,lon,acc,t}
 let rows=[];
@@ -846,16 +852,25 @@ const CATS=[
   {key:'c-cafe',label:'카페',emoji:'☕',q:'カフェ 喫茶店',test:r=>isG(r,['킷사텐'])||hasTag(r,['カフェ','喫茶店','コーヒー専門店','紅茶専門店','コーヒースタンド'])||(isG(r,['카페·디저트'])&&!tagsOf(r).length&&!/りくろー|クレープ/.test(r.jp))},
   {key:'c-sweet',label:'디저트',emoji:'🍰',q:'スイーツ',test:r=>hasTag(r,['スイーツ','ケーキ','チョコレート','パンケーキ','かき氷','フルーツパーラー','甘味処','和菓子','大福','ソフトクリーム','アイスクリーム'])||/りくろー|クレープ|アルション/.test(r.jp)},
   {key:'c-bread',label:'빵',emoji:'🥐',q:'パン屋',test:r=>isG(r,['빵'])||hasTag(r,['パン','ベーグル'])}];
-/* curated app: each food type keeps its 20 best-rated shops (Tabelog, then Google, 百名店, review count);
-   a shop stays on the map if it makes at least one food type's top 20. The data file keeps everything. */
-const CAT_MAX=20,ALL_SHOPS=DATA.length;
+/* by default each food type shows its 10 best-rated shops (Tabelog, then Google, 百名店, review count);
+   "모두 보기" shows every researched shop. Saved (찜) shops and search results are always shown. */
+const CAT_MAX=10,ALL_SHOPS=DATA.length;
 const rateKey=r=>[r.tabelog??0,r.google??0,(r.hyakumeiten||[]).length,r.tabelogReviews??0];
 const byRating=(a,b)=>{const x=rateKey(a),y=rateKey(b);for(let i=0;i<x.length;i++)if(x[i]!==y[i])return y[i]-x[i];return a.id-b.id};
 const CAT_TOP=Object.fromEntries(CATS.map(c=>[c.key,new Set(DATA.filter(r=>r.lat!=null&&c.test(r)).sort(byRating).slice(0,CAT_MAX).map(r=>r.id))]));
-DATA.splice(0,DATA.length,...DATA.filter(r=>CATS.some(c=>CAT_TOP[c.key].has(r.id))));
-const catsOf=r=>r._cats||(r._cats=CATS.filter(c=>CAT_TOP[c.key].has(r.id)).map(c=>c.key));
+const TOPSET=new Set(DATA.filter(r=>CATS.some(c=>CAT_TOP[c.key].has(r.id))).map(r=>r.id));
+const isTop=r=>TOPSET.has(r.id);
+const visible=r=>S.showAll||isTop(r)||fav.has(r.id);
+const allCats=r=>r._ac||(r._ac=CATS.filter(c=>c.test(r)).map(c=>c.key));
+const topCats=r=>r._tc||(r._tc=CATS.filter(c=>CAT_TOP[c.key].has(r.id)).map(c=>c.key));
+const catsOf=r=>scoped()?topCats(r):allCats(r);
+const scoped=()=>!S.showAll&&!S.q&&S.list==='all';
+const shownCount=()=>DATA.filter(r=>r.lat!=null&&visible(r)).length;
+function setShowAll(on){S.showAll=!!on;LS.set('ofm.showAll',S.showAll);$('#showAllToggle').checked=S.showAll;
+  $('#q').placeholder=`맛집 ${shownCount()}곳 검색 (예: 우동, 백명점)`;refresh();
+  toast(S.showAll?`모든 식당 ${ALL_SHOPS}곳을 보여 줘요.`:`종류별 평점 상위 ${CAT_MAX}곳만 보여 줘요.`,2500)}
 const pickOf=k=>CATS.find(c=>c.key===k)||GENRES.find(g=>g.key===k)||null;
-const matchPick=(r,k)=>k==='all'||(k.startsWith('c-')?catsOf(r).includes(k):genreOf(r).key===k);
+const matchPick=(r,k,every)=>k==='all'||(k.startsWith('c-')?(every?allCats(r):catsOf(r)).includes(k):genreOf(r).key===k);
 const REGIONS={all:'지역 전체',north:'기타 (우메다·덴마·후쿠시마·나카노시마)',south:'미나미 (난바·신사이바시·도톤보리)',tennoji:'신세카이·덴노지',bay:'오사카항 (가이유칸)'};
 const WAIT={none:{t:'대기 거의 없음',s:'대기 없음',k:0},short:{t:'대기 짧음 (~15분)',s:'대기 짧음',k:1},medium:{t:'대기 보통 (15~40분)',s:'대기 보통',k:2},
   unknown:{t:'대기 정보 없음',s:'',k:2.5},long:{t:'대기 김 (40분~)',s:'대기 김',k:3},very_long:{t:'대기 매우 김 (1시간~)',s:'대기 매우 김',k:4}};
@@ -872,10 +887,11 @@ function refPoint(){if(S.ref==='me'&&me)return me;if(S.ref==='center'&&map)retur
 function passes(r,ignore){
   const f=S.f;
   if(r.lat==null)return false;
+  if(ignore!=='vis'&&scoped()&&!visible(r))return false;
   if(S.list==='top'&&!TOP100.has(r.id))return false;
   if(S.list==='hyaku'&&!HYAKU100.has(r.id))return false;
   if(S.list==='fav'&&!fav.has(r.id))return false;
-  if(S.genre!=='all'&&ignore!=='genre'&&!matchPick(r,S.genre))return false;
+  if(S.genre!=='all'&&ignore!=='genre'&&!matchPick(r,S.genre,ignore==='vis'))return false;
   if(f.region!=='all'&&r.region!==f.region)return false;
   if(f.minT&&(r.tabelog==null||r.tabelog<f.minT))return false;
   if(f.prices.length&&!f.prices.includes(r.price))return false;
@@ -933,14 +949,18 @@ function renderList(){
   const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const near=rows.findIndex(x=>x.divider);const nn=near<0?n:near;hint=`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?gname+' ':''}${nn}곳을 평점 높은 순으로 보여 줘요.</p>`}
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
+  const plainList=!S.q&&S.list==='all',hidden=scoped()?DATA.filter(r=>passes(r,'vis')).length-n:0;
+  const expand=hidden>0?`<button class="expand" data-expand="1">▾ 숨긴 ${hidden}곳도 보기 <small>종류별 평점 ${CAT_MAX}위 밖</small></button>`
+    :S.showAll&&plainList?`<button class="expand" data-expand="0">▴ 종류별 상위 ${CAT_MAX}곳만 보기</button>`:'';
+  if(plainList)hint=`<p class="hint scope">${S.showAll?`모든 식당 ${ALL_SHOPS}곳을 보여 줘요`:`종류별 평점 상위 ${CAT_MAX}곳만 보여 줘요`} · <button class="linkBtn" data-expand="${S.showAll?0:1}">${S.showAll?'상위만 보기':'모두 보기'}</button></p>`+hint;
   const c=refPoint(),gq=gp;
   const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.q||gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
   const body=$('#sheetBody'),keep=body.scrollTop;
   // render the first rows now and the rest as the list is scrolled (keeps filter taps fast on slower phones)
   const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
-  listMore=rows.slice(LIST_STEP);listTail=gLink;
-  $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':gLink)
-    :`<p class="empty">조건에 맞는 식당이 없어요. 필터를 줄여 보세요.</p>${filterCount()?'<button class="btn wide" id="clearFilters">필터 초기화</button>':''}${gLink}`;
+  listMore=rows.slice(LIST_STEP);listTail=expand+gLink;
+  $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
+    :`<p class="empty">조건에 맞는 식당이 없어요. ${hidden?'숨긴 가게까지 보거나 ':''}필터를 줄여 보세요.</p>${expand}${filterCount()?'<button class="btn wide" id="clearFilters">필터 초기화</button>':''}${gLink}`;
   const cf=$('#clearFilters');if(cf)cf.onclick=resetFilters;
   if(S.view==='list'){while(listMore.length&&body.scrollHeight<keep+body.clientHeight+600)moreList();body.scrollTop=keep}
 }
@@ -987,7 +1007,7 @@ function infoRows(r){
 /* nearby alternatives when the queue is long: open, within ~15 min walk of this shop, short queue first */
 function alternatives(r){
   const day=S.day,live=isLive(),g=genreOf(r).key;
-  const cand=DATA.filter(x=>x.id!==r.id&&x.lat!=null).map(x=>({r:x,d:km(r,x)})).filter(x=>x.d<=1.0).filter(x=>{
+  const cand=DATA.filter(x=>x.id!==r.id&&x.lat!=null&&visible(x)).map(x=>({r:x,d:km(r,x)})).filter(x=>x.d<=1.0).filter(x=>{
     const k=status(x.r,day).kind;return live?(k==='open'||k==='closing'||k==='unknown'):k!=='closed'});
   const rank=(a,b)=>waitOf(a.r).k-waitOf(b.r).k||(b.r.tabelog??0)-(a.r.tabelog??0);
   const same=cand.filter(x=>genreOf(x.r).key===g).sort(rank),other=cand.filter(x=>genreOf(x.r).key!==g).sort(rank);
@@ -1213,7 +1233,7 @@ function updateChips(){
   const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
   $('#ref').value=S.ref;$('#refText').textContent=selText($('#ref'));$('#refMini').classList.toggle('isMe',S.ref==='me');
-  $('#q').placeholder=`맛집 ${DATA.length}곳 검색 (예: 우동, 백명점)`;
+  $('#q').placeholder=`맛집 ${shownCount()}곳 검색 (예: 우동, 백명점)`;
 }
 $('#day').onchange=e=>{S.day=e.target.value;S.dayTouched=true;refresh()};
 $('#openChip').onclick=()=>{S.openOnly=!S.openOnly;refresh()};
@@ -1235,7 +1255,7 @@ $('#zoomIn').onclick=()=>map&&map.zoomIn();$('#zoomOut').onclick=()=>map&&map.zo
 function renderGenres(){
   const base=DATA.filter(r=>passes(r,'genre')),cnt=k=>base.filter(r=>matchPick(r,k)).length;
   const btn=g=>{const n=cnt(g.key);return `<button class="gBtn${S.genre===g.key?' on':''}" data-genre="${g.key}" ${n||g.key==='all'?'':'disabled'}><span>${g.emoji}</span><b>${g.label.replace(/·/g,'·<wbr>')}</b><small>${n}곳</small></button>`};
-  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류 <small>평점 상위 최대 ${CAT_MAX}곳씩</small></h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽'},...CATS].map(btn).join('')}</div>
+  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류 <small>${S.showAll?'모든 식당':`평점 상위 최대 ${CAT_MAX}곳씩`}</small></h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽'},...CATS].map(btn).join('')}</div>
     <h3 class="gH">세부 메뉴</h3><div class="gGrid">${GENRES.map(btn).join('')}</div>`;
 }
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
@@ -1243,6 +1263,7 @@ function setGenre(k){S.genre=k;
   if(S.view==='detail')closeDetail();if(!S.sortTouched&&S.ref==='me'&&me)S.sort='nearby';refresh();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()}
 $('#genreGrid').addEventListener('click',e=>{const b=e.target.closest('[data-genre]');if(!b)return;closeModal('#genres');setGenre(b.dataset.genre)});
+$('#list').addEventListener('click',e=>{const b=e.target.closest('[data-expand]');if(!b)return;e.stopPropagation();setShowAll(b.dataset.expand==='1')},true);
 $('#catBar').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b||b.disabled)return;const k=b.dataset.cat;setGenre(k===S.genre&&k!=='all'?'all':k)});
 
 /* ---- filters ---- */
@@ -1303,6 +1324,7 @@ $('#hotelDir').href=dirUrl(HOTEL.jp+' '+HOTEL.address,2);
 function renderProviders(){$('#providers').innerHTML=MENU_ORDER.map(k=>`<label class="radio"><input type="radio" name="prov" value="${k}" ${S.provider===k?'checked':''}><span>${PROVIDERS[k].name}<small>${PROVIDERS[k].desc}</small></span></label>`).join('');
   $('#providers').querySelectorAll('input').forEach(i=>i.onchange=()=>{tried=new Set();setProvider(i.value,false);hideMapStatus()})}
 $('#poiToggle').checked=S.showPoi;
+$('#showAllToggle').checked=S.showAll;$('#showAllToggle').onchange=e=>setShowAll(e.target.checked);
 $('#poiToggle').onchange=e=>{S.showPoi=e.target.checked;LS.set('ofm.showPoi',S.showPoi);
   if(engine==='gm')map.gm.setOptions({styles:gStyles()});else if(PROVIDERS[S.provider].type==='vector'){tried=new Set();setProvider(S.provider,true)}};
 
@@ -1377,7 +1399,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={CATS,catsOf,CAT_TOP,ALL_SHOPS,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>
