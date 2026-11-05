@@ -351,7 +351,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .cat .ce{font-size:17px;line-height:1}.cat small{font-size:11.5px;font-weight:650;color:var(--muted);margin-left:1px}
 .cat.on{background:var(--ink);color:#fff}.cat.on small{color:#cbd5e1}.cat:disabled{opacity:.4}
 .sheet.detailing .catBar{display:none}
-.gH{font-size:14px;font-weight:800;color:var(--ink2);margin:14px 2px 8px}.gH:first-child{margin-top:4px}
+.gH{font-size:14px;font-weight:800;color:var(--ink2);margin:14px 2px 8px}.gH small{font-size:12px;font-weight:600;color:var(--muted);margin-left:4px}.gH:first-child{margin-top:4px}
 .gGrid{grid-template-columns:repeat(4,1fr)}.gBtn{min-height:86px;padding:10px 2px}.gBtn span{font-size:27px}.gBtn b{font-size:12.5px;word-break:keep-all}
 @media (max-width:360px){.gGrid{grid-template-columns:repeat(3,1fr)}}
 </style>
@@ -846,7 +846,14 @@ const CATS=[
   {key:'c-cafe',label:'카페',emoji:'☕',q:'カフェ 喫茶店',test:r=>isG(r,['킷사텐'])||hasTag(r,['カフェ','喫茶店','コーヒー専門店','紅茶専門店','コーヒースタンド'])||(isG(r,['카페·디저트'])&&!tagsOf(r).length&&!/りくろー|クレープ/.test(r.jp))},
   {key:'c-sweet',label:'디저트',emoji:'🍰',q:'スイーツ',test:r=>hasTag(r,['スイーツ','ケーキ','チョコレート','パンケーキ','かき氷','フルーツパーラー','甘味処','和菓子','大福','ソフトクリーム','アイスクリーム'])||/りくろー|クレープ|アルション/.test(r.jp)},
   {key:'c-bread',label:'빵',emoji:'🥐',q:'パン屋',test:r=>isG(r,['빵'])||hasTag(r,['パン','ベーグル'])}];
-const catsOf=r=>r._cats||(r._cats=CATS.filter(c=>c.test(r)).map(c=>c.key));
+/* curated app: each food type keeps its 20 best-rated shops (Tabelog, then Google, 百名店, review count);
+   a shop stays on the map if it makes at least one food type's top 20. The data file keeps everything. */
+const CAT_MAX=20,ALL_SHOPS=DATA.length;
+const rateKey=r=>[r.tabelog??0,r.google??0,(r.hyakumeiten||[]).length,r.tabelogReviews??0];
+const byRating=(a,b)=>{const x=rateKey(a),y=rateKey(b);for(let i=0;i<x.length;i++)if(x[i]!==y[i])return y[i]-x[i];return a.id-b.id};
+const CAT_TOP=Object.fromEntries(CATS.map(c=>[c.key,new Set(DATA.filter(r=>r.lat!=null&&c.test(r)).sort(byRating).slice(0,CAT_MAX).map(r=>r.id))]));
+DATA.splice(0,DATA.length,...DATA.filter(r=>CATS.some(c=>CAT_TOP[c.key].has(r.id))));
+const catsOf=r=>r._cats||(r._cats=CATS.filter(c=>CAT_TOP[c.key].has(r.id)).map(c=>c.key));
 const pickOf=k=>CATS.find(c=>c.key===k)||GENRES.find(g=>g.key===k)||null;
 const matchPick=(r,k)=>k==='all'||(k.startsWith('c-')?catsOf(r).includes(k):genreOf(r).key===k);
 const REGIONS={all:'지역 전체',north:'기타 (우메다·덴마·후쿠시마·나카노시마)',south:'미나미 (난바·신사이바시·도톤보리)',tennoji:'신세카이·덴노지',bay:'오사카항 (가이유칸)'};
@@ -1228,7 +1235,7 @@ $('#zoomIn').onclick=()=>map&&map.zoomIn();$('#zoomOut').onclick=()=>map&&map.zo
 function renderGenres(){
   const base=DATA.filter(r=>passes(r,'genre')),cnt=k=>base.filter(r=>matchPick(r,k)).length;
   const btn=g=>{const n=cnt(g.key);return `<button class="gBtn${S.genre===g.key?' on':''}" data-genre="${g.key}" ${n||g.key==='all'?'':'disabled'}><span>${g.emoji}</span><b>${g.label.replace(/·/g,'·<wbr>')}</b><small>${n}곳</small></button>`};
-  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류</h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽'},...CATS].map(btn).join('')}</div>
+  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류 <small>평점 상위 최대 ${CAT_MAX}곳씩</small></h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽'},...CATS].map(btn).join('')}</div>
     <h3 class="gH">세부 메뉴</h3><div class="gGrid">${GENRES.map(btn).join('')}</div>`;
 }
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
@@ -1370,7 +1377,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={CATS,catsOf,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={CATS,catsOf,CAT_TOP,ALL_SHOPS,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>

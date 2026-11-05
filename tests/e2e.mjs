@@ -234,6 +234,8 @@ console.log('5. Bottom sheet drag and filters');
   check(await page.evaluate(() => window.__ofm.S.genre === 'all'), 'tapping the selected food type again clears it');
   const untyped = await page.evaluate(() => APP_DATA.restaurants.filter(r => !window.__ofm.catsOf(r).length).map(r => r.name));
   check(untyped.length === 0, 'every shop belongs to at least one food type', untyped.join(','));
+  const perCat = await page.evaluate(() => window.__ofm.CATS.map(c => APP_DATA.restaurants.filter(r => window.__ofm.catsOf(r).includes(c.key)).length));
+  check(perCat.every(n => n > 0 && n <= 20), 'each food type shows at most its 20 best-rated shops', perCat.join(','));
   await page.locator('#filterChip').click(); await page.locator('#filterReset').click(); await page.locator('[data-f="card"]').check(); await page.waitForTimeout(150);
   const cards = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).every(x => x.r.pay.card === true));
   check(cards, 'card-payment filter keeps only card-OK shops');
@@ -256,12 +258,16 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
   const st = await appState(page);
   check(st.day === 'sun', 'day defaults to today (Sun) in Japan time even with a Seoul-time phone');
   check((await page.locator('#openChip').innerText()).includes('지금 영업 중'), 'chip becomes “open now”');
-  const s = await page.evaluate(() => Object.fromEntries([2, 11, 14, 26, 30].map(id => [id, window.__ofm.status(APP_DATA.restaurants.find(r => r.id === id), 'sun').kind])));
-  check(s[2] === 'closed' && s[14] === 'closed' && s[26] === 'closed', 'Sunday closures (#2, #14, #26)', JSON.stringify(s));
-  check(s[11] === 'later' && s[30] === 'open', 'opens-later and open-now states', JSON.stringify(s));
+  // example shops taken from the map itself (the curated list changes as data is added)
+  const ex = await page.evaluate(() => { const D = APP_DATA.restaurants, sun = r => r.hours && r.hours.sun, k = r => window.__ofm.status(r, 'sun').kind;
+    const closed = D.filter(r => Array.isArray(sun(r)) && sun(r).length === 0).slice(0, 3), later = D.find(r => sun(r) && sun(r).length && sun(r)[0][0] >= '14:00'),
+      open = D.find(r => sun(r) && sun(r).some(([a, b]) => a <= '11:00' && b >= '15:00'));
+    return { closed: closed.map(r => [r.id, k(r)]), later: [later.id, k(later)], open: [open.id, k(open)] }; });
+  check(ex.closed.length === 3 && ex.closed.every(x => x[1] === 'closed'), 'Sunday closures', JSON.stringify(ex.closed));
+  check(ex.later[1] === 'later' && ex.open[1] === 'open', 'opens-later and open-now states', JSON.stringify([ex.later, ex.open]));
   await page.locator('#openChip').click(); await page.waitForTimeout(200);
   const ids = (await appState(page)).rows.map(r => r.id);
-  check(![2, 11, 14, 26].some(i => ids.includes(i)) && ids.includes(30), '“open now” filter hides closed shops', ids.length + ' open');
+  check(![...ex.closed.map(x => x[0]), ex.later[0]].some(i => ids.includes(i)) && ids.includes(ex.open[0]), '“open now” filter hides closed shops', ids.length + ' open');
   await page.screenshot({ path: join(SHOTS, '06_iphone_sunday_open_now.png') });
   await ctx.close();
 }
