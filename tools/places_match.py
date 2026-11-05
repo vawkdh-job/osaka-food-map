@@ -54,6 +54,15 @@ def name_match(ours, theirs):
     return len(sa & sb) / max(1, min(len(sa), len(sb))) >= 0.6
 
 
+def variants(name):
+    """The name plus, for 'Name (Reading)', each part on its own."""
+    out = [name]
+    m = re.match(r'^(.*?)[\s　]*[(（](.*?)[)）]\s*$', name or '')
+    if m:
+        out += [m.group(1), m.group(2)]
+    return [v for v in out if v.strip()]
+
+
 def km(a, b):
     p = math.pi / 180
     t = math.sin((b[0] - a[0]) * p / 2) ** 2 + math.cos(a[0] * p) * math.cos(b[0] * p) * math.sin((b[1] - a[1]) * p / 2) ** 2
@@ -96,7 +105,7 @@ for r in d['restaurants']:
             lat, lon = loc.get('latitude'), loc.get('longitude')
             if lat is None or not (BBOX[0] <= lat <= BBOX[1] and BBOX[2] <= lon <= BBOX[3]):
                 continue
-            if not name_match(r['jp'], p['displayName']['text']):
+            if not any(name_match(v, p['displayName']['text']) for v in variants(r['jp'])):
                 continue
             if r.get('lat') and km((r['lat'], r['lon']), (lat, lon)) > 0.6:
                 continue                                   # same name but far from the researched spot → another branch
