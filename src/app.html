@@ -954,6 +954,13 @@ function renderMarkers(){
   const pts=items.map(r=>({r,p:map.project([r.lon,r.lat])})).sort((a,b)=>score(b.r)-score(a.r));
   const wide=z<Z.cluster,groups=[];
   for(const pt of pts){const g=groups.find(g=>near(g.p,pt.p,wide));if(g)g.items.push(pt);else groups.push({p:pt.p,items:[pt]})}
+  if(wide){ // second pass: bubbles are ~100×50px, so merge any two groups whose bubbles would touch on screen
+    const box=g=>{const a=g.items[0].p;return g.items.length>1?[a.x-52,a.y-27,a.x+52,a.y+27]:[a.x-44,a.y-39,a.x+44,a.y-5]};
+    const hit=(A,B)=>A[0]<B[2]+4&&B[0]<A[2]+4&&A[1]<B[3]+4&&B[1]<A[3]+4;
+    for(let again=true;again;){again=false;
+      for(let i=0;i<groups.length&&!again;i++)for(let j=i+1;j<groups.length;j++)if(hit(box(groups[i]),box(groups[j]))){
+        const g=groups[i];g.items.push(...groups[j].items);g.items.sort((a,b)=>score(b.r)-score(a.r));g.p=g.items[0].p;groups.splice(j,1);again=true;break}}
+  }
   for(const g of groups){
     if(z>=Z.cluster||g.items.length===1){ // single pins; pins in the same building are spread sideways
       g.items.forEach((pt,i)=>{const p=pinFor(pt.r);p.el.innerHTML=pinHtml(pt.r);p.el.style.zIndex=S.selected===pt.r.id?'5':'';

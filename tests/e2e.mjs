@@ -437,6 +437,22 @@ console.log('6c. Travel itinerary');
   await ctx.close();
 }
 
+console.log('6e. Map bubbles never cover each other when zoomed out');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page);
+  const res = [];
+  for (const z of [12, 13, 14]) {
+    await page.evaluate(z => window.__ofm.map().jumpTo({ center: [135.5, 34.685], zoom: z }), z); await page.waitForTimeout(900);
+    res.push(await page.evaluate(() => { const B = [...document.querySelectorAll('.cl, .pin')].map(e => e.getBoundingClientRect()).filter(r => r.width && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth);
+      let n = 0; for (let i = 0; i < B.length; i++) for (let j = i + 1; j < B.length; j++) { const a = B[i], c = B[j]; if (Math.min(a.right, c.right) - Math.max(a.left, c.left) > 2 && Math.min(a.bottom, c.bottom) - Math.max(a.top, c.top) > 2) n++; }
+      return n; }));
+  }
+  check(res.every(n => n === 0), 'zoom 12–14: no two cluster bubbles or pins overlap', res.join(','));
+  check(log.errors.length === 0, 'no script errors while zooming', log.errors.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+
 console.log('6d. Back button (Android back / iOS swipe) never leaves the app by surprise');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });
