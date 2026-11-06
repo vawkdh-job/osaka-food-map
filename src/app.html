@@ -108,7 +108,7 @@ body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none
 /* ---------- bottom sheet ---------- */
 .sheet{position:fixed;z-index:40;left:0;right:0;bottom:0;height:var(--sheet-h);background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -4px 24px #0f2f3a2e;display:flex;flex-direction:column;transition:height .25s cubic-bezier(.2,.8,.2,1)}
 .sheet.dragging{transition:none}
-@media (max-width:899px){.sheet:not([data-state=full]) .sheetBody{overflow-y:hidden;touch-action:pan-x}
+@media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.sheet:not([data-state=full]) .sheetBody{overflow-y:hidden;touch-action:pan-x}
   .sheet:not([data-state=full]) #list .hint.soft,.sheet:not([data-state=full]) #list .ichips,.sheet:not([data-state=full]) .tDayHead{display:none}
   .sheet:not([data-state=full]) #list .item{padding-top:10px;padding-bottom:10px}.sheet:not([data-state=full]) #list .gmBtn{display:none}}
 .sheetHead{flex:0 0 auto;padding:7px 14px 7px;touch-action:none;cursor:grab;user-select:none}
@@ -238,16 +238,17 @@ body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
 .progress i{display:block;height:100%;width:0;background:var(--brand);transition:width .2s}
 
 /* ---------- desktop ---------- */
-@media (min-width:900px){
-  #map{left:400px}
-  .topbar{right:auto;width:400px;background:#fff;padding:12px 12px 8px;border-right:1px solid var(--line)}
+@media (min-width:900px), (orientation:landscape) and (max-height:500px){
+  :root{--side-w:400px}
+  #map{left:var(--side-w)}
+  .topbar{right:auto;width:var(--side-w);background:#fff;padding:12px 12px 8px;border-right:1px solid var(--line)}
   .search,.iconBtn,.chip{box-shadow:none;border:1px solid #d5dfe2}
-  .sheet{top:var(--top-h);bottom:0;width:400px;height:auto!important;border-radius:0;box-shadow:none;border-right:1px solid var(--line)}
+  .sheet{top:var(--top-h);bottom:0;width:var(--side-w);height:auto!important;border-radius:0;box-shadow:none;border-right:1px solid var(--line)}
   .sheetHead{cursor:default}.handle{display:none}
   .fabs{bottom:22px!important;opacity:1!important;pointer-events:auto!important}
   body.sheet-half .fabs .minor{display:grid}
   .maplibregl-ctrl-bottom-left{bottom:0}
-  .toast{left:416px;right:auto;bottom:22px}.mapStatus{left:412px}
+  .toast{left:calc(var(--side-w) + 16px);right:auto;bottom:22px}.mapStatus{left:calc(var(--side-w) + 12px)}
   .modal{align-items:center}.panel{border-radius:18px}
 }
 
@@ -268,7 +269,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 /* floating buttons: location + a small stack; pinch replaces +/- on phones */
 .fab{width:44px;height:44px;box-shadow:var(--shadow-md);color:var(--ink2)}
 .fab.loc{width:54px;height:54px}
-@media (max-width:899px){.zoomPair{display:none}}
+@media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.zoomPair{display:none}}
 /* bottom sheet */
 .sheet{border-radius:22px 22px 0 0;box-shadow:var(--shadow-lg)}
 .handle{width:38px;height:5px;background:#d0d7de;margin:0 auto 8px}
@@ -353,7 +354,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .radio{border:0;background:var(--soft);border-radius:14px}
 .phr{border:0;background:var(--soft);border-radius:14px}
 .toast{border-radius:14px;background:#0f172aee}
-@media (min-width:900px){.panel{border-radius:22px}.panel::before{display:none}.searchRow .iconBtn{background:var(--soft)}}
+@media (min-width:900px), (orientation:landscape) and (max-height:500px){.panel{border-radius:22px}.panel::before{display:none}.searchRow .iconBtn{background:var(--soft)}}
 
 /* itinerary */
 .chip.tripc{box-shadow:var(--shadow-sm),0 0 0 1.5px #6366f1}.chip.tripc.on{background:#4f46e5;color:#fff}
@@ -429,7 +430,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .mk::before{content:"";position:absolute;left:-36px;top:-48px;width:72px;height:48px}
 .ch.ok6{background:#e7f6ec;color:#166534}
 .chips{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
-@media (min-width:900px){.chips{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none;mask-image:none}}
+@media (min-width:900px), (orientation:landscape) and (max-height:500px){.chips{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none;mask-image:none}}
 table.info{width:100%;border-collapse:collapse;font-size:14px}table.info td{padding:8px 2px;border-bottom:1px solid #eef2f5;vertical-align:top}
 table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:var(--ink2)}.hoursT td:first-child{white-space:nowrap}
 #filters .panel{padding-bottom:0}#filters .fAct{padding-bottom:calc(var(--safe-b) + 12px)}
@@ -495,6 +496,19 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .legendLink{display:block;margin:4px 16px 12px}
 /* the food-type strip fades at the right edge, so it reads as "swipe for more" */
 .catBar::after{content:"";position:sticky;right:-16px;flex:none;width:28px;margin-left:-28px;background:linear-gradient(90deg,#fff0,#fff);pointer-events:none}
+/* ---- phones held sideways: the list is a full-height panel on the left, search and chips float over the map ---- */
+@media (orientation:landscape) and (max-height:500px){
+  :root{--side-w:calc(min(380px,max(300px,50vw)) + env(safe-area-inset-left,0px))}
+  .sheet{top:0!important;padding-left:env(safe-area-inset-left,0px)}
+  .topbar{left:var(--side-w);right:0;width:auto;background:none;border-right:0;padding:calc(var(--safe-t) + 6px) calc(10px + env(safe-area-inset-right,0px)) 4px 10px}
+  .search{height:44px}.searchRow .iconBtn{width:40px;height:40px;top:2px;right:2px}
+  .search,.chip{box-shadow:var(--shadow-sm),0 0 0 1px #0f172a12;border:0}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin-top:6px;-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .fabs{right:calc(12px + env(safe-area-inset-right,0px));bottom:14px!important;gap:8px}.fabs .zoomPair{display:none!important}   /* pinch to zoom; the stack must fit under the chips */
+  .sheetBody{padding-bottom:calc(var(--safe-b) + 8px)}
+  .panel{max-height:94vh}
+}
+@media (orientation:landscape) and (max-height:500px) and (max-width:700px){.hyb small{display:none}}
 </style>
 </head>
 <body>
@@ -656,7 +670,9 @@ const DATA=APP_DATA.restaurants, HOTEL=APP_DATA.hotel;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const isDesktop=()=>window.matchMedia('(min-width:900px)').matches;
+// side-panel layout: wide screens, and phones held sideways (a bottom sheet would leave no map)
+const isDesktop=()=>window.matchMedia('(min-width:900px), (orientation:landscape) and (max-height:500px)').matches;
+const isLand=()=>window.matchMedia('(orientation:landscape) and (max-height:500px)').matches;
 
 /* ================= time & opening hours (Japan time) ================= */
 const TRIP=[{key:'fri',date:'2026-11-13',label:'금 11/13',long:'금요일 11/13'},{key:'sat',date:'2026-11-14',label:'토 11/14',long:'토요일 11/14'},{key:'sun',date:'2026-11-15',label:'일 11/15',long:'일요일 11/15'}];
@@ -914,7 +930,7 @@ function GoogleMap(container){
 
 /* layout metrics: how much of the map is covered by the top bar and the sheet */
 // with Google the map itself ends at the sheet (its logo must stay visible), with MapLibre the sheet floats over it
-function cover(){if(isDesktop())return{top:0,bottom:0};return{top:$('#topbar').getBoundingClientRect().bottom,bottom:engine==='gm'?0:sheetPx}}
+function cover(){if(isDesktop())return{top:isLand()?$('#topbar').getBoundingClientRect().bottom:0,bottom:0};return{top:$('#topbar').getBoundingClientRect().bottom,bottom:engine==='gm'?0:sheetPx}}
 function panToVisible(ll,zoom,animate=true){
   if(!map)return;const c=cover();
   map.easeTo({center:[ll[1],ll[0]],zoom:zoom??map.getZoom(),offset:[0,(c.top-c.bottom)/2],duration:animate?450:0});

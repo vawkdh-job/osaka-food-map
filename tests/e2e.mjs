@@ -453,6 +453,30 @@ console.log('6e. Map bubbles never cover each other when zoomed out');
   await ctx.close();
 }
 
+console.log('6f. Phone held sideways: list panel on the left, map on the right');
+{
+  const { ctx, page, log } = await newPhone({ device: devices['iPhone 13 landscape'], clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+  const g = () => page.evaluate(() => { const r = s => document.querySelector(s).getBoundingClientRect();
+    const fab = [...document.querySelectorAll('#fabs .fab')].filter(e => e.offsetParent).map(e => e.getBoundingClientRect());
+    return { W: innerWidth, H: innerHeight, map: [r('#map').left, r('#map').width, r('#map').height], sheet: [r('#sheet').top, r('#sheet').height, r('#sheet').width],
+      fabsClear: fab.every(b => b.top >= r('#topbar').bottom), hs: document.documentElement.scrollWidth > innerWidth }; });
+  const l = await g();
+  check(l.map[1] >= l.W * 0.45 && l.map[2] === l.H && l.sheet[0] === 0 && l.sheet[1] === l.H && !l.hs, 'landscape: full-height list panel on the left and a full-height map', JSON.stringify(l));
+  check(l.fabsClear, 'landscape: map buttons stay below the search bar and chips');
+  await page.evaluate(() => window.__ofm.select(window.__ofm.rows().find(x => x.r).r.id)); await page.waitForTimeout(600);
+  const dir = await page.evaluate(() => { const a = [...document.querySelectorAll('#detail a, #detail button')].find(e => /길찾기/.test(e.textContent)); const b = a.getBoundingClientRect(); return b.bottom <= innerHeight && b.top >= 0; });
+  check(dir, 'landscape: 길찾기 is on screen when a shop opens');
+  await page.evaluate(() => window.__ofm.closeDetail());
+  await page.setViewportSize({ width: 390, height: 664 }); await page.waitForTimeout(600);   // turn the phone upright
+  const p = await page.evaluate(() => ({ state: window.__ofm.sheetState(), top: document.querySelector('#sheet').getBoundingClientRect().top, H: innerHeight }));
+  check(p.state !== 'desk' && p.top > p.H * 0.5, 'turning the phone upright brings back the bottom sheet', JSON.stringify(p));
+  await page.setViewportSize({ width: 750, height: 342 }); await page.waitForTimeout(600);
+  check(await page.evaluate(() => window.__ofm.sheetState() === 'desk' && document.querySelector('#sheet').getBoundingClientRect().top === 0), 'and sideways again brings back the side panel');
+  check(log.errors.length === 0, 'no script errors in landscape', log.errors.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+
 console.log('6d. Back button (Android back / iOS swipe) never leaves the app by surprise');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });

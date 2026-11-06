@@ -1,7 +1,7 @@
 /* Service worker: keeps the app usable on weak roaming data.
    - App files: network first (so updates arrive), cached copy when offline or slow.
    - Map tiles and restaurant photos: cache first, so viewed or pre-saved areas work offline. */
-const VERSION = '2026-11-06-e7351bbe';
+const VERSION = '2026-11-06-fd555ee0';
 const APP_CACHE = 'ofm-app-' + VERSION;
 const TILE_CACHE = 'ofm-tiles-v3'; // v1: CARTO "API KEY REQUIRED" tiles; v2: opaque (no-cors) tiles MapLibre can't use
 const IMG_CACHE = 'ofm-img-v1';
