@@ -247,8 +247,11 @@ console.log('5. Bottom sheet drag and filters');
   check(await page.evaluate(() => window.__ofm.S.genre === 'all'), 'tapping the selected food type again clears it');
   const untyped = await page.evaluate(() => APP_DATA.restaurants.filter(r => !window.__ofm.allCats(r).length).map(r => r.name));
   check(untyped.length === 0, 'every shop belongs to at least one food type', untyped.join(','));
-  const perCat = await page.evaluate(() => window.__ofm.CATS.map(c => APP_DATA.restaurants.filter(r => window.__ofm.catsOf(r).includes(c.key)).length));
-  check(perCat.every(n => n > 0 && n <= 10), 'each food type shows at most its 10 best-rated shops', perCat.join(','));
+  // beyond walking distance each food type shows only its 10 best-rated shops; within 20 min everything shows
+  const perCat = await page.evaluate(() => { const O = window.__ofm, D = APP_DATA.restaurants.filter(r => r.lat != null);
+    return O.CATS.map(c => { const inT = D.filter(r => O.allCats(r).includes(c.key)), shown = inT.filter(r => O.inScope(r, c.key));
+      return { far: shown.filter(r => !O.nearRef(r) && !O.fav.has(r.id)).length, near: inT.filter(r => O.nearRef(r)).length, nearShown: shown.filter(r => O.nearRef(r)).length }; }); });
+  check(perCat.every(x => x.far <= 10 && x.near === x.nearShown), 'food types: every shop within a 20-min walk + at most 10 best-rated farther away', perCat.map(x => `${x.nearShown}+${x.far}`).join(','));
   // expand to every shop and back
   await page.locator('#filterChip').click(); await page.locator('#filterReset').click(); await page.locator('#filterApply').click(); await page.waitForTimeout(200);
   const shown0 = (await appState(page)).rows.length;
@@ -280,7 +283,7 @@ console.log('5. Bottom sheet drag and filters');
       after: i < 0 || R.slice(i + 1).every(x => !x.r.hyakumeiten.length) }; });
   check(hk.n > 0 && hk.allHy && hk.ordered && hk.after, '백명점순: 百名店 shops first, most selections/latest year first', JSON.stringify(hk));
   await page.locator('#sort').selectOption('google'); await page.waitForTimeout(200);
-  check(/구글 평점은 실시간/.test(await page.locator('#list').innerText()), '구글 평점순 explains that ratings load live');
+  check(/구글 평점은 실시간|구글에 연결되지 않아/.test(await page.locator('#list').innerText()), '구글 평점순 explains how ratings load (or that Google is unreachable)');
   await page.locator('#sort').selectOption('tabelog'); await page.waitForTimeout(200);
   await page.screenshot({ path: join(SHOTS, '05_iphone_sheet_full_filtered.png') });
   await ctx.close();
@@ -292,7 +295,7 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
   await page.goto(URL0); await page.waitForTimeout(1000);
   const st = await appState(page);
   check(st.day === 'sun', 'day defaults to today (Sun) in Japan time even with a Seoul-time phone');
-  check((await page.locator('#openChip').innerText()).includes('지금 영업 중'), 'chip becomes “open now”');
+  check((await page.locator('#openChip').innerText()).includes('영업 중'), 'chip becomes “open now”');
   // example shops taken from the map itself (the curated list changes as data is added)
   const ex = await page.evaluate(() => { const D = APP_DATA.restaurants, sun = r => r.hours && r.hours.sun, k = r => window.__ofm.status(r, 'sun').kind;
     const closed = D.filter(r => Array.isArray(sun(r)) && sun(r).length === 0).slice(0, 3), later = D.find(r => sun(r) && sun(r).length && sun(r)[0][0] >= '14:00'),
@@ -313,6 +316,61 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
     return D.map(r => ({ n: r.name, s: window.__ofm.status(r, window.__ofm.S.day) })); });
   check(late.length > 0 && late.every(x => x.s.kind === 'open' || x.s.kind === 'closing') && late.every(x => /새벽|아침/.test(x.s.text)),
     'after midnight: last night’s late shops show open (“새벽 N:00까지”)', late.slice(0, 3).map(x => x.n + ' ' + x.s.text).join(' / '));
+  await ctx.close();
+}
+
+console.log('6b. Trip scenarios after the review fixes');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo', geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 } });
+  await page.goto(URL0); await ready(page);
+  await page.locator('#locBtn').click(); await page.waitForTimeout(1200);
+  await page.locator('#genreChip').click(); await page.locator('#genreGrid [data-genre="ramen"]').click(); await page.waitForTimeout(400);
+  const ramen = await page.evaluate(() => window.__ofm.rows().filter(x => x.r && x.d * 1.3 / 4.5 * 60 <= 20).length);
+  const hint = await page.locator('#list .hint').first().innerText();
+  check(ramen >= 5 && !/ 0곳/.test(hint), 'near-me ramen in Dotonbori lists the shops within a 20-min walk', `${ramen} near · "${hint}"`);
+  await page.locator('#genreChip').click(); await page.locator('#genreGrid [data-genre="tako"]').click(); await page.waitForTimeout(400);
+  const tako = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).map(x => x.r.genre));
+  check(tako.length >= 5 && tako.every(g => g === '타코야키'), 'takoyaki menu lists takoyaki shops', String(tako.length));
+  await page.locator('#catBar [data-cat="all"]').click(); await page.locator('#openChip').click(); await page.waitForTimeout(400);
+  const order = await page.evaluate(() => { const O = window.__ofm, R = O.rows(), i = R.findIndex(x => x.divider && /영업시간 정보 없음/.test(x.divider)), k = x => O.status(x.r, O.S.day).kind;
+    return { i, before: (i < 0 ? R : R.slice(0, i)).filter(x => x.r).every(x => k(x) !== 'unknown'), after: i < 0 || R.slice(i + 1).filter(x => x.r).every(x => k(x) === 'unknown') }; });
+  check(order.i > 0 && order.before && order.after, '“영업 중만”: confirmed-open shops first, unknown hours after a divider', JSON.stringify(order));
+  await page.locator('#openChip').click(); await page.waitForTimeout(200);
+  await page.locator('.item').first().click(); await page.waitForTimeout(500);
+  const ab = await page.evaluate(() => { const b = document.querySelector('.abar .ab.primary').getBoundingClientRect(); return { bottom: Math.round(b.bottom), vh: innerHeight }; });
+  check(ab.bottom <= ab.vh, '길찾기 is on screen when a shop opens', JSON.stringify(ab));
+  await page.locator('#taxiBtn').click(); await page.waitForTimeout(300);
+  const taxi = await page.locator('.taxiCard').innerText();
+  await page.keyboard.press('Escape'); await page.waitForTimeout(200);
+  check(/お願いします/.test(taxi) && await page.locator('#taxi').isHidden(), '🚕 taxi card shows the Japanese name and request; Escape closes it', taxi.split('\n')[0]);
+  await page.evaluate(() => { window.__ofm.S.f.card = true; });
+  await page.locator('#crowdBtn').click(); await page.waitForTimeout(300);
+  const alts = await page.evaluate(() => [...document.querySelectorAll('#alts .alt')].map(e => +e.dataset.go));
+  const altsOk = await page.evaluate(ids => ids.every(id => APP_DATA.restaurants.find(r => r.id === id).pay.card === true) || /조건 없이/.test(document.querySelector('#alts').innerText), alts);
+  check(alts.length > 0 && altsOk, '줄이 길어요 alternatives respect the card filter', alts.length + ' alternatives');
+  await page.evaluate(() => { window.__ofm.S.f.card = false; });
+  await page.locator('#filterChip').click(); await page.waitForTimeout(200);
+  await page.goBack(); await page.waitForTimeout(300);
+  check(await page.locator('#filters').isHidden() && page.url().startsWith(URL0) && await page.evaluate(() => window.__ofm.S.view) === 'detail', 'Back closes the filter sheet and stays in the app');
+  await page.goBack(); await page.waitForTimeout(300);
+  check(await page.evaluate(() => window.__ofm.S.view) === 'list' && page.url().startsWith(URL0), 'Back again closes the shop');
+  await page.locator('#q').fill('라멘 우메다'); await page.waitForTimeout(400);
+  const qs = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).map(x => x.r.genre + ' ' + x.r.area));
+  check(qs.length > 0 && qs.every(t => /라멘|츠케멘/.test(t)), 'two-word search “라멘 우메다”', qs.length + ' shops: ' + qs.slice(0, 2).join(' / '));
+  await page.locator('#q').fill('이치란'); await page.waitForTimeout(400);
+  check(/검색 결과가 없어요/.test(await page.locator('#list').innerText()) && await page.locator('#list a.gmore').count() > 0, 'no result: says so and offers a Google Maps search');
+  await page.locator('#q').fill(''); await page.waitForTimeout(200);
+  check(log.errors.length === 0, 'no script errors in the trip scenarios', log.errors.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+{
+  const { ctx, page } = await newPhone({ clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page);
+  await page.locator('#ref').selectOption('center'); await page.waitForTimeout(600);
+  const far = await page.evaluate(() => { const R = window.__ofm.rows().filter(x => x.r); return R[R.length - 1].r.id; });
+  await page.evaluate(id => window.__ofm.select(id), far); await page.waitForTimeout(1500);
+  const dist = await page.locator('#dStatus .dDist').innerText();
+  check(!/ 0m\b|· 0m/.test(dist), 'map-centre distance stays put while a shop is open', dist);
   await ctx.close();
 }
 
