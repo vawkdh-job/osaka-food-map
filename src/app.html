@@ -899,7 +899,9 @@ function GoogleMap(container){
         setOffset([x,y]){m.off={x,y};if(m.on&&proj())m._pos(proj());return m},
         getOffset:()=>m.off,
         addTo(){if(!m.on){m.on=true;el.style.position='absolute';el.style.left='0';el.style.top='0';
-          ov.getPanes().overlayMouseTarget.appendChild(el);g.OverlayView.preventMapHitsFrom(el);recs.add(m);if(proj())m._pos(proj())}return m},
+          ov.getPanes().overlayMouseTarget.appendChild(el);
+          if(!el._noHits){g.OverlayView.preventMapHitsFrom(el);el._noHits=1}   // once per element: pins are reused, and each call adds listeners
+          recs.add(m);if(proj())m._pos(proj())}return m},
         remove(){if(m.on){m.on=false;recs.delete(m);el.remove()}return m}};
       return m;
     },

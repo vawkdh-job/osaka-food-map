@@ -627,6 +627,13 @@ console.log('12. Real Google Maps (best effort, never fails the suite)');
     await page.evaluate(() => document.querySelector('#gLive')?.scrollIntoView()); await page.waitForTimeout(1500);
     await page.screenshot({ path: join(SHOTS, '14_real_google_live.png') });
     await page.screenshot({ path: join(SHOTS, '13_real_google_detail.png') });
+    // reused pins must not pile up listeners each time they are shown again (food type / itinerary switches)
+    await page.evaluate(() => window.__ofm.closeDetail());
+    const cdp = await ctx.newCDPSession(page); await cdp.send('Performance.enable');
+    const L = async () => { await cdp.send('HeapProfiler.collectGarbage'); return (await cdp.send('Performance.getMetrics')).metrics.find(m => m.name === 'JSEventListeners').value; };
+    const cycle = async () => { await page.evaluate(() => { window.__ofm.enterTrip(); window.__ofm.exitTrip(); }); await page.waitForTimeout(400); };
+    await cycle(); const l0 = await L(); for (let i = 0; i < 5; i++) await cycle(); const l1 = await L();
+    check(l1 - l0 <= 5, 'real Google: entering/leaving 일정 does not pile up event listeners', `${l0} → ${l1} after 5 cycles`);
   }
   await ctx.close();
 }
