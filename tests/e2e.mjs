@@ -255,6 +255,8 @@ console.log('5. Bottom sheet drag and filters');
   // expand to every shop and back
   await page.locator('#filterChip').click(); await page.locator('#filterReset').click(); await page.locator('#filterApply').click(); await page.waitForTimeout(200);
   const shown0 = (await appState(page)).rows.length;
+  check(await page.evaluate(() => { window.__ofm.setSheet('half'); const h = document.querySelector('#list .hint.soft'); return !h || getComputedStyle(h).display === 'none'; }), 'half sheet keeps the explanatory lines out of the way (they show when the list is fully open)');
+  await page.evaluate(() => window.__ofm.setSheet('full')); await page.waitForTimeout(300);
   await page.locator('#list .linkBtn[data-expand="1"]').click(); await page.waitForTimeout(300);
   const all = await page.evaluate(() => ({ rows: window.__ofm.rows().filter(x => x.r).length, total: APP_DATA.restaurants.filter(r => r.lat != null).length }));
   check(all.rows === all.total && all.rows > shown0, '“모두 보기” shows every researched shop', `${shown0} → ${all.rows} of ${all.total}`);
@@ -398,7 +400,7 @@ console.log('6c. Travel itinerary');
   const all = await page.evaluate(() => ({ pins: document.querySelectorAll('.tpin').length, days: document.querySelectorAll('.oDay').length, checks: document.querySelectorAll('[data-check]').length }));
   check(all.pins === 21 && all.days === 4 && all.checks >= 5, '전체: all three days on the map, overview and checklist', JSON.stringify(all));
   await page.locator('#tripChip').click(); await page.waitForTimeout(600);
-  const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: !!document.querySelector('.tripBanner') }));
+  const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: (() => { const b = document.querySelector('#tripLine'); return !!b && !b.hidden && b.getBoundingClientRect().height >= 44 && /14:30/.test(b.textContent); })() }));
   check(back.mode === 'shops' && back.pins === 0 && back.items > 0 && back.banner, 'leaving the itinerary restores the shop list with a next-stop banner', JSON.stringify(back));
   check(log.errors.length === 0, 'no script errors in the itinerary', log.errors.slice(0, 2).join(' | '));
   await page.locator('#tripChip').click(); await page.waitForTimeout(400);   // leave it in the itinerary, then reopen the app

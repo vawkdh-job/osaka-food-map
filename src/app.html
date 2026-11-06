@@ -108,7 +108,9 @@ body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none
 /* ---------- bottom sheet ---------- */
 .sheet{position:fixed;z-index:40;left:0;right:0;bottom:0;height:var(--sheet-h);background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -4px 24px #0f2f3a2e;display:flex;flex-direction:column;transition:height .25s cubic-bezier(.2,.8,.2,1)}
 .sheet.dragging{transition:none}
-@media (max-width:899px){.sheet:not([data-state=full]) .sheetBody{overflow-y:hidden;touch-action:pan-x}}
+@media (max-width:899px){.sheet:not([data-state=full]) .sheetBody{overflow-y:hidden;touch-action:pan-x}
+  .sheet:not([data-state=full]) #list .hint.soft,.sheet:not([data-state=full]) #list .ichips,.sheet:not([data-state=full]) .tDayHead{display:none}
+  .sheet:not([data-state=full]) #list .item{padding-top:10px;padding-bottom:10px}.sheet:not([data-state=full]) #list .gmBtn{display:none}}
 .sheetHead{flex:0 0 auto;padding:7px 14px 7px;touch-action:none;cursor:grab;user-select:none}
 .handle{width:42px;height:5px;border-radius:3px;background:#cfd8db;margin:0 auto 7px}
 .headRow{display:flex;align-items:center;gap:8px}
@@ -356,12 +358,17 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 /* itinerary */
 .chip.tripc{box-shadow:var(--shadow-sm),0 0 0 1.5px #6366f1}.chip.tripc.on{background:#4f46e5;color:#fff}
 .sheet.tripping .catBar,.sheet.tripping .headRow .mini{display:none}
-.tripBanner{display:flex;justify-content:space-between;align-items:center;gap:8px;width:calc(100% - 32px);margin:4px 16px 8px;padding:10px 12px;border:0;border-radius:14px;background:#eef2ff;color:#3730a3;font-size:14px;font-weight:700;text-align:left}
-.tripBanner span{flex:none;font-size:12.5px;color:#4f46e5}
+.tripLine{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;margin:0 0 4px;padding:0 12px;border:0;border-radius:12px;background:#eef2ff;color:#312e81;font-size:14.5px;font-weight:700;text-align:left}
+.tripLine[hidden],.sheet.tripping .tripLine,.sheet.detailing .tripLine{display:none}
+.tripLine .tl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tripLine small{font-size:13px;font-weight:700;color:#4338ca}
+.tripLine .go{flex:none;font-size:13.5px;font-weight:850;color:#4338ca}
 .tTabs{position:sticky;top:0;z-index:3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 10px;background:#fff}.tTabs::-webkit-scrollbar{display:none}
 .tTab{flex:none;height:40px;padding:0 14px;border:0;border-radius:20px;background:var(--soft);font-size:14px;font-weight:750;color:var(--ink2)}
 .tTab.on{background:var(--c,#1e293b);color:#fff}
-.tNow{margin:0 16px 10px;padding:10px 12px;border-radius:14px;background:#f8fafc;border-left:5px solid var(--c,#6366f1);display:grid;gap:6px;font-size:14px}
+.tNow{margin:0 16px 8px;padding:4px 8px 4px 12px;border-radius:14px;background:#f8fafc;border-left:5px solid var(--c,#6366f1);display:grid;gap:0;font-size:14.5px}
+.tNow{grid-template-columns:minmax(0,1fr)}.tnRow{display:flex;align-items:center;gap:8px;min-height:44px;min-width:0}.tnRow>small{flex:none;width:30px;margin:0!important}
+.tnRow .lnk{flex:1;min-width:0;min-height:44px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tnRow .lnk em{font-style:normal;font-weight:700;color:var(--muted);font-size:13px}
+.tnRow .tBtn{flex:none;min-height:40px}.tNow.pre{padding:12px}
 .tNow small{display:block;font-size:12px;font-weight:700;color:var(--muted)}.tNow .lnk{font-weight:800;text-align:left}.tNow.pre{border-left-color:#6366f1}
 .lnk{border:0;background:none;padding:2px 0;font:inherit;color:var(--ink);cursor:pointer}
 .tDayHead{display:flex;align-items:baseline;gap:8px;margin:2px 16px 6px;padding-left:10px;border-left:5px solid var(--c)}.tDayHead b{font-size:17px}.tDayHead small{color:var(--muted);font-size:12.5px}
@@ -409,6 +416,8 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .imeta,.istat{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .imeta>*,.istat>*{vertical-align:baseline}.imeta i,.istat i{margin:0 4px;color:#a3aeb9}
 .istat .dot{vertical-align:1px}
+.istat{white-space:normal;overflow:visible}.istat .walk,.istat .stg{white-space:nowrap}
+@media (max-width:360px){.hyb small{display:none}}
 .rt.t1{color:#b91c1c}.rt.t2{color:#c2410c}.rt.t3{color:#92400e}.rt.t4,.rt.tna{color:var(--muted)}
 .favBtn{color:#64748b}.foot{color:var(--muted);font-size:12px}
 .gmBtn{width:44px;height:36px}.iact{gap:8px}
@@ -447,7 +456,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .expand{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 32px);margin:14px 16px 6px;min-height:48px;border:0;border-radius:14px;background:var(--soft);color:var(--brand);font-size:15px;font-weight:750}
 .expand small{font-size:12px;font-weight:600;color:var(--muted)}
 /* food-type strip */
-.catBar{position:sticky;top:0;z-index:3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 10px;background:#fff}
+.catBar{position:sticky;top:0;z-index:3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 6px;background:#fff}
 .catBar::-webkit-scrollbar{display:none}
 .cat{flex:none;display:inline-flex;align-items:center;gap:5px;height:38px;padding:0 13px;border:0;border-radius:19px;background:var(--soft);font-size:14px;font-weight:700;color:var(--ink2);white-space:nowrap}
 .cat .ce{font-size:17px;line-height:1}.cat small{font-size:11.5px;font-weight:650;color:var(--muted);margin-left:1px}
@@ -456,6 +465,31 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .gH{font-size:14px;font-weight:800;color:var(--ink2);margin:14px 2px 8px}.gH small{font-size:12px;font-weight:600;color:var(--muted);margin-left:4px}.gH:first-child{margin-top:4px}
 .gGrid{grid-template-columns:repeat(4,1fr)}.gBtn{min-height:86px;padding:10px 2px}.gBtn span{font-size:27px}.gBtn b{font-size:12.5px;word-break:keep-all}
 @media (max-width:360px){.gGrid{grid-template-columns:repeat(3,1fr)}}
+/* ---- touch targets ≥ 44px and text ≥ 12px, for every hand in the family (cross-check, Nov 2026) ---- */
+.searchRow .iconBtn{width:44px;height:44px;top:3px;right:3px}
+.chip{height:44px;border-radius:22px}
+#retryBtn{min-height:44px;padding:0 14px}
+.mini{height:44px}
+.cat{height:44px;border-radius:22px}
+.linkBtn{min-height:44px}
+.favBtn{width:44px;height:44px}
+.gmBtn{width:44px;height:44px}
+.closeX{width:44px;height:44px}
+.seg button{min-height:44px}
+.tTab{height:44px;border-radius:22px}
+.tBtn,.tBtn.sm,.tnRow .tBtn{min-height:44px}
+.tLink{display:flex;align-items:center;min-height:44px;margin-top:2px}
+.tSwap{min-height:44px;padding:0 12px}
+.oHead{min-height:48px;padding:4px 0}
+.oRow{min-height:48px;align-items:center;padding:4px 0}
+.hyb,.rec,.opt,.nowTag,.today,.tTime small,.dScore small,.alt .as small,.cl small,.pin u,.pin i,.tpin.mini b{font-size:12px}
+.gThumb small{font-size:10px}
+.legendDl{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr);gap:10px 12px;align-items:start;margin:4px 0 8px;font-size:14px;line-height:1.5}
+.legendDl dt{margin:0;padding-top:1px}.legendDl dd{margin:0;color:var(--ink2)}
+.legendDl .gTag{font-size:13px;font-weight:750;color:var(--muted)}.legendDl .mini.static{height:auto;padding:3px 8px;font-size:12.5px}
+.legendLink{display:block;margin:4px 16px 12px}
+/* the food-type strip fades at the right edge, so it reads as "swipe for more" */
+.catBar::after{content:"";position:sticky;right:-16px;flex:none;width:28px;margin-left:-28px;background:linear-gradient(90deg,#fff0,#fff);pointer-events:none}
 </style>
 </head>
 <body>
@@ -493,6 +527,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
   <div class="sheetHead" id="sheetHead">
     <div class="handle" aria-hidden="true"></div>
     <div class="dMini" id="dMini"><button id="dMiniBack" aria-label="목록으로 돌아가기">← 목록</button><b id="dMiniName"></b></div>
+    <button class="tripLine" id="tripLine" hidden></button>
     <div class="headRow">
       <b id="count">30곳</b>
       <span class="spacer"></span>
@@ -530,6 +565,16 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
     <button class="btn wide" id="precacheBtn">지도 미리 저장</button>
     <div class="progress" id="precacheBar" hidden><i></i></div>
     <p id="precacheText" style="font-size:12.5px;margin:6px 0 0"></p>
+    <h3 id="legendH">📖 표시 읽는 법</h3>
+    <dl class="legendDl">
+      <dt><b class="rt t1">★ 3.75</b></dt><dd><b>타베로그 점수</b> — 일본에서 가장 많이 쓰는 맛집 사이트예요. 점수가 짜서 <b>3.5 이상이면 아주 좋은 편</b>, 3.8 이상은 손꼽히는 집이에요.</dd>
+      <dt><em class="hyb">百名店 '25</em></dt><dd><b>백명점</b> — 타베로그가 장르마다 뽑는 ‘100대 맛집’. 숫자는 뽑힌 해예요 ('25 = 2025년).</dd>
+      <dt><span class="gTag">구글 4.4</span></dt><dd><b>구글 평점</b> (5점 만점). 관광객 리뷰가 많아 타베로그보다 높게 나와요. 가게를 열 때 실시간으로 불러와요.</dd>
+      <dt><span class="ch ok6">6인 OK</span></dt><dd>6명이 한 테이블이나 개별실에 함께 앉을 수 있는 곳. ‘6인 어려움’은 카운터·작은 가게라 나눠 앉아야 해요.</dd>
+      <dt><span class="ch w3">대기 김</span></dt><dd>후기로 본 평소 줄 서는 시간 (어림값). 짧음 · 보통 · 김.</dd>
+      <dt><b>¥ ~ ¥¥¥¥</b></dt><dd>1인 예산: ¥ 1,500엔까지 · ¥¥ 4,000엔까지 · ¥¥¥ 8,000엔까지 · ¥¥¥¥ 8,000엔 이상.</dd>
+      <dt><span class="mini static">⌂ 호텔 기준</span></dt><dd>거리를 재는 출발점이에요. ‘근처 평점순’은 여기서 걸어서 20분 안의 가게를 평점 높은 순으로 먼저 보여 줘요.</dd>
+    </dl>
     <h3>핀 색깔 (타베로그 점수)</h3>
     <div class="legend"><span style="background:var(--t1)">3.75 이상</span><span style="background:var(--t2)">3.65 이상</span><span style="background:#fff;color:#92400e;box-shadow:inset 0 0 0 2px #d97706">3.55 이상</span><span style="background:#fff;color:#334155;box-shadow:inset 0 0 0 2px #94a3b8">그 외</span><span style="background:#e2e8f0;color:#475569;box-shadow:inset 0 0 0 2px #94a3b8">영업 안 함</span></div>
     <p>핀의 <b>百</b>는 타베로그 백명점, <b>휴</b>나 회색은 고른 요일에 쉬는 날(또는 오늘 영업이 끝난) 가게, ★는 찜한 곳입니다.</p>
@@ -968,16 +1013,16 @@ const tagsOf=r=>r.genreJp||[],hasTag=(r,l)=>tagsOf(r).some(t=>l.includes(t)),isG
 const CATS=[
   {key:'c-noodle',label:'면요리',emoji:'🍜',q:'ラーメン うどん そば',test:r=>isG(r,['라멘','츠케멘','우동','소바'])||hasTag(r,['ラーメン','つけ麺','うどん','そば','かすうどん','油そば','まぜそば','うどんすき'])},
   {key:'c-meat',label:'고기',emoji:'🥩',q:'焼肉 焼き鳥 ステーキ',test:r=>isG(r,['야키니쿠','야키토리'])||hasTag(r,['焼肉','ホルモン','ステーキ','ハンバーグ','焼き鳥','しゃぶしゃぶ'])},
+  {key:'c-sea',label:'스시·해산물',emoji:'🍣',q:'寿司 海鮮',test:r=>isG(r,['스시','해산물·덮밥'])||hasTag(r,['寿司','海鮮','海鮮丼','鮮魚店'])},
   {key:'c-fried',label:'튀김·카츠',emoji:'🍤',q:'串カツ とんかつ 天ぷら',test:r=>isG(r,['쿠시카츠','돈카츠'])||hasTag(r,['串揚げ','串カツ','とんかつ','天ぷら','唐揚げ'])},
   {key:'c-kona',label:'오코노미·타코',emoji:'🥞',q:'お好み焼き たこ焼き',test:r=>isG(r,['오코노미야키','타코야키'])||hasTag(r,['お好み焼き','たこ焼き','もんじゃ焼き'])},
-  {key:'c-sea',label:'스시·해산물',emoji:'🍣',q:'寿司 海鮮',test:r=>isG(r,['스시','해산물·덮밥'])||hasTag(r,['寿司','海鮮','海鮮丼','鮮魚店'])},
+  {key:'c-sweet',label:'디저트',emoji:'🍰',q:'スイーツ',test:r=>hasTag(r,['スイーツ','ケーキ','チョコレート','パンケーキ','かき氷','フルーツパーラー','甘味処','和菓子','大福','ソフトクリーム','アイスクリーム'])||/りくろー|クレープ|アルション/.test(r.jp)},
+  {key:'c-cafe',label:'카페',emoji:'☕',q:'カフェ 喫茶店',test:r=>isG(r,['킷사텐'])||hasTag(r,['カフェ','喫茶店','コーヒー専門店','紅茶専門店','コーヒースタンド'])||(isG(r,['카페·디저트'])&&!tagsOf(r).length&&!/りくろー|クレープ/.test(r.jp))},
+  {key:'c-bread',label:'빵',emoji:'🥐',q:'パン屋',test:r=>isG(r,['빵'])||hasTag(r,['パン','ベーグル'])},
+  {key:'c-snack',label:'간식·길거리',emoji:'🍡',q:'食べ歩き',test:r=>isG(r,['타코야키'])||hasTag(r,['肉まん','ジュースバー','ジューススタンド','ソフトクリーム','アイスクリーム','大福'])||/りくろー|551/.test(r.jp)},
   {key:'c-rice',label:'밥·카레·양식',emoji:'🍛',q:'カレー 洋食 丼',test:r=>isG(r,['카레','양식·오므라이스','해산물·덮밥'])||hasTag(r,['カレー','スパイスカレー','インドカレー','カレーライス','オムライス','ハヤシライス','洋食'])},
   {key:'c-china',label:'중식·교자',emoji:'🥟',q:'中華 餃子',test:r=>isG(r,['교자·중식'])||hasTag(r,['中華料理','餃子','飲茶・点心'])},
-  {key:'c-bar',label:'술집·이자카야',emoji:'🍶',q:'居酒屋 立ち飲み',test:r=>isG(r,['야키토리','이자카야','오뎅','쿠시카츠'])||hasTag(r,['居酒屋'])},
-  {key:'c-snack',label:'간식·길거리',emoji:'🍡',q:'食べ歩き',test:r=>isG(r,['타코야키'])||hasTag(r,['肉まん','ジュースバー','ジューススタンド','ソフトクリーム','アイスクリーム','大福'])||/りくろー|551/.test(r.jp)},
-  {key:'c-cafe',label:'카페',emoji:'☕',q:'カフェ 喫茶店',test:r=>isG(r,['킷사텐'])||hasTag(r,['カフェ','喫茶店','コーヒー専門店','紅茶専門店','コーヒースタンド'])||(isG(r,['카페·디저트'])&&!tagsOf(r).length&&!/りくろー|クレープ/.test(r.jp))},
-  {key:'c-sweet',label:'디저트',emoji:'🍰',q:'スイーツ',test:r=>hasTag(r,['スイーツ','ケーキ','チョコレート','パンケーキ','かき氷','フルーツパーラー','甘味処','和菓子','大福','ソフトクリーム','アイスクリーム'])||/りくろー|クレープ|アルション/.test(r.jp)},
-  {key:'c-bread',label:'빵',emoji:'🥐',q:'パン屋',test:r=>isG(r,['빵'])||hasTag(r,['パン','ベーグル'])}];
+  {key:'c-bar',label:'술집·이자카야',emoji:'🍶',q:'居酒屋 立ち飲み',test:r=>isG(r,['야키토리','이자카야','오뎅','쿠시카츠'])||hasTag(r,['居酒屋'])}];
 /* by default each food type shows its 10 best-rated shops (Tabelog, then Google, 百名店, review count);
    "모두 보기" shows every researched shop. Saved (찜) shops and search results are always shown. */
 const CAT_MAX=10,ALL_SHOPS=DATA.length;
@@ -1097,9 +1142,9 @@ function nowCardHtml(){const tn=tripNow();
   if(!tn){const first=TRIP_DATA.days[0];if(!first)return '';const t0=new Date(first.date+'T00:00:00+09:00'),dd=Math.ceil((t0-Date.now())/864e5);
     return dd>0?`<div class="tNow pre">✈️ 여행까지 <b>${dd}일</b> · 첫 일정 ${TRIP.find(t=>t.key===first.key).label} ${first.stops[0].time} ${esc(first.stops[0].name)}</div>`:''}
   const c=tn.cur,n=tn.next,ln=x=>`${x.emoji} ${esc(tripPlace(x).name)}`;
-  return `<div class="tNow" style="--c:${tn.day.color}">${c?`<div><small>지금</small><button class="lnk" data-open="${tn.day.key}:${c.id}">${c.time} ${ln(c)}</button></div>`:''}
-    ${n?`<div><small>다음 · ${tn.mins<60?tn.mins+'분':Math.floor(tn.mins/60)+'시간 '+(tn.mins%60)+'분'} 후</small><button class="lnk" data-open="${tn.day.key}:${n.id}">${n.time} ${ln(n)}</button>
-      <a class="tBtn primary sm" href="${esc(tripDir(tripPlace(n),n.leg&&n.leg.travel))}" target="_blank" rel="noopener">🧭 지금 출발 길찾기</a></div>`:'<div><small>오늘 일정 끝</small></div>'}</div>`}
+  return `<div class="tNow" style="--c:${tn.day.color}">${c?`<div class="tnRow"><small>지금</small><button class="lnk" data-open="${tn.day.key}:${c.id}">${c.time} ${ln(c)}</button></div>`:''}
+    ${n?`<div class="tnRow"><small>다음</small><button class="lnk" data-open="${tn.day.key}:${n.id}">${n.time} ${ln(n)} <em>· ${minsText(tn.mins)} 후</em></button>
+      <a class="tBtn primary sm" href="${esc(tripDir(tripPlace(n),n.leg&&n.leg.travel))}" target="_blank" rel="noopener" aria-label="다음 장소 ${esc(tripPlace(n).name)} 지금 출발 길찾기">🧭 길찾기</a></div>`:'<div class="tnRow"><small>오늘 일정 끝</small></div>'}</div>`}
 function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.time),end=s.dur?hhmm(a+s.dur):'',tn=tripNow(),isNow=tn&&tn.day===day&&tn.cur===s;
   const leg=s.leg?`<div class="tLeg" style="--c:${day.color}"><span class="tlm">${LEG_ICON[s.leg.mode]||'➜'}</span><span>${esc(s.leg.text)}${s.leg.alt?`<small>또는 ${esc(s.leg.alt)}</small>`:''}</span></div>`:'';
   let more='';
@@ -1137,6 +1182,12 @@ function renderTrip(){
   $('#list').innerHTML=tabs+nowCardHtml()+(day?head+day.stops.map((s,i)=>stopHtml(day,s,i)).join(''):overviewHtml());
   const lv=$('#list [data-live]');if(lv)tripLive(lv);
 }
+const minsText=m=>m<60?m+'분':Math.floor(m/60)+'시간'+(m%60?' '+(m%60)+'분':'');
+function renderTripLine(){const el=$('#tripLine'),tn=S.mode!=='trip'&&tripNow();
+  if(!tn||!(tn.cur||tn.next)){el.hidden=true;return}
+  const x=tn.next||tn.cur;el.hidden=false;
+  el.innerHTML=`<span class="tl">🧳 ${tn.next?`<b>${x.time}</b> ${esc(tripPlace(x).name)}${tn.mins!=null?` <small>· ${minsText(tn.mins)} 후</small>`:''}`:`지금 ${esc(tripPlace(x).name)}`}</span><span class="go">일정 ›</span>`;
+  el.setAttribute('aria-label',`${tn.next?'다음 일정 '+x.time+' '+tripPlace(x).name:'지금 일정 '+tripPlace(x).name} — 일정 보기`)}
 /* live Google details for an opened stop: photo, rating, that day's hours (memory only) */
 function tripLive(el){const[k,id]=el.dataset.live.split(':'),day=tripDayOf(k),s=day.stops.find(x=>x.id===id),pl=tripPlace(s);
   if(!pl.placeId||!GMAPS_KEY||S.gmFail)return;
@@ -1202,6 +1253,7 @@ $('#list').addEventListener('click',e=>{
   if(t.dataset.stop&&!e.target.closest('a,button,input,label')){const[k,id]=t.dataset.stop.split(':');openTripStop(k,id)}
 },true);
 $('#tripChip').onclick=()=>S.mode==='trip'?exitTrip():enterTrip();
+$('#tripLine').onclick=e=>{e.stopPropagation();enterTrip()};
 $('#chips').addEventListener('click',e=>{if(S.mode==='trip'&&!e.target.closest('#tripChip,#genreChip'))exitTrip(true)},true);
 $('#chips').addEventListener('change',e=>{if(S.mode==='trip')exitTrip(true)},true);
 $('#q').addEventListener('input',()=>{if(S.mode==='trip')exitTrip(true)},true);
@@ -1233,11 +1285,11 @@ function itemHtml({r,d}){
   const st=status(r,S.day),off=closedOn(r),w=waitOf(r);
   const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'<span class="rt tna">점수 없음</span>',gRating(r)!=null?`<span>구글 ${fmtG(gRating(r))}</span>`:'',`<span>${esc(r.genre)}</span>`,r.price?`<span>${yen(r)}</span>`:''].filter(Boolean).join('<i>·</i>');
   const chips=[w.s?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),r.group6==='likely'?'<span class="ch ok6">6인 OK</span>':'',off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
-  const from=S.ref==='hotel'||(S.ref==='me'&&!me)?'호텔에서 ':S.ref==='center'?'지도 중심에서 ':'';
+  const from=S.ref==='me'&&!me?'호텔에서 ':'';   // the 기준 menu right above already says 호텔/지도 중심 — only say it when 내 위치 fell back to the hotel
   return `<div class="item${S.selected===r.id?' sel':''}" role="listitem" data-id="${r.id}" tabindex="0">${thumb(r)}
-  <div class="ib"><div class="iname"><span>${esc(r.name)}</span>${isHyaku(r)?`<em class="hyb">百名店${hyakuText(r)?' '+hyakuText(r):''}</em>`:''}</div>
+  <div class="ib"><div class="iname"><span>${esc(r.name)}</span>${isHyaku(r)?`<em class="hyb">百名店${hyakuText(r)?`<small> ${hyakuText(r)}</small>`:''}</em>`:''}</div>
   <div class="imeta">${meta}</div>
-  <div class="istat"><span class="walk">${from}${walkText(d)}</span><i>·</i><span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(st.text)}</span></div>
+  <div class="istat"><span class="walk">${from}${walkText(d)}</span><i>·</i> <span class="stg"><span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(st.text)}</span></span></div>
   ${chips?`<div class="ichips">${chips}</div>`:''}</div>
   <div class="iact"><button class="favBtn${fav.has(r.id)?' on':''}" data-fav="${r.id}" aria-label="${esc(r.name)} 찜하기" aria-pressed="${fav.has(r.id)}">${fav.has(r.id)?'♥':'♡'}</button>
     <a class="gmBtn" href="${esc(gUrl(r))}" target="_blank" rel="noopener" aria-label="${esc(r.name)} 구글 지도에서 보기">지도</a></div></div>`;
@@ -1256,10 +1308,10 @@ function renderList(){
   let hint='';
   const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const nn=rows.filter(x=>x.r&&walkMin(x.d)<=NEAR_MIN).length;
-    hint=nn?`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · 평점 높은 순</p>`
-      :`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
+    hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · 평점 높은 순</p>`
+      :`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
-  const tn=tripNow();if(tn&&(tn.cur||tn.next)){const x=tn.next||tn.cur;hint=`<button class="tripBanner" data-totrip="1">🧳 ${tn.next?`다음 일정 ${x.time} ${esc(tripPlace(x).name)}${tn.mins!=null?` · ${tn.mins<60?tn.mins+'분':Math.floor(tn.mins/60)+'시간 '+(tn.mins%60)+'분'} 후`:''}`:`지금 일정: ${esc(tripPlace(x).name)}`}<span>일정 보기 ›</span></button>`+hint}
+  renderTripLine();
   if(S.sort==='google'&&(!GMAPS_KEY||S.gmFail))hint=`<p class="hint">구글에 연결되지 않아 구글 평점을 불러올 수 없어요. 타베로그순을 써 주세요.</p>`+hint;
   else if(S.sort==='google'){const known=rows.filter(x=>x.r&&gRating(x.r)!=null).length,more=rows.filter(x=>x.r&&gRating(x.r)==null&&x.r.placeId).length;
     hint=`<p class="hint">구글 평점은 실시간으로 불러와요 (가까운 곳부터 ${G_BATCH}곳씩)${gBusy?' · 불러오는 중…':` · ${known}곳 확인`}${more&&!gBusy?` · <button class="linkBtn" id="gMore">${Math.min(G_BATCH,more)}곳 더 불러오기</button>`:''}</p>`+hint}
@@ -1267,14 +1319,14 @@ function renderList(){
   const expand=hidden>0?`<button class="expand" data-expand="1">▾ ${hidden}곳 더 보기 <small>먼 곳 중 평점 ${CAT_MAX}위 밖</small></button>`
     :S.showAll&&plainList?`<button class="expand" data-expand="0">▴ 종류별 상위 ${CAT_MAX}곳만 보기</button>`:'';
   if(plainList){const sc=`${S.showAll?`모든 식당 ${ALL_SHOPS}곳`:`먼 곳은 종류별 상위 ${CAT_MAX}곳`} · <button class="linkBtn" data-expand="${S.showAll?0:1}">${S.showAll?'상위만 보기':hidden>0?`${hidden}곳 더 보기`:'모두 보기'}</button>`;
-    hint=hint.endsWith('</p>')&&S.sort==='nearby'?hint.slice(0,-4)+' · '+sc+'</p>':hint+`<p class="hint scope">${sc}</p>`}
+    hint=hint.endsWith('</p>')&&S.sort==='nearby'?hint.slice(0,-4)+' · '+sc+'</p>':hint+`<p class="hint soft scope">${sc}</p>`}
   if(S.q&&S.genre!=='all')hint=`<p class="hint">‘${esc(gname)}’ 안에서 검색 중 · <button class="linkBtn" id="qGenreOff">전체에서 찾기</button></p>`+hint;
   const c=refPoint(),gq=gp;
   const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.q||gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
   const body=$('#sheetBody'),keep=body.scrollTop;
   // render the first rows now and the rest as the list is scrolled (keeps filter taps fast on slower phones)
   const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
-  listMore=rows.slice(LIST_STEP);listTail=expand+gLink;
+  listMore=rows.slice(LIST_STEP);listTail=expand+gLink+'<button class="linkBtn legendLink" data-legend="1">📖 ★ 점수 · 百名店 · 6인 OK 읽는 법</button>';
   $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
     :S.q?`<p class="empty">‘${esc(S.q)}’ 검색 결과가 없어요.</p>${hint.includes('qGenreOff')?hint:''}<button class="btn wide" id="clearQ">검색어 지우기</button><a class="gmore" href="${esc(gNearUrl(S.q,c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ‘${esc(S.q)}’ 찾기</a>`
     :`<p class="empty">조건에 맞는 식당이 없어요.${filterCount()||S.openOnly?' 켜 둔 조건: '+esc(activeFilterNames().join(', '))+'.':''}</p>${expand}${filterCount()||S.openOnly?'<button class="btn wide" id="clearFilters">조건 모두 끄기</button>':''}${gLink}`;
@@ -1547,7 +1599,7 @@ const sheet=$('#sheet');let sheetState='peek',sheetPx=0;
 if(S.mode==='trip'){sheet.classList.add('tripping');pushTrip()}   // reopened while the itinerary was showing (Back → shop list)
 const safeProbe=document.createElement('div');safeProbe.style.cssText='position:fixed;left:0;bottom:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(safeProbe);
 function heights(){const H=window.innerHeight,top=$('#topbar').getBoundingClientRect().bottom,sb=safeProbe.getBoundingClientRect().height||0;
-  return{peek:Math.min(178,Math.round(H*.29))+sb,half:Math.round(H*.5),full:Math.max(300,H-top-6)}}
+  return{peek:Math.min(178,Math.round(H*.29))+sb,half:Math.round(H*.54),full:Math.max(300,H-top-6)}}
 function applySheet(px){sheetPx=px;document.documentElement.style.setProperty('--sheet-h',px+'px')}
 let mapBottomTimer=0,mapBottom=0;
 // Google mode: shrink the map to end at the sheet — right away when the sheet shrinks, after its animation when it grows (no gap)
@@ -1742,6 +1794,7 @@ function closeModal(s,fromPop){const m=$(s);if(m.hidden)return;m.hidden=true;
   if(modalFocus&&document.contains(modalFocus))try{modalFocus.focus({preventScroll:true})}catch(e){}}
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))closeModal('#'+m.id)}));
 $('#menuBtn').onclick=()=>openModal('#menu');
+document.addEventListener('click',e=>{if(!e.target.closest('[data-legend]'))return;e.stopPropagation();openModal('#menu');setTimeout(()=>{try{$('#legendH').scrollIntoView({block:'start'})}catch(_){}},60)},true);
 // ⋯ → another dialog: swap them in place, so Back closes the new dialog instead of leaving the app
 const fromMenu=fn=>{const m=$('#menu');if(!m.hidden){m.hidden=true;modalReplace=true}try{fn()}finally{modalReplace=false}};
 $('#hotelDir').href=dirUrl(HOTEL.jp+' '+HOTEL.address,2);
