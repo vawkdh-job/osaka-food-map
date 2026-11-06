@@ -1192,7 +1192,6 @@ $('#tripChip').onclick=()=>S.mode==='trip'?exitTrip():enterTrip();
 $('#chips').addEventListener('click',e=>{if(S.mode==='trip'&&!e.target.closest('#tripChip,#genreChip'))exitTrip(true)},true);
 $('#chips').addEventListener('change',e=>{if(S.mode==='trip')exitTrip(true)},true);
 $('#q').addEventListener('input',()=>{if(S.mode==='trip')exitTrip(true)},true);
-if(S.mode==='trip')sheet.classList.add('tripping');
 
 /* ---- list photos: Google place photos for rows that come into view (live, in memory only, with the author credit) ---- */
 const THUMB_MAX=40;let thumbUsed=0,thumbOff=false,thumbIO=null;const thumbEls=new Map(),thumbQ=[],thumbFail=new Set();let thumbBusy=0;
@@ -1522,6 +1521,7 @@ function nextToast(){const n=toastQ.shift(),el=$('#toast');if(!n){toastBusy=fals
 
 /* ================= bottom sheet ================= */
 const sheet=$('#sheet');let sheetState='peek',sheetPx=0;
+if(S.mode==='trip')sheet.classList.add('tripping');   // reopened while the itinerary was showing
 const safeProbe=document.createElement('div');safeProbe.style.cssText='position:fixed;left:0;bottom:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(safeProbe);
 function heights(){const H=window.innerHeight,top=$('#topbar').getBoundingClientRect().bottom,sb=safeProbe.getBoundingClientRect().height||0;
   return{peek:Math.min(178,Math.round(H*.29))+sb,half:Math.round(H*.5),full:Math.max(300,H-top-6)}}

@@ -401,6 +401,10 @@ console.log('6c. Travel itinerary');
   const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: !!document.querySelector('.tripBanner') }));
   check(back.mode === 'shops' && back.pins === 0 && back.items > 0 && back.banner, 'leaving the itinerary restores the shop list with a next-stop banner', JSON.stringify(back));
   check(log.errors.length === 0, 'no script errors in the itinerary', log.errors.slice(0, 2).join(' | '));
+  await page.locator('#tripChip').click(); await page.waitForTimeout(400);   // leave it in the itinerary, then reopen the app
+  await page.reload(); await ready(page); await page.waitForTimeout(800);
+  const re = await page.evaluate(() => ({ mode: window.__ofm && window.__ofm.S.mode, stops: document.querySelectorAll('.tStop, .oRow').length, ready: !!(window.__ofm && window.__ofm.ready()) }));
+  check(re.mode === 'trip' && re.stops > 0 && re.ready && log.errors.length === 0, 'reopening the app while in the itinerary works (no blank screen)', JSON.stringify(re) + ' ' + log.errors.slice(0, 1).join(''));
   await ctx.close();
 }
 
