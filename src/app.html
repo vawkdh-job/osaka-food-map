@@ -368,7 +368,7 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .tNow{margin:0 16px 8px;padding:4px 8px 4px 12px;border-radius:14px;background:#f8fafc;border-left:5px solid var(--c,#6366f1);display:grid;gap:0;font-size:14.5px}
 .tNow{grid-template-columns:minmax(0,1fr)}.tnRow{display:flex;align-items:center;gap:8px;min-height:44px;min-width:0}.tnRow>small{flex:none;width:30px;margin:0!important}
 .tnRow .lnk{flex:1;min-width:0;min-height:44px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tnRow .lnk em{font-style:normal;font-weight:700;color:var(--muted);font-size:13px}
-.tnRow .tBtn{flex:none;min-height:40px}.tNow.pre{padding:12px}
+.tnRow .tBtn{flex:none;min-height:40px}.tNow.pre{display:block;padding:12px}
 .tNow small{display:block;font-size:12px;font-weight:700;color:var(--muted)}.tNow .lnk{font-weight:800;text-align:left}.tNow.pre{border-left-color:#6366f1}
 .lnk{border:0;background:none;padding:2px 0;font:inherit;color:var(--ink);cursor:pointer}
 .tDayHead{display:flex;align-items:baseline;gap:8px;margin:2px 16px 6px;padding-left:10px;border-left:5px solid var(--c)}.tDayHead b{font-size:17px}.tDayHead small{color:var(--muted);font-size:12.5px}
@@ -484,6 +484,11 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .oRow{min-height:48px;align-items:center;padding:4px 0}
 .hyb,.rec,.opt,.nowTag,.today,.tTime small,.dScore small,.alt .as small,.cl small,.pin u,.pin i,.tpin.mini b{font-size:12px}
 .gThumb small{font-size:10px}
+/* 전체 trip map: one round numbered dot per stop in its day's colour */
+.tpin.dot{width:16px;height:16px;padding:0;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 3px #0007}
+.tpin.dot::after{display:none}.tpin.dot::before{content:"";position:absolute;inset:-12px;border-radius:50%}   /* 40px to tap */
+/* white "그 외" shop pins: a darker outline so they stand out from the map (≥3:1) */
+.pin.t4,.pin.tna{border:2.5px solid #64748b}.pin.t4::after,.pin.tna::after{border-top-color:#64748b}
 .legendDl{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr);gap:10px 12px;align-items:start;margin:4px 0 8px;font-size:14px;line-height:1.5}
 .legendDl dt{margin:0;padding-top:1px}.legendDl dd{margin:0;color:var(--ink2)}
 .legendDl .gTag{font-size:13px;font-weight:750;color:var(--muted)}.legendDl .mini.static{height:auto;padding:3px 8px;font-size:12.5px}
@@ -576,7 +581,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
       <dt><span class="mini static">⌂ 호텔 기준</span></dt><dd>거리를 재는 출발점이에요. ‘근처 평점순’은 여기서 걸어서 20분 안의 가게를 평점 높은 순으로 먼저 보여 줘요.</dd>
     </dl>
     <h3>핀 색깔 (타베로그 점수)</h3>
-    <div class="legend"><span style="background:var(--t1)">3.75 이상</span><span style="background:var(--t2)">3.65 이상</span><span style="background:#fff;color:#92400e;box-shadow:inset 0 0 0 2px #d97706">3.55 이상</span><span style="background:#fff;color:#334155;box-shadow:inset 0 0 0 2px #94a3b8">그 외</span><span style="background:#e2e8f0;color:#475569;box-shadow:inset 0 0 0 2px #94a3b8">영업 안 함</span></div>
+    <div class="legend"><span style="background:var(--t1)">3.75 이상</span><span style="background:var(--t2)">3.65 이상</span><span style="background:#fff;color:#92400e;box-shadow:inset 0 0 0 2px #d97706">3.55 이상</span><span style="background:#fff;color:#334155;box-shadow:inset 0 0 0 2.5px #64748b">그 외</span><span style="background:#e2e8f0;color:#475569;box-shadow:inset 0 0 0 2px #94a3b8">영업 안 함</span></div>
     <p>핀의 <b>百</b>는 타베로그 백명점, <b>휴</b>나 회색은 고른 요일에 쉬는 날(또는 오늘 영업이 끝난) 가게, ★는 찜한 곳입니다.</p>
     <h3>데이터 안내</h3>
     <p>타베로그 점수·백명점·영업시간·좌석·결제 정보는 2026-11-05 웹 조사 기준 참고값이고, 구글 평점·지금 영업 여부·사진은 가게를 열 때 Google에서 실시간으로 불러옵니다. 위치는 Google 지도 기준입니다. 방문 전 Google 지도·타베로그에서 한 번 더 확인하세요. 거리는 직선거리, 도보 시간은 직선거리×1.3을 시속 4.5km로 계산한 어림값입니다.</p>
@@ -1218,9 +1223,9 @@ function renderTripMap(){
   for(const day of days){let prev=null,prevKind=null;
     day.stops.forEach((s,i)=>{const p=tripPlace(s);
       const from=prev||(s.leg&&s.leg.from==='hotel'?{lat:HOTEL.lat,lon:HOTEL.lon}:null);
-      if(from&&s.kind!=='air'&&prevKind!=='air')tripGfx.lines.push(addLine([[from.lon,from.lat],[p.lon,p.lat]],day.color,s.leg&&s.leg.mode==='walk'));
+      if(d!=='all'&&from&&s.kind!=='air'&&prevKind!=='air')tripGfx.lines.push(addLine(   /* 전체: dots only — three days of crossing lines were unreadable */[[from.lon,from.lat],[p.lon,p.lat]],day.color,s.leg&&s.leg.mode==='walk'));
       const el=document.createElement('div');el.className='mk tpm';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',`${i+1}번 ${s.time} ${p.name}`);
-      el.innerHTML=d==='all'?`<div class="tpin mini" style="--c:${day.color}"><b>${i+1}</b></div>`:`<div class="tpin${S.tripOpen===s.id?' sel':''}" style="--c:${day.color}"><b>${i+1}</b><span>${s.emoji}</span></div>`;
+      el.innerHTML=d==='all'?`<div class="tpin dot" style="--c:${day.color}"></div>`:`<div class="tpin${S.tripOpen===s.id?' sel':''}" style="--c:${day.color}"><b>${i+1}</b><span>${s.emoji}</span></div>`;
       const go=e=>{e&&e.stopPropagation();openTripStop(day.key,s.id,true)};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter')go(e)});
       tripGfx.marks.push(mkMarker(el,[p.lon,p.lat]).addTo(map));
       if(s.kind!=='air')fit.push([p.lat,p.lon]);prev=p;prevKind=s.kind});
