@@ -1160,7 +1160,8 @@ function renderDetail(){
   <div class="photos" id="photos">${tabImg}</div>
   <div id="gLive"></div>
   <section class="sec"><h3>가게 정보</h3><table class="info"><tbody>${infoRows(r)}</tbody></table></section>
-  <section class="sec"><h3>영업시간 <small>조사값</small></h3><table class="hoursT"><tbody>${rowsH}</tbody></table><p class="note">정기휴무: ${esc(r.closed||'정보 없음')}</p></section>
+  <section class="sec"><h3>영업시간 <small>${r.hoursChecked?`${esc(hoursSrcName(r))} · ${esc(mdKo(r.hoursChecked))} 확인`:'조사값'}</small></h3><table class="hoursT"><tbody>${rowsH}</tbody></table>
+    <p class="note">정기휴무: ${esc(r.closed||'정보 없음')}${r.hoursNote?`<br>${esc(r.hoursNote)}`:''}${r.hoursConf==='low'?'<br><small>출처가 하나뿐이거나 오래된 정보예요. 구글 영업시간도 같이 보세요.</small>':''}</p></section>
   ${r.desc?`<section class="sec"><h3>소개</h3><p class="note">${esc(r.desc)}</p></section>`:''}
   <section class="sec"><h3>주소</h3><button class="addr" id="copyAddr" lang="ja"><small lang="ko">눌러서 복사 · 크게 보려면 🚕 택시 버튼</small>${esc(r.jp)}<br>${esc(addrOf(r)||'')}${addrOf(r)?'':'<small lang="ko">주소 정보가 없어요 · 🚕 택시 버튼에서 지도를 보여 주세요</small>'}</button>
     ${r.coordConf==='low'&&r.coordSrc!=='google'?'<div class="warnBox">📍 핀 위치가 건물 단위라 조금 다를 수 있어요. 구글 지도 결과를 따르세요.</div>':''}</section>
@@ -1187,6 +1188,8 @@ function renderDetail(){
 /* one line under the shop name: status · distance (+ a Google note when Google disagrees) */
 function statusLine(r){const st=status(r,S.day),live=isLive(),d=km(refPoint(),r);
   return `<span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(detailStatus(r,st,live))}</span><span class="dDist">· ${S.ref==='me'&&me?'':refName()+'에서 '}${distText(d)}</span><span id="gOpen"></span>`}
+const mdKo=d=>{const m=/^\d{4}-(\d{2})-(\d{2})$/.exec(d||'');return m?`${+m[1]}월 ${+m[2]}일`:d};
+const hoursSrcName=r=>{const u=(r.hoursSrc||[])[0]||'';return /tabelog/.test(u)?'타베로그':/hotpepper/.test(u)?'핫페퍼':/retty/.test(u)?'Retty':/gnavi/.test(u)?'구루나비':u?'공식·웹':'웹 조사'};
 const jaAddr=a=>String(a||'').replace(/^日本、?\s*/,'').replace(/^〒\d{3}-\d{4}\s*/,'').trim();
 const addrOf=r=>r.address||(gLive(r)&&/[ぁ-んァ-ン一-龥]/.test(gLive(r).addr||'')?jaAddr(gLive(r).addr):'');
 function openTaxi(r){
