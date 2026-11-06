@@ -398,13 +398,15 @@ console.log('6c. Travel itinerary');
   check(await page.evaluate(() => !Object.keys(JSON.parse(localStorage.getItem('ofm.tripSwap.v1') || '{}')).length), '“되돌리기” restores the planned place');
   await page.locator('[data-tday="all"]').click(); await page.waitForTimeout(700);
   const all = await page.evaluate(() => ({ pins: document.querySelectorAll('.tpin').length, days: document.querySelectorAll('.oDay').length, checks: document.querySelectorAll('[data-check]').length }));
-  check(all.pins === 24 && all.days === 4 && all.checks >= 5, '전체: all three days on the map, overview and checklist', JSON.stringify(all));
+  check(all.pins === 25 && all.days === 4 && all.checks >= 5, '전체: all three days on the map, overview and checklist', JSON.stringify(all));
   await page.evaluate(() => window.__ofm.setSheet('full')); await page.waitForTimeout(300);
   await page.locator('.tTab[data-tday="sat"]').click(); await page.waitForTimeout(300);   // a day tapped with the list fully open (map hidden)…
   await page.evaluate(() => window.__ofm.setSheet('half')); await page.waitForTimeout(1200);   // …is framed once the list comes down
   const satVis = await page.evaluate(() => { const top = document.querySelector('#topbar').getBoundingClientRect().bottom, bot = document.querySelector('#sheet').getBoundingClientRect().top;
     const P = [...document.querySelectorAll('.tpin')].map(e => e.getBoundingClientRect()); return { on: P.filter(r => r.top >= top - 4 && r.bottom <= bot + 4 && r.left >= 0 && r.right <= innerWidth).length, n: P.length }; });
-  check(satVis.n === 9 && satVis.on === satVis.n, 'a day picked while the list is full is framed on the map when the list comes down', JSON.stringify(satVis));
+  check(satVis.n === 10 && satVis.on === satVis.n, 'a day picked while the list is full is framed on the map when the list comes down', JSON.stringify(satVis));
+  const hep = await page.evaluate(() => { const d = window.__ofm.TRIP_DATA.days.find(x => x.key === 'sat'), i = d.stops.findIndex(s => s.id === 's11'); return { after: d.stops[i - 1].id, time: d.stops[i].time, last: d.stops[d.stops.length - 1].id }; });
+  check(hep.after === 'f7' && hep.time >= '21:30' && hep.time <= '22:15' && hep.last === 's10', 'Saturday: HEP FIVE Ferris wheel right after the Aburiya dinner, before the last boarding (22:45)', JSON.stringify(hep));
   await page.locator('.tTab[data-tday="all"]').click(); await page.waitForTimeout(400);
   await page.locator('#tripChip').click(); await page.waitForTimeout(600);
   const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: (() => { const b = document.querySelector('#tripLine'); return !!b && !b.hidden && b.getBoundingClientRect().height >= 44 && /13:50/.test(b.textContent); })() }));

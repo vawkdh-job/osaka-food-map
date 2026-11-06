@@ -516,8 +516,34 @@
      "taxiHint": "東梅田・曽根崎（お初天神の近く）SWINGうめだ 4階"
     },
     {
+     "id": "s11",
+     "time": "21:35",
+     "dur": 40,
+     "kind": "sight",
+     "emoji": "🎡",
+     "name": "HEP FIVE 관람차",
+     "jp": "HEP FIVE 観覧車",
+     "lat": 34.704003,
+     "lon": 135.500447,
+     "coordSrc": "wikipedia",
+     "addr": "大阪府大阪市北区角田町5-15 HEP FIVE",
+     "addrSrc": "https://www.osaka-info.jp/spot/hep-five-ferris-wheel/",
+     "taxiHint": "HEP FIVE（ヘップファイブ）前 · 赤い観覧車のビル",
+     "leg": {
+      "mode": "walk",
+      "travel": "walking",
+      "text": "아부리야에서 도보 약 5분 (빨간 관람차가 보이는 쪽)"
+     },
+     "tips": [
+      "11:00~23:00 · 마지막 탑승 22:45 · 한 바퀴 약 15분 · 예약 없이 현장 탑승",
+      "1인 1,000엔 · 5세 이하 무료 (출처에 따라 800엔 표기도 있어요)",
+      "곤돌라 1대 4명까지 → 6명은 3명씩 2대로 나눠 타요",
+      "HEP FIVE 7층 탑승장 · 토요일 밤은 줄이 생길 수 있어요"
+     ]
+    },
+    {
      "id": "s10",
-     "time": "21:30",
+     "time": "22:20",
      "dur": 0,
      "kind": "hotel",
      "emoji": "🏨",
@@ -530,8 +556,8 @@
      "leg": {
       "mode": "taxi",
       "travel": "driving",
-      "text": "택시 2대 약 10분",
-      "alt": "오사카역까지 걸어서 → 호텔 무료 셔틀"
+      "text": "HEP FIVE 앞에서 택시 2대 약 10분",
+      "alt": "오사카역까지 걸어서(약 5분) → 호텔 무료 셔틀"
      },
      "tips": []
     }
