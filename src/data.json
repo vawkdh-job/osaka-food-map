@@ -3836,7 +3836,7 @@
    ],
    "area": "덴마바시",
    "region": "north",
-   "address": "",
+   "address": "大阪府大阪市中央区釣鐘町1-1-11 MJビルディング 1F",
    "lat": 34.688188,
    "lon": 135.515921,
    "coordSrc": "google",
@@ -3881,22 +3881,48 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "17:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "24:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "24:00"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "월요일",
    "warn": null,
    "desc": "야키니쿠 WEST 백명점 2025 첫 선정, 가장 가까운 역 덴마바시.",
    "image": null,
    "credit": null,
    "fav": false,
    "sources": [
-    "https://award.tabelog.com/hyakumeiten/yakiniku_west/2025"
+    "https://award.tabelog.com/hyakumeiten/yakiniku_west/2025",
+    "https://www.hotpepper.jp/strJ004421224/",
+    "https://autoreserve.com/ja/restaurants/ZABBoVej9ALaC8Q8ayMg",
+    "https://tabelog.com/osaka/A2701/A270104/27110375/"
    ],
    "confidence": "low",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.hotpepper.jp/strJ004421224/",
+    "https://autoreserve.com/ja/restaurants/ZABBoVej9ALaC8Q8ayMg",
+    "https://tabelog.com/osaka/A2701/A270104/27110375/"
+   ],
+   "hoursNote": "天満橋店(釣鐘町). 금·토·일 예약은 전화로만. 타베로그 영문판엔 화~금 25:00까지로 나와 있어 금요일은 더 늦게까지 할 수도 있음 · L.O. 23:30"
   },
   {
    "id": 43,
@@ -4004,7 +4030,7 @@
    ],
    "area": "덴마·덴진바시스지",
    "region": "north",
-   "address": "",
+   "address": "大阪府大阪市北区西天満5-10-3 瀧本ビル 1F",
    "lat": 34.698447,
    "lon": 135.507278,
    "coordSrc": "google",
@@ -4049,22 +4075,48 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "야키니쿠 WEST 백명점 2025 첫 선정, 니시텐마 소재(미나미모리마치역).",
    "image": null,
    "credit": null,
    "fav": false,
    "sources": [
-    "https://award.tabelog.com/hyakumeiten/yakiniku_west/2025"
+    "https://award.tabelog.com/hyakumeiten/yakiniku_west/2025",
+    "https://tabelog.com/osaka/A2701/A270103/27094644/",
+    "https://www.hotpepper.jp/strJ001168037/",
+    "https://retty.me/area/PRE27/ARE92/SUB9201/100001306554/"
    ],
    "confidence": "low",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270103/27094644/",
+    "https://www.hotpepper.jp/strJ001168037/",
+    "https://retty.me/area/PRE27/ARE92/SUB9201/100001306554/"
+   ],
+   "hoursNote": "저녁만 영업. 핫페퍼는 24시까지·재료 소진 시 종료로 표기(구 정보). 예약은 인스타 DM/전화(06-6361-2900) · L.O. 22:30"
   },
   {
    "id": 45,
@@ -4180,7 +4232,7 @@
    ],
    "area": "우메다",
    "region": "north",
-   "address": "",
+   "address": "大阪府大阪市北区曽根崎2-8-9 八幸ビル 1F",
    "lat": 34.699683,
    "lon": 135.500852,
    "coordSrc": "google",
@@ -4225,22 +4277,48 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "17:00",
+      "25:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "25:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "25:00"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "야키니쿠 WEST 백명점 2025 첫 선정, 히가시우메다 오하쓰텐진 부근.",
    "image": null,
    "credit": null,
    "fav": false,
    "sources": [
-    "https://award.tabelog.com/hyakumeiten/yakiniku_west/2025"
+    "https://award.tabelog.com/hyakumeiten/yakiniku_west/2025",
+    "https://tabelog.com/osaka/A2701/A270101/27144498/",
+    "https://hitosara.com/0031704853/",
+    "https://www.instagram.com/fujimoto_ohatsu/"
    ],
    "confidence": "low",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270101/27144498/",
+    "https://hitosara.com/0031704853/",
+    "https://www.instagram.com/fujimoto_ohatsu/"
+   ],
+   "hoursNote": "저녁·심야 영업. 17시 오픈은 모든 출처 일치, 마감은 타베로그 최신 공지(10/19~) 매일 1시 기준. 다른 페이지엔 금·토 3시(일 2시)까지로 나와 있음. 예약 TableCheck · L.O. 00:30"
   },
   {
    "id": 47,
@@ -4549,7 +4627,7 @@
    ],
    "area": "우메다",
    "region": "north",
-   "address": "",
+   "address": "大阪府大阪市北区梅田1-13-13 阪神百貨店梅田本店 B2F",
    "lat": 34.701387,
    "lon": 135.498234,
    "coordSrc": "google",
@@ -4594,22 +4672,48 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "11:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "23:00"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "무휴 (한신백화점 휴관일에 준함)",
    "warn": null,
    "desc": "야키토리 WEST 백명점 2025 선정, 한신 오사카우메다역.",
    "image": null,
    "credit": null,
    "fav": false,
    "sources": [
-    "https://award.tabelog.com/hyakumeiten/yakitori_west/2025"
+    "https://award.tabelog.com/hyakumeiten/yakitori_west/2025",
+    "https://tabelog.com/en/osaka/A2701/A270101/27125526/",
+    "https://www.hanshin-dept.jp/hshonten/restaurantguide/barzone/barzone08.html",
+    "https://retty.me/area/PRE27/ARE89/SUB8901/100001597025/"
    ],
    "confidence": "low",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27125526/",
+    "https://www.hanshin-dept.jp/hshonten/restaurantguide/barzone/barzone08.html",
+    "https://retty.me/area/PRE27/ARE89/SUB8901/100001597025/"
+   ],
+   "hoursNote": "한신백화점 우메다본점 B2F '한신 바르요코초' 바존. 낮부터 영업. Retty엔 21시까지로 나온 구 정보도 있음 · 요리 L.O. 22:00, 음료 L.O. 22:30"
   },
   {
    "id": 51,
@@ -5177,7 +5281,10 @@
     "https://tabelog.com/osaka/A2701/A270102/27073555/dtlrvwlst/B429312864/?type=0",
     "https://ssl.tabelog.com/en/osaka/A2701/A270102/27073555/",
     "https://s.tabelog.com/en/osaka/A2701/A270102/27073555/dtlrvwlst/",
-    "https://insideosaka.com/botanicurry/"
+    "https://insideosaka.com/botanicurry/",
+    "https://x.com/BOTANICURRY1",
+    "https://tabelog.com/osaka/A2701/A270102/27073555/",
+    "https://baila.hpplus.jp/19399/"
    ],
    "confidence": "low",
    "src": "kita_light",
@@ -5185,11 +5292,11 @@
    "hoursChecked": "2026-11-06",
    "hoursConf": "low",
    "hoursSrc": [
-    "https://ssl.tabelog.com/en/osaka/A2701/A270102/27073555/",
-    "https://s.tabelog.com/en/osaka/A2701/A270102/27073555/dtlrvwlst/",
-    "https://insideosaka.com/botanicurry/"
+    "https://x.com/BOTANICURRY1",
+    "https://tabelog.com/osaka/A2701/A270102/27073555/",
+    "https://baila.hpplus.jp/19399/"
    ],
-   "hoursNote": "본점은 월 1~2회만 영업. 영업일엔 10시 정리권 배부·11시 오픈, 품절 시 종료. 영업일은 공식 SNS 확인 필요"
+   "hoursNote": "본점은 여전히 반월 단위로 영업일을 X(@BOTANICURRY1)·인스타에 공지(2025-11엔 5·18일만 영업). 2026-11 영업일 공지는 못 찾음. 영업일엔 10시 정리권, 11시 오픈, 품절 시 종료. 매일 영업은 우메다점(별도 지점)"
   },
   {
    "id": 58,
@@ -7908,11 +8015,21 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "08:00",
+      "19:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "17:00"
+     ]
+    ],
+    "sun": []
    },
-   "closed": null,
+   "closed": "수·일요일",
    "warn": null,
    "desc": "혼마치·히고바시·요도야바시 사이(아와지마치)에 있는 인기 베이커리. 2017년 이후 여러 번 백명점에 뽑혔고, 오사카역 에키마르셰에도 지점이 있습니다.",
    "image": null,
@@ -7920,11 +8037,22 @@
    "fav": false,
    "sources": [
     "https://kobe-journal.com/archives/7577896767.html",
-    "https://umeda-info.com/umeda-bakery/"
+    "https://umeda-info.com/umeda-bakery/",
+    "https://www.painduce.com/news/20240219.html",
+    "https://tabelog.com/osaka/A2701/A270106/27003262/",
+    "https://www.hotpepper.jp/strJ000866277/"
    ],
    "confidence": "low",
    "src": "kita_light",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://www.painduce.com/news/20240219.html",
+    "https://tabelog.com/osaka/A2701/A270106/27003262/",
+    "https://www.hotpepper.jp/strJ000866277/"
+   ],
+   "hoursNote": "2024-03-01부터 수·일 정기휴무(공식 공지). 일요일 휴무 주의"
   },
   {
    "id": 89,
@@ -9666,7 +9794,7 @@
    ],
    "area": "우메다",
    "region": "north",
-   "address": "",
+   "address": "大阪府大阪市北区梅田1-2-2 大阪駅前第2ビル B2F",
    "lat": 34.698732,
    "lon": 135.498343,
    "coordSrc": "google",
@@ -9706,22 +9834,58 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "11:00",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "20:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:30"
+     ],
+     [
+      "17:00",
+      "20:30"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "타베로그 오사카역·우메다·신치 라멘 랭킹 19위(3.58).",
    "image": null,
    "credit": null,
    "fav": false,
    "sources": [
-    "https://tabelog.com/ramen/osaka/A2701/A270101/rank/"
+    "https://tabelog.com/ramen/osaka/A2701/A270101/rank/",
+    "https://www.instagram.com/ra.yama17/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27130740/"
    ],
    "confidence": "low",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://www.instagram.com/ra.yama17/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27130740/"
+   ],
+   "hoursNote": "大阪駅前第2ビル B2F 우체국 앞. 휴무일은 공식 인스타(@ra.yama17)에서 공지"
   },
   {
    "id": 107,
@@ -10976,7 +11140,7 @@
    ],
    "area": "신사이바시·아메무라",
    "region": "south",
-   "address": "",
+   "address": "大阪府大阪市中央区東心斎橋2-5-19 南グランド会館 1F",
    "lat": 34.671333,
    "lon": 135.503593,
    "coordSrc": "google",
@@ -11021,11 +11185,26 @@
    "foreignMenu": null,
    "mustTry": "와규 스테이크, 야키소바",
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "18:00",
+      "23:30"
+     ]
+    ],
+    "sat": [
+     [
+      "18:00",
+      "23:30"
+     ]
+    ],
+    "sun": [
+     [
+      "18:00",
+      "23:30"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "신사이바시역 3분·나가호리바시역 약 435m의 철판구이·오코노미야키집, 백명점 2025 표기.",
    "image": null,
@@ -11033,11 +11212,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/C27128/C79961/rstLst/okonomiyaki/",
-    "https://tabelog.com/okonomiyaki/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/okonomiyaki/osaka/A2701/A270201/rank/",
+    "https://tabelog.com/en/osaka/A2701/A270201/27099997/",
+    "https://hitosara.com/0031556290/"
    ],
    "confidence": "low",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27099997/",
+    "https://hitosara.com/0031556290/"
+   ],
+   "hoursNote": "저녁만 영업(구 '鉄板ダイニング KAYA'). 예전 리뷰엔 심야까지 영업했다는 말도 있음, 휴무 부정기라 전화(090-6551-0515) 확인 권장"
   },
   {
    "id": 121,
@@ -13087,7 +13275,7 @@
    ],
    "area": "난바·도톤보리",
    "region": "south",
-   "address": "",
+   "address": "大阪府大阪市中央区島之内2-9-26 1F",
    "lat": 34.669965,
    "lon": 135.508346,
    "coordSrc": "google",
@@ -13127,22 +13315,60 @@
    "foreignMenu": null,
    "mustTry": null,
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "10:30",
+      "14:50"
+     ],
+     [
+      "17:30",
+      "20:50"
+     ]
+    ],
+    "sat": [
+     [
+      "10:30",
+      "14:50"
+     ],
+     [
+      "17:30",
+      "20:50"
+     ]
+    ],
+    "sun": [
+     [
+      "10:30",
+      "14:50"
+     ],
+     [
+      "17:30",
+      "20:50"
+     ]
+    ]
    },
-   "closed": null,
+   "closed": "무휴",
    "warn": null,
    "desc": "난바 돈카츠 순위 1위(3.60).",
    "image": null,
    "credit": null,
    "fav": false,
    "sources": [
-    "https://tabelog.com/tonkatsu/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/tonkatsu/osaka/A2701/A270202/rank/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27141118/",
+    "https://www.hotpepper.jp/strJ004469750/",
+    "https://magazine.tabelog.com/articles/388706"
    ],
    "confidence": "low",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27141118/",
+    "https://www.hotpepper.jp/strJ004469750/",
+    "https://magazine.tabelog.com/articles/388706"
+   ],
+   "hoursNote": "카운터 10석. 타베로그는 매일 영업(점심·저녁 2부제), 핫페퍼는 10:30~21:00 무휴. 2024년 개업 기사엔 월요일 휴무로 나와 있었음"
   },
   {
    "id": 144,
@@ -17395,11 +17621,38 @@
    "foreignMenu": null,
    "mustTry": "특 시오 라멘(特潮ラーメン), 쇼 라멘(醤), 다시마물 츠케멘",
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "11:00",
+      "14:30"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "14:30"
+     ],
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "14:30"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ]
    },
-   "closed": "화요일",
+   "closed": "화요일 (월요일이라는 정보도 있음)",
    "warn": null,
    "desc": "동물계+건어물 육수의 시오 라멘에 토마토 무스·바질 제노베제로 서양풍 맛 변화를 주는 집(미나미센바에서 이전). 10석 소규모.",
    "image": null,
@@ -17408,17 +17661,21 @@
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27125763/",
     "https://tabelog.com/osaka/A2701/A270202/27125763/dtlrvwlst/B510319665/",
-    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27125763/"
+    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27125763/",
+    "https://www.instagram.com/dashito_komugino_kanousei/",
+    "https://x.com/dashikomu_ramen"
    ],
    "confidence": "medium",
    "src": "minami_noodles",
    "coordDate": "2026-11-05",
    "hoursChecked": "2026-11-06",
-   "hoursConf": "low",
+   "hoursConf": "medium",
    "hoursSrc": [
-    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27125763/"
+    "https://tabelog.com/en/osaka/A2701/A270202/27125763/",
+    "https://www.instagram.com/dashito_komugino_kanousei/",
+    "https://x.com/dashikomu_ramen"
    ],
-   "hoursNote": "타베로그 식당 공지상 휴무는 월요일(기존 '화요일'과 다름). 영업시간 미확인"
+   "hoursNote": "점심·저녁 2부제, 일요일 저녁은 21시까지. 휴무일은 타베로그·인스타는 화요일, 공식 X 프로필은 월요일로 엇갈림(금·토·일은 영업)"
   },
   {
    "id": 188,
