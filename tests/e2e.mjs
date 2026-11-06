@@ -383,35 +383,42 @@ console.log('6c. Travel itinerary');
   await page.locator('#tripChip').click(); await page.waitForTimeout(900);
   const t = await page.evaluate(() => ({ mode: window.__ofm.S.mode, day: window.__ofm.S.tripDay, stops: document.querySelectorAll('.tStop').length, pins: document.querySelectorAll('.tpin').length,
     lines: ((window.__ofm.glStyle() || { layers: [] }).layers || []).filter(l => /^tripline/.test(l.id)).length, now: (document.querySelector('.tNow') || {}).innerText || '' }));
-  check(t.mode === 'trip' && t.day === 'fri' && t.stops === 7 && t.pins === 7, '🧳 일정 opens today (Fri) with its 7 stops and numbered pins', JSON.stringify({ ...t, now: undefined }));
+  check(t.mode === 'trip' && t.day === 'fri' && t.stops === 10 && t.pins === 10, '🧳 일정 opens today (Fri) with its 10 stops and numbered pins', JSON.stringify({ ...t, now: undefined }));
   check(t.lines >= 4, 'route lines drawn between the stops', String(t.lines));
-  check(/지금[\s\S]*이치란[\s\S]*다음[\s\S]*기타하마/.test(t.now), 'now/next card at Fri 13:20: now Ichiran, next Kitahama', t.now.replace(/\s+/g, ' ').slice(0, 120));
-  await page.locator('.tStop').nth(2).click(); await page.waitForTimeout(400);
+  check(/지금[\s\S]*다루마[\s\S]*다음[\s\S]*츠텐카쿠/.test(t.now), 'now/next card at Fri 13:20: now Daruma (lunch), next Tsutenkaku', t.now.replace(/\s+/g, ' ').slice(0, 120));
+  await page.locator('.tStop').nth(3).click(); await page.waitForTimeout(400);   // Fri lunch: Daruma in Shinsekai
   const dir = await page.locator('.tStop.open a.tBtn.primary').getAttribute('href');
-  check(/maps\/dir\/\?api=1.*destination=34\.7/.test(dir), 'a stop expands with a Google Maps directions link', dir.slice(0, 90));
+  check(/maps\/dir\/\?api=1.*destination=34\.65/.test(dir), 'a stop expands with a Google Maps directions link', dir.slice(0, 90));
   const alts = await page.locator('.tStop.open .tAlt').count();
   check(alts > 0, 'a meal stop lists nearby alternatives open at that time', String(alts));
   await page.locator('.tStop.open .tSwap').first().click(); await page.waitForTimeout(300);
   const sw = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('ofm.tripSwap.v1') || '{}')));
-  check(sw.includes('f3'), '“이걸로” swaps the meal and remembers it on the phone', sw.join(','));
+  check(sw.includes('s3'), '“이걸로” swaps the meal and remembers it on the phone', sw.join(','));
   await page.locator('.tStop.open [data-unswap]').click(); await page.waitForTimeout(300);
   check(await page.evaluate(() => !Object.keys(JSON.parse(localStorage.getItem('ofm.tripSwap.v1') || '{}')).length), '“되돌리기” restores the planned place');
   await page.locator('[data-tday="all"]').click(); await page.waitForTimeout(700);
   const all = await page.evaluate(() => ({ pins: document.querySelectorAll('.tpin').length, days: document.querySelectorAll('.oDay').length, checks: document.querySelectorAll('[data-check]').length }));
-  check(all.pins === 21 && all.days === 4 && all.checks >= 5, '전체: all three days on the map, overview and checklist', JSON.stringify(all));
+  check(all.pins === 24 && all.days === 4 && all.checks >= 5, '전체: all three days on the map, overview and checklist', JSON.stringify(all));
+  await page.evaluate(() => window.__ofm.setSheet('full')); await page.waitForTimeout(300);
+  await page.locator('.tTab[data-tday="sat"]').click(); await page.waitForTimeout(300);   // a day tapped with the list fully open (map hidden)…
+  await page.evaluate(() => window.__ofm.setSheet('half')); await page.waitForTimeout(1200);   // …is framed once the list comes down
+  const satVis = await page.evaluate(() => { const top = document.querySelector('#topbar').getBoundingClientRect().bottom, bot = document.querySelector('#sheet').getBoundingClientRect().top;
+    const P = [...document.querySelectorAll('.tpin')].map(e => e.getBoundingClientRect()); return { on: P.filter(r => r.top >= top - 4 && r.bottom <= bot + 4 && r.left >= 0 && r.right <= innerWidth).length, n: P.length }; });
+  check(satVis.n === 9 && satVis.on === satVis.n, 'a day picked while the list is full is framed on the map when the list comes down', JSON.stringify(satVis));
+  await page.locator('.tTab[data-tday="all"]').click(); await page.waitForTimeout(400);
   await page.locator('#tripChip').click(); await page.waitForTimeout(600);
-  const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: (() => { const b = document.querySelector('#tripLine'); return !!b && !b.hidden && b.getBoundingClientRect().height >= 44 && /14:30/.test(b.textContent); })() }));
+  const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: (() => { const b = document.querySelector('#tripLine'); return !!b && !b.hidden && b.getBoundingClientRect().height >= 44 && /13:50/.test(b.textContent); })() }));
   check(back.mode === 'shops' && back.pins === 0 && back.items > 0 && back.banner, 'leaving the itinerary restores the shop list with a next-stop banner', JSON.stringify(back));
   check(log.errors.length === 0, 'no script errors in the itinerary', log.errors.slice(0, 2).join(' | '));
   await page.locator('#tripChip').click(); await page.waitForTimeout(400);   // leave it in the itinerary, then reopen the app
   await page.reload(); await ready(page); await page.waitForTimeout(800);
   const re = await page.evaluate(() => ({ mode: window.__ofm && window.__ofm.S.mode, stops: document.querySelectorAll('.tStop, .oRow').length, ready: !!(window.__ofm && window.__ofm.ready()) }));
   check(re.mode === 'trip' && re.stops > 0 && re.ready && log.errors.length === 0, 'reopening the app while in the itinerary works (no blank screen)', JSON.stringify(re) + ' ' + log.errors.slice(0, 1).join(''));
-  const alt6 = await page.evaluate(() => { const O = window.__ofm, d = O.TRIP_DATA.days.find(x => x.key === 'sat'), s = d.stops.find(x => x.id === 's8'), A = O.tripAlts(s, d);
+  const alt6 = await page.evaluate(() => { const O = window.__ofm, d = O.TRIP_DATA.days.find(x => x.key === 'fri'), s = d.stops.find(x => x.id === 's8'), A = O.tripAlts(s, d);
     return { n: A.length, first: A[0] && A[0].r.group6, names: A.map(x => x.r.name), hardLast: A.findIndex(x => x.r.group6 === 'hard') < 0 || A.slice(A.findIndex(x => x.r.group6 === 'hard')).every(x => x.r.group6 === 'hard') }; });
   check(alt6.n >= 3 && alt6.n <= 5 && alt6.first === 'likely' && alt6.hardLast && alt6.names.some(n => /코로안/.test(n)), 'itinerary alternatives for 대기수산 put 6인 OK first and include 코로안', JSON.stringify(alt6));
   check(await page.evaluate(() => { const r = APP_DATA.restaurants.find(x => /코로안/.test(x.name)); return window.__ofm.primaryCat(r) === 'c-sea'; }), 'a sushi bar that also fries counts as sushi for “같은 종류” alternatives');
-  await page.evaluate(() => window.__ofm.openTripStop('fri', 'f6')); await page.waitForTimeout(500);
+  await page.evaluate(() => window.__ofm.openTripStop('fri', 'f9')); await page.waitForTimeout(500);
   await page.locator('.tStop.open [data-taxi]').click(); await page.waitForTimeout(300);
   const tx = await page.evaluate(() => ({ name: document.querySelector('#taxiName').textContent, addr: document.querySelector('#taxiAddr').textContent, copy: getComputedStyle(document.querySelector('#taxiCopy')).display }));
   check(/リーガロイヤル/.test(tx.name) && /中之島5-3-68/.test(tx.addr) && tx.copy !== 'none', 'taxi card from a hotel stop shows the hotel’s Japanese name and address (no Google needed)', JSON.stringify(tx));
@@ -421,12 +428,12 @@ console.log('6c. Travel itinerary');
   check(noAddr.length === 0, 'every itinerary stop has a Japanese address for the taxi card, without Google', noAddr.join(','));
   const linked = await page.evaluate(() => window.__ofm.TRIP_DATA.days.flatMap(d => d.stops).filter(s => ['meal', 'cafe'].includes(s.kind)).map(s => [s.id, !!window.__ofm.tripPlace(s).shop]));
   check(linked.every(([, ok]) => ok), 'every planned meal and café links to its shop record (seats, payment, wait)', JSON.stringify(linked.filter(([, ok]) => !ok)));
-  await page.evaluate(() => window.__ofm.openTripStop('sat', 's5')); await page.waitForTimeout(500);
+  await page.evaluate(() => window.__ofm.openTripStop('fri', 's5')); await page.waitForTimeout(500);
   await page.locator('.tStop.open [data-taxi]').click(); await page.waitForTimeout(300);
   const tk = await page.evaluate(() => ({ addr: document.querySelector('#taxiAddr').textContent, hint: document.querySelector('#taxiHint').hidden ? '' : document.querySelector('#taxiHint').textContent }));
   check(/日本橋2-4-1/.test(tk.addr) && /千日前通/.test(tk.hint), 'taxi card for a market gives its address and where to drop off (in Japanese)', JSON.stringify(tk));
   await page.goBack(); await page.waitForTimeout(300);
-  await page.evaluate(() => { window.__ofm.setSheet('full'); window.__ofm.openTripStop('fri', 'f3'); }); await page.waitForTimeout(600);
+  await page.evaluate(() => { window.__ofm.setSheet('full'); window.__ofm.openTripStop('sat', 'f3'); }); await page.waitForTimeout(600);
   await page.evaluate(() => { const b = document.querySelector('#sheetBody'); b.scrollTop = Math.floor((b.scrollHeight - b.clientHeight) / 2); }); await page.waitForTimeout(500);   // mid-list, away from the clamp at the end
   const before = await page.evaluate(() => { const top = document.querySelector('#sheetBody').scrollTop; document.querySelector('.tStop.open .tAlt [data-shop]').click(); return top; });   // a tap where it is (no scroll-into-view)
   await page.waitForTimeout(600);
@@ -503,7 +510,7 @@ console.log('6d. Back button (Android back / iOS swipe) never leaves the app by 
   r = await back();
   check(r !== 'LEFT' && r.mode === 'shops' && !r.modals.length, '일정 → 필터 (switches to shops) → Back closes the filters only', JSON.stringify(r));
   await page.locator('#tripChip').click(); await page.waitForTimeout(500);
-  await page.evaluate(() => window.__ofm.openTripStop('fri', 'f3')); await page.waitForTimeout(400);
+  await page.evaluate(() => window.__ofm.openTripStop('sat', 'f3')); await page.waitForTimeout(400);
   await page.evaluate(() => document.querySelector('.tStop.open .tAlt [data-shop]').click()); await page.waitForTimeout(500);
   r = await back(); const r3 = r !== 'LEFT' ? await back() : 'LEFT';
   check(r !== 'LEFT' && r.mode === 'trip' && r.view === 'list' && r3 !== 'LEFT' && r3.mode === 'shops', '일정 → 가게 정보 → Back → Back: the itinerary, then the shop list', JSON.stringify([r, r3]));

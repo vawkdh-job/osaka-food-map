@@ -937,8 +937,9 @@ function panToVisible(ll,zoom,animate=true){
 }
 function boundsOf(pts){let w=180,s=90,e=-180,n=-90;for(const[la,lo]of pts){w=Math.min(w,lo);e=Math.max(e,lo);s=Math.min(s,la);n=Math.max(n,la)}return[[w,s],[e,n]]}
 function fitVisible(pts,maxZoom=Z.fit,animate=true){
-  if(!map||!pts.length)return;const c=cover();
-  map.fitBounds(boundsOf(pts),{padding:{top:c.top+40,bottom:c.bottom+34,left:34,right:isDesktop()?84:72},maxZoom,duration:animate?500:0});
+  if(!map||!pts.length)return;const c=cover(),H=map.getContainer().clientHeight||innerHeight;
+  let top=c.top+40,bottom=c.bottom+34;if(top+bottom>H-80){const k=Math.max(0,H-80)/(top+bottom);top*=k;bottom*=k}   // a tiny visible map: keep the padding possible
+  map.fitBounds(boundsOf(pts),{padding:{top,bottom,left:34,right:isDesktop()?84:72},maxZoom,duration:animate?500:0});
 }
 function visibleCenter(){const c=cover(),el=map.getContainer(),H=el.clientHeight;const ll=map.unproject([el.clientWidth/2,c.top+(H-c.top-c.bottom)/2]);return{lat:ll.lat,lon:ll.lng}}
 
@@ -1227,7 +1228,7 @@ function tripLive(el){const[k,id]=el.dataset.live.split(':'),day=tripDayOf(k),s=
   const c=gLive(pl);if(c)return paint(c);
   el.innerHTML='<div class="tG"><small>구글 정보 불러오는 중…</small></div>';fetchG(pl).then(paint).catch(()=>{if(document.contains(el))el.innerHTML=''})}
 /* ---- route on the map: numbered pins + lines (dashed = walk) ---- */
-let tripGfx={key:'',marks:[],lines:[]},tripFitKey='',lineSeq=0;
+let tripGfx={key:'',marks:[],lines:[]},tripFitKey='',lineSeq=0,tripFitPending=null;
 function clearTripGfx(){tripGfx.marks.forEach(m=>m.remove());tripGfx.lines.forEach(l=>l.remove());tripGfx={key:'',marks:[],lines:[]}}
 function addLine(pts,color,dash){
   if(engine==='gm'&&map.gm){const g=google.maps,pl=new g.Polyline({path:pts.map(([lo,la])=>({lat:la,lng:lo})),strokeColor:color,strokeOpacity:dash?0:.85,strokeWeight:4,clickable:false,
@@ -1255,7 +1256,9 @@ function renderTripMap(){
       tripGfx.marks.push(mkMarker(el,[p.lon,p.lat]).addTo(map));
       if(s.kind!=='air')fit.push([p.lat,p.lon]);prev=p;prevKind=s.kind});
   }
-  if(tripFitKey!==d&&fit.length){tripFitKey=d;fitVisible(fit,15)}
+  if(tripFitKey!==d&&fit.length){tripFitKey=d;
+    if(!isDesktop()&&sheetState==='full')tripFitPending=fit;   // the map is hidden behind the list: frame the day when the list comes down
+    else{tripFitPending=null;setTimeout(()=>{if(S.mode==='trip'&&tripFitKey===d)fitVisible(fit,15)},320)}}   // after the sheet/map resize settles
 }
 function openTripStop(dayKey,id,fromMap){
   if(S.tripDay!==dayKey)S.tripDay=dayKey;S.tripOpen=S.tripOpen===id&&!fromMap?null:id;
@@ -1267,9 +1270,9 @@ function openTripStop(dayKey,id,fromMap){
   if(S.tripOpen)whenMap(()=>panToVisible([p.lat,p.lon],Math.max(map.getZoom(),15)));
 }
 const pushTrip=()=>{if(!(history.state&&history.state.trip))hPush({trip:1})};
-function enterTrip(){S.mode='trip';LS.set('ofm.mode','trip');pushTrip();S.tripDay=S.tripDay||defaultTripDay();if(S.view==='detail')closeDetail();sheet.classList.add('tripping');tripFitKey='';refresh();
-  if(!isDesktop()&&sheetState==='peek')setSheet('half')}
-function exitTrip(quiet,fromPop){if(!fromPop&&history.state&&history.state.trip)hBack();S.mode='shops';LS.set('ofm.mode','shops');sheet.classList.remove('tripping');clearTripGfx();tripFitKey='';if(!quiet){refresh();fitNearOrAll()}}
+function enterTrip(){S.mode='trip';LS.set('ofm.mode','trip');pushTrip();S.tripDay=S.tripDay||defaultTripDay();if(S.view==='detail')closeDetail();sheet.classList.add('tripping');tripFitKey='';
+  if(!isDesktop()&&sheetState==='peek')setSheet('half');refresh()}
+function exitTrip(quiet,fromPop){tripFitPending=null;if(!fromPop&&history.state&&history.state.trip)hBack();S.mode='shops';LS.set('ofm.mode','shops');sheet.classList.remove('tripping');clearTripGfx();tripFitKey='';if(!quiet){refresh();fitNearOrAll()}}
 $('#list').addEventListener('click',e=>{
   if(S.mode!=='trip'){const tb=e.target.closest('[data-totrip]');if(tb){e.stopPropagation();enterTrip()}return}
   const t=e.target.closest('[data-tday],[data-open],[data-swap],[data-unswap],[data-taxi],[data-shop],[data-check],[data-stop]');if(!t)return;
@@ -1638,6 +1641,7 @@ function setSheet(state){
   if(isDesktop()){sheetState='desk';applySheet(0);setMapBottom(0);document.body.classList.remove('sheet-half','sheet-full');return}
   sheetState=state;sheet.dataset.state=state;applySheet(heights()[state]);setMapBottom(sheetPx);
   document.body.classList.toggle('sheet-half',state==='half');document.body.classList.toggle('sheet-full',state==='full');
+  if(tripFitPending&&state!=='full'){const f=tripFitPending;tripFitPending=null;if(S.mode==='trip')setTimeout(()=>fitVisible(f,15),320)}
 }
 /* Sheet dragging, like Google/Naver Maps:
    - the top strip drags anywhere, also over the 기준/정렬 menus (a plain tap still opens them);
