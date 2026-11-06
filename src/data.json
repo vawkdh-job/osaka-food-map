@@ -186,10 +186,20 @@
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/252539/640x640_rect_1ae439fb74cb8e33eb62ba22318fd3d7.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://www.timeout.jp/osaka/ja/レストラン/takeuchi-udon-ten",
+    "https://macaro-ni.jp/119091?page=3"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.timeout.jp/osaka/ja/レストラン/takeuchi-udon-ten",
+    "https://macaro-ni.jp/119091?page=3"
+   ],
+   "hoursNote": null
   },
   {
    "id": 3,
@@ -447,16 +457,26 @@
      ]
     ]
    },
-   "closed": "월요일",
+   "closed": "월요일 (공휴일이어도 휴무)",
    "warn": "카운터 9석",
    "desc": "오리 육수 라멘으로 유명하며 대기 가능성이 큽니다.",
    "image": "https://cdn-ak.f.st-hatena.com/images/fotolife/D/Deo1030/20220718/20220718225147.jpg",
    "credit": "はてなブログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://aumo.jp/articles/58830",
+    "https://tabelog.com/osaka/A2701/A270108/27091454/"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://aumo.jp/articles/58830",
+    "https://tabelog.com/osaka/A2701/A270108/27091454/"
+   ],
+   "hoursNote": "일요일은 점심만(11-16시). 저녁 시작 17:30이라는 자료도 있음"
   },
   {
    "id": 6,
@@ -538,16 +558,26 @@
      ]
     ]
    },
-   "closed": "연중무휴",
+   "closed": "무휴",
    "warn": null,
    "desc": "버섯튀김·고기·온천달걀 우동. 오사카역 앞 빌딩 지하.",
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/330728/640x640_rect_1ac1ef6828a073ac7b1e1a4873ef6e17.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://www.nap-camp.com/mag/25781",
+    "https://tabelog.com/osaka/A2701/A270101/27015312/"
+   ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.nap-camp.com/mag/25781",
+    "https://tabelog.com/osaka/A2701/A270101/27015312/"
+   ],
+   "hoursNote": "현금만 가능, 점심·저녁 사이 휴식"
   },
   {
    "id": 7,
@@ -722,10 +752,20 @@
    "image": "https://i0.wp.com/osaka-gourmet01.com/wp-content/uploads/2018/08/c954e9fc471f9a73d07909ed8a084e33.jpg?fit=728%2C728&ssl=1",
    "credit": "大阪グルメブログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://www.timeout.jp/osaka/ja/レストラン/ramen-jinsei-jet",
+    "https://aumo.jp/articles/58830"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.timeout.jp/osaka/ja/レストラン/ramen-jinsei-jet",
+    "https://aumo.jp/articles/58830"
+   ],
+   "hoursNote": "저녁 20시까지라는 구 정보도 있음 · L.O. 15:00 / 22:00"
   },
   {
    "id": 9,
@@ -880,10 +920,20 @@
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/278242/640x640_rect_031e5d7d1be130cf9745824688f7cdae.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://macaro-ni.jp/334",
+    "https://tabelog.com/osaka/A2701/A270101/27000322/"
+   ],
    "confidence": "low",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://macaro-ni.jp/334",
+    "https://tabelog.com/osaka/A2701/A270101/27000322/"
+   ],
+   "hoursNote": "스카이빌딩 B1 다키미코지, 일요일 영업 · 21:30은 L.O.로 표기된 자료도 있음"
   },
   {
    "id": 11,
@@ -1050,10 +1100,18 @@
    "image": "https://stat.ameba.jp/user_images/20250112/16/eririnko5842/12/33/j/o1080080915532320795.jpg",
    "credit": "Amebaブログ",
    "fav": true,
-   "sources": [],
+   "sources": [
+    "https://r.gnavi.co.jp/kbht102/"
+   ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/kbht102/"
+   ],
+   "hoursNote": "주말 낮 영업 시간은 미확인 (구루나비는 화~토·공휴일 16:00~24:00, 런치 화~금) · L.O. 23:30"
   },
   {
    "id": 13,
@@ -1123,16 +1181,24 @@
      ]
     ]
    },
-   "closed": "월요일·공휴일",
+   "closed": "월요일",
    "warn": "예약이 약 2개월 밀려 있다는 후기 있음",
    "desc": "품질 좋은 야키니쿠. 예약 가능하나 인기 높음.",
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/15207/640x640_rect_15207167.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://gurunavi.com/ja/kbht105/rev/rst"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://gurunavi.com/ja/kbht105/rev/rst"
+   ],
+   "hoursNote": "예약 권장 · L.O. 23:30"
   },
   {
    "id": 14,
@@ -1282,10 +1348,20 @@
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/127231/640x640_rect_127231530.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://retty.me/restaurant/100000024393/",
+    "https://4travel.jp/dm_shisetsu/10179620"
+   ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000024393/",
+    "https://4travel.jp/dm_shisetsu/10179620"
+   ],
+   "hoursNote": null
   },
   {
    "id": 16,
@@ -1373,10 +1449,20 @@
    "image": "https://blog-imgs-158.fc2.com/t/u/s/tushio/20250331125805481.jpg",
    "credit": "USHIO BLOG",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://retty.me/restaurant/100000030435/",
+    "https://www.timeout.jp/osaka/ja/レストラン/menya-jouroku-namba"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000030435/",
+    "https://www.timeout.jp/osaka/ja/レストラン/menya-jouroku-namba"
+   ],
+   "hoursNote": "매월 첫째 일요일은 아침 7-10시+점심만(저녁 없음). 11/15는 셋째 일요일이라 평상 영업. 현금만"
   },
   {
    "id": 17,
@@ -1452,10 +1538,18 @@
    "image": "https://assets.st-note.com/img/1762657320-WRta8fH0mqzL5Q2Cnvr3IeGB.jpg?fit=bounds&height=640&quality=85&width=640",
    "credit": "note",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://foodle.pro/post/80931"
+   ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://foodle.pro/post/80931"
+   ],
+   "hoursNote": "재료 소진 시 조기 종료, 점심 줄 1시간 이상일 때 있음. 14:30까지라는 자료도 있음"
   },
   {
    "id": 18,
@@ -1618,10 +1712,20 @@
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/257297/640x640_rect_ee1fef1d16447633a06e5a2aae051dbe.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://foodle.pro/post/105307",
+    "https://retty.me/restaurant/100001491508/"
+   ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://foodle.pro/post/105307",
+    "https://retty.me/restaurant/100001491508/"
+   ],
+   "hoursNote": "개찰구 안 매장 (입장권 필요) · L.O. 22:00"
   },
   {
    "id": 20,
@@ -1691,7 +1795,7 @@
      ]
     ]
    },
-   "closed": "비정기",
+   "closed": "부정기 휴무",
    "warn": "20:00에 닫는다는 정보도 있음",
    "desc": "홍차와 케이크로 유명한 카페. 좌석이 제한적입니다.",
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/95472/640x640_rect_95472675.jpg",
@@ -1699,11 +1803,19 @@
    "fav": true,
    "sources": [
     "https://r.gnavi.co.jp/8dss1zd60000/",
-    "https://www.gltjp.com/ja/directory/item/11718/"
+    "https://www.gltjp.com/ja/directory/item/11718/",
+    "https://macaro-ni.jp/107269?page=5"
    ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/8dss1zd60000/",
+    "https://macaro-ni.jp/107269?page=5"
+   ],
+   "hoursNote": "L.O. 18:00"
   },
   {
    "id": 21,
@@ -1773,18 +1885,27 @@
      ]
     ]
    },
-   "closed": "연말연시",
+   "closed": "무휴",
    "warn": "평일은 저녁만 영업",
    "desc": "네기야키와 오코노미야키 백명점. 예약 불가.",
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/274831/640x640_rect_fed95b1e712b1ece3055440fb5c91d41.jpg",
    "credit": "食べログ",
    "fav": false,
    "sources": [
-    "https://www.hotpepper.jp/strJ000109997/"
+    "https://www.hotpepper.jp/strJ000109997/",
+    "https://www.gltjp.com/ja/directory/item/15281/",
+    "https://gurunavi.com/ja/k226600/rev/rst"
    ],
    "confidence": "low",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.gltjp.com/ja/directory/item/15281/",
+    "https://gurunavi.com/ja/k226600/rev/rst"
+   ],
+   "hoursNote": "평일은 저녁만 영업, 줄 서는 경우 많음. 구루나비는 평일 24:30까지로 표기 · L.O. 22:30"
   },
   {
    "id": 22,
@@ -1854,16 +1975,26 @@
      ]
     ]
    },
-   "closed": "연중무휴",
+   "closed": "부정기 휴무 (목요일 휴무 있음)",
    "warn": null,
    "desc": "복고풍 실내, 핫케이크·커피. 약 245석 규모.",
    "image": "https://news.walkerplus.com/article/137323/768922_615.jpg",
    "credit": "Walkerplus",
    "fav": true,
-   "sources": [],
+   "sources": [
+    "https://www.mapple.net/region/a0503010205_g03040000/spot/",
+    "https://retty.me/restaurant/100000039988/"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.mapple.net/region/a0503010205_g03040000/spot/",
+    "https://retty.me/restaurant/100000039988/"
+   ],
+   "hoursNote": "Retty 등 옛 정보는 9:00~23:00"
   },
   {
    "id": 23,
@@ -2020,16 +2151,26 @@
      ]
     ]
    },
-   "closed": "수요일, 넷째 화요일",
+   "closed": "수요일(공휴일이면 영업), 넷째 화요일(12월 제외)",
    "warn": null,
    "desc": "키츠네 우동과 육수. 일반 식사는 현장 대기.",
    "image": "https://cdn.sarah30.com/reviews/photos/000/701/844/x_large/9eec214f28899c584341df8602b08f6de43770bc.jpg",
    "credit": "SARAH",
    "fav": true,
-   "sources": [],
+   "sources": [
+    "https://rurubu.jp/andmore/article/16998",
+    "https://foodle.pro/restaurants/osaka/dotombori-imai-main-branch"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://rurubu.jp/andmore/article/16998",
+    "https://foodle.pro/restaurants/osaka/dotombori-imai-main-branch"
+   ],
+   "hoursNote": "L.O. 21:00"
   },
   {
    "id": 25,
@@ -2191,10 +2332,18 @@
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/132397/640x640_rect_ff3c9a6c0c135055d204763275644fc9.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://www.walkerplus.com/article/203187/"
+   ],
    "confidence": "medium",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://www.walkerplus.com/article/203187/"
+   ],
+   "hoursNote": "워커플러스는 17:30~24:00(L.O.23:00), 일·월·공휴일 휴무로 표기 — 정보 엇갈림"
   },
   {
    "id": 27,
@@ -2270,10 +2419,20 @@
    "image": "https://tblg.k-img.com/restaurant/images/Rvw/245572/640x640_rect_7a418913dc69e2d650cb55ffe869cabc.jpg",
    "credit": "食べログ",
    "fav": false,
-   "sources": [],
+   "sources": [
+    "https://retty.me/restaurant/100000036307/",
+    "https://www.mapple.net/original/488028/"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000036307/",
+    "https://www.mapple.net/original/488028/"
+   ],
+   "hoursNote": "자료 충돌: Retty·마플은 9:30-21:30로 표기(작성 시점 불명). 저장된 9:00-20:00을 뒷받침하는 자료는 못 찾음. 카페는 11:00-17:30"
   },
   {
    "id": 28,
@@ -2529,10 +2688,22 @@
    "image": "https://cdn.sarah30.com/reviews/photos/000/746/917/large/950b0f3ac661174134ca721c26109c7947c29178.jpg",
    "credit": "SARAH",
    "fav": true,
-   "sources": [],
+   "sources": [
+    "https://retty.me/restaurant/100000087834/",
+    "https://gurunavi.com/ja/keds615/rev/rst/",
+    "https://rurubu.jp/andmore/spot/80028593"
+   ],
    "confidence": "high",
    "src": "v3",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000087834/",
+    "https://gurunavi.com/ja/keds615/rev/rst/",
+    "https://rurubu.jp/andmore/spot/80028593"
+   ],
+   "hoursNote": "날에 따라 영업시간이 달라질 수 있음 · L.O. 22:30"
   },
   {
    "id": 31,
@@ -2617,11 +2788,20 @@
     "https://tabelog.com/osaka/A2701/A270101/27000297/dtlrvwlst/B430179533/?type=0",
     "https://note.com/ktaro77_kansai/n/n1e82b59c5667",
     "https://www.ekiten.jp/shop_38166028/",
-    "https://s.tabelog.com/smartphone/matome/28268/"
+    "https://s.tabelog.com/smartphone/matome/28268/",
+    "https://www.nap-camp.com/mag/124103",
+    "https://www.nta.co.jp/media/tripa/articles/ziuQm"
    ],
    "confidence": "medium",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.nap-camp.com/mag/124103",
+    "https://www.nta.co.jp/media/tripa/articles/ziuQm"
+   ],
+   "hoursNote": "여행 사이트는 11:30~21:30 표기, 줄 서는 가게, 현금만"
   },
   {
    "id": 32,
@@ -2708,11 +2888,20 @@
     "https://tabelog.com/osaka/A2701/A270103/27002204/dtlrvwlst/B437357881/",
     "https://tabelog.com/en/osaka/A2701/A270103/27002204/dtlmenu/",
     "https://retty.me/area/PRE27/ARE92/SUB62105/100000698013/",
-    "https://somyu.com/4/"
+    "https://somyu.com/4/",
+    "https://library.libecity.com/articles/01J93DJNTE5QCRA8DP7B9ZZBB9",
+    "https://retty.me/restaurant/100000698013/"
    ],
    "confidence": "medium",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://library.libecity.com/articles/01J93DJNTE5QCRA8DP7B9ZZBB9",
+    "https://retty.me/restaurant/100000698013/"
+   ],
+   "hoursNote": "현금만 · L.O. 21:00"
   },
   {
    "id": 33,
@@ -2909,11 +3098,18 @@
     "https://www.hotpepper.jp/strJ000109465/",
     "https://retty.me/area/PRE27/ARE92/SUB62105/100000007501/",
     "https://ryoko-eito-life.com/harukoma/",
-    "https://tabelog.com/matome/15245/"
+    "https://tabelog.com/matome/15245/",
+    "https://www.mapple.net/original/404833/"
    ],
    "confidence": "high",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.mapple.net/original/404833/"
+   ],
+   "hoursNote": "재료 소진 시 조기 종료, 줄 서는 경우 많음"
   },
   {
    "id": 35,
@@ -3020,11 +3216,20 @@
     "https://tabelog.com/en/osaka/A2701/A270103/27002280/",
     "https://tabelog.com/osaka/A2701/A270103/27002280/dtlrvwlst/B498841778/",
     "https://www.navitime.co.jp/poi?spot=02301-1900417",
-    "https://rtrp.jp/spots/8a4527f1-529f-48bc-88db-1b91256e58e8/"
+    "https://rtrp.jp/spots/8a4527f1-529f-48bc-88db-1b91256e58e8/",
+    "https://retty.me/restaurant/100000193086/",
+    "https://news.mynavi.jp/article/20170922-sougetsu/"
    ],
    "confidence": "medium",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000193086/",
+    "https://news.mynavi.jp/article/20170922-sougetsu/"
+   ],
+   "hoursNote": "Retty는 중간 휴식 없이 평일 ~20:30, 주말 ~20:00 표기, 현금만"
   },
   {
    "id": 36,
@@ -3191,7 +3396,7 @@
      ]
     ]
    },
-   "closed": null,
+   "closed": "무휴 (1/1 휴무)",
    "warn": null,
    "desc": "신우메다 식도가의 줄 서는 타코야키집, 파를 산더미처럼 올린 네기마요가 명물. 점수는 시점에 따라 3.50~3.65, 번지는 9-16으로 적힌 곳도 있음.",
    "image": null,
@@ -3200,11 +3405,20 @@
    "sources": [
     "https://www.hotpepper.jp/strJ000712657/",
     "https://tabelog.com/osaka/A2701/A270101/27012248/dtlphotolst/smp2/",
-    "https://tabelog.com/osaka/A2701/A270101/27012248/dtlrvwlst/B430317812/"
+    "https://tabelog.com/osaka/A2701/A270101/27012248/dtlrvwlst/B430317812/",
+    "https://www.mapple.net/article/6364/",
+    "https://s.tabelog.com/en/osaka/A2701/A270101/27012248/"
    ],
    "confidence": "medium",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.mapple.net/article/6364/",
+    "https://s.tabelog.com/en/osaka/A2701/A270101/27012248/"
+   ],
+   "hoursNote": "마플은 10:00-22:00로 표기(구 자료)"
   },
   {
    "id": 38,
@@ -3486,11 +3700,19 @@
     "https://gurunavi.com/en/k039600/rst",
     "https://rurubu.jp/andmore/spot/80028362",
     "https://www.yukarichan.co.jp/blog/archives/news/1270",
-    "https://retty.me/area/PRE27/ARE89/SUB8901/100000450913/"
+    "https://retty.me/area/PRE27/ARE89/SUB8901/100000450913/",
+    "https://www.hotpepper.jp/strJ000013699/"
    ],
    "confidence": "medium",
    "src": "kita_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://www.hotpepper.jp/strJ000013699/",
+    "https://rurubu.jp/andmore/spot/80028362"
+   ],
+   "hoursNote": "L.O. 22:00"
   },
   {
    "id": 41,
@@ -5319,7 +5541,7 @@
     ],
     "sun": []
    },
-   "closed": "일요일·공휴일 (월요일도 휴무라는 정보 있음)",
+   "closed": "일·월요일·공휴일",
    "warn": null,
    "desc": "2008년에 문을 연 오사카 스파이스 카레의 대표 가게. 왼손에 꽈리고추(시시토)를 들고 곁들여 먹는 방식으로 유명하며, 1인 1,000엔 안팎. 기타하마역 5번 출구에서 도보 3~5분.",
    "image": null,
@@ -5329,11 +5551,19 @@
     "https://tabelog.com/osaka/A2701/A270102/27015618/dtlrvwlst/B430387505/",
     "https://www.gltjp.com/zh-hans/directory/item/15359/",
     "https://cdn.gltjp.com/en/directory/item/15359/",
-    "https://tabelog.com/curry/osaka/A2701/A270102/rank/"
+    "https://tabelog.com/curry/osaka/A2701/A270102/rank/",
+    "https://gurunavi.com/ja/kd7k000/rev/rst"
    ],
    "confidence": "medium",
    "src": "kita_light",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.gltjp.com/zh-hans/directory/item/15359/",
+    "https://gurunavi.com/ja/kd7k000/rev/rst"
+   ],
+   "hoursNote": "점심만 영업(11-15시). 일·월 휴무 · L.O. 15:00"
   },
   {
    "id": 62,
@@ -8072,7 +8302,13 @@
    ],
    "confidence": "medium",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/5ngtud550000/"
+   ],
+   "hoursNote": "점심·저녁 사이 휴식"
   },
   {
    "id": 93,
@@ -8237,35 +8473,35 @@
     "fri": [
      [
       "11:39",
-      "15:00"
+      "14:39"
      ],
      [
-      "18:00",
-      "22:00"
+      "18:39",
+      "23:00"
      ]
     ],
     "sat": [
      [
       "11:39",
-      "15:00"
+      "14:39"
      ],
      [
-      "18:00",
-      "22:00"
+      "18:39",
+      "23:00"
      ]
     ],
     "sun": [
      [
       "11:39",
-      "15:00"
+      "14:39"
      ],
      [
-      "18:00",
-      "22:00"
+      "18:39",
+      "23:00"
      ]
     ]
    },
-   "closed": "화요일 (예전 자료엔 둘째·넷째 일요일)",
+   "closed": "화요일",
    "warn": null,
    "desc": "신후쿠시마역 도보 3분, 진한 니보시와 가쓰오부시 향의 쇼유 라멘 명점. 저녁 마감은 자료에 따라 22~23시, 재료 소진 시 종료.",
    "image": null,
@@ -8275,11 +8511,22 @@
     "https://tabelog.com/en/osaka/A2701/A270108/27058993/",
     "https://retty.me/area/PRE27/ARE618/SUB8903/100000030820/",
     "https://autoreserve.com/ja/restaurants/MUWTjvL3KKJ5YkJxpfBP",
-    "https://ramendb.supleks.jp/s/51447.html"
+    "https://ramendb.supleks.jp/s/51447.html",
+    "https://www.bring-you.info/?p=297748",
+    "https://macaro-ni.jp/86754?page=3",
+    "https://www.hotpepper.jp/strJ001005710/"
    ],
    "confidence": "medium",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.bring-you.info/?p=297748",
+    "https://macaro-ni.jp/86754?page=3",
+    "https://www.hotpepper.jp/strJ001005710/"
+   ],
+   "hoursNote": "핫페퍼는 저녁 18:39~22:39 표기"
   },
   {
    "id": 95,
@@ -8380,11 +8627,18 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270103/27018753/dtlrvwlst/B488032167/",
     "https://kansai-tabearuki.com/osaka/osaka-ramen/gunjou/",
-    "https://retty.me/area/PRE27/ARE92/SUB62105/100000023800/"
+    "https://retty.me/area/PRE27/ARE92/SUB62105/100000023800/",
+    "https://retty.me/restaurant/100000023800/"
    ],
    "confidence": "low",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000023800/"
+   ],
+   "hoursNote": "저녁은 월·수·금만. 메뉴는 매일 바뀌는 1종(츠케멘이 없을 수도). 재료 소진 시 종료. 자료가 오래됐을 수 있음"
   },
   {
    "id": 96,
@@ -8583,11 +8837,18 @@
     "https://tabelog.com/osaka/A2701/A270101/27080479/dtlmenu/",
     "https://mentetsu.co.jp/osaka-mentetsu/",
     "https://www.hotpepper.jp/strJ004309476/",
-    "https://retty.me/area/PRE27/ARE89/SUB8901/100001160599/"
+    "https://retty.me/area/PRE27/ARE89/SUB8901/100001160599/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27080479/dtlrvwlst/"
    ],
    "confidence": "medium",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27080479/dtlrvwlst/"
+   ],
+   "hoursNote": "식당 리뷰(2025-05) 기준 월~목 11:30~14:30·17:30~22:00, 금·토 17:30~23:30, 일 17:30~21:00. 금~일 점심 여부 불확실(기존 자료는 매일 점심, 월요일 휴무) — 재확인 권장"
   },
   {
    "id": 98,
@@ -8667,7 +8928,7 @@
      ]
     ]
    },
-   "closed": "무휴 (스프·면 소진 시 조기 종료)",
+   "closed": "무휴",
    "warn": null,
    "desc": "한큐 우메다역 2층 개찰구 안에 있는 츠케멘 명소로, 전철을 타지 않으면 입장권(약 170엔)이 필요. 카드 불가(Retty).",
    "image": null,
@@ -8677,11 +8938,20 @@
     "https://tabelog.com/osaka/A2701/A270101/27092383/dtlrvwlst/B526091918/",
     "https://www.navitime.co.jp/poi?spot=02022-1134935",
     "https://retty.me/area/PRE27/ARE89/SUB8901/100001283179/",
-    "https://www.hotpepper.jp/strJ004381507/"
+    "https://www.hotpepper.jp/strJ004381507/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27092383/",
+    "https://retty.me/restaurant/100001443422/"
    ],
    "confidence": "high",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27092383/",
+    "https://retty.me/restaurant/100001443422/"
+   ],
+   "hoursNote": "개찰구 안 매장 (입장권 필요), 스프·면 소진 시 조기 종료 · L.O. 22:00"
   },
   {
    "id": 99,
@@ -8774,11 +9044,18 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270103/27042439/dtlmenu/",
     "https://r.gnavi.co.jp/fyr68ec00000/",
-    "https://retty.me/area/PRE27/ARE92/SUB62105/100000007806/"
+    "https://retty.me/area/PRE27/ARE92/SUB62105/100000007806/",
+    "https://retty.me/restaurant/100000007806/"
    ],
    "confidence": "medium",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000007806/"
+   ],
+   "hoursNote": "Retty는 화~토 22:45까지로 표기. 일·공휴일 20시까지"
   },
   {
    "id": 100,
@@ -8969,11 +9246,20 @@
     "https://tabelog.com/osaka/A2701/A270101/27125673/dtlrvwlst/B443099553/",
     "https://naniwamenjiro.com/store_02",
     "https://ramendb.supleks.jp/s/136645.html",
-    "https://weekend-luxury-club.com/naniwamenjirouzen17/"
+    "https://weekend-luxury-club.com/naniwamenjirouzen17/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27125673/",
+    "https://tabelog.com/osaka/A2701/A270101/27125673/dtlrvwlst/B509841605/"
    ],
    "confidence": "medium",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27125673/",
+    "https://tabelog.com/osaka/A2701/A270101/27125673/dtlrvwlst/B509841605/"
+   ],
+   "hoursNote": "한신백화점 우메다 본점 지하. 20:00 폐점이라는 옛 리뷰도 있음 · L.O. 21:00"
   },
   {
    "id": 102,
@@ -9065,7 +9351,7 @@
      ]
     ]
    },
-   "closed": "부정기 (가게 X/Twitter 공지 확인)",
+   "closed": "부정기 휴무 (가게 X/Twitter 공지 확인)",
    "warn": null,
    "desc": "차야마치의 세련된 라멘집(2025 백명점 첫 선정). 월·수요일은 지로계 '젠지로'만 판매한다는 후기 있음. QR은 PayPay·Alipay.",
    "image": null,
@@ -9074,11 +9360,18 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270101/27124204/dtlrvwlst/B521877879/",
     "https://www.hotpepper.jp/strJ004209462/",
-    "https://shungoblog.com/restaurant/zen-laboratory.html"
+    "https://shungoblog.com/restaurant/zen-laboratory.html",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27124204/dtlmenu/"
    ],
    "confidence": "medium",
    "src": "kita_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27124204/dtlmenu/"
+   ],
+   "hoursNote": null
   },
   {
    "id": 103,
@@ -10238,23 +10531,23 @@
     "fri": [
      [
       "11:00",
-      "21:00"
+      "22:00"
      ]
     ],
     "sat": [
      [
       "11:00",
-      "21:00"
+      "22:00"
      ]
     ],
     "sun": [
      [
       "11:00",
-      "21:00"
+      "22:00"
      ]
     ]
    },
-   "closed": "부정기 휴무",
+   "closed": "목요일 (공휴일이면 영업)",
    "warn": null,
    "desc": "도톤보리의 노포 오코노미야키 전문점으로 2025 백명점 선정. 카드는 3,000엔 이상부터 가능하다는 안내가 있음(점수는 시점에 따라 3.55~3.57).",
    "image": null,
@@ -10265,11 +10558,20 @@
     "https://tabelog.com/en/osaka/A2701/A270202/27001278/dtlmenu/",
     "https://tabelog.com/osaka/C27128/C79972/rstLst/lunch/RC0109/",
     "https://tabelog.com/osaka/A2701/A270202/27001278/dtlrvwlst/B447913649/",
-    "https://gurunavi.com/ja/k137800/rev/rst"
+    "https://gurunavi.com/ja/k137800/rev/rst",
+    "https://www.gltjp.com/ja/directory/item/12081/",
+    "https://www.mapple.net/original/500455/"
    ],
    "confidence": "high",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.gltjp.com/ja/directory/item/12081/",
+    "https://www.mapple.net/original/500455/"
+   ],
+   "hoursNote": "폐점 22:00, 요리 주문은 21:00까지. 1월 1일·점검 기간 휴무 · 요리 L.O. 21:00"
   },
   {
    "id": 116,
@@ -10372,11 +10674,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27001276/",
-    "https://tabelog.com/okonomiyaki/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/okonomiyaki/osaka/A2701/A270202/rank/",
+    "https://www.mapple.net/region/a0503000000_g03050a00_s-situation=female/spot/"
    ],
    "confidence": "medium",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.mapple.net/region/a0503000000_g03050a00_s-situation=female/spot/"
+   ],
+   "hoursNote": "L.O. 14:30 / 21:30"
   },
   {
    "id": 117,
@@ -10802,7 +11111,7 @@
      ]
     ]
    },
-   "closed": "연중무휴(정기휴무 표기 없음)",
+   "closed": "무휴",
    "warn": null,
    "desc": "1974년 창업, 그물 모양 마요네즈의 원조로 알려진 아메무라 삼각공원 앞 타코야키 명물점. 현지인에게도 인기, PayPay 가능.",
    "image": null,
@@ -10810,11 +11119,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27001436/",
-    "https://tabelog.com/matome/15229/"
+    "https://tabelog.com/matome/15229/",
+    "https://www.timeout.jp/osaka/ja/レストラン/kougaryu-honten-amemura",
+    "https://macaro-ni.jp/113813?page=4"
    ],
    "confidence": "high",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.timeout.jp/osaka/ja/レストラン/kougaryu-honten-amemura",
+    "https://macaro-ni.jp/113813?page=4"
+   ],
+   "hoursNote": "토요일·공휴일 전날은 21:30까지"
   },
   {
    "id": 122,
@@ -11065,12 +11383,12 @@
     ],
     "sun": [
      [
-      "09:00",
+      "10:00",
       "26:00"
      ]
     ]
    },
-   "closed": null,
+   "closed": "무휴",
    "warn": null,
    "desc": "아침 9시부터 새벽까지 여는 도톤보리 타코야키집으로 테라스석 포함 40석, 현금만 가능. 예약은 우선 안내 개념(전화 050-5868-5078). 리뷰 기준 1인 1,000~1,999엔.",
    "image": null,
@@ -11080,11 +11398,19 @@
     "https://tabelog.com/en/osaka/A2701/A270202/27051667/",
     "https://tabelog.com/en/osaka/A2701/A270202/27051667/table/",
     "https://gurunavi.com/en/kd4h000/rst",
-    "https://aumo.jp/articles/34852"
+    "https://aumo.jp/articles/34852",
+    "https://autoreserve.com/en/restaurants/m2SPELzs7n8kymFTPpWK"
    ],
    "confidence": "medium",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://gurunavi.com/en/kd4h000/rst",
+    "https://autoreserve.com/en/restaurants/m2SPELzs7n8kymFTPpWK"
+   ],
+   "hoursNote": null
   },
   {
    "id": 125,
@@ -11249,7 +11575,7 @@
      ]
     ]
    },
-   "closed": "미확인(수요일 표기가 보이나 휴무 여부 불명)",
+   "closed": "미확인",
    "warn": null,
    "desc": "나가호리바시역 7번 출구 도보 3분, 지하 1층의 고급 쿠시아게 코스집(최대 26명 착석, 대관 가능). 인터넷 예약이 일시 중단돼 전화 예약(06-6484-5884).",
    "image": null,
@@ -11263,7 +11589,13 @@
    ],
    "confidence": "medium",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://icotto.jp/restaurants/57071"
+   ],
+   "hoursNote": "L.O. 22:00"
   },
   {
    "id": 127,
@@ -11338,7 +11670,7 @@
      ]
     ]
    },
-   "closed": null,
+   "closed": "무휴",
    "warn": null,
    "desc": "신세카이 원조 쿠시카츠 체인의 도톤보리점으로 140석이라 6명도 쉽게 앉을 수 있음(점수 3.31~3.38). 예약은 평일 18시까지만, 주말·공휴일은 예약 불가.",
    "image": null,
@@ -11347,11 +11679,20 @@
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27121895/dtlrvwlst/",
     "https://tabelog.com/osaka/A2701/A270202/27121895/dtlmap/",
-    "https://tabelog.com/kushiage/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/kushiage/osaka/A2701/A270202/rank/",
+    "https://www.hotpepper.jp/strJ000017986/",
+    "https://www.timeout.jp/osaka/ja/レストラン/kushikatsu-daruma-dotonbori"
    ],
    "confidence": "high",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://www.hotpepper.jp/strJ000017986/",
+    "https://www.timeout.jp/osaka/ja/レストラン/kushikatsu-daruma-dotonbori"
+   ],
+   "hoursNote": "영업시간은 기존과 동일, 휴무일 정보(무휴)만 추가 · L.O. 22:00"
   },
   {
    "id": 128,
@@ -11452,11 +11793,20 @@
    "sources": [
     "https://tabelog.com/matome/17224/",
     "https://retty.me/area/PRE27/ARE94/SUB9501/100000078444/",
-    "https://genjitsutouhi.com/tahei-osaka/"
+    "https://genjitsutouhi.com/tahei-osaka/",
+    "https://r.gnavi.co.jp/d64n6hx20000/",
+    "https://retty.me/restaurant/100000078444/"
    ],
    "confidence": "medium",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/d64n6hx20000/",
+    "https://retty.me/restaurant/100000078444/"
+   ],
+   "hoursNote": "영업시간은 오래된 정보, 구루나비는 수요일 정기휴무로 표기"
   },
   {
    "id": 129,
@@ -12040,11 +12390,18 @@
    "sources": [
     "https://tabelog.com/yakitori/osaka/A2701/A270201/rank/",
     "https://magazine.tabelog.com/articles/285925",
-    "https://tabelog.com/en/osaka/A2701/A270201/27135982/dtlrvwlst/"
+    "https://tabelog.com/en/osaka/A2701/A270201/27135982/dtlrvwlst/",
+    "https://epark.jp/gourmet/list/sta_6909/cat_10299/"
    ],
    "confidence": "low",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://epark.jp/gourmet/list/sta_6909/cat_10299/"
+   ],
+   "hoursNote": "EPARK는 평일 17:30-23:00, 토·일 12:00-23:00로 표기. 고가 코스 위주, 예약 권장"
   },
   {
    "id": 135,
@@ -12135,11 +12492,21 @@
     "https://tabelog.com/en/osaka/A2701/A270202/27001213/",
     "https://tabelog.com/osaka/A2701/A270202/27001213/dtlrvwlst/B499146455/",
     "https://www.gltjp.com/ja/directory/item/13847/",
-    "https://tabelog.com/osaka/A2701/A270202/27001213/dtlrvwlst/B509776311/?type=0"
+    "https://tabelog.com/osaka/A2701/A270202/27001213/dtlrvwlst/B509776311/?type=0",
+    "https://www.mapple.net/original/488216/",
+    "https://itp.ne.jp/info/270960762300000899/about"
    ],
    "confidence": "medium",
    "src": "minami_classics",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.mapple.net/original/488216/",
+    "https://itp.ne.jp/info/270960762300000899/about",
+    "https://www.gltjp.com/ja/directory/item/13847/"
+   ],
+   "hoursNote": "골든위크·오봉·연말연시 휴무 · L.O. 20:00 (폐점 20:30 표기 자료도 있음)"
   },
   {
    "id": 136,
@@ -13318,11 +13685,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270201/27011492/",
-    "https://tabelog.com/curry/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/curry/osaka/A2701/A270201/rank/",
+    "https://retty.me/restaurant/100000029262/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000029262/"
+   ],
+   "hoursNote": "카드 불가"
   },
   {
    "id": 150,
@@ -13406,11 +13780,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27104341/",
-    "https://tabelog.com/curry/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/curry/osaka/A2701/A270201/rank/",
+    "https://www.nap-camp.com/mag/46347",
+    "https://retty.me/restaurant/100001414515/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://www.nap-camp.com/mag/46347",
+    "https://retty.me/restaurant/100001414515/"
+   ],
+   "hoursNote": "토요일 시간은 확인 못 함(평일과 같을 수 있음)"
   },
   {
    "id": 151,
@@ -13506,7 +13889,7 @@
      ]
     ]
    },
-   "closed": "월요일 (부정기 휴무도 있어 SNS 확인 필요)",
+   "closed": "월요일 (부정기 휴무 있음, SNS 확인)",
    "warn": null,
    "desc": "카운터 6석+4인 테이블 1개의 작은 스파이스 카레집으로 카레 백명점 2회 선정. 재료 소진 시 마감.",
    "image": null,
@@ -13514,11 +13897,19 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27094910/",
-    "https://tabelog.com/curry/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/curry/osaka/A2701/A270201/rank/",
+    "https://www.timeout.jp/osaka/ja/レストラン/spice-curry-te"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27094910/",
+    "https://www.timeout.jp/osaka/ja/レストラン/spice-curry-te"
+   ],
+   "hoursNote": "재료 소진 시 조기 종료, 부정기 휴무는 SNS 공지 확인"
   },
   {
    "id": 152,
@@ -13609,11 +14000,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27062001/",
-    "https://tabelog.com/curry/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/curry/osaka/A2701/A270202/rank/",
+    "https://retty.me/restaurant/100000059503/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000059503/"
+   ],
+   "hoursNote": "Retty 옛 정보는 런치 11:30~15:30·디너 17:30~21:30, 수요일 휴무. 9석 카운터만"
   },
   {
    "id": 153,
@@ -13688,7 +14086,7 @@
      ]
     ]
    },
-   "closed": "월요일",
+   "closed": "월요일 (공휴일이면 다음 날)",
    "warn": null,
    "desc": "소설가 오다 사쿠노스케가 사랑한 카레로 유명한 노포 양식당. 점수는 3.49지만 오사카 명물로 손꼽혀 포함. 합석이 기본이라 6명이 나란히 앉기는 보장 안 됨.",
    "image": null,
@@ -13696,11 +14094,22 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27001310/",
-    "https://tabelog.com/yoshoku/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/yoshoku/osaka/A2701/A270202/rank/",
+    "https://foodle.pro/restaurants/osaka/jiyuken",
+    "https://www.hotpepper.jp/strJ000109353/",
+    "https://www.mapple.net/original/454048/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/osaka/jiyuken",
+    "https://www.hotpepper.jp/strJ000109353/",
+    "https://www.mapple.net/original/454048/"
+   ],
+   "hoursNote": "줄이 길 수 있음. 일부 구 자료는 21시까지로 표기"
   },
   {
    "id": 154,
@@ -13776,7 +14185,7 @@
       "15:00"
      ],
      [
-      "17:00",
+      "16:30",
       "20:00"
      ]
     ],
@@ -13786,7 +14195,7 @@
       "15:00"
      ],
      [
-      "17:00",
+      "16:30",
       "20:00"
      ]
     ],
@@ -13796,12 +14205,12 @@
       "15:00"
      ],
      [
-      "17:00",
+      "16:30",
       "20:00"
      ]
     ]
    },
-   "closed": "수요일 (화요일이라는 리뷰도 있음)",
+   "closed": "수요일 (부정기 휴무 있음)",
    "warn": null,
    "desc": "1946년 창업한 난바의 노포 양식당으로 난바 양식 랭킹 1위. 8인 테이블 2개가 있어 6명 착석이 쉬움. 결제는 '현금만'이라는 리뷰가 있으나 시기 불명.",
    "image": null,
@@ -13810,11 +14219,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27001308/dtlrvwlst/B530976572/",
     "https://tabelog.com/yoshoku/osaka/A2701/A270202/rank/",
-    "https://mapfan.com/map/centers/34.663052019321,135.50226787465/genres/109/spots"
+    "https://mapfan.com/map/centers/34.663052019321,135.50226787465/genres/109/spots",
+    "https://foodle.pro/post/68184",
+    "https://r.gnavi.co.jp/dh3fatam0000/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://foodle.pro/post/68184",
+    "https://r.gnavi.co.jp/dh3fatam0000/"
+   ],
+   "hoursNote": "저녁 영업 16:30부터. 부정기 휴무 있음 · 점심 L.O. 14:30, 저녁 L.O. 19:30"
   },
   {
    "id": 155,
@@ -13898,10 +14316,14 @@
      [
       "11:30",
       "15:00"
+     ],
+     [
+      "17:00",
+      "21:00"
      ]
     ]
    },
-   "closed": "월·화요일 (공휴일이면 영업)",
+   "closed": "월·화요일",
    "warn": null,
    "desc": "산장풍 인테리어의 지하 양식당으로 양식 백명점 2025. 카드·QR 결제 가능하고 전화 예약(06-6251-5064) 가능.",
    "image": null,
@@ -13910,11 +14332,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270201/27059987/dtlmenu/lunch/",
     "https://tabelog.com/yoshoku/osaka/A2701/A270201/rank/",
-    "https://tabelog.com/matome/11807/"
+    "https://tabelog.com/matome/11807/",
+    "https://foodle.pro/restaurants/osaka/yoshoku-katsui-midosuji-lodge",
+    "https://tabelog.com/matome/23376/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/osaka/yoshoku-katsui-midosuji-lodge",
+    "https://tabelog.com/matome/23376/"
+   ],
+   "hoursNote": "주소: 南船場4-3-11 大阪豊田ビル B1F · L.O. 14:30 / 21:30 (일·공휴일 20:30)"
   },
   {
    "id": 156,
@@ -14016,11 +14447,22 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27001834/",
-    "https://tabelog.com/yoshoku/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/yoshoku/osaka/A2701/A270201/rank/",
+    "https://retty.me/restaurant/100000031428/",
+    "https://www.mapple.net/article/6366/",
+    "https://www.ekiten.jp/shop_645368/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000031428/",
+    "https://www.mapple.net/article/6366/",
+    "https://www.ekiten.jp/shop_645368/"
+   ],
+   "hoursNote": "Retty·마플(구 자료)은 평일 22시까지, 토·일·공휴일 11:00-22:00 통으로 영업이라 표기. 현재 시간 미확정"
   },
   {
    "id": 157,
@@ -14100,7 +14542,7 @@
      ]
     ]
    },
-   "closed": "부정기 휴무",
+   "closed": "수요일 부정기 휴무",
    "warn": null,
    "desc": "난바의 노포 커피 전문 킷사텐으로 난바 킷사텐 랭킹 1위, 킷사텐 백명점 2026. 카드(VISA·Master·JCB)·PayPay 가능. 리뷰 수는 약 1,100건(근삿값).",
    "image": null,
@@ -14108,11 +14550,22 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27001511/",
-    "https://tabelog.com/kissaten/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/kissaten/osaka/A2701/A270202/rank/",
+    "https://rurubu.jp/andmore/spot/80028676",
+    "https://www.gltjp.com/en/directory/item/13394/",
+    "https://retty.me/restaurant/100000034497/"
    ],
    "confidence": "high",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://rurubu.jp/andmore/spot/80028676",
+    "https://www.gltjp.com/en/directory/item/13394/",
+    "https://retty.me/restaurant/100000034497/"
+   ],
+   "hoursNote": "평일 12:00~18:00, 주말·공휴일 10:00~19:00 (Retty는 매일 10:00~19:00로 표기)"
   },
   {
    "id": 158,
@@ -14857,7 +15310,7 @@
      ]
     ]
    },
-   "closed": "무휴",
+   "closed": "무휴 (12/31~1/1 휴무)",
    "warn": null,
    "desc": "신사이바시역 직결 지하상가 크리스타 나가호리의 빵집(신사이바시 빵 랭킹 1위). 이트인 가능, 11시까지 모닝 메뉴.",
    "image": null,
@@ -14865,11 +15318,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27005252/",
-    "https://tabelog.com/pan/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/pan/osaka/A2701/A270201/rank/",
+    "https://macaro-ni.jp/164519?page=2"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://macaro-ni.jp/164519?page=2"
+   ],
+   "hoursNote": "다른 자료는 평일 7:00, 토·일 7:30 개점으로 표기"
   },
   {
    "id": 166,
@@ -15784,11 +16244,22 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270402/27009924/",
-    "https://tabelog.com/matome/18046/"
+    "https://tabelog.com/matome/18046/",
+    "https://aumo.jp/areas/485",
+    "https://www.mapple.net/article/4882/",
+    "https://tabi-mag.jp/os0151/"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://aumo.jp/areas/485",
+    "https://www.mapple.net/article/4882/",
+    "https://tabi-mag.jp/os0151/"
+   ],
+   "hoursNote": "시설 영업시간 기준(11-20시), 시기에 따라 다름"
   },
   {
    "id": 176,
@@ -15867,11 +16338,20 @@
    "credit": null,
    "fav": false,
    "sources": [
-    "https://tabelog.com/en/osaka/A2701/A270402/27002746/"
+    "https://tabelog.com/en/osaka/A2701/A270402/27002746/",
+    "https://r.gnavi.co.jp/md0snk2n0000/",
+    "https://rurubu.jp/andmore/spot/80027917"
    ],
    "confidence": "medium",
    "src": "minami_light_extra",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/md0snk2n0000/",
+    "https://rurubu.jp/andmore/spot/80027917"
+   ],
+   "hoursNote": "덴포잔 마켓플레이스 내. 구루나비 기준 20:00 폐점(기존 19:00) · L.O. 19:30"
   },
   {
    "id": 177,
@@ -16035,7 +16515,7 @@
      ]
     ]
    },
-   "closed": "금요일 (옛 정보는 일·공휴일 휴무, 방문 전 확인)",
+   "closed": "금요일",
    "warn": null,
    "desc": "프렌치 셰프 출신 주인이 만드는 거품 토리파이탄 라멘으로 유명한 7석 가게, 2025 라멘 백명점(후기상 8년 연속 선정). 혼마치역(요쓰바시선) 도보 2분.",
    "image": null,
@@ -16043,11 +16523,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270106/27087256/dtlrvwlst/B498264769/",
-    "https://tabelog.com/ramen/osaka/A2701/A270106/rank/"
+    "https://tabelog.com/ramen/osaka/A2701/A270106/rank/",
+    "https://tabelog.com/osaka/A2701/A270106/27087256/dtlrvwlst/",
+    "https://retty.me/restaurant/100001229330/"
    ],
    "confidence": "medium",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270106/27087256/dtlrvwlst/",
+    "https://retty.me/restaurant/100001229330/"
+   ],
+   "hoursNote": "Retty는 일·공휴일 휴무로 표기(구 정보). 9석 카운터, 방문 전 공식 X 확인 권장"
   },
   {
    "id": 179,
@@ -16346,11 +16835,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27079226/",
-    "https://ramendb.supleks.jp/s/77637.html"
+    "https://ramendb.supleks.jp/s/77637.html",
+    "https://foodle.pro/post/114334",
+    "https://foodle.pro/karikari217/meals/osaka/yuaitei/44580"
    ],
    "confidence": "medium",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://foodle.pro/post/114334",
+    "https://foodle.pro/karikari217/meals/osaka/yuaitei/44580"
+   ],
+   "hoursNote": "점심~이른 저녁만 영업 (17:30 폐점) · L.O. 17:00"
   },
   {
    "id": 182,
@@ -16509,11 +17007,25 @@
    "foreignMenu": null,
    "mustTry": "고쿠조 아사리소바(극상 바지락 소바)",
    "hours": {
-    "fri": null,
-    "sat": null,
+    "fri": [
+     [
+      "11:00",
+      "14:30"
+     ],
+     [
+      "17:30",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "14:30"
+     ]
+    ],
     "sun": []
    },
-   "closed": "일요일·공휴일 (스프 상황에 따라 임시휴업)",
+   "closed": "일요일·공휴일 (월요일 월 2회 정도 부정기 휴무)",
    "warn": null,
    "desc": "옛 ‘麺道 而今 総本家’로, 바지락 등 조개 육수 라멘이 유명한 2025 라멘 백명점. 요쓰바시역 2번 출구 직결·신사이바시역 2분.",
    "image": null,
@@ -16521,11 +17033,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27085783/",
-    "https://tabelog.com/ramen/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/ramen/osaka/A2701/A270201/rank/",
+    "https://foodle.pro/post/115331",
+    "https://tabelog.com/osaka/A2701/A270201/27085783/"
    ],
    "confidence": "medium",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://foodle.pro/post/115331",
+    "https://tabelog.com/osaka/A2701/A270201/27085783/"
+   ],
+   "hoursNote": "디너는 목·금만, 스프 상황에 따라 임시휴업 · L.O. 14:30 / 20:00"
   },
   {
    "id": 184,
@@ -16610,11 +17131,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27103359/",
-    "https://tabelog.com/udon/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/udon/osaka/A2701/A270202/rank/",
+    "https://macaro-ni.jp/160815?page=2",
+    "https://hamoni.jp/shop/3EnBjNh3KSwY4TvxMj1V"
    ],
    "confidence": "high",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://macaro-ni.jp/160815?page=2",
+    "https://hamoni.jp/shop/3EnBjNh3KSwY4TvxMj1V"
+   ],
+   "hoursNote": "점심만 영업, 재료 소진 시 조기 종료 가능"
   },
   {
    "id": 185,
@@ -16702,11 +17232,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27024361/dtlrvwlst/B493163903/",
     "https://tabelog.com/osaka/A2701/A270202/27024361/dtlrvwlst/B498763965/",
-    "https://tabelog.com/udon/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/udon/osaka/A2701/A270202/rank/",
+    "https://icotto.jp/restaurants/57078",
+    "https://foodle.pro/restaurants/osaka/temmasa"
    ],
    "confidence": "medium",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://icotto.jp/restaurants/57078",
+    "https://foodle.pro/restaurants/osaka/temmasa"
+   ],
+   "hoursNote": "아침 8:45부터 영업"
   },
   {
    "id": 186,
@@ -16786,11 +17325,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/C27128/C79995/rstLst/udon/",
-    "https://tabelog.com/osaka/A2701/A270201/27000931/dtlrvwlst/B22275597/"
+    "https://tabelog.com/osaka/A2701/A270201/27000931/dtlrvwlst/B22275597/",
+    "https://tabelog.com/en/osaka/A2701/A270201/27000931/",
+    "https://www.timeout.com/osaka/restaurants/usamitei-matsubaya"
    ],
    "confidence": "high",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270201/27000931/",
+    "https://www.timeout.com/osaka/restaurants/usamitei-matsubaya"
+   ],
+   "hoursNote": null
   },
   {
    "id": 187,
@@ -17138,7 +17686,7 @@
      ]
     ]
    },
-   "closed": "미확인",
+   "closed": "무휴 (오봉 8/13~15, 연말연시 12/31~1/3 휴무)",
    "warn": null,
    "desc": "기타호리에 명점 ‘麺や拓’ 출신이 2016년 독립, 닭·생선·돼지 육수에 발효조미료 ‘토리쇼(鶏醤)’를 더한 라멘. 혼마치역 5분·신사이바시역 8분.",
    "image": null,
@@ -17150,7 +17698,13 @@
    ],
    "confidence": "medium",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270106/27090650/"
+   ],
+   "hoursNote": "예약 불가 · 마감 시간은 입장 마감 기준"
   },
   {
    "id": 191,
@@ -17208,23 +17762,35 @@
     "fri": [
      [
       "11:00",
+      "15:00"
+     ],
+     [
+      "15:30",
       "27:00"
      ]
     ],
     "sat": [
      [
       "11:00",
+      "15:00"
+     ],
+     [
+      "15:30",
       "27:00"
      ]
     ],
     "sun": [
      [
       "11:00",
+      "15:00"
+     ],
+     [
+      "15:30",
       "27:00"
      ]
     ]
    },
-   "closed": "월요일 (공휴일이면 다음날)",
+   "closed": "월요일, 공휴일 다음날",
    "warn": null,
    "desc": "이바라키 ‘王道家’ 직계 이에케이(돈코츠 간장) 라멘으로 2024년 12월 개업, JR난바역 1분. 새벽 3시까지 영업하며 현금 식권기만 사용.",
    "image": null,
@@ -17236,7 +17802,13 @@
    ],
    "confidence": "high",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270202/27146560/"
+   ],
+   "hoursNote": "15:00~15:30 스프 조정 시간 (2025-09부터)"
   },
   {
    "id": 192,
@@ -17484,7 +18056,7 @@
     ],
     "sun": [
      [
-      "11:00",
+      "11:30",
       "23:30"
      ]
     ]
@@ -17497,11 +18069,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27072346/dtlrvwlst/B515566407/",
-    "https://tabelog.com/matome/7345/"
+    "https://tabelog.com/matome/7345/",
+    "https://r.gnavi.co.jp/fcejcfg40000/",
+    "https://foodle.pro/restaurants/osaka/chuka-soba-fujii-namba"
    ],
    "confidence": "high",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/fcejcfg40000/",
+    "https://foodle.pro/restaurants/osaka/chuka-soba-fujii-namba"
+   ],
+   "hoursNote": "금·토·공휴일 전날은 새벽 3시까지, 일·월·수·목은 11:30~23:30"
   },
   {
    "id": 195,
@@ -17574,7 +18155,7 @@
      ]
     ]
    },
-   "closed": "무휴 (1월 1일만 휴무)",
+   "closed": "무휴",
    "warn": null,
    "desc": "등록상표 ‘우동치리’ 전골로 유명한 우동 노포, 넓은 매장에 외국어 메뉴도 있어 6인 가족 식사에 적합. 코스는 5,000엔부터(단품 우동도 있음).",
    "image": null,
@@ -17582,11 +18163,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270201/27000825/party/",
-    "https://tabelog.com/osaka/A2701/A270201/27000825/dtlrvwlst/B484231835/"
+    "https://tabelog.com/osaka/A2701/A270201/27000825/dtlrvwlst/B484231835/",
+    "https://www.hotpepper.jp/strJ000014298/",
+    "https://r.gnavi.co.jp/k140200/"
    ],
    "confidence": "high",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://www.hotpepper.jp/strJ000014298/",
+    "https://r.gnavi.co.jp/k140200/"
+   ],
+   "hoursNote": "L.O. 22:00 (일·공휴일 21:30)"
   },
   {
    "id": 196,
@@ -17933,19 +18523,19 @@
     "fri": [
      [
       "11:00",
-      "19:00"
+      "20:00"
      ]
     ],
     "sat": [
      [
       "11:00",
-      "19:00"
+      "20:00"
      ]
     ],
     "sun": [
      [
       "11:00",
-      "19:00"
+      "20:00"
      ]
     ]
    },
@@ -17957,11 +18547,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27064407/dtlrvwlst/B17345396/",
-    "https://tabelog.com/udon/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/udon/osaka/A2701/A270202/rank/",
+    "https://r.gnavi.co.jp/dcz5pe460000/",
+    "https://gurunavi.com/en/ka7e608/mp/rst"
    ],
    "confidence": "high",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/dcz5pe460000/",
+    "https://gurunavi.com/en/ka7e608/mp/rst"
+   ],
+   "hoursNote": "재료 소진 시 조기 종료 · L.O. 19:30"
   },
   {
    "id": 200,
@@ -18017,35 +18616,35 @@
     "fri": [
      [
       "11:00",
-      "16:00"
+      "15:00"
      ],
      [
       "17:30",
-      "22:00"
+      "21:00"
      ]
     ],
     "sat": [
      [
       "11:00",
-      "16:00"
+      "15:00"
      ],
      [
       "17:30",
-      "22:00"
+      "21:00"
      ]
     ],
     "sun": [
      [
       "11:00",
-      "16:00"
+      "15:00"
      ],
      [
       "17:30",
-      "22:00"
+      "21:00"
      ]
     ]
    },
-   "closed": "월요일 (둘째 월요일만 휴무라는 정보도 있음)",
+   "closed": "월요일 (공휴일이면 다음 날)",
    "warn": null,
    "desc": "개그맨 샴푸하트 테츠지가 프로듀스한 츠케멘 가게로 어개+채소 베지포타 국물에 면 3종 중 선택. 폐점·재개업을 반복한 이력과 영업시간이 옛 후기 기준이라 확인 필요.",
    "image": null,
@@ -18053,11 +18652,22 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270201/27090229/dtlrvwlst/B427220467/",
-    "https://tabelog.com/ramen/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/ramen/osaka/A2701/A270201/rank/",
+    "https://www.timeout.jp/osaka/ja/レストラン/kaettekita-miyatamenji",
+    "https://epark.jp/shopinfo/jsp618057/",
+    "https://tabelog.com/osaka/A2701/A270201/27090229/"
    ],
    "confidence": "low",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.timeout.jp/osaka/ja/レストラン/kaettekita-miyatamenji",
+    "https://epark.jp/shopinfo/jsp618057/",
+    "https://tabelog.com/osaka/A2701/A270201/27090229/"
+   ],
+   "hoursNote": "점심 15:00, 저녁 21:00 종료. 임시 휴무·임시 영업 공지 있음"
   },
   {
    "id": 201,
@@ -18137,11 +18747,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27046600/dtlrvwlst/B527430505/",
-    "https://tabelog.com/udon/osaka/A2701/A270202/rank/"
+    "https://tabelog.com/udon/osaka/A2701/A270202/rank/",
+    "https://macaro-ni.jp/160815",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27046600/"
    ],
    "confidence": "low",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://macaro-ni.jp/160815",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27046600/"
+   ],
+   "hoursNote": "아침 6:30 영업 확인 (조식 세트). 11:00~21:00·월요일 휴무라는 다른 자료도 있음"
   },
   {
    "id": 202,
@@ -18224,11 +18843,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27045072/",
-    "https://tabelog.com/osaka/A2701/A270202/27045072/dtlrvwlst/B498698520/"
+    "https://tabelog.com/osaka/A2701/A270202/27045072/dtlrvwlst/B498698520/",
+    "https://macaro-ni.jp/160815?page=3"
    ],
    "confidence": "medium",
    "src": "minami_noodles",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://macaro-ni.jp/160815?page=3"
+   ],
+   "hoursNote": "자료 충돌: 마카로니 기사는 11:00-20:00·수요일 휴무로 표기(표가 깨져 신뢰 낮음). 20시 이후 방문이면 확인 권장"
   },
   {
    "id": 203,
@@ -18582,13 +19208,13 @@
     "fri": [
      [
       "10:00",
-      "17:00"
+      "15:00"
      ]
     ],
     "sat": [
      [
       "10:00",
-      "17:00"
+      "15:00"
      ]
     ],
     "sun": []
@@ -18605,11 +19231,20 @@
     "https://map.yahoo.co.jp/v3/place/Yy1ScOGVbaA",
     "https://www.hotpepper.jp/strJ000109455/",
     "https://retty.me/area/PRE27/ARE91/SUB9103/100000039151/",
-    "https://hommachi-blog.com/hommachi_gourmet/20231023-22640"
+    "https://hommachi-blog.com/hommachi_gourmet/20231023-22640",
+    "https://tabelog.com/osaka/A2701/A270102/27000271/dtlrvwlst/B303970622/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270102/27000271"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270102/27000271/dtlrvwlst/B303970622/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270102/27000271"
+   ],
+   "hoursNote": "매장 식사 15:00까지(예전 17:00), 테이크아웃은 17:00까지. 샌드위치 인기"
   },
   {
    "id": 207,
@@ -18796,11 +19431,22 @@
     "https://tabelog.com/cafe/osaka/A2701/A270103/rank/",
     "https://retty.me/area/PRE27/ARE92/SUB62105/100001493222/",
     "https://www.tiktok.com/@uzami_chan_/video/7394796291177319688",
-    "https://tabelog.com/matome/15153/"
+    "https://tabelog.com/matome/15153/",
+    "https://tabelog.com/matome/12181/",
+    "https://www.nikkan-gendai.com/articles/view/life/260003",
+    "https://retty.me/restaurant/100001493222/"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://tabelog.com/matome/12181/",
+    "https://www.nikkan-gendai.com/articles/view/life/260003",
+    "https://retty.me/restaurant/100001493222/"
+   ],
+   "hoursNote": "아침 7시부터 모닝 영업. 덴마바시에서 덴진바시 1초메로 이전한 가게"
   },
   {
    "id": 209,
@@ -18880,7 +19526,7 @@
      ]
     ]
    },
-   "closed": "월요일 (공휴일이면 영업하고 수요일 휴무라는 정보도 있음)",
+   "closed": "월요일 (공휴일이면 영업, 수요일 휴무)",
    "warn": null,
    "desc": "독일 달마이어 브랜드의 일본 총대리점 직영 카페로, 옛 다이빌딩 의장을 재현한 레트로 빌딩 1층에 있습니다. 테이블 38·테라스 8·카운터 6석으로 넓어 단체도 편하고 리가로얄호텔에서 가깝습니다(와타나베바시역 도보 1-4분).",
    "image": null,
@@ -18892,11 +19538,20 @@
     "https://tabelog.com/cafe/osaka/A2701/A270108/rank/",
     "https://retty.me/area/PRE27/ARE91/SUB9103/100000822447/",
     "https://www.hotpepper.jp/strJ001131558/",
-    "https://co-trip.jp/article/707471"
+    "https://co-trip.jp/article/707471",
+    "https://tabelog.com/en/osaka/A2701/A270108/27073953/dtlrvwlst/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27073953/dtlmenu/"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27073953/dtlrvwlst/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27073953/dtlmenu/"
+   ],
+   "hoursNote": "다이빌딩 본관 1층 · 평일 요리 L.O. 17:00·음료 17:30, 주말 요리 L.O. 18:00·음료 18:30"
   },
   {
    "id": 210,
@@ -18987,11 +19642,19 @@
     "https://ssl.tabelog.com/en/osaka/A2701/A270102/27101191/dtlmap/",
     "https://rurubu.jp/andmore/spot/81263314",
     "https://retty.me/area/PRE27/ARE91/SUB9104/100001383322/",
-    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/"
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
+    "https://retty.me/restaurant/100001383322/"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://rurubu.jp/andmore/spot/81263314",
+    "https://retty.me/restaurant/100001383322/"
+   ],
+   "hoursNote": "카레 L.O. 16:30, 디저트·음료 L.O. 17:00"
   },
   {
    "id": 211,
@@ -19082,11 +19745,20 @@
     "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
     "https://cafesnap.me/store/410",
     "https://r.gnavi.co.jp/j3z5brd10000/",
-    "https://travel.yahoo.co.jp/kanko/spot-00016931/"
+    "https://travel.yahoo.co.jp/kanko/spot-00016931/",
+    "https://tabelog.com/en/osaka/A2701/A270102/27043334/",
+    "https://tabelog.com/matome/11384/"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27043334/",
+    "https://tabelog.com/matome/11384/"
+   ],
+   "hoursNote": "2023년 후기: 게재 시간보다 일찍(18시) 닫은 사례 있음. 런치는 평일만일 수 있음"
   },
   {
    "id": 212,
@@ -19176,11 +19848,22 @@
     "https://www.rihga.co.jp/osaka/restaurant/list/mainlounge/menu/alacarte.html",
     "https://tabelog.com/osaka/A2701/A270108/27011908/party/",
     "https://tabelog.com/cafe/osaka/A2701/A270108/rank/",
-    "https://www.tablecheck.com/rihga-osaka-mainlounge"
+    "https://www.tablecheck.com/rihga-osaka-mainlounge",
+    "https://restaurant.ikyu.com/104033/plan12808417",
+    "https://bestcalendar.jp/press/127716",
+    "https://www.ozmall.co.jp/restaurant/3666/"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://restaurant.ikyu.com/104033/plan12808417",
+    "https://bestcalendar.jp/press/127716",
+    "https://www.ozmall.co.jp/restaurant/3666/"
+   ],
+   "hoursNote": "조식 9:00~10:30, 애프터눈티는 별도 시간대(예약 권장) · L.O. 18:00"
   },
   {
    "id": 213,
@@ -19270,11 +19953,20 @@
     "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
     "https://hitosara.com/0031226877/",
     "https://retty.me/area/PRE27/ARE91/SUB9103/100000842070/",
-    "https://cafesnap.me/store/467/menu"
+    "https://cafesnap.me/store/467/menu",
+    "https://osaka-info.jp/experience/ja/osaka/spot/470",
+    "https://www.timeout.jp/osaka/ja/レストラン/takamura_coffee_roasters"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://osaka-info.jp/experience/ja/osaka/spot/470",
+    "https://www.timeout.jp/osaka/ja/レストラン/takamura_coffee_roasters"
+   ],
+   "hoursNote": "정기휴무일은 출처에서 미확인"
   },
   {
    "id": 214,
@@ -19360,11 +20052,22 @@
     "https://tabelog.com/matome/27176/",
     "https://tabelog.com/cafe/osaka/A2701/A270103/rank/",
     "https://www.hotpepper.jp/strJ000109532/",
-    "https://knowlelog.net/review/seiyo-sakan-afternoon-tea"
+    "https://knowlelog.net/review/seiyo-sakan-afternoon-tea",
+    "https://www.walkerplus.com/article/109764/",
+    "https://s.tabelog.com/en/osaka/A2701/A270103/27002275/",
+    "https://retty.me/restaurant/100000065220/"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://www.walkerplus.com/article/109764/",
+    "https://s.tabelog.com/en/osaka/A2701/A270103/27002275/",
+    "https://retty.me/restaurant/100000065220/"
+   ],
+   "hoursNote": "최근 게시물은 10:00-20:00(요일 구분 없음), 2017년 기사는 10-22시·무휴"
   },
   {
    "id": 215,
@@ -19442,7 +20145,7 @@
      ]
     ]
    },
-   "closed": "부정기 휴무 (연말연시)",
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "신후쿠시마역 70m·JR 후쿠시마역 200m의 에스프레소 카페로, 밤 11시까지 열어 저녁 식사 후 들르기 좋습니다. 셀프 주문, 카드(VISA/Master/Amex)·PayPay 가능.",
    "image": null,
@@ -19453,11 +20156,20 @@
     "https://tabelog.com/cafe/osaka/A2701/A270108/rank/",
     "https://www.hotpepper.jp/strJ001274465/",
     "https://retty.me/area/PRE27/ARE618/SUB8903/100001243272/",
-    "https://mondial-kaffee328.com/"
+    "https://mondial-kaffee328.com/",
+    "https://www.navitime.co.jp/category/0301/27103/",
+    "https://aumo.jp/articles/27693"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.navitime.co.jp/category/0301/27103/",
+    "https://aumo.jp/articles/27693"
+   ],
+   "hoursNote": "신후쿠시마역 2번 출구 도보 1분 · L.O. 22:30"
   },
   {
    "id": 216,
@@ -19549,11 +20261,20 @@
     "https://www.lmaga.jp/news/2025/05/916833/",
     "https://news.yahoo.co.jp/expert/articles/79b9f25ac2950d5058ac4bd0a3df03b94c5b48af",
     "https://x.com/kissa_sunshine/status/1972824108686774488",
-    "https://tabelog.com/cafe/osaka/A2701/A270101/rank/"
+    "https://tabelog.com/cafe/osaka/A2701/A270101/rank/",
+    "https://www.nap-camp.com/mag/48578",
+    "https://aumo.jp/articles/66082"
    ],
    "confidence": "medium",
    "src": "kita_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://www.nap-camp.com/mag/48578",
+    "https://aumo.jp/articles/66082"
+   ],
+   "hoursNote": "11/15는 셋째 일요일 — 방문 전 X 공지 확인. 2025년 5월 오사카역전 제3빌딩 B2F로 이전 · L.O. 평일 19:15, 토·일 18:00"
   },
   {
    "id": 217,
@@ -19633,7 +20354,7 @@
      ]
     ]
    },
-   "closed": "다카시마야 오사카점 휴관일에 따름 (별도 정기휴무 미확인)",
+   "closed": "다카시마야 오사카점 휴관일에 따름",
    "warn": null,
    "desc": "프랑스 홍차 브랜드 다만 프레르와 프렌치 '리뤼미에르'가 함께 만든 티살롱. 난바 다카시마야 2층이라 카드 결제가 되고, 최대 6명 개인실이 있어 가족끼리 앉기 좋음.",
    "image": null,
@@ -19644,11 +20365,20 @@
     "https://tabelog.com/osaka/A2701/A270202/27055738/dtlrvwlst/B441950403/",
     "https://tabelog.com/cafe/osaka/A2701/A270202/rank/",
     "https://www.takashimaya.co.jp/osaka/emg/?id=1181",
-    "https://tabelog.com/matome/25375/"
+    "https://tabelog.com/matome/25375/",
+    "https://www.takashimaya.co.jp/osaka/storeinfo/index.html",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27055738/"
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.takashimaya.co.jp/osaka/storeinfo/index.html",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270202/27055738/"
+   ],
+   "hoursNote": "백화점 영업시간(10-20시) 기준. 살롱 L.O.는 더 이를 수 있음"
   },
   {
    "id": 218,
@@ -19744,11 +20474,19 @@
     "https://tabelog.com/osaka/A2701/A270204/27004780/dtlrvwlst/B507736964/",
     "https://tabelog.com/osaka/rstLst/SC1004/",
     "https://www.walkerplus.com/article/223697/",
-    "https://tabelog.com/sweets/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/sweets/osaka/A2701/A270201/rank/",
+    "https://www.ubereats.com/jp-en/store/fruit-garden-%E5%B1%B1%E5%8F%A3%E6%9E%9C%E7%89%A9-fruit-garden-yamaguchikudamono/dCs_DRbGXJKe8lOKV91THg"
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://www.walkerplus.com/article/223697/",
+    "https://www.ubereats.com/jp-en/store/fruit-garden-%E5%B1%B1%E5%8F%A3%E6%9E%9C%E7%89%A9-fruit-garden-yamaguchikudamono/dCs_DRbGXJKe8lOKV91THg"
+   ],
+   "hoursNote": "자료마다 폐점 시간이 다름(2020년 기사 20:00, 우버이츠 18:30). 늦은 시간 방문 시 주의"
   },
   {
    "id": 219,
@@ -19843,11 +20581,19 @@
     "https://tabelog.com/en/osaka/A2701/A270204/27000958/",
     "https://ssl.tabelog.com/en/osaka/A2701/A270204/27000958/",
     "https://retty.me/restaurant/100000018001/",
-    "https://tabelog.com/matome/16203/"
+    "https://tabelog.com/matome/16203/",
+    "https://kinarino.jp/cat8/27336"
    ],
    "confidence": "high",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://kinarino.jp/cat8/27336",
+    "https://retty.me/restaurant/100000018001/"
+   ],
+   "hoursNote": "휴무일만 확인, 영업시간은 출처에서 미확인"
   },
   {
    "id": 220,
@@ -20021,7 +20767,7 @@
      ]
     ]
    },
-   "closed": "부정기 휴무 (연말연시 휴업)",
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "요쓰바시역 4번 출구에서 1분 거리. 41석(테이블 26·창가 카운터 4·테라스 11)으로 넓음. 카드(VISA·Master·JCB·AMEX·Diners)와 PayPay 가능. 근처 'GUT WOLF' 등 같은 이름의 지점과 헷갈리지 말 것.",
    "image": null,
@@ -20032,11 +20778,19 @@
     "https://s.tabelog.com/en/osaka/A2701/A270201/27082472/",
     "https://tabelog.com/tw/R22/rstLst/SC/16/",
     "https://tabelog.com/cafe/osaka/A2701/A270201/rank/",
-    "https://aumo.jp/articles/65991"
+    "https://aumo.jp/articles/65991",
+    "https://co-trip.jp/article/727419"
    ],
    "confidence": "high",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://co-trip.jp/article/727419",
+    "https://aumo.jp/articles/65991"
+   ],
+   "hoursNote": "모닝 8:30~11:00 · L.O. 20:30"
   },
   {
    "id": 222,
@@ -20125,7 +20879,14 @@
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://www.gltjp.com/ja/directory/item/15293/",
+    "https://retty.me/restaurant/100000050125/"
+   ],
+   "hoursNote": null
   },
   {
    "id": 223,
@@ -20211,11 +20972,21 @@
     "https://tabelog.com/osaka/A2701/A270201/27105524/dtlrvwlst/B415878458/",
     "https://www.walkerplus.com/article/166981/",
     "https://rurubu.jp/andmore/article/19916",
-    "https://tabelog.com/kissaten/osaka/A2701/rank/"
+    "https://tabelog.com/kissaten/osaka/A2701/rank/",
+    "https://aumo.jp/articles/65991",
+    "https://retty.me/restaurant/100001536950/"
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://aumo.jp/articles/65991",
+    "https://retty.me/restaurant/100001536950/",
+    "https://www.walkerplus.com/article/166981/"
+   ],
+   "hoursNote": "aumo: 평일 13-22시, 토·일·공휴일 11-22시. 일부 자료는 11-21시"
   },
   {
    "id": 224,
@@ -20290,7 +21061,7 @@
      ]
     ]
    },
-   "closed": "무휴 (대관 등으로 일찍 닫거나 임시 휴무하는 날 있음)",
+   "closed": "무휴",
    "warn": null,
    "desc": "도톤보리 에비스바시 근처 크로스호텔 오사카 1층의 넓은 소파석 카페. 카드(은련 포함)·교통계 IC·PayPay 가능.",
    "image": null,
@@ -20301,11 +21072,20 @@
     "https://tabelog.com/osaka/A2701/A270202/27057383/dtlrvwlst/B237727582/",
     "https://www.hotpepper.jp/strJ001006557/",
     "https://tabelog.com/cafe/osaka/A2701/A270202/rank/",
-    "https://tabelog.com/matome/23577/"
+    "https://tabelog.com/matome/23577/",
+    "https://icotto.jp/restaurants/31549",
+    "https://gurunavi.com/ja/c018421/rev/rst"
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://icotto.jp/restaurants/31549",
+    "https://gurunavi.com/ja/c018421/rev/rst"
+   ],
+   "hoursNote": "크로스호텔 오사카 1층. 대관 등으로 일찍 닫는 날 있음 · 요리 L.O. 19:00, 음료 L.O. 19:30"
   },
   {
    "id": 225,
@@ -20382,7 +21162,7 @@
      ]
     ]
    },
-   "closed": "정기휴무 없음 (Retty에는 목요일 휴무로 나와 있어 확인 필요)",
+   "closed": "무휴",
    "warn": null,
    "desc": "신세카이 장장요코초의 킷사텐으로, 과일가게에서 시작해 믹스주스를 처음 만든 곳으로 알려짐. 동물원앞역 도보 2분. 카드가 된다는 후기와 현금만 받는다는 후기가 엇갈림.",
    "image": null,
@@ -20393,11 +21173,19 @@
     "https://tabelog.com/osaka/A2701/A270206/27017860/dtlrvwlst/B507631405/",
     "https://tabelog.com/en/osaka/A2701/A270206/27110190/",
     "https://www.gltjp.com/ja/directory/item/14725/",
-    "https://retty.me/restaurant/100001476158/"
+    "https://retty.me/restaurant/100001476158/",
+    "https://rurubu.jp/andmore/article/20785"
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.gltjp.com/ja/directory/item/14725/",
+    "https://rurubu.jp/andmore/article/20785"
+   ],
+   "hoursNote": "토·일·공휴일은 아침 9시부터"
   },
   {
    "id": 226,
@@ -20491,11 +21279,19 @@
     "https://tabelog.com/osaka/A2701/A270201/27092229/dtlrvwlst/B508486596/",
     "https://tabelog.com/osaka/A2701/A270201/27092229/dtlrvwlst/B510930085/",
     "https://tabelog.com/sweets/osaka/A2701/A270201/rank/",
-    "https://rurubu.jp/andmore/article/11791"
+    "https://rurubu.jp/andmore/article/11791",
+    "https://macaro-ni.jp/38297?page=2"
    ],
    "confidence": "medium",
    "src": "minami_cafes",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://macaro-ni.jp/38297?page=2",
+    "https://rurubu.jp/andmore/article/11791"
+   ],
+   "hoursNote": "구 기사는 월~목 12:00-20:30, 금~일 12:00-21:00로 표기(코로나 이전 정보일 수 있음). 현재 시간 미확정"
   },
   {
    "id": 227,
@@ -20700,7 +21496,7 @@
      ]
     ]
    },
-   "closed": "연중무휴 (식당 페이지 기준)",
+   "closed": "무휴",
    "warn": null,
    "desc": "웨스틴 호텔 오사카 3층의 광둥요리 명점으로 중국요리 백명점 단골. 6인 가족은 개별실 예약이 가장 편함 (금연 표기는 一休 페이지 기준).",
    "image": null,
@@ -20709,11 +21505,20 @@
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270101/27002558/",
     "https://selection.tabelog.com/osaka/A2701/A270101/27002558/",
-    "https://restaurant.ikyu.com/100659/plan11883711"
+    "https://restaurant.ikyu.com/100659/plan11883711",
+    "https://restaurant.ikyu.com/100659/",
+    "https://epark.jp/shopinfo/ozr640862/"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://restaurant.ikyu.com/100659/",
+    "https://epark.jp/shopinfo/ozr640862/"
+   ],
+   "hoursNote": "웨스틴호텔 오사카 3층 · 점심 L.O. 14:30, 저녁 요리 L.O. 20:00·음료 L.O. 20:30"
   },
   {
    "id": 229,
@@ -20909,11 +21714,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270202/27000369/",
-    "https://retty.me/restaurant/100000019323/"
+    "https://retty.me/restaurant/100000019323/",
+    "https://gurunavi.com/en/kd8p100/rst"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://gurunavi.com/en/kd8p100/rst"
+   ],
+   "hoursNote": "코스 위주 고급 중식, 예약 권장 · 점심 L.O. 13:30 / 저녁 L.O. 21:00"
   },
   {
    "id": 231,
@@ -21008,7 +21820,7 @@
      ]
     ]
    },
-   "closed": "부정기",
+   "closed": "부정기 휴무",
    "warn": null,
    "desc": "미슐랭 1스타(2018~23) 경력의 모던 중화로 사와다 반점의 본가. 나니와바시역 도보 5분이라 리가 로열 호텔에서 가까움.",
    "image": null,
@@ -21021,7 +21833,14 @@
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27095063/",
+    "https://selection.tabelog.com/osaka/A2701/A270102/27095063/"
+   ],
+   "hoursNote": "점심 주문은 13:00까지. 예약 권장(미쉐린 별 레스토랑) · 점심 요리 L.O. 13:00, 저녁 요리 L.O. 21:00"
   },
   {
    "id": 232,
@@ -21096,25 +21915,17 @@
     "sat": [
      [
       "11:00",
-      "15:30"
-     ],
-     [
-      "17:00",
       "23:00"
      ]
     ],
     "sun": [
      [
       "11:00",
-      "15:30"
-     ],
-     [
-      "17:00",
       "23:00"
      ]
     ]
    },
-   "closed": "1월 1일, 6월 첫째 월요일 (건물 휴관일)",
+   "closed": "시설 휴관일에 따름 (1월 1일 등)",
    "warn": null,
    "desc": "고베 모토마치 노포 민세이의 니시우메다 지점. 92석 대형점이라 가족 단위로 쓰기 좋고 저녁은 예약 추천.",
    "image": null,
@@ -21123,11 +21934,20 @@
    "sources": [
     "https://selection.tabelog.com/osaka/A2701/A270101/27006463/",
     "https://tabelog.com/en/osaka/A2701/A270101/27006463/table/",
-    "https://gurunavi.com/en/k065430/rst"
+    "https://gurunavi.com/en/k065430/rst",
+    "https://www.hotpepper.jp/strJ000014628/",
+    "https://r.gnavi.co.jp/k065430/"
    ],
    "confidence": "high",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.hotpepper.jp/strJ000014628/",
+    "https://r.gnavi.co.jp/k065430/"
+   ],
+   "hoursNote": "토·일·공휴일은 중간 휴식 없이 영업 (핫페퍼), 구루나비는 매일 중간 휴식 표기 · L.O. 14:30 / 21:30"
   },
   {
    "id": 233,
@@ -21216,11 +22036,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270101/27124951/dtlrvwlst/B444217365/",
     "https://s.tabelog.com/en/osaka/A2701/A270101/27124951/",
-    "https://tabelog.com/chinese/osaka/A2701/A270101/rank/"
+    "https://tabelog.com/chinese/osaka/A2701/A270101/rank/",
+    "https://tabelog.com/osaka/A2701/A270101/27124951/",
+    "https://www.nap-camp.com/mag/41221"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270101/27124951/",
+    "https://www.nap-camp.com/mag/41221"
+   ],
+   "hoursNote": "한 기사에 11:00-15:30(매진 시 종료) 표기가 있으나 이 가게 정보인지 불확실"
   },
   {
    "id": 234,
@@ -21314,11 +22143,19 @@
     "https://tabelog.com/osaka/A2701/A270101/27000184/dtlrvwlst/B121821250/",
     "https://www.navitime.co.jp/category/0307004/27/",
     "https://www.mapple.net/original/518600/",
-    "https://tabelog.com/osaka/A2701/A270101/27000184/dtlrvwlst/B471550112/"
+    "https://tabelog.com/osaka/A2701/A270101/27000184/dtlrvwlst/B471550112/",
+    "https://retty.me/restaurant/100000017210/"
    ],
    "confidence": "high",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://www.mapple.net/original/518600/",
+    "https://retty.me/restaurant/100000017210/"
+   ],
+   "hoursNote": "토요일은 15:00부터. 휴무일은 검색 자료로 재확인 못 함 · L.O. 23:45"
   },
   {
    "id": 235,
@@ -21403,7 +22240,7 @@
      ]
     ]
    },
-   "closed": "수요일 (화요일·부정기라는 정보도 있음)",
+   "closed": "수요일",
    "warn": null,
    "desc": "신사이바시역 5번 출구 도보 3분, 지하 1층의 미슐랭 게재 중화. 점심 정식이 가성비 좋기로 유명. 카드 가능 여부는 랭킹 페이지 근거라 확인 필요.",
    "image": null,
@@ -21412,11 +22249,20 @@
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27086074/",
     "https://selection.tabelog.com/osaka/A2701/A270201/27086074/",
-    "https://guide.michelin.com/jp/ja/osaka-region/osaka/restaurant/chukashunsai-morimoto"
+    "https://guide.michelin.com/jp/ja/osaka-region/osaka/restaurant/chukashunsai-morimoto",
+    "https://foodle.pro/restaurants/osaka/chuka-shunsai-morimoto",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270201/27086074/"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/osaka/chuka-shunsai-morimoto",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270201/27086074/"
+   ],
+   "hoursNote": "점심은 예약 불가, 개점 전부터 줄 섬"
   },
   {
    "id": 236,
@@ -21495,7 +22341,7 @@
      ]
     ]
    },
-   "closed": "목요일 + 부정기 휴무",
+   "closed": "목요일·부정기 휴무 (구루나비는 넷째 토요일 휴무로 표기)",
    "warn": null,
    "desc": "오사카역 도보 약 12분(우메다 스카이빌딩 방면)의 교자 백명점. 교자가 떨어지면 일찍 닫음 — 영업일은 인스타그램 확인.",
    "image": null,
@@ -21508,7 +22354,13 @@
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://gurunavi.com/en/kdgy100/rst"
+   ],
+   "hoursNote": "저녁만 영업. 11/14는 둘째 토요일 · L.O. 22:30"
   },
   {
    "id": 237,
@@ -21604,7 +22456,13 @@
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270103/27002221/"
+   ],
+   "hoursNote": "점심·저녁 사이 휴식. 식당 백명점"
   },
   {
    "id": 238,
@@ -21868,11 +22726,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270101/27081015/",
-    "https://tabelog.com/osaka/A2701/A270101/27081015/dtlrvwlst/B444033986/"
+    "https://tabelog.com/osaka/A2701/A270101/27081015/dtlrvwlst/B444033986/",
+    "https://r.gnavi.co.jp/6pfxarh10000/",
+    "https://epark.jp/shopinfo/ozr642425/"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/6pfxarh10000/",
+    "https://epark.jp/shopinfo/ozr642425/"
+   ],
+   "hoursNote": "토요일 점심은 당분간 휴무. 구루나비는 토요일 저녁도 22:00까지로 표기 · 저녁 L.O. 21:00"
   },
   {
    "id": 241,
@@ -21951,7 +22818,7 @@
      ]
     ]
    },
-   "closed": "월요일, 둘째 일요일",
+   "closed": "월요일 (둘째 일요일 휴무라는 정보도)",
    "warn": null,
    "desc": "경력 30년 셰프의 정통이면서 친근한 중화. 혼마치역 22·23번 출구 도보 5분.",
    "image": null,
@@ -21959,11 +22826,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270201/27136187/",
-    "https://tabelog.com/chinese/osaka/A2701/A270201/rank/"
+    "https://tabelog.com/chinese/osaka/A2701/A270201/rank/",
+    "https://foodle.pro/restaurants/osaka/6a21561c5b398",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270201/27136187/dtlrvwlst/"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/osaka/6a21561c5b398",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270201/27136187/dtlrvwlst/"
+   ],
+   "hoursNote": "금·일은 저녁만, 점심은 화·수·목·토"
   },
   {
    "id": 242,
@@ -22042,7 +22918,7 @@
      ]
     ]
    },
-   "closed": "없음 (상업시설 휴관일 제외)",
+   "closed": "무휴 (상업시설 휴관일 제외)",
    "warn": null,
    "desc": "에스사와다 계열의 광둥 가정요리점으로 한큐 오사카우메다역 3층 남쪽 개찰구 도보 약 3분. 주말에도 통으로 영업해 가족 이용이 쉬움.",
    "image": null,
@@ -22050,11 +22926,20 @@
    "fav": false,
    "sources": [
     "https://selection.tabelog.com/osaka/A2701/A270101/27139271/",
-    "https://tabelog.com/en/osaka/A2701/A270101/27139271/"
+    "https://tabelog.com/en/osaka/A2701/A270101/27139271/",
+    "https://foodle.pro/restaurants/osaka/697a21701adee",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27139271/"
    ],
    "confidence": "high",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/osaka/697a21701adee",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27139271/"
+   ],
+   "hoursNote": "평일은 11:30 개점이라는 후기도 있음 · L.O. 14:30 / 21:30"
   },
   {
    "id": 243,
@@ -22127,7 +23012,7 @@
      ]
     ]
    },
-   "closed": "없음 (매일 영업 표기)",
+   "closed": "무휴 (매일 영업 표기)",
    "warn": null,
    "desc": "2024년 4월 오픈, 오기마치역 도보 4분의 교자 식당 겸 이자카야로 덴마 교자 랭킹 1위. 저녁 전용.",
    "image": null,
@@ -22136,11 +23021,18 @@
    "sources": [
     "https://tabelog.com/en/osaka/A2701/A270103/27140879/",
     "https://tabelog.com/gyouza/osaka/A2701/A270103/rank/",
-    "https://s.tabelog.com/en/osaka/A2701/A270103/27140879/"
+    "https://s.tabelog.com/en/osaka/A2701/A270103/27140879/",
+    "https://tabelog.com/osaka/A2701/A270103/27140879/dtlrvwlst/B485787972/?type=0"
    ],
    "confidence": "medium",
    "src": "chinese",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270103/27140879/dtlrvwlst/B485787972/?type=0"
+   ],
+   "hoursNote": "저녁 영업만. 옛 리뷰에 일·공휴일 휴무·18:00 개점 기록이 있어 일요일은 확인 권장 · L.O. 24:00"
   },
   {
    "id": 244,
@@ -22393,7 +23285,16 @@
       "21:00"
      ]
     ],
-    "sat": null,
+    "sat": [
+     [
+      "11:00",
+      "14:00"
+     ],
+     [
+      "17:00",
+      "21:00"
+     ]
+    ],
     "sun": [
      [
       "11:00",
@@ -22401,7 +23302,7 @@
      ]
     ]
    },
-   "closed": "월요일(첫째 화요일도 휴무라는 표기 있음)",
+   "closed": "월요일, 첫째 화요일",
    "warn": null,
    "desc": "2026 우나기 백명점에 선정된 간사이식 지야키(찌지 않고 굽는) 장어 전문점. 16석(카운터 4·테이블 3)뿐이라 6명은 나눠 앉거나 예약 필요, 장어 소진 시 조기 종료.",
    "image": null,
@@ -22409,11 +23310,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270103/27040987/",
-    "https://gourmet.watch.impress.co.jp/docs/news/2126918.html"
+    "https://gourmet.watch.impress.co.jp/docs/news/2126918.html",
+    "https://tabelog.com/en/osaka/A2701/A270103/27040987/"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270103/27040987/"
+   ],
+   "hoursNote": "장어 소진 시 조기 종료. 연말연시 휴무. 토요일 시간 추가(일요일은 기존 값 유지, 재확인 못 함) · 점심 L.O. 13:30, 저녁 L.O. 20:00"
   },
   {
    "id": 247,
@@ -22504,7 +23412,13 @@
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://ssl.tabelog.com/en/osaka/A2701/A270108/27141561/"
+   ],
+   "hoursNote": "단품 예약은 전화만 · L.O. 22:30"
   },
   {
    "id": 248,
@@ -22677,7 +23591,13 @@
    ],
    "confidence": "high",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "high",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27146873/"
+   ],
+   "hoursNote": "줄 서는 경우 많음. 12/31은 18:00 폐점, 1/1 휴무 · 요리 L.O. 21:00"
   },
   {
    "id": 250,
@@ -22735,8 +23655,26 @@
    "foreignMenu": null,
    "mustTry": "점심 가이센동(해산물덮밥, 최근 약 2,200엔), 더블 가이센동",
    "hours": {
-    "fri": null,
-    "sat": null,
+    "fri": [
+     [
+      "11:30",
+      "13:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "13:30"
+     ],
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
     "sun": []
    },
    "closed": "일요일·공휴일",
@@ -22748,11 +23686,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270101/27018581/",
     "https://tabelog.com/en/osaka/A2701/A270101/27018581/",
-    "https://tabelog.com/matome/22762/"
+    "https://tabelog.com/matome/22762/",
+    "https://foodle.pro/restaurants/osaka/ajisai-1",
+    "https://hamoni.jp/shop/y3JMbfGxa5v0t0nGg6qh"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/osaka/ajisai-1",
+    "https://hamoni.jp/shop/y3JMbfGxa5v0t0nGg6qh"
+   ],
+   "hoursNote": "점심은 재료 소진 시 종료, 토요일 점심 여부 미확인 · L.O. 22:30"
   },
   {
    "id": 251,
@@ -22829,7 +23776,7 @@
     ],
     "sun": []
    },
-   "closed": "일요일·공휴일",
+   "closed": "일요일·공휴일, 토요일 부정기 휴무 (6~9월 토요일은 영업)",
    "warn": null,
    "desc": "교호 연간(1700년대) 창업이라는 300년 노포로 오사카식 '가미가타 구이' 장어를 내는 곳. 호텔(나카노시마)에서 가까우며, 굽는 데 시간이 걸리니 여유 있게 방문.",
    "image": null,
@@ -22838,11 +23785,19 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270102/27000005/",
     "https://jp.openrice.com/en/osaka-kobe/r-honke-shibato-kitahama-yodoyabashi-higobashi-japanese-food-other-kaiseki-traditional-course-meal-r388030",
-    "https://retty.me/restaurant/100000040008/"
+    "https://retty.me/restaurant/100000040008/",
+    "https://macaro-ni.jp/15434?page=2"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000040008/",
+    "https://macaro-ni.jp/15434?page=2"
+   ],
+   "hoursNote": "11월 토요일(11/14)은 쉴 수 있음 — 방문 전 전화 확인(06-6231-4810)"
   },
   {
    "id": 252,
@@ -22916,7 +23871,7 @@
      ]
     ]
    },
-   "closed": "확인 안 됨 (매일 통영업 표기)",
+   "closed": "무휴 (휴무일 표기 없음)",
    "warn": null,
    "desc": "2026년 8월 말 개업한 신생 장어집으로 아이치현 잇시키산 암컷 장어를 간사이식으로 구움. 카운터 8석이라 2~3명씩 나눠 가는 용도.",
    "image": null,
@@ -22924,11 +23879,18 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270201/27158704/",
-    "https://tabelog.com/osaka/A2701/A270201/27158704/dtlrvwlst/"
+    "https://tabelog.com/osaka/A2701/A270201/27158704/dtlrvwlst/",
+    "https://tabelog.com/osaka/A2701/A270201/27158704"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270201/27158704"
+   ],
+   "hoursNote": "중간 휴식 없이 통영업, 예약 없이 입장 가능 · 요리 L.O. 20:00, 음료 L.O. 20:30"
   },
   {
    "id": 253,
@@ -23103,7 +24065,7 @@
      ]
     ]
    },
-   "closed": "확인 안 됨",
+   "closed": "미확인 (남미도 빌딩 휴관일에 따를 수 있음)",
    "warn": null,
    "desc": "도쿄 긴자의 에도 시대 장어 노포 '치쿠요테이'의 오사카 지점(혼마치역 2분, 오사카 엑셀호텔도큐 건물 2층).",
    "image": null,
@@ -23111,11 +24073,19 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270106/27114343/",
-    "https://r.gnavi.co.jp/kdj6600/"
+    "https://r.gnavi.co.jp/kdj6600/",
+    "https://hitosara.com/0006134156/map.html"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/kdj6600/",
+    "https://hitosara.com/0006134156/map.html"
+   ],
+   "hoursNote": "점심 L.O. 14:30 / 저녁 L.O. 21:00"
   },
   {
    "id": 255,
@@ -23199,11 +24169,19 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270101/27129935/",
     "https://tabelog.com/en/osaka/A2701/A270101/27129935/dtlmenu/",
-    "https://retty.me/restaurant/100001661744/"
+    "https://retty.me/restaurant/100001661744/",
+    "https://hamoni.jp/shop/4UpsvUhzNoQhqgSnIsZf"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://hamoni.jp/shop/4UpsvUhzNoQhqgSnIsZf",
+    "https://retty.me/restaurant/100001661744/"
+   ],
+   "hoursNote": "우메다 지하상가(NOMOKA) 내, 점심 영업 있음. 휴무일은 지하상가 휴관일 기준으로 보임(검색으로 재확인 못 함)"
   },
   {
    "id": 256,
@@ -23299,11 +24277,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270101/27128437/",
     "https://tabelog.com/en/osaka/A2701/A270101/27128437/dtlmenu/",
-    "https://tabelog.com/unagi/osaka/A2701/rank/"
+    "https://tabelog.com/unagi/osaka/A2701/rank/",
+    "https://foodle.pro/restaurants/nagoya/unagi-yondaime-kikukawa",
+    "https://restaurant.ikyu.com/119584/"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://foodle.pro/restaurants/nagoya/unagi-yondaime-kikukawa",
+    "https://restaurant.ikyu.com/119584/"
+   ],
+   "hoursNote": "2026-09부터 매장 식사 서비스료 10% · L.O. 14:00 / 22:00"
   },
   {
    "id": 257,
@@ -23401,11 +24388,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270202/27130348/",
-    "https://tabelog.com/en/osaka/A2701/A270202/27130348/"
+    "https://tabelog.com/en/osaka/A2701/A270202/27130348/",
+    "https://retty.me/theme/101039801/",
+    "https://www.tablecheck.com/hi/kouroan"
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/theme/101039801/",
+    "https://www.tablecheck.com/hi/kouroan"
+   ],
+   "hoursNote": "Retty는 매일 11:30-15:30, 17:00-23:00으로 표기(일요일 저녁 마감은 미확인)"
   },
   {
    "id": 258,
@@ -23465,8 +24461,8 @@
    "hours": {
     "fri": [
      [
-      "10:00",
-      "14:00"
+      "11:00",
+      "15:00"
      ]
     ],
     "sat": [],
@@ -23485,7 +24481,13 @@
    ],
    "confidence": "medium",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabiiro.jp/gourmet/s/303286-osaka-yoshino-sushi/"
+   ],
+   "hoursNote": "저녁(17:00~22:00)은 예약제. 토·일 휴무 · 점심 L.O. 14:30"
   },
   {
    "id": 259,
@@ -23569,11 +24571,20 @@
    "fav": false,
    "sources": [
     "https://tabelog.com/osaka/A2701/A270103/27005842/",
-    "https://tabelog.com/en/osaka/A2701/A270103/27005842/"
+    "https://tabelog.com/en/osaka/A2701/A270103/27005842/",
+    "https://r.gnavi.co.jp/k299602/",
+    "https://www.hotpepper.jp/strJ000013542/"
    ],
    "confidence": "high",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://r.gnavi.co.jp/k299602/",
+    "https://www.hotpepper.jp/strJ000013542/"
+   ],
+   "hoursNote": "주말 오후 만석 잦음. 휴무일은 출처에서 미확인"
   },
   {
    "id": 260,
@@ -23656,11 +24667,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270101/27002305/",
     "https://tabelog.com/en/osaka/A2701/A270101/27002305/",
-    "https://tabelog.com/matome/14154/"
+    "https://tabelog.com/matome/14154/",
+    "https://retty.me/restaurant/100000003238/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27002305/"
    ],
    "confidence": "high",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000003238/",
+    "https://ssl.tabelog.com/en/osaka/A2701/A270101/27002305/"
+   ],
+   "hoursNote": "다음 날 아침 7시까지 영업(후기 기준)"
   },
   {
    "id": 261,
@@ -23824,7 +24844,7 @@
      ]
     ]
    },
-   "closed": "월요일",
+   "closed": "월요일 (공휴일이면 다음다음날)",
    "warn": null,
    "desc": "점수는 3.48이지만 덴진바시스지 상점가에서 50년 넘게 사랑받는 저렴한 서민 스시 노포. 2층 다다미방이 있어 6명 가족에 적합, 카드·전자머니 불가.",
    "image": null,
@@ -23833,11 +24853,20 @@
    "sources": [
     "https://tabelog.com/osaka/A2701/A270103/27002278/",
     "https://tabelog.com/en/osaka/A2701/A270103/27002278/",
-    "https://tabelog.com/matome/15245/"
+    "https://tabelog.com/matome/15245/",
+    "https://retty.me/restaurant/100000064102/",
+    "https://www.mapple.net/original/404833/"
    ],
    "confidence": "high",
    "src": "seafood",
-   "coordDate": "2026-11-05"
+   "coordDate": "2026-11-05",
+   "hoursChecked": "2026-11-06",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://retty.me/restaurant/100000064102/",
+    "https://www.mapple.net/original/404833/"
+   ],
+   "hoursNote": "Retty는 11:10~22:45, Mapple은 11:30~22:30 표기"
   },
   {
    "id": 263,
