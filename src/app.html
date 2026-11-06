@@ -1185,9 +1185,10 @@ function openTripStop(dayKey,id,fromMap){
     if(el&&body){const top=el.getBoundingClientRect().top-body.getBoundingClientRect().top+body.scrollTop-(tabs?tabs.offsetHeight:0)-8;body.scrollTo({top:Math.max(0,top),behavior:'smooth'})}},60);
   if(S.tripOpen)whenMap(()=>panToVisible([p.lat,p.lon],Math.max(map.getZoom(),15)));
 }
-function enterTrip(){S.mode='trip';LS.set('ofm.mode','trip');S.tripDay=S.tripDay||defaultTripDay();if(S.view==='detail')closeDetail();sheet.classList.add('tripping');tripFitKey='';refresh();
+const pushTrip=()=>{if(!(history.state&&history.state.trip))hPush({trip:1})};
+function enterTrip(){S.mode='trip';LS.set('ofm.mode','trip');pushTrip();S.tripDay=S.tripDay||defaultTripDay();if(S.view==='detail')closeDetail();sheet.classList.add('tripping');tripFitKey='';refresh();
   if(!isDesktop()&&sheetState==='peek')setSheet('half')}
-function exitTrip(quiet){S.mode='shops';LS.set('ofm.mode','shops');sheet.classList.remove('tripping');clearTripGfx();tripFitKey='';if(!quiet){refresh();fitNearOrAll()}}
+function exitTrip(quiet,fromPop){if(!fromPop&&history.state&&history.state.trip)hBack();S.mode='shops';LS.set('ofm.mode','shops');sheet.classList.remove('tripping');clearTripGfx();tripFitKey='';if(!quiet){refresh();fitNearOrAll()}}
 $('#list').addEventListener('click',e=>{
   if(S.mode!=='trip'){const tb=e.target.closest('[data-totrip]');if(tb){e.stopPropagation();enterTrip()}return}
   const t=e.target.closest('[data-tday],[data-open],[data-swap],[data-unswap],[data-taxi],[data-shop],[data-check],[data-stop]');if(!t)return;
@@ -1496,8 +1497,8 @@ function select(id,{from='list'}={}){
   const prev=S.selected;
   if(S.ref==='center'&&map&&!frozenRef)frozenRef=visibleCenter();
   S.selected=id;
-  if(S.view!=='detail'){listScroll=$('#sheetBody').scrollTop;listState=sheetState;S.view='detail';try{history.pushState({detail:1,id},'')}catch(e){}}
-  else if(from==='alt'&&prev!==id){try{history.pushState({detail:1,id},'')}catch(e){}}   // Back returns to the first shop
+  if(S.view!=='detail'){listScroll=$('#sheetBody').scrollTop;listState=sheetState;S.view='detail';hPush({detail:1,id})}
+  else if(from==='alt'&&prev!==id)hPush({detail:1,id});   // Back returns to the first shop
   $('#list').hidden=true;$('#detail').hidden=false;sheet.classList.add('detailing');renderDetail();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState!=='half')setSheet('half');
   if(prev&&prev!==id)refreshIcon(prev);
@@ -1514,14 +1515,18 @@ function closeDetail(){
   if(!isDesktop()&&listState==='full'&&sheetState!=='full')setSheet('full');   // back to the same place: sheet height and list position
   $('#sheetBody').scrollTop=listScroll;
 }
-let skipPop=false;
-window.addEventListener('popstate',e=>{if(skipPop){skipPop=false;return}
+/* history: our own "back" is async, so a new entry pushed meanwhile would be popped by it — queue pushes until it lands */
+let skipPop=false;const histQ=[];
+const hPush=st=>{if(skipPop)histQ.push(st);else try{history.pushState(st,'')}catch(e){}};
+const hBack=()=>{skipPop=true;history.back()};
+window.addEventListener('popstate',e=>{if(skipPop){skipPop=false;histQ.splice(0).forEach(st=>{try{history.pushState(st,'')}catch(_){}});return}
   if(!$('#phraseBig').hidden){$('#phraseBig').hidden=true;return}
   const open=[...document.querySelectorAll('.modal')].reverse().find(m=>!m.hidden);if(open){closeModal('#'+open.id,true);return}
   const st=e.state;if(st&&st.detail&&st.id&&st.id!==S.selected&&DATA.some(x=>x.id===st.id)){select(st.id,{from:'pop'});return}
-  if(S.view==='detail')closeDetail()});
+  if(S.view==='detail'){closeDetail();return}
+  if(S.mode==='trip'&&!(st&&st.trip))exitTrip(false,true)});
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;
-  if(!$('#phraseBig').hidden){$('#phraseBig').hidden=true;return}
+  if(!$('#phraseBig').hidden){closeBig();return}
   const open=[...document.querySelectorAll('.modal')].reverse().find(m=>!m.hidden);if(open){closeModal('#'+open.id);return}
   if(S.view==='detail'){if(history.state&&history.state.detail)history.back();else closeDetail()}});
 
@@ -1539,7 +1544,7 @@ function nextToast(){const n=toastQ.shift(),el=$('#toast');if(!n){toastBusy=fals
 
 /* ================= bottom sheet ================= */
 const sheet=$('#sheet');let sheetState='peek',sheetPx=0;
-if(S.mode==='trip')sheet.classList.add('tripping');   // reopened while the itinerary was showing
+if(S.mode==='trip'){sheet.classList.add('tripping');pushTrip()}   // reopened while the itinerary was showing (Back → shop list)
 const safeProbe=document.createElement('div');safeProbe.style.cssText='position:fixed;left:0;bottom:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(safeProbe);
 function heights(){const H=window.innerHeight,top=$('#topbar').getBoundingClientRect().bottom,sb=safeProbe.getBoundingClientRect().height||0;
   return{peek:Math.min(178,Math.round(H*.29))+sb,half:Math.round(H*.5),full:Math.max(300,H-top-6)}}
@@ -1626,7 +1631,7 @@ locBtn.onclick=()=>{
 };
 function showLocHelp(reason){const p=$('#locReason');p.hidden=!reason;p.textContent=reason||'';openModal('#locHelp')}
 $('#locRetry').onclick=()=>{closeModal('#locHelp');startLocate()};
-$('#locHelpBtn').onclick=()=>{closeModal('#menu');showLocHelp('')};
+$('#locHelpBtn').onclick=()=>fromMenu(()=>showLocHelp(''));
 
 /* ================= controls ================= */
 function defaultFilters(){return{region:'all',minT:0,prices:[],card:false,ic:false,shortWait:false,group6:false,reserve:false,nonSmoking:false,morning:false,late:false}}
@@ -1650,7 +1655,7 @@ $('#openChip').onclick=()=>{S.openOnly=!S.openOnly;refresh()};
 $('#listSel').onchange=e=>{S.list=e.target.value;if(S.list!=='all'&&!S.sortTouched)S.sort='tabelog';refresh();if(S.ref!=='me')fitRows()};
 $('#sort').onchange=e=>{S.sort=e.target.value;S.sortTouched=true;if(S.view==='detail')closeDetail();refresh();$('#sheetBody').scrollTop=0};
 $('#ref').onchange=e=>{S.ref=e.target.value;S.refTouched=true;if(S.ref==='me'&&!me)startLocate();refresh({markers:false});$('#sheetBody').scrollTop=0};
-let qTimer=0;$('#q').addEventListener('input',e=>{clearTimeout(qTimer);qTimer=setTimeout(()=>{S.q=e.target.value.trim();if(S.view==='detail')closeDetail();refresh();if(!isDesktop()&&sheetState==='peek')setSheet('half')},150)});
+let qTimer=0;$('#q').addEventListener('input',e=>{clearTimeout(qTimer);qTimer=setTimeout(()=>{S.q=e.target.value.trim();if(S.view==='detail')closeDetail();refresh();if(!isDesktop()&&sheetState!=='full')setSheet('full')},150)});   // results stay above the keyboard
 $('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){e.target.blur();if(!isDesktop())setSheet('half')}});
 $('#list').addEventListener('click',e=>{const it=e.target.closest('.item');if(it&&!e.target.closest('[data-fav],a'))select(+it.dataset.id)});
 $('#list').addEventListener('keydown',e=>{const it=e.target.closest('.item');if(it&&e.key==='Enter'){e.preventDefault();select(+it.dataset.id)}});
@@ -1721,19 +1726,24 @@ function openPhrases(){
   $('#phraseBig').hidden=true;openModal('#phrases');
 }
 $('#phraseList').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;const[ko,ja,kana]=PHRASES[+b.dataset.i];
-  $('#phraseBig').innerHTML=`<b lang="ja">${ja}</b><small lang="ja">${kana}</small><span>${ko}</span><em>화면을 눌러 닫기</em>`;$('#phraseBig').hidden=false});
-$('#phraseBig').onclick=()=>{$('#phraseBig').hidden=true};
-$('#phraseBtn').onclick=()=>{closeModal('#menu');openPhrases()};
+  $('#phraseBig').innerHTML=`<b lang="ja">${ja}</b><small lang="ja">${kana}</small><span>${ko}</span><em>화면을 눌러 닫기</em>`;$('#phraseBig').hidden=false;hPush({big:1})});
+const closeBig=()=>{$('#phraseBig').hidden=true;if(history.state&&history.state.big)hBack()};
+$('#phraseBig').onclick=closeBig;
+$('#phraseBtn').onclick=()=>fromMenu(openPhrases);
 
 /* ---- modals ---- */
 let modalFocus=null;
-function openModal(s){const m=$(s);if(!m.hidden)return;modalFocus=document.activeElement;m.hidden=false;try{history.pushState({modal:s},'')}catch(e){}
+let modalReplace=false;
+function openModal(s){const m=$(s);if(!m.hidden)return;if(!modalReplace)modalFocus=document.activeElement;m.hidden=false;
+  try{if(modalReplace&&history.state&&history.state.modal)history.replaceState({modal:s},'');else hPush({modal:s})}catch(e){}modalReplace=false;
   setTimeout(()=>{const c=m.querySelector('[data-close]');if(c)try{c.focus({preventScroll:true})}catch(e){}},30)}
 function closeModal(s,fromPop){const m=$(s);if(m.hidden)return;m.hidden=true;
-  if(!fromPop&&history.state&&history.state.modal===s){skipPop=true;history.back()}
+  if(!fromPop&&history.state&&history.state.modal===s)hBack();
   if(modalFocus&&document.contains(modalFocus))try{modalFocus.focus({preventScroll:true})}catch(e){}}
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))closeModal('#'+m.id)}));
 $('#menuBtn').onclick=()=>openModal('#menu');
+// ⋯ → another dialog: swap them in place, so Back closes the new dialog instead of leaving the app
+const fromMenu=fn=>{const m=$('#menu');if(!m.hidden){m.hidden=true;modalReplace=true}try{fn()}finally{modalReplace=false}};
 $('#hotelDir').href=dirUrl(HOTEL.jp+' '+HOTEL.address,2);
 function renderProviders(){$('#providers').innerHTML=MENU_ORDER.map(k=>`<label class="radio"><input type="radio" name="prov" value="${k}" ${S.provider===k?'checked':''}><span>${PROVIDERS[k].name}<small>${PROVIDERS[k].desc}</small></span></label>`).join('');
   $('#providers').querySelectorAll('input').forEach(i=>i.onchange=()=>{tried=new Set();setProvider(i.value,false);hideMapStatus()})}

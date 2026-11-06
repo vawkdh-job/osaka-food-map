@@ -433,6 +433,44 @@ console.log('6c. Travel itinerary');
   await ctx.close();
 }
 
+console.log('6d. Back button (Android back / iOS swipe) never leaves the app by surprise');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page);
+  const inApp = () => page.url().startsWith(URL0);
+  const st = () => page.evaluate(() => ({ mode: window.__ofm.S.mode, view: window.__ofm.S.view, modals: [...document.querySelectorAll('.modal')].filter(m => !m.hidden).map(m => m.id), big: !document.querySelector('#phraseBig').hidden }));
+  const back = async () => { await page.goBack({ waitUntil: 'commit' }).catch(() => {}); await page.waitForTimeout(400); return inApp() ? await st() : 'LEFT'; };
+  await page.locator('#tripChip').click(); await page.waitForTimeout(500);
+  let r = await back();
+  check(r !== 'LEFT' && r.mode === 'shops', 'Back from 🧳 일정 returns to the shop list', JSON.stringify(r));
+  await page.locator('#menuBtn').click(); await page.waitForTimeout(300); await page.locator('#phraseBtn').click(); await page.waitForTimeout(400);
+  r = await back();
+  check(r !== 'LEFT' && !r.modals.length, '⋯ → 회화 카드 → Back closes the card and stays in the app', JSON.stringify(r));
+  await page.locator('#menuBtn').click(); await page.waitForTimeout(300); await page.locator('#phraseBtn').click(); await page.waitForTimeout(400);
+  await page.locator('#phraseList .phr').first().click(); await page.waitForTimeout(300);
+  r = await back();
+  const r2 = r !== 'LEFT' ? await back() : 'LEFT';
+  check(r !== 'LEFT' && !r.big && r.modals.includes('phrases') && r2 !== 'LEFT' && !r2.modals.length, 'big phrase card → Back → Back: big card, then the phrase list, without leaving', JSON.stringify([r, r2]));
+  await page.locator('#menuBtn').click(); await page.waitForTimeout(300); await page.locator('#locHelpBtn').click(); await page.waitForTimeout(400);
+  r = await back();
+  check(r !== 'LEFT' && !r.modals.length, '⋯ → 내 위치 도움말 → Back closes it and stays in the app', JSON.stringify(r));
+  await page.locator('#tripChip').click(); await page.waitForTimeout(500);
+  await page.locator('#filterChip').click(); await page.waitForTimeout(500);
+  r = await back();
+  check(r !== 'LEFT' && r.mode === 'shops' && !r.modals.length, '일정 → 필터 (switches to shops) → Back closes the filters only', JSON.stringify(r));
+  await page.locator('#tripChip').click(); await page.waitForTimeout(500);
+  await page.evaluate(() => window.__ofm.openTripStop('fri', 'f3')); await page.waitForTimeout(400);
+  await page.evaluate(() => document.querySelector('.tStop.open .tAlt [data-shop]').click()); await page.waitForTimeout(500);
+  r = await back(); const r3 = r !== 'LEFT' ? await back() : 'LEFT';
+  check(r !== 'LEFT' && r.mode === 'trip' && r.view === 'list' && r3 !== 'LEFT' && r3.mode === 'shops', '일정 → 가게 정보 → Back → Back: the itinerary, then the shop list', JSON.stringify([r, r3]));
+  await page.locator('#q').fill('라멘'); await page.waitForTimeout(500);
+  check(await page.evaluate(() => window.__ofm.sheetState()) === 'full', 'typing a search opens the list fully so results stay above the keyboard');
+  check(log.errors.length === 0, 'no script errors while going back and forth', log.errors.slice(0, 2).join(' | '));
+  await page.locator('#q').fill(''); await page.waitForTimeout(300);
+  check(await back() === 'LEFT', 'with everything closed, Back leaves the page (no dead Back presses piled up)');
+  await ctx.close();
+}
+
 console.log('7. Tile server failures');
 {
   const { ctx, page, log } = await newPhone({ tiles: { ofm: 'fail' } });
