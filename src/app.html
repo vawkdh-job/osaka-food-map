@@ -183,6 +183,14 @@ body.sheet-half .fabs .minor,body.sheet-full .fabs{opacity:0;pointer-events:none
 .favTop.on{background:#fff6dc;border-color:#f0c75e;color:#7a5200}
 .seatB.hard{color:#9b2c2c!important}.seatB.ok{color:#17663a!important}.seatB.reserve{color:#1f4fa3!important}.seatB.takeout{color:#6a3d9a!important}.seatB.check{color:#7a5200!important}
 .sheet.detailing .headRow{display:none}
+.btn[hidden],.tBtn[hidden]{display:none!important}
+#taxiHint{font-size:clamp(16px,4.6vw,20px);line-height:1.45;font-weight:800;color:#1f2937;background:#fff;border-radius:10px;padding:8px 10px}#taxiHint[hidden]{display:none}
+.tAddr{font-size:13.5px;color:#475569;margin:6px 0 2px;line-height:1.45}
+/* shop detail: once the title scrolls away, a slim "← 목록" row stays in the sheet head */
+.dMini{display:none}
+.sheet.detailing.dScrolled .dMini{display:flex;align-items:center;gap:10px;min-height:40px;margin-top:2px}
+.dMini button{flex:0 0 auto;min-height:40px;padding:0 12px;border-radius:12px;border:1px solid #d5e3e7;background:#f4f9fa;color:var(--brand);font-weight:850;font-size:14.5px}
+.dMini b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
 body.sheet-full .toast{bottom:calc(var(--safe-b) + 18px);right:12px}
 .hero{position:relative;height:150px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#e7eef1,#f5f1e8);display:grid;place-items:center;font-size:44px;margin-bottom:12px}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -484,6 +492,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 <section class="sheet" id="sheet" data-state="peek" aria-label="식당 목록">
   <div class="sheetHead" id="sheetHead">
     <div class="handle" aria-hidden="true"></div>
+    <div class="dMini" id="dMini"><button id="dMiniBack" aria-label="목록으로 돌아가기">← 목록</button><b id="dMiniName"></b></div>
     <div class="headRow">
       <b id="count">30곳</b>
       <span class="spacer"></span>
@@ -558,7 +567,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="taxiTitle">
     <button class="closeX" data-close aria-label="닫기">×</button>
     <h2 id="taxiTitle">🚕 기사님께 보여 주세요</h2>
-    <div class="taxiCard" lang="ja"><b id="taxiName"></b><span id="taxiAddr"></span><em id="taxiAsk"></em></div>
+    <div class="taxiCard" lang="ja"><b id="taxiName"></b><span id="taxiAddr"></span><small id="taxiHint" hidden></small><em id="taxiAsk"></em></div>
     <p class="note" id="taxiKo"></p>
     <div class="actions"><button class="btn" id="taxiCopy">주소 복사</button><a class="btn primary" id="taxiMap" target="_blank" rel="noopener">🗺️ 구글 지도로 보여 주기</a></div>
   </div>
@@ -1071,15 +1080,17 @@ const tripShopOf=s=>DATA.find(r=>(s.placeId&&r.placeId===s.placeId)||r.jp===s.jp
 /* the place a stop points to: the planned one, or the shop the family swapped in */
 function tripPlace(s){const sw=tripSwap[s.id]&&DATA.find(r=>r.id===tripSwap[s.id]);
   if(sw)return{name:`${s.name.includes(' · ')?s.name.split(' · ')[0]+' · ':''}${sw.name}`,jp:sw.jp,lat:sw.lat,lon:sw.lon,placeId:sw.placeId,address:sw.address,shop:sw,swapped:true};
-  return{name:s.name,jp:s.jp,lat:s.lat,lon:s.lon,placeId:s.placeId||null,address:s.addr||'',shop:tripShopOf(s),swapped:false}}
+  return{name:s.name,jp:s.jp,lat:s.lat,lon:s.lon,placeId:s.placeId||null,address:s.addr||(s.jp===HOTEL.jp?HOTEL.address:''),hint:s.taxiHint||'',shop:tripShopOf(s),swapped:false}}
 function tripNow(){const n=jstNow(),day=TRIP_DATA.days.find(d=>d.date===n.date);if(!day)return null;const m=n.min,st=day.stops;let cur=null,next=null;
   for(let i=0;i<st.length;i++){const a=tm(st[i].time);if(a<=m&&(i+1>=st.length||m<tm(st[i+1].time)))cur=st[i];if(a>m){next=st[i];break}}
   return{day,cur,next,mins:next?tm(next.time)-m:null}}
 function openAt(r,day,m){const h=r.hours&&r.hours[day];if(h==null)return null;return h.some(([a,b])=>toMin(a)<=m&&m<toMin(b)-30)}
 function tripAlts(s,day){const a=tm(s.time),cats=s.meal.cats;
-  return DATA.filter(r=>r.lat!=null&&allCats(r).some(c=>cats.includes(c))&&!(s.placeId&&r.placeId===s.placeId)).map(r=>({r,d:km(s,r)})).filter(x=>walkMin(x.d)<=12)
-    .map(x=>({...x,o:openAt(x.r,day.key,a)})).filter(x=>x.o!==false)
-    .sort((x,y)=>(y.o===true)-(x.o===true)||(y.r.tabelog??0)-(x.r.tabelog??0)).slice(0,3)}
+  const near=DATA.filter(r=>r.lat!=null&&allCats(r).some(c=>cats.includes(c))&&!(s.placeId&&r.placeId===s.placeId)).map(r=>({r,d:km(s,r)})).filter(x=>walkMin(x.d)<=12)
+    .map(x=>({...x,o:openAt(x.r,day.key,a)})).filter(x=>x.o!==false);
+  let cand=filterCount()?near.filter(x=>fPass(x.r)):near;if(cand.length<2)cand=near;   // follow 6명·카드 etc. when they are on
+  const g6=r=>r.group6==='likely'?0:r.group6==='hard'?2:1,card=r=>r.pay&&r.pay.card?0:1;
+  return cand.sort((x,y)=>g6(x.r)-g6(y.r)||(y.o===true)-(x.o===true)||card(x.r)-card(y.r)||(y.r.tabelog??0)-(x.r.tabelog??0)).slice(0,5)}
 const tripDir=(p,mode,from)=>`https://www.google.com/maps/dir/?api=1${from?`&origin=${from.lat},${from.lon}${from.placeId?'&origin_place_id='+encodeURIComponent(from.placeId):''}`:''}&destination=${p.lat},${p.lon}${p.placeId?'&destination_place_id='+encodeURIComponent(p.placeId):''}&travelmode=${mode||'transit'}`;
 function tripPrev(day,i){if(i>0)return tripPlace(day.stops[i-1]);return day.stops[0].leg&&day.stops[0].leg.from==='hotel'?{lat:HOTEL.lat,lon:HOTEL.lon,placeId:null}:null}
 function nowCardHtml(){const tn=tripNow();
@@ -1098,13 +1109,14 @@ function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.ti
       ${s.change?`<p class="tRec">💡 추천 조정: ${esc(s.change)}</p>`:''}
       ${p.swapped?`<p class="tRec">🔁 바꾼 곳이에요 · 원래 일정: ${esc(s.name)} <button class="lnk" data-unswap="${s.id}">되돌리기</button></p>`:''}
       ${p.placeId?`<div class="tLive" data-live="${day.key}:${s.id}"></div>`:''}
+      ${p.address&&!p.shop?`<div class="tAddr" lang="ja">📍 ${esc(p.address)}</div>`:''}
       ${s.tips&&s.tips.length&&!p.swapped?`<ul class="tTips">${s.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:''}
       <div class="tActs"><a class="tBtn primary" href="${esc(tripDir(p,s.leg&&s.leg.travel))}" target="_blank" rel="noopener">🧭 여기로 길찾기</a>
         <a class="tBtn" href="${esc(gUrl(p))}" target="_blank" rel="noopener">🗺️ 구글 지도</a>
         <button class="tBtn" data-taxi="${day.key}:${s.id}">🚕 택시</button>
         ${shop?`<button class="tBtn" data-shop="${shop.id}">🍽 가게 정보</button>`:''}</div>
       ${prev&&s.leg?`<a class="tLink" href="${esc(tripDir(p,s.leg.travel,prev))}" target="_blank" rel="noopener">이전 장소에서 가는 경로 보기 ›</a>`:''}
-      ${s.meal?`<div class="tAltH">근처 대안 <small>그 시간에 영업 · 도보 12분 안 · 평점순</small></div>${alts.length?alts.map(x=>`<div class="tAlt"><span class="ae">${x.r.emoji}</span>
+      ${s.meal?`<div class="tAltH">근처 대안 <small>도보 12분 안 · 6명 앉기 쉬운 곳·카드 먼저</small></div>${alts.length?alts.map(x=>`<div class="tAlt"><span class="ae">${x.r.emoji}</span>
         <button class="ta lnk" data-shop="${x.r.id}"><b>${esc(x.r.name)}</b><small>${x.r.tabelog!=null?`★ ${fmtT(x.r.tabelog)} · `:''}도보 ${walkMin(x.d)}분 · ${x.o?'그 시간 영업':'영업시간 확인 필요'}</small>${factChips(x.r)}</button>
         <button class="tSwap" data-swap="${s.id}:${x.r.id}">이걸로</button></div>`).join(''):'<p class="note">근처에 조건에 맞는 곳이 목록에 없어요.</p>'}`:''}
     </div>`}
@@ -1183,7 +1195,7 @@ $('#list').addEventListener('click',e=>{
   if(t.dataset.open){const[k,id]=t.dataset.open.split(':');S.tripOpen=null;openTripStop(k,id);return}
   if(t.dataset.swap){const[sid,rid]=t.dataset.swap.split(':');tripSwap[sid]=+rid;LS.set('ofm.tripSwap.v1',tripSwap);toast('일정을 바꿨어요. 이 휴대폰에만 저장돼요.',2500);renderTrip();renderTripMap();return}
   if(t.dataset.unswap){delete tripSwap[t.dataset.unswap];LS.set('ofm.tripSwap.v1',tripSwap);renderTrip();renderTripMap();return}
-  if(t.dataset.taxi){const[k,id]=t.dataset.taxi.split(':'),s=tripDayOf(k).stops.find(x=>x.id===id),p=tripPlace(s);openTaxi(p.shop||{...p,name:p.name});return}
+  if(t.dataset.taxi){const[k,id]=t.dataset.taxi.split(':'),s=tripDayOf(k).stops.find(x=>x.id===id),p=tripPlace(s);openTaxi(p.shop||p);return}
   if(t.dataset.shop){select(+t.dataset.shop);return}
   if(t.dataset.check){tripCheck[t.dataset.check]=t.checked;LS.set('ofm.tripCheck.v1',tripCheck);return}
   if(t.dataset.stop&&!e.target.closest('a,button,input,label')){const[k,id]=t.dataset.stop.split(':');openTripStop(k,id)}
@@ -1233,7 +1245,9 @@ const LIST_STEP=30;let listMore=[],listTail='';
 function moreList(){const el=$('#listMore');if(!el||!listMore.length)return;
   const next=listMore.splice(0,LIST_STEP);el.insertAdjacentHTML('beforebegin',next.map(x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x)).join(''));
   if(!listMore.length){el.insertAdjacentHTML('afterend',listTail);el.remove()}thumbsAttach()}
-$('#sheetBody').addEventListener('scroll',()=>{const b=$('#sheetBody');if(listMore.length&&b.scrollTop+b.clientHeight>b.scrollHeight-600)moreList()},{passive:true});
+$('#sheetBody').addEventListener('scroll',()=>{const b=$('#sheetBody');if(listMore.length&&b.scrollTop+b.clientHeight>b.scrollHeight-600)moreList();
+  if(S.view==='detail'){const h=document.querySelector('#detail .dHead'),on=!!h&&b.scrollTop>h.offsetTop+h.offsetHeight;if(on!==sheet.classList.contains('dScrolled')){sheet.classList.toggle('dScrolled',on);if(on){const r=DATA.find(x=>x.id===S.selected);$('#dMiniName').textContent=r?r.name:''}}}},{passive:true});
+$('#dMiniBack').onclick=e=>{e.stopPropagation();if(history.state&&history.state.detail)history.back();else closeDetail()};
 function renderList(){
   if(S.mode==='trip'){renderTrip();return}
   const n=rows.filter(x=>x.r).length;
@@ -1313,7 +1327,7 @@ function infoRows(r){
   return rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
 }
 /* nearby alternatives when the queue is long: open, within ~15 min walk of this shop, short queue first */
-const primaryCat=r=>allCats(r)[0]||null;
+const primaryCat=r=>{const ac=allCats(r);if(ac.length<2)return ac[0]||null;const g=CATS.find(c=>ac.includes(c.key)&&c.test({genre:r.genre,jp:r.jp,genreJp:[]}));return g?g.key:ac[0]};
 function alternatives(r){
   const day=S.day,live=isLive(),pc=primaryCat(r);
   const near=DATA.filter(x=>x.id!==r.id&&x.lat!=null).map(x=>({r:x,d:km(r,x)})).filter(x=>x.d<=1.0).filter(x=>{
@@ -1402,6 +1416,7 @@ const addrOf=r=>r.address||(gLive(r)&&/[ぁ-んァ-ン一-龥]/.test(gLive(r).ad
 function openTaxi(r){
   const fill=()=>{const a=addrOf(r);$('#taxiName').textContent=r.jp;$('#taxiAddr').textContent=a||'';
     $('#taxiAsk').textContent=a?'この住所までお願いします。':'この場所までお願いします。（地図をご覧ください）';
+    $('#taxiHint').hidden=!r.hint;$('#taxiHint').textContent=r.hint?'降りる場所：'+r.hint:'';
     $('#taxiKo').textContent=a?'“이 주소로 가 주세요.” 화면을 기사님께 보여 주세요.':'주소 정보가 없어요. “이곳으로 가 주세요”를 보여 주고, 아래 버튼으로 구글 지도를 같이 보여 주세요.';
     $('#taxiMap').href=gUrl(r);$('#taxiCopy').hidden=!a;$('#taxiCopy').onclick=()=>copy(`${r.jp} ${a}`,'가게 이름과 주소를 복사했어요')};
   fill();openModal('#taxi');
@@ -1475,12 +1490,13 @@ async function googleLive(r){
     if(!r.address&&addrOf(r)){const a=$('#copyAddr');if(a)a.innerHTML=`<small lang="ko">Google 주소 · 눌러서 복사 · 크게 보려면 🚕 택시 버튼</small>${esc(r.jp)}<br>${esc(addrOf(r))}`}
   }catch(e){if(S.selected===id&&$('#gCount'))$('#gCount').textContent=r.google!=null?'이전 조사값':'불러오지 못함'}
 }
+let listScroll=0,listState=null;
 function select(id,{from='list'}={}){
   const r=DATA.find(x=>x.id===id);if(!r)return;
   const prev=S.selected;
   if(S.ref==='center'&&map&&!frozenRef)frozenRef=visibleCenter();
   S.selected=id;
-  if(S.view!=='detail'){S.view='detail';try{history.pushState({detail:1,id},'')}catch(e){}}
+  if(S.view!=='detail'){listScroll=$('#sheetBody').scrollTop;listState=sheetState;S.view='detail';try{history.pushState({detail:1,id},'')}catch(e){}}
   else if(from==='alt'&&prev!==id){try{history.pushState({detail:1,id},'')}catch(e){}}   // Back returns to the first shop
   $('#list').hidden=true;$('#detail').hidden=false;sheet.classList.add('detailing');renderDetail();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState!=='half')setSheet('half');
@@ -1494,7 +1510,9 @@ function select(id,{from='list'}={}){
 }
 function closeDetail(){
   const prev=S.selected;S.selected=null;S.view='list';frozenRef=null;
-  $('#detail').hidden=true;$('#list').hidden=false;sheet.classList.remove('detailing');if(prev)refreshIcon(prev);renderList();
+  $('#detail').hidden=true;$('#list').hidden=false;sheet.classList.remove('detailing','dScrolled');if(prev)refreshIcon(prev);renderList();
+  if(!isDesktop()&&listState==='full'&&sheetState!=='full')setSheet('full');   // back to the same place: sheet height and list position
+  $('#sheetBody').scrollTop=listScroll;
 }
 let skipPop=false;
 window.addEventListener('popstate',e=>{if(skipPop){skipPop=false;return}
@@ -1796,7 +1814,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>

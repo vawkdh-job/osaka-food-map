@@ -32,7 +32,10 @@
       "하루카 외국인 할인권은 공항 JR 창구·전용 기기에서 여권으로 교환"
      ],
      "change": "짐은 코인로커 대신 공항에서 호텔로 당일 배송",
-     "placeId": "ChIJ9_rNIxO5AGARiI-QjZ-ncfE"
+     "placeId": "ChIJ9_rNIxO5AGARiI-QjZ-ncfE",
+     "addr": "大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナルビル",
+     "addrSrc": "https://www.kansai-airports.co.jp/en/about-us/",
+     "taxiHint": "関西空港 第1ターミナル 1階 国際線到着ロビー"
     },
     {
      "id": "f2",
@@ -55,7 +58,10 @@
       "매장 10:30~20:30",
       "10층 루쿠아 다이닝, 지하 2층 바루치카(푸드홀)"
      ],
-     "placeId": "ChIJ_W6qxY3mAGARSV21ZIJAEmM"
+     "placeId": "ChIJ_W6qxY3mAGARSV21ZIJAEmM",
+     "addr": "大阪府大阪市北区梅田3-1-3 LUCUA osaka",
+     "addrSrc": "https://www.lucua.jp/access/",
+     "taxiHint": "JR大阪駅 北側（ルクア・ルクアイーレ前）"
     },
     {
      "id": "f3",
@@ -84,7 +90,10 @@
       "10:00~23:00 · 예약 불가",
       "다른 지점: 우메다한큐히가시도리점(11:00~다음 날 6:00)"
      ],
-     "placeId": "ChIJt9Y375HmAGARejKVNQwlkbI"
+     "placeId": "ChIJt9Y375HmAGARejKVNQwlkbI",
+     "addr": "大阪府大阪市北区芝田1-3-1 ギャザ阪急 B1F",
+     "addrSrc": "https://ichiran.com/shop/kinki/umeda-shibata/m/",
+     "taxiHint": "阪急大阪梅田駅すぐ（ギャザ阪急 地下1階）"
     },
     {
      "id": "f4",
@@ -115,7 +124,10 @@
       "근처 모토 커피는 현금만·20석이 층별로 나뉘어 6명이 함께 앉기 어려워요"
      ],
      "change": "15:30 → 14:30 (해 질 녘 스카이빌딩에 맞춰 앞당김)",
-     "placeId": "ChIJOztrDOfmAGARGp57ZmSWnys"
+     "placeId": "ChIJOztrDOfmAGARGp57ZmSWnys",
+     "addr": "大阪府大阪市中央区北浜1-1-9 ハウザー北浜ビル1F",
+     "addrSrc": "http://brooklynroasting.jp/location/kitahama/",
+     "taxiHint": "土佐堀通沿い、京阪北浜駅29番出口すぐ"
     },
     {
      "id": "f5",
@@ -141,7 +153,10 @@
       "11/13부터 크리스마스 마켓 개막(혼잡)"
      ],
      "change": "17:30 → 16:15 (일몰 16:55)",
-     "placeId": "ChIJbbXqmojmAGARh-OQXHzkwEc"
+     "placeId": "ChIJbbXqmojmAGARh-OQXHzkwEc",
+     "addr": "大阪府大阪市北区大淀中1-1-88 梅田スカイビル",
+     "addrSrc": "https://www.skybldg.co.jp/access/",
+     "taxiHint": "梅田スカイビル タワーイースト側の正面玄関（展望台へはタワーイースト3階のエレベーター）"
     },
     {
      "id": "f6",
@@ -194,7 +209,10 @@
       "프리미엄 코스 어른 8,118엔 · 초등학생 반값",
       "금요일 저녁 6명 → 꼭 예약 (타베로그·핫페퍼·전화 06-6361-1129)"
      ],
-     "placeId": "ChIJd3BVs-zmAGARXDYjvgw940o"
+     "placeId": "ChIJd3BVs-zmAGARXDYjvgw940o",
+     "addr": "大阪府大阪市北区曽根崎2-15-20 SWINGうめだ4F",
+     "addrSrc": "https://aburiya.1dining.co.jp/umeda/lunch/",
+     "taxiHint": "東梅田・曽根崎（お初天神の近く）SWINGうめだ 4階"
     }
    ]
   },
@@ -228,7 +246,10 @@
       "유모차는 천수각 안에 못 들어가요 · 공원은 무료, 11월 중순 단풍"
      ],
      "change": "09:30 → 09:00 (개관 직후, 혼잡 대비)",
-     "placeId": "ChIJJ_AZutLgAGARwYqBzSs8DkM"
+     "placeId": "ChIJJ_AZutLgAGARwYqBzSs8DkM",
+     "addr": "大阪府大阪市中央区大阪城1-1",
+     "addrSrc": "https://www.osakacastle.net/access/",
+     "taxiHint": "大阪城 大手門前（上町筋・大阪府庁の向かい）のタクシー乗降場。天守閣まで徒歩約15分"
     },
     {
      "id": "s2",
@@ -251,7 +272,10 @@
       "JO-TERRACE가 아니라 모리노미야역 쪽이에요"
      ],
      "optional": true,
-     "placeId": "ChIJcSRWBMngAGARy_wQqCqg-J8"
+     "placeId": "ChIJcSRWBMngAGARy_wQqCqg-J8",
+     "addr": "大阪府大阪市中央区大阪城3-9",
+     "addrSrc": "https://r-baker.com/shops/",
+     "taxiHint": "JR森ノ宮駅 北側の大阪城公園入口（中央大通沿い）"
     },
     {
      "id": "s3",
@@ -279,7 +303,10 @@
       "4인 테이블이라 6명은 4+2로 나뉠 수 있어요",
       "소스는 한 번만 찍기(두 번 찍기 금지)"
      ],
-     "placeId": "ChIJn2cI11_nAGARsJ-CGwAz7P0"
+     "placeId": "ChIJn2cI11_nAGARsJ-CGwAz7P0",
+     "addr": "大阪府大阪市浪速区恵美須東1-6-8",
+     "addrSrc": "https://www.kushikatu-daruma.com/location/tsutenkaku",
+     "taxiHint": "新世界・通天閣のすぐ近く"
     },
     {
      "id": "s4",
@@ -300,7 +327,10 @@
      "tips": [
       "거리 구경은 무료 · 전망대(선택) 9:00~22:00, 어른 1,500엔·아이 800엔(출처 1곳)"
      ],
-     "placeId": "ChIJ_0Lgd2DnAGARV0X03lbPy-U"
+     "placeId": "ChIJ_0Lgd2DnAGARV0X03lbPy-U",
+     "addr": "大阪府大阪市浪速区恵美須東1-18-6",
+     "addrSrc": "https://www.tsutenkaku.co.jp/other/company.html",
+     "taxiHint": "通天閣の下（新世界）。混雑時は堺筋の恵美須町交差点（通天閣本通の入口）で降車"
     },
     {
      "id": "s5",
@@ -331,7 +361,10 @@
       "구운 가리비·참치·타코야키"
      ],
      "change": "14:00 → 13:45 (가게가 일찍 닫아요)",
-     "placeId": "ChIJXSJB5UHnAGARQcEjvngsHaw"
+     "placeId": "ChIJXSJB5UHnAGARQcEjvngsHaw",
+     "addr": "大阪府大阪市中央区日本橋2-4-1",
+     "addrSrc": "https://kuromon.com/jp/access/",
+     "taxiHint": "黒門市場 南側の入口（千日前通・地下鉄日本橋駅10番出口すぐ）"
     },
     {
      "id": "s6",
@@ -353,7 +386,10 @@
       "드러그스토어·의류 · 지붕 있는 아케이드라 비가 와도 OK",
       "남쪽 끝이 바로 에비스바시(글리코 간판)"
      ],
-     "placeId": "ChIJc7M3_BPnAGARI8OZlTnEXGI"
+     "placeId": "ChIJc7M3_BPnAGARI8OZlTnEXGI",
+     "addr": "大阪府大阪市中央区心斎橋筋2-2-22",
+     "addrSrc": "https://www.shinsaibashi.or.jp/stores/show/138/",
+     "taxiHint": "心斎橋筋商店街 北入口（長堀通側・地下鉄心斎橋駅すぐ、大丸心斎橋店の東隣）"
     },
     {
      "id": "s7",
@@ -373,9 +409,13 @@
      },
      "tips": [
       "미도스지 일루미네이션 17:00~ (12월 31일까지)",
-      "돈키호테 도톤보리점 · 사람이 많아 아이 손 꼭 잡기"
+      "돈키호테 도톤보리점 · 사람이 많아 아이 손 꼭 잡기",
+      "글리코 간판(현 6대째)은 2026년 11월 말까지 — 12월부터 교체 공사(7대째는 2027년 봄). 11/14엔 볼 수 있어요 · 일몰 후~24시 점등"
      ],
-     "placeId": "ChIJ6XHOkxTnAGARvyn92D4gWVs"
+     "placeId": "ChIJ6XHOkxTnAGARvyn92D4gWVs",
+     "addr": "大阪府大阪市中央区道頓堀1-10-4",
+     "addrSrc": "https://www.glico.com/jp/health/contents/glicosign/",
+     "taxiHint": "御堂筋の道頓堀橋付近で降車、戎橋まで東へ徒歩約3分（戎橋周辺は歩行者のみ）"
     },
     {
      "id": "s8",
@@ -403,7 +443,10 @@
       "영업시간은 출처마다 달라요(11:00~23:00 또는 21:00) · 카드 가능",
       "대기가 길면 아래 대안 (코로안: 6인 OK·예약 가능)"
      ],
-     "placeId": "ChIJAQBk6xTnAGAR6RmXfp6DVSM"
+     "placeId": "ChIJAQBk6xTnAGAR6RmXfp6DVSM",
+     "addr": "大阪府大阪市中央区道頓堀1-7-24 四海樓道頓堀ビル1F",
+     "addrSrc": "https://sushi.daiki-suisan.co.jp/shop?keyword=%E9%81%93%E9%A0%93%E5%A0%80%E5%BA%97",
+     "taxiHint": "道頓堀の東側（堺筋寄り・日本橋側）四海樓ビル1階"
     },
     {
      "id": "s9",
@@ -455,7 +498,10 @@
       "큰 코인로커는 중앙 개찰구 주변 개찰구 안쪽(대형 약 700엔) · 유인 보관 Crosta도 있어요",
       "하루카는 우메키타 지하 21번 홈 — 그쪽 로커가 편해요"
      ],
-     "placeId": "ChIJLTzakY3mAGAR66GKyjAbNuc"
+     "placeId": "ChIJLTzakY3mAGAR66GKyjAbNuc",
+     "addr": "大阪府大阪市北区梅田3-1-1 JR大阪駅",
+     "addrSrc": "https://www.lucua.jp/access/",
+     "taxiHint": "JR大阪駅 中央口"
     },
     {
      "id": "u2",
@@ -483,7 +529,10 @@
       "대안: 스시로 오하쓰텐진도리점(10:30~, 앱 예약) · 쿠라스시 우메다OS빌딩점(10:20~, 앱 예약, 혼잡하면 1시간 제한·자리 분리 가능)"
      ],
      "change": "13:30 → 11:00 (일요일 점심 피크를 피하고 공항 출발 여유)",
-     "placeId": "ChIJw0LI_YvmAGAR4qTUrqOml5Y"
+     "placeId": "ChIJw0LI_YvmAGAR4qTUrqOml5Y",
+     "addr": "大阪府大阪市北区大深町4-20 グランフロント大阪 ショップ＆レストラン 南館7F",
+     "addrSrc": "https://www.rdcgroup.co.jp/search/detail/template.html?id=83",
+     "taxiHint": "グランフロント大阪 南館（JR大阪駅の北側すぐ）"
     },
     {
      "id": "u3",
@@ -506,7 +555,10 @@
       "한큐 지하 1층 디저트 · 한신 지하 1층 식품관 · 면세는 여권 지참"
      ],
      "change": "11:00 → 12:15 (점심을 먼저)",
-     "placeId": "ChIJ67mcWJLmAGARrUf0FlFtm7w"
+     "placeId": "ChIJ67mcWJLmAGARrUf0FlFtm7w",
+     "addr": "大阪府大阪市北区角田町8-7",
+     "addrSrc": "https://www.hankyu-dept.co.jp/honten/map/",
+     "taxiHint": "御堂筋沿い 阪急うめだ本店 正面"
     },
     {
      "id": "u4",
@@ -528,7 +580,10 @@
       "하루카 예: 15:33 → 간사이공항 16:20 (주말 시간표 확인)",
       "다음 하루카 16:03 · 16:33(17:20 도착 — 마지막 안전선)"
      ],
-     "placeId": "ChIJ2QzTCADnAGARHnQtP2a5BLs"
+     "placeId": "ChIJ2QzTCADnAGARHnQtP2a5BLs",
+     "addr": "大阪府大阪市北区大深町5-1 うめきたグリーンプレイス",
+     "addrSrc": "https://www.westjr.co.jp/press/article/items/241018_00_press_umekitagreenplace.pdf",
+     "taxiHint": "うめきたグリーンプレイス前の駅前広場 タクシー乗降場（JR大阪駅うめきた地下口直結）"
     },
     {
      "id": "u5",
@@ -549,10 +604,14 @@
      },
      "tips": [
       "에어부산 18:55편은 1터미널, 제주항공 19:00편은 2터미널(무료 셔틀) — 항공권 확인",
-      "출발 2~2.5시간 전 도착 권장 · 면세 수속"
+      "출발 2~2.5시간 전 도착 권장 · 면세 수속",
+      "택시 기사님께: 에어부산은 「第1ターミナル」, 제주항공은 「第2ターミナル」 (두 터미널은 약 4km, 무료 셔틀 7~9분)"
      ],
      "change": "16:30 관공쾌속 → 15:33 하루카 (여유 있게)",
-     "placeId": "ChIJ9_rNIxO5AGARiI-QjZ-ncfE"
+     "placeId": "ChIJ9_rNIxO5AGARiI-QjZ-ncfE",
+     "addr": "大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナルビル",
+     "addrSrc": "https://www.kansai-airport.or.jp/faq/386",
+     "taxiHint": "エアプサン：第1ターミナル 4階 国際線出発ロビー／チェジュ航空：第2ターミナル（国際線）"
     }
    ]
   }
@@ -587,5 +646,6 @@
    "text": "현금 준비 — 구로몬 시장 30%·모토 커피는 현금만"
   }
  ],
- "placesMatchedOn": "2026-11-06"
+ "placesMatchedOn": "2026-11-06",
+ "addrCheckedOn": "2026-11-06"
 }

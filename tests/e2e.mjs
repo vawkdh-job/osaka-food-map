@@ -405,6 +405,31 @@ console.log('6c. Travel itinerary');
   await page.reload(); await ready(page); await page.waitForTimeout(800);
   const re = await page.evaluate(() => ({ mode: window.__ofm && window.__ofm.S.mode, stops: document.querySelectorAll('.tStop, .oRow').length, ready: !!(window.__ofm && window.__ofm.ready()) }));
   check(re.mode === 'trip' && re.stops > 0 && re.ready && log.errors.length === 0, 'reopening the app while in the itinerary works (no blank screen)', JSON.stringify(re) + ' ' + log.errors.slice(0, 1).join(''));
+  const alt6 = await page.evaluate(() => { const O = window.__ofm, d = O.TRIP_DATA.days.find(x => x.key === 'sat'), s = d.stops.find(x => x.id === 's8'), A = O.tripAlts(s, d);
+    return { n: A.length, first: A[0] && A[0].r.group6, names: A.map(x => x.r.name), hardLast: A.findIndex(x => x.r.group6 === 'hard') < 0 || A.slice(A.findIndex(x => x.r.group6 === 'hard')).every(x => x.r.group6 === 'hard') }; });
+  check(alt6.n >= 3 && alt6.n <= 5 && alt6.first === 'likely' && alt6.hardLast && alt6.names.some(n => /코로안/.test(n)), 'itinerary alternatives for 대기수산 put 6인 OK first and include 코로안', JSON.stringify(alt6));
+  check(await page.evaluate(() => { const r = APP_DATA.restaurants.find(x => /코로안/.test(x.name)); return window.__ofm.primaryCat(r) === 'c-sea'; }), 'a sushi bar that also fries counts as sushi for “같은 종류” alternatives');
+  await page.evaluate(() => window.__ofm.openTripStop('fri', 'f6')); await page.waitForTimeout(500);
+  await page.locator('.tStop.open [data-taxi]').click(); await page.waitForTimeout(300);
+  const tx = await page.evaluate(() => ({ name: document.querySelector('#taxiName').textContent, addr: document.querySelector('#taxiAddr').textContent, copy: getComputedStyle(document.querySelector('#taxiCopy')).display }));
+  check(/リーガロイヤル/.test(tx.name) && /中之島5-3-68/.test(tx.addr) && tx.copy !== 'none', 'taxi card from a hotel stop shows the hotel’s Japanese name and address (no Google needed)', JSON.stringify(tx));
+  check(await page.evaluate(() => { const b = document.querySelector('#taxiCopy'); b.hidden = true; const d = getComputedStyle(b).display; b.hidden = false; return d === 'none'; }), 'a hidden button really hides (copy address when there is no address)');
+  await page.goBack(); await page.waitForTimeout(300);
+  const noAddr = await page.evaluate(() => window.__ofm.TRIP_DATA.days.flatMap(d => d.stops).filter(s => !(window.__ofm.tripPlace(s).address || (window.__ofm.tripPlace(s).shop || {}).address)).map(s => s.id));
+  check(noAddr.length === 0, 'every itinerary stop has a Japanese address for the taxi card, without Google', noAddr.join(','));
+  await page.evaluate(() => window.__ofm.openTripStop('sat', 's5')); await page.waitForTimeout(500);
+  await page.locator('.tStop.open [data-taxi]').click(); await page.waitForTimeout(300);
+  const tk = await page.evaluate(() => ({ addr: document.querySelector('#taxiAddr').textContent, hint: document.querySelector('#taxiHint').hidden ? '' : document.querySelector('#taxiHint').textContent }));
+  check(/日本橋2-4-1/.test(tk.addr) && /千日前通/.test(tk.hint), 'taxi card for a market gives its address and where to drop off (in Japanese)', JSON.stringify(tk));
+  await page.goBack(); await page.waitForTimeout(300);
+  await page.evaluate(() => { window.__ofm.setSheet('full'); window.__ofm.openTripStop('fri', 'f3'); }); await page.waitForTimeout(600);
+  await page.evaluate(() => { const b = document.querySelector('#sheetBody'); b.scrollTop = Math.floor((b.scrollHeight - b.clientHeight) / 2); }); await page.waitForTimeout(500);   // mid-list, away from the clamp at the end
+  const before = await page.evaluate(() => { const top = document.querySelector('#sheetBody').scrollTop; document.querySelector('.tStop.open .tAlt [data-shop]').click(); return top; });   // a tap where it is (no scroll-into-view)
+  await page.waitForTimeout(600);
+  const inDetail = await page.evaluate(() => window.__ofm.S.view);
+  await page.goBack(); await page.waitForTimeout(600);
+  const after = await page.evaluate(() => ({ top: document.querySelector('#sheetBody').scrollTop, state: window.__ofm.sheetState(), view: window.__ofm.S.view, open: !!document.querySelector('.tStop.open') }));
+  check(inDetail === 'detail' && after.view === 'list' && Math.abs(after.top - before) < 4 && after.state === 'full' && after.open, 'Back from a shop returns to the same spot in the itinerary', JSON.stringify({ before, ...after }));
   await ctx.close();
 }
 
