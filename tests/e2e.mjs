@@ -374,6 +374,36 @@ console.log('6b. Trip scenarios after the review fixes');
   await ctx.close();
 }
 
+console.log('6c. Travel itinerary');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page);
+  await page.locator('#tripChip').click(); await page.waitForTimeout(900);
+  const t = await page.evaluate(() => ({ mode: window.__ofm.S.mode, day: window.__ofm.S.tripDay, stops: document.querySelectorAll('.tStop').length, pins: document.querySelectorAll('.tpin').length,
+    lines: ((window.__ofm.glStyle() || { layers: [] }).layers || []).filter(l => /^tripline/.test(l.id)).length, now: (document.querySelector('.tNow') || {}).innerText || '' }));
+  check(t.mode === 'trip' && t.day === 'fri' && t.stops === 7 && t.pins === 7, '🧳 일정 opens today (Fri) with its 7 stops and numbered pins', JSON.stringify({ ...t, now: undefined }));
+  check(t.lines >= 4, 'route lines drawn between the stops', String(t.lines));
+  check(/지금[\s\S]*이치란[\s\S]*다음[\s\S]*기타하마/.test(t.now), 'now/next card at Fri 13:20: now Ichiran, next Kitahama', t.now.replace(/\s+/g, ' ').slice(0, 120));
+  await page.locator('.tStop').nth(2).click(); await page.waitForTimeout(400);
+  const dir = await page.locator('.tStop.open a.tBtn.primary').getAttribute('href');
+  check(/maps\/dir\/\?api=1.*destination=34\.7/.test(dir), 'a stop expands with a Google Maps directions link', dir.slice(0, 90));
+  const alts = await page.locator('.tStop.open .tAlt').count();
+  check(alts > 0, 'a meal stop lists nearby alternatives open at that time', String(alts));
+  await page.locator('.tStop.open .tSwap').first().click(); await page.waitForTimeout(300);
+  const sw = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('ofm.tripSwap.v1') || '{}')));
+  check(sw.includes('f3'), '“이걸로” swaps the meal and remembers it on the phone', sw.join(','));
+  await page.locator('.tStop.open [data-unswap]').click(); await page.waitForTimeout(300);
+  check(await page.evaluate(() => !Object.keys(JSON.parse(localStorage.getItem('ofm.tripSwap.v1') || '{}')).length), '“되돌리기” restores the planned place');
+  await page.locator('[data-tday="all"]').click(); await page.waitForTimeout(700);
+  const all = await page.evaluate(() => ({ pins: document.querySelectorAll('.tpin').length, days: document.querySelectorAll('.oDay').length, checks: document.querySelectorAll('[data-check]').length }));
+  check(all.pins === 21 && all.days === 4 && all.checks >= 5, '전체: all three days on the map, overview and checklist', JSON.stringify(all));
+  await page.locator('#tripChip').click(); await page.waitForTimeout(600);
+  const back = await page.evaluate(() => ({ mode: window.__ofm.S.mode, pins: document.querySelectorAll('.tpin').length, items: document.querySelectorAll('.item').length, banner: !!document.querySelector('.tripBanner') }));
+  check(back.mode === 'shops' && back.pins === 0 && back.items > 0 && back.banner, 'leaving the itinerary restores the shop list with a next-stop banner', JSON.stringify(back));
+  check(log.errors.length === 0, 'no script errors in the itinerary', log.errors.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+
 console.log('7. Tile server failures');
 {
   const { ctx, page, log } = await newPhone({ tiles: { ofm: 'fail' } });

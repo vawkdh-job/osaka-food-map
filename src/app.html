@@ -345,6 +345,49 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .toast{border-radius:14px;background:#0f172aee}
 @media (min-width:900px){.panel{border-radius:22px}.panel::before{display:none}.searchRow .iconBtn{background:var(--soft)}}
 
+/* itinerary */
+.chip.tripc{box-shadow:var(--shadow-sm),0 0 0 1.5px #6366f1}.chip.tripc.on{background:#4f46e5;color:#fff}
+.sheet.tripping .catBar,.sheet.tripping .headRow .mini{display:none}
+.tripBanner{display:flex;justify-content:space-between;align-items:center;gap:8px;width:calc(100% - 32px);margin:4px 16px 8px;padding:10px 12px;border:0;border-radius:14px;background:#eef2ff;color:#3730a3;font-size:14px;font-weight:700;text-align:left}
+.tripBanner span{flex:none;font-size:12.5px;color:#4f46e5}
+.tTabs{position:sticky;top:0;z-index:3;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 10px;background:#fff}.tTabs::-webkit-scrollbar{display:none}
+.tTab{flex:none;height:40px;padding:0 14px;border:0;border-radius:20px;background:var(--soft);font-size:14px;font-weight:750;color:var(--ink2)}
+.tTab.on{background:var(--c,#1e293b);color:#fff}
+.tNow{margin:0 16px 10px;padding:10px 12px;border-radius:14px;background:#f8fafc;border-left:5px solid var(--c,#6366f1);display:grid;gap:6px;font-size:14px}
+.tNow small{display:block;font-size:12px;font-weight:700;color:var(--muted)}.tNow .lnk{font-weight:800;text-align:left}.tNow.pre{border-left-color:#6366f1}
+.lnk{border:0;background:none;padding:2px 0;font:inherit;color:var(--ink);cursor:pointer}
+.tDayHead{display:flex;align-items:baseline;gap:8px;margin:2px 16px 6px;padding-left:10px;border-left:5px solid var(--c)}.tDayHead b{font-size:17px}.tDayHead small{color:var(--muted);font-size:12.5px}
+.tLeg{display:flex;gap:8px;align-items:flex-start;margin:0 16px 0 70px;padding:6px 0 6px 14px;border-left:3px dotted var(--c);font-size:12.5px;color:var(--ink2);line-height:1.4}
+.tLeg small{display:block;color:var(--muted);font-size:11.5px}.tlm{flex:none}
+.tStop{display:grid;grid-template-columns:46px 26px minmax(0,1fr);gap:8px;align-items:start;padding:10px 16px;cursor:pointer}
+.tStop.now{background:#fffbeb}.tStop.open{background:#f8fafc}
+.tTime{font-weight:800;font-size:14px;color:var(--ink);text-align:right;line-height:1.2}.tTime small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.tNum{width:26px;height:26px;border-radius:50%;background:var(--c);color:#fff;font-size:13px;font-weight:800;display:grid;place-items:center}
+.tStop.optional .tNum{background:#fff;color:var(--c);box-shadow:inset 0 0 0 2px var(--c)}
+.tName{font-size:15.5px;font-weight:800;line-height:1.3}.tJp{font-size:12.5px;color:var(--muted);margin-top:1px}
+.rec{display:inline-block;margin-left:6px;font-size:11px;font-weight:800;color:#92400e;background:#fef3c7;border-radius:6px;padding:1px 6px;vertical-align:2px}
+.opt{display:inline-block;margin-left:6px;font-size:11px;font-weight:800;color:#475569;background:#e2e8f0;border-radius:6px;padding:1px 6px;vertical-align:2px}
+.nowTag{display:inline-block;margin-left:6px;font-size:11px;font-weight:800;color:#fff;background:#dc2626;border-radius:6px;padding:1px 6px;vertical-align:2px}
+.tMore{margin-top:8px}.tRec{margin:0 0 6px;font-size:13px;color:#92400e;background:#fffbeb;border-radius:10px;padding:7px 9px}
+.tTips{margin:0 0 8px;padding-left:18px;font-size:13.5px;line-height:1.5;color:var(--ink2)}
+.tActs{display:flex;flex-wrap:wrap;gap:6px}.tBtn{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 12px;border:0;border-radius:12px;background:var(--soft);color:var(--brand);font-size:13.5px;font-weight:750;text-decoration:none}
+.tBtn.primary{background:var(--brand);color:#fff}.tBtn.sm{min-height:34px;font-size:12.5px;justify-self:start}
+.tLink{display:inline-block;margin-top:6px;font-size:12.5px;color:var(--brand);font-weight:700}
+.tAltH{margin:12px 0 4px;font-size:13.5px;font-weight:800}.tAltH small{font-weight:600;color:var(--muted);font-size:11.5px}
+.tAlt{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--line);margin-bottom:6px}
+.tAlt .ae{font-size:20px;text-align:center}.tAlt .ta{text-align:left}.tAlt .ta b{display:block;font-size:14px}.tAlt .ta small{display:block;font-size:12px;color:var(--muted)}
+.tSwap{border:0;border-radius:10px;background:#eef2ff;color:#4338ca;font-weight:800;font-size:12.5px;min-height:36px;padding:0 10px}
+.oDay{margin:0 16px 12px;padding:10px 12px;border-radius:16px;background:#f8fafc;border-top:4px solid var(--c,#94a3b8)}.oDay.chk{border-top-color:#16a34a}
+.oHead{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:2px 0 6px;font:inherit;text-align:left}.oHead small{color:var(--muted);font-size:12.5px}
+.oDot{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.oRow{display:flex;align-items:baseline;gap:10px;width:100%;border:0;background:none;padding:6px 0;font:inherit;font-size:14px;text-align:left;border-top:1px solid #edf1f4}
+.oT{flex:none;width:44px;font-weight:800;color:var(--c)}.oN{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.oChk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid #edf1f4;font-size:13.5px;line-height:1.45}.oChk input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:#16a34a}
+.tpm{z-index:4}.tpin{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% - 6px));display:flex;align-items:center;gap:2px;height:30px;padding:0 8px 0 4px;border-radius:15px;background:var(--c);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px #0004;white-space:nowrap}
+.tpin.mini{height:24px;padding:0 2px}.tpin.mini b{width:18px;height:18px;font-size:11px}
+.tpin b{width:20px;height:20px;border-radius:50%;background:#fff;color:var(--c);font-size:12px;display:grid;place-items:center}.tpin span{font-size:14px}
+.tpin::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border:6px solid transparent;border-top-color:#fff;border-bottom:0}
+.tpin.sel{transform:translate(-50%,calc(-100% - 6px)) scale(1.25);transform-origin:50% 130%;box-shadow:0 0 0 4px #fde68a,0 4px 12px #0006;z-index:6}
 /* list photos */
 .gThumb{position:absolute;inset:0;display:block}.gThumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .gThumb small{position:absolute;left:0;right:0;bottom:0;padding:8px 3px 2px;font-size:8.5px;line-height:1.15;font-weight:600;color:#fff;background:linear-gradient(transparent,#000a);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -413,6 +456,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
     <button id="menuBtn" class="iconBtn" aria-label="메뉴 열기">⋯</button>
   </div>
   <div class="chips" id="chips">
+    <button class="chip tripc" id="tripChip" aria-pressed="false">🧳 일정</button>
     <button class="chip" id="filterChip" aria-label="필터">⚙ 필터</button>
     <button class="chip big" id="genreChip">🍽 뭐 먹지?</button>
     <label class="chip sel" id="dayChip"><span id="dayText">금 11/13</span><select id="day" aria-label="요일 선택"></select></label>
@@ -542,7 +586,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 </div>
 
 <script src="vendor/maplibre-gl.js"></script>
-<script>const APP_DATA=/*__DATA__*/;const APP_BUILD="__BUILD__";const GMAPS_KEY="__GMAPS_KEY__";</script>
+<script>const APP_DATA=/*__DATA__*/;const TRIP_DATA=/*__TRIP__*/;const APP_BUILD="__BUILD__";const GMAPS_KEY="__GMAPS_KEY__";</script>
 <script>
 (function(){
 'use strict';
@@ -599,7 +643,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:false,genre:'all',list:'all',f:{region:'all',minT:0,prices:[],card:false,ic:false,shortWait:false,group6:false,reserve:false,nonSmoking:false,morning:false,late:false},
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true)};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true),mode:LS.get('ofm.mode','shops'),tripDay:null,tripOpen:null};
 const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
 let me=null; // {lat,lon,acc,t}
 let rows=[];
@@ -841,6 +885,7 @@ let clusterMarkers=[];
 const near=(a,b,wide)=>wide?Math.abs(a.x-b.x)<70&&Math.abs(a.y-b.y)<40:Math.abs(a.x-b.x)<44&&Math.abs(a.y-b.y)<24;
 function renderMarkers(){
   if(!map||!mapReady)return;
+  renderTripMap();
   const items=rows.filter(x=>x.r).map(x=>x.r),z=map.getZoom(),show=new Set(items.map(r=>r.id));
   for(const[id,p]of markers)if(!show.has(id)&&p.on){p.m.remove();p.on=false}
   clusterMarkers.forEach(m=>m.remove());clusterMarkers=[];
@@ -992,6 +1037,7 @@ function passes(r,ignore){
 }
 const filterCount=()=>{const f=S.f;return(f.region!=='all')+!!f.minT+(f.prices.length>0)+f.card+f.ic+f.shortWait+f.group6+f.reserve+f.nonSmoking+f.morning+f.late};
 function compute(){
+  if(S.mode==='trip'){const sel=S.selected&&DATA.find(x=>x.id===S.selected);rows=sel?[{r:sel,d:km(refPoint(),sel)}]:[];return}
   const ref=refPoint();
   let rs=DATA.filter(r=>passes(r)).map(r=>({r,d:km(ref,r)}));
   const byT=(a,b)=>(b.r.tabelog??0)-(a.r.tabelog??0)||a.r.id-b.r.id;
@@ -1012,6 +1058,129 @@ function compute(){
   rows=rs.filter((x,i)=>!x.divider||(rs[i+1]&&!rs[i+1].divider));   // no empty sections
 }
 function thumb(r,cls='thumb'){return `<div class="${cls}" data-th="${r.id}" aria-hidden="true">${r.emoji}${r.image?`<img src="${esc(r.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">`:''}</div>`}
+/* ================= 📅 itinerary ================= */
+const LEG_ICON={walk:'🚶',train:'🚆',subway:'🚇',bus:'🚌',taxi:'🚕'};
+const tripSwap=LS.get('ofm.tripSwap.v1',{}),tripCheck=LS.get('ofm.tripCheck.v1',{});
+const tripDayOf=k=>TRIP_DATA.days.find(d=>d.key===k);
+const defaultTripDay=()=>{const t=todayKey();return t&&tripDayOf(t)?t:'all'};
+const tm=t=>toMin(t);
+const tripShopOf=s=>DATA.find(r=>(s.placeId&&r.placeId===s.placeId)||r.jp===s.jp)||null;
+/* the place a stop points to: the planned one, or the shop the family swapped in */
+function tripPlace(s){const sw=tripSwap[s.id]&&DATA.find(r=>r.id===tripSwap[s.id]);
+  if(sw)return{name:`${s.name.includes(' · ')?s.name.split(' · ')[0]+' · ':''}${sw.name}`,jp:sw.jp,lat:sw.lat,lon:sw.lon,placeId:sw.placeId,address:sw.address,shop:sw,swapped:true};
+  return{name:s.name,jp:s.jp,lat:s.lat,lon:s.lon,placeId:s.placeId||null,address:s.addr||'',shop:tripShopOf(s),swapped:false}}
+function tripNow(){const n=jstNow(),day=TRIP_DATA.days.find(d=>d.date===n.date);if(!day)return null;const m=n.min,st=day.stops;let cur=null,next=null;
+  for(let i=0;i<st.length;i++){const a=tm(st[i].time);if(a<=m&&(i+1>=st.length||m<tm(st[i+1].time)))cur=st[i];if(a>m){next=st[i];break}}
+  return{day,cur,next,mins:next?tm(next.time)-m:null}}
+function openAt(r,day,m){const h=r.hours&&r.hours[day];if(h==null)return null;return h.some(([a,b])=>toMin(a)<=m&&m<toMin(b)-30)}
+function tripAlts(s,day){const a=tm(s.time),cats=s.meal.cats;
+  return DATA.filter(r=>r.lat!=null&&allCats(r).some(c=>cats.includes(c))&&!(s.placeId&&r.placeId===s.placeId)).map(r=>({r,d:km(s,r)})).filter(x=>walkMin(x.d)<=12)
+    .map(x=>({...x,o:openAt(x.r,day.key,a)})).filter(x=>x.o!==false)
+    .sort((x,y)=>(y.o===true)-(x.o===true)||(y.r.tabelog??0)-(x.r.tabelog??0)).slice(0,3)}
+const tripDir=(p,mode,from)=>`https://www.google.com/maps/dir/?api=1${from?`&origin=${from.lat},${from.lon}${from.placeId?'&origin_place_id='+encodeURIComponent(from.placeId):''}`:''}&destination=${p.lat},${p.lon}${p.placeId?'&destination_place_id='+encodeURIComponent(p.placeId):''}&travelmode=${mode||'transit'}`;
+function tripPrev(day,i){if(i>0)return tripPlace(day.stops[i-1]);return day.stops[0].leg&&day.stops[0].leg.from==='hotel'?{lat:HOTEL.lat,lon:HOTEL.lon,placeId:null}:null}
+function nowCardHtml(){const tn=tripNow();
+  if(!tn){const first=TRIP_DATA.days[0];if(!first)return '';const t0=new Date(first.date+'T00:00:00+09:00'),dd=Math.ceil((t0-Date.now())/864e5);
+    return dd>0?`<div class="tNow pre">✈️ 여행까지 <b>${dd}일</b> · 첫 일정 ${TRIP.find(t=>t.key===first.key).label} ${first.stops[0].time} ${esc(first.stops[0].name)}</div>`:''}
+  const c=tn.cur,n=tn.next,ln=x=>`${x.emoji} ${esc(tripPlace(x).name)}`;
+  return `<div class="tNow" style="--c:${tn.day.color}">${c?`<div><small>지금</small><button class="lnk" data-open="${tn.day.key}:${c.id}">${c.time} ${ln(c)}</button></div>`:''}
+    ${n?`<div><small>다음 · ${tn.mins<60?tn.mins+'분':Math.floor(tn.mins/60)+'시간 '+(tn.mins%60)+'분'} 후</small><button class="lnk" data-open="${tn.day.key}:${n.id}">${n.time} ${ln(n)}</button>
+      <a class="tBtn primary sm" href="${esc(tripDir(tripPlace(n),n.leg&&n.leg.travel))}" target="_blank" rel="noopener">🧭 지금 출발 길찾기</a></div>`:'<div><small>오늘 일정 끝</small></div>'}</div>`}
+function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.time),end=s.dur?hhmm(a+s.dur):'',tn=tripNow(),isNow=tn&&tn.day===day&&tn.cur===s;
+  const leg=s.leg?`<div class="tLeg" style="--c:${day.color}"><span class="tlm">${LEG_ICON[s.leg.mode]||'➜'}</span><span>${esc(s.leg.text)}${s.leg.alt?`<small>또는 ${esc(s.leg.alt)}</small>`:''}</span></div>`:'';
+  let more='';
+  if(open){const prev=tripPrev(day,i),shop=p.shop;
+    const alts=s.meal?tripAlts(s,day):[];
+    more=`<div class="tMore">
+      ${s.change?`<p class="tRec">💡 추천 조정: ${esc(s.change)}</p>`:''}
+      ${p.swapped?`<p class="tRec">🔁 바꾼 곳이에요 · 원래 일정: ${esc(s.name)} <button class="lnk" data-unswap="${s.id}">되돌리기</button></p>`:''}
+      ${s.tips&&s.tips.length&&!p.swapped?`<ul class="tTips">${s.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:''}
+      <div class="tActs"><a class="tBtn primary" href="${esc(tripDir(p,s.leg&&s.leg.travel))}" target="_blank" rel="noopener">🧭 여기로 길찾기</a>
+        <a class="tBtn" href="${esc(gUrl(p))}" target="_blank" rel="noopener">🗺️ 구글 지도</a>
+        <button class="tBtn" data-taxi="${day.key}:${s.id}">🚕 택시</button>
+        ${shop?`<button class="tBtn" data-shop="${shop.id}">🍽 가게 정보</button>`:''}</div>
+      ${prev&&s.leg?`<a class="tLink" href="${esc(tripDir(p,s.leg.travel,prev))}" target="_blank" rel="noopener">이전 장소에서 가는 경로 보기 ›</a>`:''}
+      ${s.meal?`<div class="tAltH">근처 대안 <small>그 시간에 영업 · 도보 12분 안 · 평점순</small></div>${alts.length?alts.map(x=>`<div class="tAlt"><span class="ae">${x.r.emoji}</span>
+        <button class="ta lnk" data-shop="${x.r.id}"><b>${esc(x.r.name)}</b><small>${x.r.tabelog!=null?`★ ${fmtT(x.r.tabelog)} · `:''}도보 ${walkMin(x.d)}분 · ${x.o?'그 시간 영업':'영업시간 확인 필요'}</small>${factChips(x.r)}</button>
+        <button class="tSwap" data-swap="${s.id}:${x.r.id}">이걸로</button></div>`).join(''):'<p class="note">근처에 조건에 맞는 곳이 목록에 없어요.</p>'}`:''}
+    </div>`}
+  return leg+`<div class="tStop${open?' open':''}${isNow?' now':''}${s.optional?' optional':''}" data-stop="${day.key}:${s.id}" style="--c:${day.color}">
+    <div class="tTime">${s.time}${end&&end!==s.time?`<small>~${end}</small>`:''}</div><div class="tNum">${i+1}</div>
+    <div class="tBody"><div class="tName">${s.emoji} ${esc(p.name)}${s.change?'<span class="rec">추천</span>':''}${s.optional?'<span class="opt">선택</span>':''}${isNow?'<span class="nowTag">지금</span>':''}</div>
+      <div class="tJp" lang="ja">${esc(p.jp)}</div>${more}</div></div>`}
+function overviewHtml(){
+  return TRIP_DATA.days.map(day=>`<div class="oDay" style="--c:${day.color}"><button class="oHead" data-tday="${day.key}"><span class="oDot"></span><b>${TRIP.find(t=>t.key===day.key).long}</b><small>${esc(day.title)} ›</small></button>
+    ${day.stops.map(s=>`<button class="oRow" data-open="${day.key}:${s.id}"><span class="oT">${s.time}</span><span class="oN">${s.emoji} ${esc(tripPlace(s).name)}</span>${s.change?'<span class="rec">추천</span>':''}</button>`).join('')}</div>`).join('')+
+  `<div class="oDay chk"><div class="oHead"><b>✅ 출발 전 준비</b></div>${TRIP_DATA.checklist.map(c=>`<label class="oChk"><input type="checkbox" data-check="${c.id}" ${tripCheck[c.id]?'checked':''}><span>${esc(c.text)}</span></label>`).join('')}</div>
+   <p class="note">${esc(TRIP_DATA.note||'')}</p>${TRIP_DATA.listUrl?`<a class="gmore" href="${esc(TRIP_DATA.listUrl)}" target="_blank" rel="noopener">🗺️ 구글 지도 목록 열기 · ${esc(TRIP_DATA.title)}</a>`:''}`}
+function renderTrip(){
+  const d=S.tripDay||(S.tripDay=defaultTripDay()),day=tripDayOf(d);
+  $('#count').textContent='🧳 여행 일정';
+  const tabs=`<div class="tTabs" role="tablist">${[['all','전체'],...TRIP_DATA.days.map(x=>[x.key,TRIP.find(t=>t.key===x.key).label])].map(([k,l])=>`<button class="tTab${d===k?' on':''}" role="tab" aria-selected="${d===k}" data-tday="${k}" ${k!=='all'?`style="--c:${tripDayOf(k).color}"`:''}>${l}</button>`).join('')}</div>`;
+  const head=day?`<div class="tDayHead" style="--c:${day.color}"><b>${esc(day.title)}</b><small>일몰 ${TRIP_DATA.sun[day.key]||''} · 장소 ${day.stops.length}곳</small></div>`:'';
+  $('#list').innerHTML=tabs+nowCardHtml()+(day?head+day.stops.map((s,i)=>stopHtml(day,s,i)).join(''):overviewHtml());
+}
+/* ---- route on the map: numbered pins + lines (dashed = walk) ---- */
+let tripGfx={key:'',marks:[],lines:[]},tripFitKey='',lineSeq=0;
+function clearTripGfx(){tripGfx.marks.forEach(m=>m.remove());tripGfx.lines.forEach(l=>l.remove());tripGfx={key:'',marks:[],lines:[]}}
+function addLine(pts,color,dash){
+  if(engine==='gm'&&map.gm){const g=google.maps,pl=new g.Polyline({path:pts.map(([lo,la])=>({lat:la,lng:lo})),strokeColor:color,strokeOpacity:dash?0:.85,strokeWeight:4,clickable:false,
+      icons:[...(dash?[{icon:{path:'M 0,-1 0,1',strokeOpacity:.9,strokeColor:color,scale:3},offset:'0',repeat:'14px'}]:[]),{icon:{path:g.SymbolPath.FORWARD_CLOSED_ARROW,scale:2.6,strokeColor:'#fff',strokeWeight:1.5,fillColor:color,fillOpacity:1},offset:'55%'}],map:map.gm});
+    return{remove:()=>pl.setMap(null),alive:()=>true}}
+  if(engine==='ml'&&map.addSource){const id='tripline'+(++lineSeq);
+    try{map.addSource(id,{type:'geojson',data:{type:'Feature',properties:{},geometry:{type:'LineString',coordinates:pts}}});
+      map.addLayer({id,type:'line',source:id,layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':color,'line-width':4,'line-opacity':.85,...(dash?{'line-dasharray':[1.2,1.6]}:{})}})}catch(e){}
+    return{remove:()=>{try{if(map.getLayer(id))map.removeLayer(id);if(map.getSource(id))map.removeSource(id)}catch(e){}},alive:()=>!!map.getLayer(id)}}
+  return{remove(){},alive:()=>true}}
+function renderTripMap(){
+  if(!map||!mapReady)return;
+  if(S.mode!=='trip'){if(tripGfx.marks.length||tripGfx.lines.length)clearTripGfx();tripFitKey='';return}
+  const d=S.tripDay||defaultTripDay(),key=[d,engine,JSON.stringify(tripSwap),S.tripOpen].join('|');
+  if(key===tripGfx.key&&tripGfx.lines.every(l=>l.alive()))return;
+  clearTripGfx();tripGfx.key=key;
+  const days=d==='all'?TRIP_DATA.days:[tripDayOf(d)].filter(Boolean),fit=[];
+  for(const day of days){let prev=null,prevKind=null;
+    day.stops.forEach((s,i)=>{const p=tripPlace(s);
+      const from=prev||(s.leg&&s.leg.from==='hotel'?{lat:HOTEL.lat,lon:HOTEL.lon}:null);
+      if(from&&s.kind!=='air'&&prevKind!=='air')tripGfx.lines.push(addLine([[from.lon,from.lat],[p.lon,p.lat]],day.color,s.leg&&s.leg.mode==='walk'));
+      const el=document.createElement('div');el.className='mk tpm';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',`${i+1}번 ${s.time} ${p.name}`);
+      el.innerHTML=d==='all'?`<div class="tpin mini" style="--c:${day.color}"><b>${i+1}</b></div>`:`<div class="tpin${S.tripOpen===s.id?' sel':''}" style="--c:${day.color}"><b>${i+1}</b><span>${s.emoji}</span></div>`;
+      const go=e=>{e&&e.stopPropagation();openTripStop(day.key,s.id,true)};el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter')go(e)});
+      tripGfx.marks.push(mkMarker(el,[p.lon,p.lat]).addTo(map));
+      if(s.kind!=='air')fit.push([p.lat,p.lon]);prev=p;prevKind=s.kind});
+  }
+  if(tripFitKey!==d&&fit.length){tripFitKey=d;fitVisible(fit,15)}
+}
+function openTripStop(dayKey,id,fromMap){
+  if(S.tripDay!==dayKey)S.tripDay=dayKey;S.tripOpen=S.tripOpen===id&&!fromMap?null:id;
+  if(S.view==='detail')closeDetail();else renderTrip();renderTripMap();
+  const s=tripDayOf(dayKey).stops.find(x=>x.id===id),p=tripPlace(s);
+  if(!isDesktop()&&sheetState==='peek')setSheet('half');
+  setTimeout(()=>{const el=document.querySelector(`#list [data-stop="${dayKey}:${id}"]`),body=$('#sheetBody'),tabs=$('#list .tTabs');
+    if(el&&body){const top=el.getBoundingClientRect().top-body.getBoundingClientRect().top+body.scrollTop-(tabs?tabs.offsetHeight:0)-8;body.scrollTo({top:Math.max(0,top),behavior:'smooth'})}},60);
+  if(S.tripOpen)whenMap(()=>panToVisible([p.lat,p.lon],Math.max(map.getZoom(),15)));
+}
+function enterTrip(){S.mode='trip';LS.set('ofm.mode','trip');S.tripDay=S.tripDay||defaultTripDay();if(S.view==='detail')closeDetail();sheet.classList.add('tripping');tripFitKey='';refresh();
+  if(!isDesktop()&&sheetState==='peek')setSheet('half')}
+function exitTrip(quiet){S.mode='shops';LS.set('ofm.mode','shops');sheet.classList.remove('tripping');clearTripGfx();tripFitKey='';if(!quiet){refresh();fitNearOrAll()}}
+$('#list').addEventListener('click',e=>{
+  if(S.mode!=='trip'){const tb=e.target.closest('[data-totrip]');if(tb){e.stopPropagation();enterTrip()}return}
+  const t=e.target.closest('[data-tday],[data-open],[data-swap],[data-unswap],[data-taxi],[data-shop],[data-check],[data-stop]');if(!t)return;
+  if(t.dataset.tday){S.tripDay=t.dataset.tday;S.tripOpen=null;tripFitKey='';renderTrip();renderTripMap();$('#sheetBody').scrollTop=0;return}
+  if(t.dataset.open){const[k,id]=t.dataset.open.split(':');S.tripOpen=null;openTripStop(k,id);return}
+  if(t.dataset.swap){const[sid,rid]=t.dataset.swap.split(':');tripSwap[sid]=+rid;LS.set('ofm.tripSwap.v1',tripSwap);toast('일정을 바꿨어요. 이 휴대폰에만 저장돼요.',2500);renderTrip();renderTripMap();return}
+  if(t.dataset.unswap){delete tripSwap[t.dataset.unswap];LS.set('ofm.tripSwap.v1',tripSwap);renderTrip();renderTripMap();return}
+  if(t.dataset.taxi){const[k,id]=t.dataset.taxi.split(':'),s=tripDayOf(k).stops.find(x=>x.id===id),p=tripPlace(s);openTaxi(p.shop||{...p,name:p.name});return}
+  if(t.dataset.shop){select(+t.dataset.shop);return}
+  if(t.dataset.check){tripCheck[t.dataset.check]=t.checked;LS.set('ofm.tripCheck.v1',tripCheck);return}
+  if(t.dataset.stop&&!e.target.closest('a,button,input,label')){const[k,id]=t.dataset.stop.split(':');openTripStop(k,id)}
+},true);
+$('#tripChip').onclick=()=>S.mode==='trip'?exitTrip():enterTrip();
+$('#chips').addEventListener('click',e=>{if(S.mode==='trip'&&!e.target.closest('#tripChip,#genreChip'))exitTrip(true)},true);
+$('#chips').addEventListener('change',e=>{if(S.mode==='trip')exitTrip(true)},true);
+$('#q').addEventListener('input',()=>{if(S.mode==='trip')exitTrip(true)},true);
+if(S.mode==='trip')sheet.classList.add('tripping');
+
 /* ---- list photos: Google place photos for rows that come into view (live, in memory only, with the author credit) ---- */
 const THUMB_MAX=40;let thumbUsed=0,thumbOff=false,thumbIO=null;const thumbEls=new Map(),thumbQ=[],thumbFail=new Set();let thumbBusy=0;
 function thumbsOn(){return S.thumbs&&!thumbOff&&GMAPS_KEY&&!S.gmFail&&engine==='gm'}
@@ -1054,6 +1223,7 @@ function moreList(){const el=$('#listMore');if(!el||!listMore.length)return;
   if(!listMore.length){el.insertAdjacentHTML('afterend',listTail);el.remove()}thumbsAttach()}
 $('#sheetBody').addEventListener('scroll',()=>{const b=$('#sheetBody');if(listMore.length&&b.scrollTop+b.clientHeight>b.scrollHeight-600)moreList()},{passive:true});
 function renderList(){
+  if(S.mode==='trip'){renderTrip();return}
   const n=rows.filter(x=>x.r).length;
   $('#count').textContent=`${n}곳`;
   let hint='';
@@ -1062,6 +1232,7 @@ function renderList(){
     hint=nn?`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · 평점 높은 순</p>`
       :`<p class="hint">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
+  const tn=tripNow();if(tn&&(tn.cur||tn.next)){const x=tn.next||tn.cur;hint=`<button class="tripBanner" data-totrip="1">🧳 ${tn.next?`다음 일정 ${x.time} ${esc(tripPlace(x).name)}${tn.mins!=null?` · ${tn.mins<60?tn.mins+'분':Math.floor(tn.mins/60)+'시간 '+(tn.mins%60)+'분'} 후`:''}`:`지금 일정: ${esc(tripPlace(x).name)}`}<span>일정 보기 ›</span></button>`+hint}
   if(S.sort==='google'&&(!GMAPS_KEY||S.gmFail))hint=`<p class="hint">구글에 연결되지 않아 구글 평점을 불러올 수 없어요. 타베로그순을 써 주세요.</p>`+hint;
   else if(S.sort==='google'){const known=rows.filter(x=>x.r&&gRating(x.r)!=null).length,more=rows.filter(x=>x.r&&gRating(x.r)==null&&x.r.placeId).length;
     hint=`<p class="hint">구글 평점은 실시간으로 불러와요 (가까운 곳부터 ${G_BATCH}곳씩)${gBusy?' · 불러오는 중…':` · ${known}곳 확인`}${more&&!gBusy?` · <button class="linkBtn" id="gMore">${Math.min(G_BATCH,more)}곳 더 불러오기</button>`:''}</p>`+hint}
@@ -1302,7 +1473,7 @@ function select(id,{from='list'}={}){
   $('#list').hidden=true;$('#detail').hidden=false;sheet.classList.add('detailing');renderDetail();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState!=='half')setSheet('half');
   if(prev&&prev!==id)refreshIcon(prev);
-  if(!rows.some(x=>x.r&&x.r.id===id)){ // filtered out → clear filters so the pin can be shown
+  if(S.mode!=='trip'&&!rows.some(x=>x.r&&x.r.id===id)){ // filtered out → clear filters so the pin can be shown
     S.q='';S.openOnly=false;S.genre='all';S.list='all';S.f=defaultFilters();$('#q').value='';refresh();
   }
   refreshIcon(id);
@@ -1436,6 +1607,7 @@ function updateChips(){
   $('#day').value=S.day;$('#dayText').textContent=selText($('#day'));
   const oc=$('#openChip');oc.textContent=isLive()?(S.openOnly?'🟢 영업 중만 ✓':'영업 중만'):(S.openOnly?'휴무 제외 ✓':'휴무 제외');oc.classList.toggle('on',S.openOnly);oc.setAttribute('aria-pressed',S.openOnly);
   const g=S.genre!=='all'?pickOf(S.genre):null;$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
+  const tc=$('#tripChip');tc.classList.toggle('on',S.mode==='trip');tc.setAttribute('aria-pressed',S.mode==='trip');tc.textContent=S.mode==='trip'?'🧳 일정 ✕':'🧳 일정';
   $('#listSel').value=S.list;$('#listText').textContent=selText($('#listSel'));$('#listChip').classList.toggle('on',S.list!=='all');
   const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
@@ -1466,7 +1638,7 @@ function renderGenres(){
     <h3 class="gH">세부 메뉴</h3><div class="gGrid">${GENRES.map(btn).join('')}</div>`;
 }
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
-function setGenre(k){S.genre=k;
+function setGenre(k){if(S.mode==='trip')exitTrip(true);S.genre=k;
   if(S.view==='detail')closeDetail();if(!S.sortTouched&&S.ref==='me'&&me)S.sort='nearby';refresh();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()}
 $('#genreGrid').addEventListener('click',e=>{const b=e.target.closest('[data-genre]');if(!b)return;closeModal('#genres');setGenre(b.dataset.genre)});
@@ -1611,7 +1783,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>

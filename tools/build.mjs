@@ -12,6 +12,10 @@ const data = JSON.parse(read('src/data.json'));
 let html = read('src/app.html');
 if (!html.includes('/*__DATA__*/')) throw new Error('missing data placeholder');
 html = html.split('/*__DATA__*/').join(JSON.stringify(data));
+// travel itinerary (days, stops, legs, tips) for the 📅 일정 view
+const trip = existsSync(url('src/itinerary.json')) ? JSON.parse(read('src/itinerary.json')) : { days: [], checklist: [] };
+if (!html.includes('/*__TRIP__*/')) throw new Error('missing trip placeholder');
+html = html.split('/*__TRIP__*/').join(JSON.stringify(trip));
 // Google Maps browser key (public by design; restricted to this site + Maps JavaScript API in Google Cloud)
 const cfg = existsSync(url('src/config.json')) ? JSON.parse(read('src/config.json')) : {};
 html = html.split('__GMAPS_KEY__').join(cfg.googleMapsKey || '');
