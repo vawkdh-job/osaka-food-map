@@ -388,6 +388,9 @@ body{color:var(--ink);font-feature-settings:"tnum" 1}
 .tpin b{width:20px;height:20px;border-radius:50%;background:#fff;color:var(--c);font-size:12px;display:grid;place-items:center}.tpin span{font-size:14px}
 .tpin::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border:6px solid transparent;border-top-color:#fff;border-bottom:0}
 .tpin.sel{transform:translate(-50%,calc(-100% - 6px)) scale(1.25);transform-origin:50% 130%;box-shadow:0 0 0 4px #fde68a,0 4px 12px #0006;z-index:6}
+.tLive:empty{display:none}.tLive{margin:0 0 8px}.tPh{position:relative;display:block;border-radius:12px;overflow:hidden;max-width:420px;background:var(--soft)}
+.tPh img{display:block;width:100%;height:150px;object-fit:cover}.tPh small{position:absolute;left:0;right:0;bottom:0;padding:10px 8px 4px;font-size:11px;color:#fff;background:linear-gradient(transparent,#0009)}
+.tG{font-size:13.5px;margin-top:6px;color:var(--ink2)}.tG small{color:var(--muted)}
 /* list photos */
 .gThumb{position:absolute;inset:0;display:block}.gThumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .gThumb small{position:absolute;left:0;right:0;bottom:0;padding:8px 3px 2px;font-size:8.5px;line-height:1.15;font-weight:600;color:#fff;background:linear-gradient(transparent,#000a);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1094,6 +1097,7 @@ function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.ti
     more=`<div class="tMore">
       ${s.change?`<p class="tRec">💡 추천 조정: ${esc(s.change)}</p>`:''}
       ${p.swapped?`<p class="tRec">🔁 바꾼 곳이에요 · 원래 일정: ${esc(s.name)} <button class="lnk" data-unswap="${s.id}">되돌리기</button></p>`:''}
+      ${p.placeId?`<div class="tLive" data-live="${day.key}:${s.id}"></div>`:''}
       ${s.tips&&s.tips.length&&!p.swapped?`<ul class="tTips">${s.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:''}
       <div class="tActs"><a class="tBtn primary" href="${esc(tripDir(p,s.leg&&s.leg.travel))}" target="_blank" rel="noopener">🧭 여기로 길찾기</a>
         <a class="tBtn" href="${esc(gUrl(p))}" target="_blank" rel="noopener">🗺️ 구글 지도</a>
@@ -1119,7 +1123,16 @@ function renderTrip(){
   const tabs=`<div class="tTabs" role="tablist">${[['all','전체'],...TRIP_DATA.days.map(x=>[x.key,TRIP.find(t=>t.key===x.key).label])].map(([k,l])=>`<button class="tTab${d===k?' on':''}" role="tab" aria-selected="${d===k}" data-tday="${k}" ${k!=='all'?`style="--c:${tripDayOf(k).color}"`:''}>${l}</button>`).join('')}</div>`;
   const head=day?`<div class="tDayHead" style="--c:${day.color}"><b>${esc(day.title)}</b><small>일몰 ${TRIP_DATA.sun[day.key]||''} · 장소 ${day.stops.length}곳</small></div>`:'';
   $('#list').innerHTML=tabs+nowCardHtml()+(day?head+day.stops.map((s,i)=>stopHtml(day,s,i)).join(''):overviewHtml());
+  const lv=$('#list [data-live]');if(lv)tripLive(lv);
 }
+/* live Google details for an opened stop: photo, rating, that day's hours (memory only) */
+function tripLive(el){const[k,id]=el.dataset.live.split(':'),day=tripDayOf(k),s=day.stops.find(x=>x.id===id),pl=tripPlace(s);
+  if(!pl.placeId||!GMAPS_KEY||S.gmFail)return;
+  const paint=p=>{if(!p||!document.contains(el))return;const ph=p.photos&&p.photos[0],gh=gDayRanges(p,k),by=ph&&((ph.authorAttributions||[])[0]||{}).displayName;
+    el.innerHTML=`${ph?`<a class="tPh" href="${esc(p.uri||gUrl(pl))}" target="_blank" rel="noopener"><img src="${esc(ph.getURI({maxWidth:480,maxHeight:300}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${by?'© '+esc(by)+' · ':''}Google 사진</small></a>`:''}
+      <div class="tG">${p.rating!=null?`<b>G ${p.rating.toFixed(1)}</b>${p.count?` <small>리뷰 ${p.count.toLocaleString()}</small>`:''}`:''}${gh?` · ${TRIP.find(t=>t.key===k).label} ${gh.length?esc(fmtRanges(gh)):'휴무'} <small>(구글)</small>`:''}${p.status&&p.status!=='OPERATIONAL'?` · <b class="bad">구글: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'}</b>`:''}</div>`};
+  const c=gLive(pl);if(c)return paint(c);
+  el.innerHTML='<div class="tG"><small>구글 정보 불러오는 중…</small></div>';fetchG(pl).then(paint).catch(()=>{if(document.contains(el))el.innerHTML=''})}
 /* ---- route on the map: numbered pins + lines (dashed = walk) ---- */
 let tripGfx={key:'',marks:[],lines:[]},tripFitKey='',lineSeq=0;
 function clearTripGfx(){tripGfx.marks.forEach(m=>m.remove());tripGfx.lines.forEach(l=>l.remove());tripGfx={key:'',marks:[],lines:[]}}

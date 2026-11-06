@@ -8,6 +8,8 @@ Usage: GTOKEN=$(gcloud auth print-access-token) GPROJECT=<project-id> python3 -I
 """
 import json
 import os
+import time
+import urllib.error
 import urllib.request
 from datetime import date
 from pathlib import Path
@@ -24,9 +26,15 @@ def search(q):
     req = urllib.request.Request('https://places.googleapis.com/v1/places:searchText', data=body, method='POST', headers={
         'Authorization': f'Bearer {TOKEN}', 'X-Goog-User-Project': PROJECT, 'Content-Type': 'application/json',
         'X-Goog-FieldMask': FIELDS})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        res = json.load(r).get('places', [])
-    return res[0] if res else None
+    for attempt in range(6):                        # a new quota can take a few minutes to apply: back off on 429
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                res = json.load(r).get('places', [])
+            return res[0] if res else None
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or attempt == 5:
+                raise
+            time.sleep(30)
 
 
 trip = json.loads(TRIP.read_text(encoding='utf-8'))
@@ -34,13 +42,13 @@ cache = {}
 for day in trip['days']:
     for s in day['stops']:
         q = s.get('q')
-        if not q:
+        if not q or s.get('placeId'):
             continue
         if q not in cache:
             try:
                 cache[q] = search(q)
             except Exception as e:  # noqa: BLE001
-                print('ERROR', q, str(e)[:100])
+                print('ERROR', q, str(e)[:100], flush=True)
                 cache[q] = None
         p = cache[q]
         if not p:
@@ -50,7 +58,8 @@ for day in trip['days']:
         moved = abs(lat - s['lat']) + abs(lon - s['lon'])
         s.update(placeId=p['id'], lat=round(lat, 6), lon=round(lon, 6))
         flag = ' <-- moved' if moved > 0.004 else ''
-        print(f"{s['id']} {q} -> {p['displayName']['text']} | {p.get('formattedAddress','')[:40]} | {p.get('businessStatus')}{flag}")
+        print(f"{s['id']} {q} -> {p['displayName']['text']} | {p.get('formattedAddress','')[:40]} | {p.get('businessStatus')}{flag}", flush=True)
+        TRIP.write_text(json.dumps(trip, ensure_ascii=False, indent=1), encoding='utf-8')   # keep progress
 trip['placesMatchedOn'] = str(date.today())
 TRIP.write_text(json.dumps(trip, ensure_ascii=False, indent=1), encoding='utf-8')
 print('searches:', len(cache))
