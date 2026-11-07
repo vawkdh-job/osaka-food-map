@@ -486,6 +486,33 @@ console.log('6f. Phone held sideways: list panel on the left, map on the right')
   await ctx.close();
 }
 
+console.log('6g. Search a place (landmark, area, station) to see our shops near it');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page);
+  const hits = await page.evaluate(() => Object.fromEntries(['오사카성', '가이유칸', 'usj', '헵파이브', '츠루하시', '도톤보리', '우메다', '大阪城', 'Kaiyukan'].map(q => [q, (window.__ofm.placeHits(q)[0] || {}).ko || null])));
+  check(Object.values(hits).every(Boolean) && /오사카성/.test(hits['오사카성']) && /오사카성/.test(hits['大阪城']) && /가이유칸/.test(hits['Kaiyukan']), 'landmarks, areas and stations are found in Korean, Japanese and English', JSON.stringify(hits));
+  check(await page.evaluate(() => window.__ofm.PLACES.length) > 150, 'the place list covers stations and landmarks (offline, no Google)');
+  await page.locator('#q').fill('오사카성'); await page.waitForTimeout(500);
+  const sr = await page.evaluate(() => ({ places: [...document.querySelectorAll('#list .placeRow .pt b')].map(b => b.textContent), empty: !!document.querySelector('#list .empty') }));
+  check(sr.places.length >= 1 && /오사카성/.test(sr.places[0]) && !sr.empty, 'searching “오사카성” offers the place (not “no results”)', JSON.stringify(sr));
+  await page.locator('#list .placeRow').first().click(); await page.waitForTimeout(900);
+  const st = await page.evaluate(() => { const O = window.__ofm, R = O.rows().filter(x => x.r); return { ref: O.S.ref, sort: O.S.sort, q: document.querySelector('#q').value, refText: document.querySelector('#refText').textContent,
+    marker: !!document.querySelector('.placePin'), firstKm: R[0] && +R[0].d.toFixed(2), sortedNear: R.slice(0, 2).every(x => x.d < 1.6), anyNear: R.some(x => /R Baker/.test(x.r.name)) }; });
+  check(st.ref === 'place' && st.sort === 'nearby' && st.q === '' && /오사카성 기준/.test(st.refText) && st.marker && st.sortedNear && st.anyNear, 'picking it lists our shops nearest to Osaka Castle first, with a marker and “📍 오사카성 기준”', JSON.stringify(st));
+  const dist = await page.evaluate(() => { const O = window.__ofm, r = O.rows().find(x => x.r).r; O.select(r.id); return new Promise(res => setTimeout(() => { res(document.querySelector('.dDist').textContent); O.closeDetail(); }, 400)); });
+  check(/오사카성에서/.test(dist), 'the shop page measures the distance from the picked place', dist);
+  await page.locator('#placeOff').click(); await page.waitForTimeout(400);
+  const off = await page.evaluate(() => ({ ref: window.__ofm.S.ref, marker: !!document.querySelector('.placePin'), opt: !!document.querySelector('#ref option[value=place]') }));
+  check(off.ref !== 'place' && !off.marker && !off.opt, '“기준 해제” returns to the hotel / my location', JSON.stringify(off));
+  await page.locator('#q').fill('가이유칸'); await page.locator('#q').press('Enter'); await page.waitForTimeout(800);
+  check(await page.evaluate(() => window.__ofm.S.ref === 'place' && /가이유칸/.test(window.__ofm.S.place.name)), 'Enter on a place name goes straight to it');
+  await page.locator('#q').fill('라멘'); await page.waitForTimeout(500);
+  check(await page.evaluate(() => !document.querySelector('#list .placeRow') && window.__ofm.rows().some(x => x.r)), 'a menu word (라멘) still searches shops only');
+  check(log.errors.length === 0, 'no script errors in place search', log.errors.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+
 console.log('6d. Back button (Android back / iOS swipe) never leaves the app by surprise');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });

@@ -16,6 +16,10 @@ html = html.split('/*__DATA__*/').join(JSON.stringify(data));
 const trip = existsSync(url('src/itinerary.json')) ? JSON.parse(read('src/itinerary.json')) : { days: [], checklist: [] };
 if (!html.includes('/*__TRIP__*/')) throw new Error('missing trip placeholder');
 html = html.split('/*__TRIP__*/').join(JSON.stringify(trip));
+// place search: landmarks, areas and stations (Wikidata, CC0)
+const places = existsSync(url('src/places.json')) ? JSON.parse(read('src/places.json')).places : [];
+if (!html.includes('/*__PLACES__*/')) throw new Error('missing places placeholder');
+html = html.split('/*__PLACES__*/').join(JSON.stringify(places));
 // Google Maps browser key (public by design; restricted to this site + Maps JavaScript API in Google Cloud)
 const cfg = existsSync(url('src/config.json')) ? JSON.parse(read('src/config.json')) : {};
 html = html.split('__GMAPS_KEY__').join(cfg.googleMapsKey || '');

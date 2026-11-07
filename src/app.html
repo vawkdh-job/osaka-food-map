@@ -490,6 +490,17 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .tpin.dot::after{display:none}.tpin.dot::before{content:"";position:absolute;inset:-12px;border-radius:50%}   /* 40px to tap */
 /* white "그 외" shop pins: a darker outline so they stand out from the map (≥3:1) */
 .pin.t4,.pin.tna{border:2.5px solid #64748b}.pin.t4::after,.pin.tna::after{border-top-color:#64748b}
+/* place search results and the picked-place marker */
+.placeHits{margin:0 16px 8px;border:1px solid #e9e3fb;background:#faf8ff;border-radius:14px;padding:4px 0}
+.phH{padding:8px 12px 2px;font-size:13.5px;font-weight:850;color:#5b21b6}.phH small{font-weight:650;color:var(--muted);font-size:12.5px;margin-left:4px}
+.placeRow{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;padding:6px 12px;border:0;background:none;text-align:left;font:inherit;border-top:1px solid #eee9fb}
+.placeRow:first-of-type{border-top:0}.placeRow .pe{font-size:24px;flex:none;width:30px;text-align:center}
+.placeRow .pt{flex:1;min-width:0;display:flex;flex-direction:column}.placeRow b{font-size:15.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.placeRow small{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.placeRow .go{flex:none;font-size:13px;font-weight:850;color:#6d28d9}
+.phS{margin:6px 16px 4px;font-size:13px;font-weight:800;color:var(--ink2)}
+.hint.placeOn{color:#5b21b6}.hint.placeOn b{color:#4c1d95}
+.plm{z-index:6}.placePin{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% - 8px));display:flex;align-items:center;gap:4px;height:32px;padding:0 10px;border-radius:16px;background:#6d28d9;color:#fff;font-size:13.5px;font-weight:850;border:2px solid #fff;box-shadow:0 2px 8px #0005;white-space:nowrap}
+.placePin::after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border:7px solid transparent;border-top-color:#6d28d9;border-bottom:0}
 .legendDl{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr);gap:10px 12px;align-items:start;margin:4px 0 8px;font-size:14px;line-height:1.5}
 .legendDl dt{margin:0;padding-top:1px}.legendDl dd{margin:0;color:var(--ink2)}
 .legendDl .gTag{font-size:13px;font-weight:750;color:var(--muted)}.legendDl .mini.static{height:auto;padding:3px 8px;font-size:12.5px}
@@ -516,7 +527,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 
 <header class="topbar" id="topbar">
   <div class="searchRow">
-    <input id="q" class="search" type="search" placeholder="가게·메뉴·지역 검색 (예: 라멘 우메다)" enterkeyhint="search" autocomplete="off" aria-label="가게·메뉴·지역 검색">
+    <input id="q" class="search" type="search" placeholder="가게·메뉴·장소 검색 (예: 오사카성, 라멘)" enterkeyhint="search" autocomplete="off" aria-label="가게·메뉴·지역 검색">
     <button id="menuBtn" class="iconBtn" aria-label="메뉴 열기">⋯</button>
   </div>
   <div class="chips" id="chips">
@@ -662,7 +673,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 </div>
 
 <script src="vendor/maplibre-gl.js"></script>
-<script>const APP_DATA=/*__DATA__*/;const TRIP_DATA=/*__TRIP__*/;const APP_BUILD="__BUILD__";const GMAPS_KEY="__GMAPS_KEY__";</script>
+<script>const APP_DATA=/*__DATA__*/;const TRIP_DATA=/*__TRIP__*/;const PLACES_DATA=/*__PLACES__*/;const APP_BUILD="__BUILD__";const GMAPS_KEY="__GMAPS_KEY__";</script>
 <script>
 (function(){
 'use strict';
@@ -964,9 +975,13 @@ function pinFor(r){
 let clusterMarkers=[];
 // pins are wide pills drawn above their point, so group by box overlap rather than radius
 const near=(a,b,wide)=>wide?Math.abs(a.x-b.x)<70&&Math.abs(a.y-b.y)<40:Math.abs(a.x-b.x)<44&&Math.abs(a.y-b.y)<24;
+let placeMk=null,placeMkKey='';
+function renderPlaceMarker(){const key=S.ref==='place'&&S.place?S.place.k+engine:'';if(key===placeMkKey)return;placeMkKey=key;
+  if(placeMk){placeMk.remove();placeMk=null}if(!key)return;
+  const el=document.createElement('div');el.className='mk plm';el.innerHTML=`<div class="placePin">${S.place.emoji} ${esc(S.place.name)}</div>`;placeMk=mkMarker(el,[S.place.lon,S.place.lat]).addTo(map)}
 function renderMarkers(){
   if(!map||!mapReady)return;
-  renderTripMap();
+  renderTripMap();renderPlaceMarker();
   const items=rows.filter(x=>x.r).map(x=>x.r),z=map.getZoom(),show=new Set(items.map(r=>r.id));
   for(const[id,p]of markers)if(!show.has(id)&&p.on){p.m.remove();p.on=false}
   clusterMarkers.forEach(m=>m.remove());clusterMarkers=[];
@@ -1091,11 +1106,28 @@ const HYAKU100=new Set(DATA.filter(isHyaku).sort((a,b)=>(b.tabelog??0)-(a.tabelo
 const opensBy=(r,day,min)=>Array.isArray(r.hours[day])&&r.hours[day].some(([a])=>toMin(a)<=min);
 const openAfter=(r,day,min)=>Array.isArray(r.hours[day])&&r.hours[day].some(([,b])=>toMin(b)>=min);
 let frozenRef=null;
-function refPoint(){if(S.ref==='me'&&me)return me;if(S.ref==='center'&&map)return frozenRef||visibleCenter();return HOTEL}
+function refPoint(){if(S.ref==='place'&&S.place)return S.place;if(S.ref==='me'&&me)return me;if(S.ref==='center'&&map)return frozenRef||visibleCenter();return HOTEL}
 const nfk=s=>String(s||'').normalize('NFKC').toLowerCase();
 const hayOf=r=>r._hay||(r._hay=nfk([r.name,r.name.replace(/\s+/g,''),r.jp,r.genre,genreOf(r).label,allCats(r).map(k=>pickOf(k).label).join(' '),r.area,r.desc,r.address,r.mustTry,(r.genreJp||[]).join(' '),isHyaku(r)?'백명점 백명 百名店':'',
   r.region==='north'?'키타 기타 북쪽':r.region==='south'?'미나미 남쪽':''].join(' | ')));
 const SYN={'라맨':['라멘'],'라면':['라멘','ラーメン'],'돈까스':['돈카츠'],'돈가스':['돈카츠'],'초밥':['스시','寿司'],'오꼬노미':['오코노미'],'다코야키':['타코야키'],'쿠시까스':['쿠시카츠'],'쿠시카쓰':['쿠시카츠'],'장어':['장어','うなぎ','우나'],'커피':['커피','카페','珈琲','コーヒー'],'빵집':['빵'],'백명점':['백명점']};
+/* ---- place search: landmarks, areas and stations (Wikidata, offline) + the hotel and the itinerary's places ---- */
+const nn=s=>nfk(s).replace(/[\s·・()（）]/g,'');
+const PLACES=(()=>{let L=PLACES_DATA.map(p=>({...p,al:[...(p.al||[])]}));
+  // a station that is also an area entry (오사카역, 난바…) shows once, as the area
+  const areaBy=new Map(L.filter(p=>p.t==='area').map(p=>[p.st||p.ja,p]));
+  L=L.filter(p=>{if(p.t!=='station'||!areaBy.has(p.ja))return true;areaBy.get(p.ja).al.push(p.ko);return false});
+  L.unshift({k:'hotel',ko:'리가로얄 호텔 (숙소)',al:['호텔','숙소','리가로얄','리가 로열','rihga'],e:'🏨',ja:HOTEL.jp,lat:HOTEL.lat,lon:HOTEL.lon,t:'sight'});
+  // itinerary places not already covered by a landmark nearby (shops are searchable as shops)
+  for(const d of TRIP_DATA.days)for(const s of d.stops){if(s.kind==='meal'||s.kind==='cafe'||s.kind==='hotel'||s.kind==='air'||s.kind==='station'||s.lat==null)continue;
+    if(L.some(p=>p.t!=='station'&&km(p,s)<0.3))continue;
+    const name=s.name.replace(/^[^·]*·\s*/,'').trim()||s.name;L.push({k:'trip-'+s.id,ko:name,al:[s.name],e:s.emoji,ja:s.jp,lat:s.lat,lon:s.lon,t:'sight'})}
+  for(const p of L)p.nn=[p.ko,...(p.al||[]),p.ja].filter(Boolean).map(nn);
+  return L})();
+function placeHits(q){const t=nn(q);if(t.length<2)return[];const tq=t.replace(/역$/,'').replace(/駅$/,'');
+  const sc=p=>p.nn.some(n=>n===t||n===tq||n===tq+'역')?3:p.nn.some(n=>n.startsWith(t))?2:p.nn.some(n=>n.includes(t)||(tq.length>=2&&n.includes(tq)))?1:0;
+  return PLACES.map(p=>({p,s:sc(p)})).filter(x=>x.s).map(x=>({...x,s:x.s+(x.p.t==='sight'?.3:x.p.t==='area'?.2:0)})).sort((a,b)=>b.s-a.s).slice(0,4).map(x=>x.p)}
+const nearCount=p=>DATA.filter(r=>r.lat!=null&&walkMin(km(p,r))<=NEAR_MIN).length;
 let _qk='',_qt=[];const qTokens=()=>{if(S.q!==_qk){_qk=S.q;_qt=nfk(S.q).split(/\s+/).filter(Boolean).map(t=>SYN[t]||[t])}return _qt};
 function fPass(r){const f=S.f;
   if(f.minT&&(r.tabelog==null||r.tabelog<f.minT))return false;
@@ -1353,6 +1385,10 @@ function renderList(){
     :S.showAll&&plainList?`<button class="expand" data-expand="0">▴ 종류별 상위 ${CAT_MAX}곳만 보기</button>`:'';
   if(plainList){const sc=`${S.showAll?`모든 식당 ${ALL_SHOPS}곳`:`먼 곳은 종류별 상위 ${CAT_MAX}곳`} · <button class="linkBtn" data-expand="${S.showAll?0:1}">${S.showAll?'상위만 보기':hidden>0?`${hidden}곳 더 보기`:'모두 보기'}</button>`;
     hint=hint.endsWith('</p>')&&S.sort==='nearby'?hint.slice(0,-4)+' · '+sc+'</p>':hint+`<p class="hint soft scope">${sc}</p>`}
+  if(S.ref==='place'&&S.place&&!S.q)hint=`<p class="hint placeOn">📍 <b>${esc(S.place.name)}</b> 근처를 보고 있어요 · <button class="linkBtn" id="placeOff">기준 해제</button></p>`+hint;
+  const ph=S.q?placeHits(S.q):[];
+  const placeHtml=ph.length?`<div class="placeHits"><div class="phH">📍 장소 <small>고르면 그 근처 맛집을 보여 줘요</small></div>${ph.map(p=>`<button class="placeRow" data-place="${esc(p.k)}"><span class="pe">${p.e||'📍'}</span><span class="pt"><b>${esc(p.ko)}</b><small><span lang="ja">${esc(p.ja||'')}</span> · 걸어서 ${NEAR_MIN}분 안 ${nearCount(p)}곳</small></span><span class="go">근처 맛집 ›</span></button>`).join('')}</div>`:'';
+  if(placeHtml)hint=placeHtml+(n?`<div class="phS">‘${esc(S.q)}’ 이름·메뉴가 맞는 가게</div>`:'')+hint;
   if(S.q&&S.genre!=='all')hint=`<p class="hint">‘${esc(gname)}’ 안에서 검색 중 · <button class="linkBtn" id="qGenreOff">전체에서 찾기</button></p>`+hint;
   const c=refPoint(),gq=gp;
   const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.q||gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
@@ -1361,11 +1397,13 @@ function renderList(){
   const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
   listMore=rows.slice(LIST_STEP);listTail=expand+gLink+'<button class="linkBtn legendLink" data-legend="1">📖 ★ 점수 · 百名店 · 6인 OK 읽는 법</button>';
   $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
-    :S.q?`<p class="empty">‘${esc(S.q)}’ 검색 결과가 없어요.</p>${hint.includes('qGenreOff')?hint:''}<button class="btn wide" id="clearQ">검색어 지우기</button><a class="gmore" href="${esc(gNearUrl(S.q,c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ‘${esc(S.q)}’ 찾기</a>`
+    :S.q&&placeHtml?hint+`<p class="note">이름이 ‘${esc(S.q)}’인 가게는 없어요. 위 장소를 고르면 그 근처 맛집을 보여 줘요.</p>`
+    :S.q?`<p class="empty">‘${esc(S.q)}’ 검색 결과가 없어요.</p>${hint.includes('qGenreOff')?hint:''}<button class="btn wide" id="clearQ">검색어 지우기</button><p class="note">목록에 없는 장소라면: 지도를 그곳으로 옮긴 뒤 위의 기준을 ‘✛ 지도 중심 기준’으로 바꾸면 그 근처 맛집을 보여 줘요.</p><a class="gmore" href="${esc(gNearUrl(S.q,c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ‘${esc(S.q)}’ 찾기</a>`
     :`<p class="empty">조건에 맞는 식당이 없어요.${filterCount()||S.openOnly?' 켜 둔 조건: '+esc(activeFilterNames().join(', '))+'.':''}</p>${expand}${filterCount()||S.openOnly?'<button class="btn wide" id="clearFilters">조건 모두 끄기</button>':''}${gLink}`;
   const cf=$('#clearFilters');if(cf)cf.onclick=resetFilters;
   const cq=$('#clearQ');if(cq)cq.onclick=()=>{S.q='';$('#q').value='';refresh()};
   const qg=$('#qGenreOff');if(qg)qg.onclick=e=>{e.stopPropagation();setGenre('all')};
+  const po=$('#placeOff');if(po)po.onclick=e=>{e.stopPropagation();clearPlace()};
   const gm=$('#gMore');if(gm)gm.onclick=e=>{e.stopPropagation();gWant+=G_BATCH;queueGoogleRatings();renderList()};
   if(S.view==='list'){while(listMore.length&&body.scrollHeight<keep+body.clientHeight+600)moreList();body.scrollTop=keep}
   thumbsAttach();
@@ -1382,7 +1420,7 @@ function renderCats(){
 }
 function activeFilterNames(){const f=S.f,o=[];if(S.openOnly)o.push(isLive()?'지금 영업 중':'휴무 제외');if(f.minT)o.push(`타베로그 ${f.minT}+`);if(f.prices.length)o.push('가격대');if(f.card)o.push('카드');if(f.ic)o.push('교통카드');
   if(f.shortWait)o.push('대기 짧음');if(f.group6)o.push('6명');if(f.reserve)o.push('예약');if(f.nonSmoking)o.push('금연');if(f.morning)o.push('아침');if(f.late)o.push('밤늦게');if(f.region!=='all')o.push('지역');return o}
-function refName(){return S.ref==='me'&&me?'내 위치':S.ref==='center'?'지도 중심':'호텔'}
+function refName(){return S.ref==='place'&&S.place?S.place.name:S.ref==='me'&&me?'내 위치':S.ref==='center'?'지도 중심':'호텔'}
 function refresh({markers:withMarkers=true}={}){compute();renderCats();renderList();if(withMarkers)renderMarkers();if(S.view==='detail'&&S.selected)renderDetail();updateChips()}
 
 /* ================= detail ================= */
@@ -1734,15 +1772,29 @@ function updateChips(){
   const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
   $('#ref').value=S.ref;$('#refText').textContent=selText($('#ref'));$('#refMini').classList.toggle('isMe',S.ref==='me');
-  $('#q').placeholder='가게·메뉴·지역 검색 (예: 라멘 우메다)';
+  $('#q').placeholder='가게·메뉴·장소 검색 (예: 오사카성, 라멘)';
 }
 $('#day').onchange=e=>{S.day=e.target.value;S.dayTouched=true;refresh()};
 $('#openChip').onclick=()=>{S.openOnly=!S.openOnly;refresh()};
 $('#listSel').onchange=e=>{S.list=e.target.value;if(S.list!=='all'&&!S.sortTouched)S.sort='tabelog';refresh();if(S.ref!=='me')fitRows()};
 $('#sort').onchange=e=>{S.sort=e.target.value;S.sortTouched=true;if(S.view==='detail')closeDetail();refresh();$('#sheetBody').scrollTop=0};
-$('#ref').onchange=e=>{S.ref=e.target.value;S.refTouched=true;if(S.ref==='me'&&!me)startLocate();refresh({markers:false});$('#sheetBody').scrollTop=0};
+$('#ref').onchange=e=>{S.ref=e.target.value;if(S.ref==='place'&&S.place)whenMap(()=>panToVisible([S.place.lat,S.place.lon],15));S.refTouched=true;if(S.ref==='me'&&!me)startLocate();refresh({markers:false});$('#sheetBody').scrollTop=0};
 let qTimer=0;$('#q').addEventListener('input',e=>{clearTimeout(qTimer);qTimer=setTimeout(()=>{S.q=e.target.value.trim();if(S.view==='detail')closeDetail();refresh();if(!isDesktop()&&sheetState!=='full')setSheet('full')},150)});   // results stay above the keyboard
-$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){e.target.blur();if(!isDesktop())setSheet('half')}});
+$('#q').addEventListener('keydown',e=>{if(e.key!=='Enter')return;
+  const q=e.target.value.trim(),ph=placeHits(q);S.q=q;
+  if(ph.length&&(ph[0].nn.includes(nn(q))||!DATA.some(r=>passes(r)))){setPlace(ph[0]);return}   // Enter on a place name: go there
+  e.target.blur();if(!isDesktop())setSheet('half')});
+function syncPlaceOpt(){const sel=$('#ref');let o=sel.querySelector('option[value=place]');
+  if(S.place){if(!o){o=document.createElement('option');o.value='place';sel.appendChild(o)}o.textContent=`📍 ${S.place.name} 기준`}else if(o)o.remove()}
+function setPlace(p){S.place={name:p.ko,jp:p.ja,lat:p.lat,lon:p.lon,emoji:p.e||'📍',k:p.k};S.ref='place';S.refTouched=true;
+  S.q='';$('#q').value='';$('#q').blur();if(S.mode==='trip')exitTrip(true);if(S.view==='detail')closeDetail();
+  S.sort='nearby';S.genre='all';syncPlaceOpt();refresh();$('#sheetBody').scrollTop=0;if(!isDesktop())setSheet('half');
+  whenMap(()=>setTimeout(()=>{   // the place with its 3 nearest shops in view
+    const near=rows.filter(x=>x.r&&x.d<=2).slice().sort((a,b)=>a.d-b.d).slice(0,3).map(x=>[x.r.lat,x.r.lon]);
+    if(near.length)fitVisible([[p.lat,p.lon],...near],16);else panToVisible([p.lat,p.lon],15)},330));
+  toast(`📍 ${p.ko} 근처 맛집이에요 (걸어서 ${NEAR_MIN}분 안 ${nearCount(p)}곳)`,3000)}
+function clearPlace(){S.place=null;if(S.ref==='place')S.ref=me?'me':'hotel';syncPlaceOpt();refresh();fitNearOrAll()}
+$('#list').addEventListener('click',e=>{const b=e.target.closest('[data-place]');if(!b)return;e.stopPropagation();const p=PLACES.find(x=>x.k===b.dataset.place);if(p)setPlace(p)},true);
 $('#list').addEventListener('click',e=>{const it=e.target.closest('.item');if(it&&!e.target.closest('[data-fav],a'))select(+it.dataset.id)});
 $('#list').addEventListener('keydown',e=>{const it=e.target.closest('.item');if(it&&e.key==='Enter'){e.preventDefault();select(+it.dataset.id)}});
 function fitRows(animate=true){
@@ -1911,7 +1963,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={PLACES,placeHits,setPlace,clearPlace,primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
 })();
 </script>
 </body>
