@@ -25913,8 +25913,2586 @@
    ],
    "hoursNote": "L.O. 22:30",
    "tripStop": "u2"
+  },
+  {
+   "id": 271,
+   "name": "아시드 라신",
+   "jp": "アシッドラシーヌ",
+   "genre": "카페·디저트",
+   "emoji": "🍰",
+   "genreJp": [
+    "ケーキ"
+   ],
+   "area": "오사카성·덴마바시",
+   "region": "north",
+   "address": "大阪府大阪市中央区内平野町1-4-6 ヴィヴァーチェ大手前 1F",
+   "lat": 34.687117,
+   "lon": 135.515338,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJB2UWGSbnAGARAty4NtW6lKE",
+   "tabelog": 3.83,
+   "tabelogReviews": 1349,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270104/27071315/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2023,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "likely",
+   "seatNote": "테이크아웃 전문(매장 좌석 없음) – 성 공원에서 먹기",
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "인기 케이크는 줄·품절 가능, 오픈 직후 추천",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "초콜릿 무스 케이크 「락테」, 마카롱",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "18:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "18:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일·월요일 휴무(예전엔 수·목 휴무였음, 인스타 확인)",
+   "warn": null,
+   "desc": "덴마바시 쪽 타베로그 스위츠 1위 파티스리로 초콜릿 케이크 「락테」가 대표. 테이크아웃 전용이고 일·월 휴무라 토요일 11시 오픈에 맞춰 사서 성 공원에서 먹는 걸 추천.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27071315/",
+    "https://tabelog.com/sweets/osaka/A2701/A270104/rank/",
+    "https://tabelog.com/osaka/A2701/A270104/27071315/dtlrvwlst/B493352200/?type=0"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-castle",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27071315/",
+    "https://tabelog.com/sweets/osaka/A2701/A270104/rank/",
+    "https://tabelog.com/osaka/A2701/A270104/27071315/dtlrvwlst/B493352200/?type=0"
+   ],
+   "hoursNote": null,
+   "near": "오사카성",
+   "researchNote": "Tabelog 페이지 직접 열람 불가(검색 스니펫 기준). 점수 3.83/리뷰 1349는 지역 스위츠 랭킹 표기. 백명점은 2023(영문 페이지)·2026(랭킹 표기)만 확인. 영업시간 화~토 11:00-18:00은 Tabelog 최신 표기, 옛 리뷰엔 수·목 휴무로 달라 확인 필요. 결제수단 미확인."
+  },
+  {
+   "id": 272,
+   "name": "카메키치",
+   "jp": "Kamekichi",
+   "genre": "양식·오므라이스",
+   "emoji": "🍽️",
+   "genreJp": [
+    "ビストロ",
+    "フレンチ"
+   ],
+   "area": "오사카성·다니마치4초메",
+   "region": "north",
+   "address": "大阪府大阪市中央区鎗屋町1-3-13",
+   "lat": 34.682636,
+   "lon": 135.515528,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJZydCWSXnAGARnp_Z8swlHlg",
+   "tabelog": 3.75,
+   "tabelogReviews": 813,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270104/27004963/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2021,
+     "list": null
+    },
+    {
+     "year": 2025,
+     "list": null
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "18~24석(카운터+테이블, 출처마다 다름) – 6명은 예약 필수",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": "타베로그 온라인 예약·전화 예약",
+   "wait": {
+    "level": "unknown",
+    "note": "예약하면 대기 없음",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "아이 동반 가능(타베로그·Retty 표기)",
+   "foreignMenu": null,
+   "mustTry": "그날의 런치 한 접시(빵·샐러드 포함)",
+   "hours": {
+    "fri": null,
+    "sat": [
+     [
+      "11:30",
+      "14:30"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일 휴무(월요일 공휴일도 휴무라는 리뷰 있음)",
+   "warn": null,
+   "desc": "다니마치4초메의 프렌치 비스트로(백명점)로 토요일에도 점심 영업하고 아이 동반·예약 가능. 점심은 그날의 메뉴 한 가지라 아이 입맛에 맞을지 미리 확인 필요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27004963/",
+    "https://www.hotpepper.jp/strJ000743930/",
+    "https://retty.me/area/PRE27/ARE96/SUB9601/100000022906/",
+    "https://aumo.jp/areas/531",
+    "https://tabelog.com/osaka/A2701/A270104/rstLst/lunch/RC02/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-castle",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27004963/",
+    "https://www.hotpepper.jp/strJ000743930/",
+    "https://retty.me/area/PRE27/ARE96/SUB9601/100000022906/"
+   ],
+   "hoursNote": "토요 런치 L.O.는 출처마다 다름(12:00 또는 14:30)",
+   "near": "오사카성",
+   "researchNote": "토요 런치 L.O.가 aumo(12:00)와 Retty(14:30)에서 다름 – 예약 시 확인. 평일 런치 11:30~14:00 L.O.(Retty), 금요일 디너 시간 미확인이라 fri=null. 런치 차지 550엔이라는 리뷰도 있어 1인 2,000엔 안팎일 수 있음."
+  },
+  {
+   "id": 273,
+   "name": "블랑제리 & 카페 구",
+   "jp": "ブーランジュリー&カフェ グウ",
+   "genre": "빵",
+   "emoji": "🍞",
+   "genreJp": [
+    "パン",
+    "カフェ"
+   ],
+   "area": "오사카성·다니마치4초메",
+   "region": "north",
+   "address": "大阪府大阪市中央区内本町1-1-10 リンサンビル 1F",
+   "lat": 34.683512,
+   "lon": 135.516041,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJkZdNiS_nAGARu548C8BShH8",
+   "tabelog": 3.72,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270104/27075014/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2020,
+     "list": null
+    },
+    {
+     "year": 2022,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 20,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": "카페 20석 – 6명이 한 자리는 붐비면 어려움",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "다시마키 계란 샌드(점심 시간 한정이라는 리뷰), 흑설탕 러스크 「코게빵」",
+   "hours": {
+    "fri": [
+     [
+      "07:30",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "07:30",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "07:30",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "수·목요일 휴무(출처에 따라 목요일만/첫째·셋째 수요일)",
+   "warn": null,
+   "desc": "다니마치4초메역 바로 앞 빵 백명점(2026)으로 카페석이 있어 9시부터 성 구경 전후 간식·아침으로 좋음. 결제는 PayPay 외엔 현금일 수 있으니 현금 준비.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27075014/",
+    "https://tabelog.com/pan/osaka/A2701/A270104/rank/",
+    "https://tabelog.com/osaka/A2701/A270104/27075014/dtlrvwlst/B492968697/",
+    "https://aumo.jp/areas/531"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-castle",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27075014/",
+    "https://tabelog.com/pan/osaka/A2701/A270104/rank/",
+    "https://tabelog.com/osaka/A2701/A270104/27075014/dtlrvwlst/B492968697/"
+   ],
+   "hoursNote": "L.O. 19:30, 매장 식사 19:00까지",
+   "near": "오사카성",
+   "researchNote": "카드·전자머니 불가, PayPay만 가능(타베로그 표기, 변동 가능). 리뷰 수 미확인. 모리노미야에도 지점이 있다는 소개가 있으나 미확인."
+  },
+  {
+   "id": 274,
+   "name": "뉴 베이브",
+   "jp": "ニューベイブ",
+   "genre": "돈카츠",
+   "emoji": "🐷",
+   "genreJp": [
+    "とんかつ"
+   ],
+   "area": "오사카성·다니마치4초메",
+   "region": "north",
+   "address": "大阪府大阪市中央区内本町2-3-8 ダイヤパレスビル 1F",
+   "lat": 34.683108,
+   "lon": 135.512231,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJoXOARX7nAGARkjkpNwqXDZA",
+   "tabelog": 3.72,
+   "tabelogReviews": 1072,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270104/27121557/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 18,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "18석(카운터+4인 테이블) – 6명은 예약해서 테이블 2개",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": "핫페퍼·타베로그 온라인 예약(좌석만 예약 시 1인 소액 수수료)",
+   "wait": {
+    "level": "medium",
+    "note": "점심 줄 서는 날 많음 – 예약 추천",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "브랜드 돼지 3종 중 고르는 두툼한 저온조리 돈카츠",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "부정기 휴무(Retty엔 목요일 휴무)",
+   "warn": null,
+   "desc": "두툼한 브랜드 돼지 돈카츠로 돈카츠 백명점(2024·2026)이고 토요일은 11~20시 통으로 영업. 18석이라 줄이 생기니 온라인 예약 추천, 성에서 걸어서 15분 정도.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27121557/",
+    "https://www.hotpepper.jp/strJ004090513/",
+    "https://retty.me/area/PRE27/ARE96/SUB9601/100001569708/",
+    "https://tabelog.com/osaka/A2701/A270104/27121557/dtlrvwlst/B493729843/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-castle",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270104/27121557/",
+    "https://www.hotpepper.jp/strJ004090513/",
+    "https://retty.me/area/PRE27/ARE96/SUB9601/100001569708/"
+   ],
+   "hoursNote": "평일 점심 14:30, 저녁·주말 19:30",
+   "near": "오사카성",
+   "researchNote": "price 2는 추정(타베로그 예산 미확인). 1,000엔 「헤타카츠 런치」는 평일 한정. 성(오테몬)에서 약 1km로 범위 끝자락. 같은 이름 지점(난바·히고바시 등)이 많아 '谷町店' 주소 확인."
+  },
+  {
+   "id": 275,
+   "name": "우동 이자카야 무기와라",
+   "jp": "うどん居酒屋 麦笑",
+   "genre": "우동",
+   "emoji": "🍜",
+   "genreJp": [
+    "うどん",
+    "居酒屋",
+    "食堂"
+   ],
+   "area": "오사카성·모리노미야",
+   "region": "north",
+   "address": "大阪府大阪市東成区中道1-10-19",
+   "lat": 34.677918,
+   "lon": 135.535566,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJ6zD-87ngAGARNKA1fl9XnyI",
+   "tabelog": 3.7,
+   "tabelogReviews": 594,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270107/27013801/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "counter",
+    "table",
+    "private"
+   ],
+   "group6": "possible",
+   "seatNote": "카운터·테이블·반개실 있음(석수 미확인)",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "점심 대기 가능, 우동 떨어지면 조기 마감",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "카레우동, 사누키풍 우동",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일 휴무",
+   "warn": null,
+   "desc": "모리노미야역 근처 우동 백명점(2024)으로 점심엔 우동 위주, 테이블·반개실도 있어 가족이 앉기 괜찮음. 일요일 휴무이고 점심 입장 14:30까지, 우동이 떨어지면 일찍 닫음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270107/27013801/",
+    "https://tabelog.com/osaka/A2701/A270107/27013801/dtlrvwlst/B505666589/",
+    "https://tabelog.com/osaka/A2701/A270107/R10072/rstLst/lunch/udon/",
+    "https://tabelog.com/matome/17103/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-castle",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270107/27013801/",
+    "https://tabelog.com/osaka/A2701/A270107/27013801/dtlrvwlst/B505666589/",
+    "https://tabelog.com/osaka/A2701/A270107/R10072/rstLst/lunch/udon/"
+   ],
+   "hoursNote": "점심 입장 14:30까지",
+   "near": "오사카성",
+   "researchNote": "점수는 3.70(594명)/3.71(413명) 두 표기 – 최신으로 보이는 3.70 사용. 저녁 영업(입장 21:00까지)도 있으나 시작 시간 미확인이라 hours엔 점심만 넣음. 옛 정보는 11:30 오픈. 예산 ￥2,000～￥2,999 표기는 점심/저녁 구분 불명(아마 저녁). 점심 예약 가능 여부·결제수단 미확인."
+  },
+  {
+   "id": 276,
+   "name": "만푸쿠 베이커리",
+   "jp": "まん福ベーカリー",
+   "genre": "빵",
+   "emoji": "🥪",
+   "genreJp": [
+    "パン"
+   ],
+   "area": "기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区北浜東5-1",
+   "lat": 34.690065,
+   "lon": 135.510059,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJaccEI9_mAGARO_nyeYfmwNI",
+   "tabelog": 3.7,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27060424/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2020,
+     "list": null
+    },
+    {
+     "year": 2022,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "likely",
+   "seatNote": "테이크아웃 전용 작은 가게(안에 4명 정도) – 나카노시마 공원에서 먹기",
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "가게 밖으로 줄 서는 경우 있음",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "코로케 샌드, 야키소바빵",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "월요일·셋째 화요일 휴무(출처마다 다름)",
+   "warn": null,
+   "desc": "기타하마 동쪽의 작은 동네 빵집(빵 백명점)으로 코로케 샌드·야키소바빵 같은 반찬빵이 싸고 맛있음. 테이크아웃만 되니 사서 바로 앞 나카노시마 공원·강변에서 먹는 코스로.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/pan/osaka/A2701/A270102/rank/",
+    "https://tabelog.com/osaka/A2701/A270102/27060424/dtlmenu/",
+    "https://s.tabelog.com/en/osaka/A2701/A270102/27060424/",
+    "https://www.ekiten.jp/shop_6524354/review/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-kitahama",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/pan/osaka/A2701/A270102/rank/",
+    "https://tabelog.com/osaka/A2701/A270102/27060424/dtlmenu/",
+    "https://s.tabelog.com/en/osaka/A2701/A270102/27060424/"
+   ],
+   "hoursNote": null,
+   "near": "기타하마",
+   "researchNote": "점수 3.70·백명점 2026은 지역 빵 랭킹 표기, 2020·2022는 가게 페이지 표기. 영업시간 10:00-22:00(일부 리뷰 23:00)과 휴무일이 출처마다 달라 확인 필요. 리뷰 수·결제수단 미확인."
+  },
+  {
+   "id": 277,
+   "name": "팡 카라토 블랑제리 카페",
+   "jp": "パンカラト ブーランジェリーカフェ",
+   "genre": "빵",
+   "emoji": "🥐",
+   "genreJp": [
+    "パン",
+    "カフェ"
+   ],
+   "area": "기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区北浜1-9-8 ザ ロイヤルパーク キャンバス 大阪北浜 1F",
+   "lat": 34.690874,
+   "lon": 135.506855,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJqY9d6efnAGAR5Y-9slxlReE",
+   "tabelog": 3.63,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27111450/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 15,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": "13~15석(카운터+테이블) – 6명 한 테이블은 어려움, 빵만 사 가도 됨",
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "오전 모닝 시간대 줄, 오후는 덜할 수 있음",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "갓 구운 빵 + 음료(모닝 세트는 14시까지)",
+   "hours": {
+    "fri": [
+     [
+      "08:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "08:00",
+      "21:00"
+     ]
+    ]
+   },
+   "closed": null,
+   "warn": null,
+   "desc": "미쉐린 프렌치 「뤼미에르」가 만든 호텔 1층 베이커리 카페로 빵 백명점(2026). 좌석이 13~15석뿐이라 6명이면 나눠 앉거나 빵을 사서 강변으로.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27111450/",
+    "https://tabelog.com/pan/osaka/A2701/A270102/rank/",
+    "https://co-trip.jp/article/691833",
+    "https://tabelog.com/osaka/A2701/A270102/27111450/dtlrvwlst/B506278483/?type=0"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-kitahama",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270102/27111450/",
+    "https://tabelog.com/pan/osaka/A2701/A270102/rank/",
+    "https://co-trip.jp/article/691833"
+   ],
+   "hoursNote": "모닝 주문 14:00까지",
+   "near": "기타하마",
+   "researchNote": "영업시간 08:00-21:00은 Retty·기사 표기(날짜 불명), 휴무일 미확인. 점수 3.63은 지역 빵 랭킹 표기. 석수 13석/15석으로 기사마다 다름."
+  },
+  {
+   "id": 279,
+   "name": "니지노 호토케",
+   "jp": "虹の仏",
+   "genre": "카레",
+   "emoji": "🍛",
+   "genreJp": [
+    "カレー"
+   ],
+   "area": "신세카이·텐노지",
+   "region": "tennoji",
+   "address": "大阪府大阪市天王寺区四天王寺1-12-23",
+   "lat": 34.656242,
+   "lon": 135.51402,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJhYbqT1jnAGARzwEQFw9bnkM",
+   "tabelog": 3.8,
+   "tabelogReviews": 1219,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270203/27066977/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 19,
+   "seatTypes": [
+    "counter"
+   ],
+   "group6": "hard",
+   "seatNote": "카운터 19석뿐이라 6명은 나눠 앉아야 해요",
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "점심 줄 서는 인기점, 품절되면 일찍 마감",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "스파이스 카레라 아이는 맵기 확인 필요",
+   "foreignMenu": null,
+   "mustTry": "다시 키마 카레(出汁キーマ)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "14:00"
+     ]
+    ]
+   },
+   "closed": "목요일 휴무",
+   "warn": null,
+   "desc": "미쉐린 빕구르망과 타베로그 카레 백명점에 오른 오사카 스파이스 카레 대표 맛집으로 시텐노지 바로 옆이에요. 카운터석뿐이고 줄이 길며 품절되면 점심이 일찍 끝나니 가급적 12시 전에 도착하세요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270203/27066977/",
+    "https://tabelog.com/osaka/A2701/A270203/rank/",
+    "https://magazine.tabelog.com/articles/505374",
+    "https://magazine.tabelog.com/articles/489377"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-shinsekai",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270203/27066977/",
+    "https://tabelog.com/osaka/A2701/A270203/rank/",
+    "https://magazine.tabelog.com/articles/505374"
+   ],
+   "hoursNote": "저녁 L.O. 20:45 (자료마다 다름), 품절 시 종료",
+   "near": "텐노지 · 시텐노지",
+   "researchNote": "타베로그 점수는 검색 스냅샷마다 3.70~3.81로 엇갈림(리뷰 수가 많은 최신 쪽이 3.80~3.81). 텐노지역에서 도보 약 13~15분(추정)으로 12분 기준을 살짝 넘음. 2026년 7월 도쿄 가메이도점 오픈, 난바의 자매점 '모던 스파이스 니지노 호토케'는 문을 닫았지만 시텐노지 본점은 2026년 리뷰·백명점 2026 기준 영업 중. 결제 수단·금요일 저녁 마감 시각(21:00/22:00) 미확인."
+  },
+  {
+   "id": 280,
+   "name": "무텟포 오사카점",
+   "jp": "無鉄砲 大阪店",
+   "genre": "라멘",
+   "emoji": "🍜",
+   "genreJp": [
+    "ラーメン"
+   ],
+   "area": "신세카이·텐노지",
+   "region": "tennoji",
+   "address": "大阪府大阪市浪速区戎本町1-5-21 米田ビル1F",
+   "lat": 34.6546,
+   "lon": 135.500218,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJVVUxOmTnAGARNuV6uBQbBQ0",
+   "tabelog": 3.71,
+   "tabelogReviews": 2490,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270206/27005006/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": null
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": 23,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "카운터 15석 + 테이블 8석, 테이블이 비면 6명 가능",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "개점 전부터 줄 서는 가게",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "국물이 아주 진한 돈코츠라 아이 입맛엔 호불호",
+   "foreignMenu": null,
+   "mustTry": "돈코츠 라멘",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "22:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "22:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "22:30"
+     ]
+    ]
+   },
+   "closed": "월요일 휴무(공휴일이면 영업)",
+   "warn": null,
+   "desc": "이 일대 타베로그 라멘 1위이자 라멘 백명점(2025)인 초진한 돈코츠 라멘집이에요. 현금만 받고 줄이 길며 국물이 무척 진하니 진한 라멘을 좋아하는 어른 위주로 추천해요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270206/27005006/",
+    "https://tabelog.com/osaka/A2701/A270206/27005006/dtlmenu/",
+    "https://tabelog.com/ramen/osaka/A2701/A270206/rank/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-shinsekai",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270206/27005006/",
+    "https://tabelog.com/osaka/A2701/A270206/27005006/dtlmenu/",
+    "https://tabelog.com/ramen/osaka/A2701/A270206/rank/"
+   ],
+   "hoursNote": "품절 시 종료",
+   "near": "신세카이 · 츠텐카쿠",
+   "researchNote": "츠텐카쿠에서 서쪽으로 약 1km, 도보 약 12분(추정). 리뷰 수는 스냅샷별 2,262~2,490. 옛 정보엔 저녁 18:00~23:00로 나와 있어 영업시간 재확인 필요."
+  },
+  {
+   "id": 281,
+   "name": "오코노미야키 치토세",
+   "jp": "お好み焼き ちとせ",
+   "genre": "오코노미야키",
+   "emoji": "🥞",
+   "genreJp": [
+    "お好み焼き",
+    "焼きそば",
+    "鉄板焼き"
+   ],
+   "area": "신세카이·텐노지",
+   "region": "tennoji",
+   "address": "大阪府大阪市西成区太子1-11-10",
+   "lat": 34.647525,
+   "lon": 135.504666,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJa8XlHIvdAGARYXnQXLvWN7A",
+   "tabelog": 3.61,
+   "tabelogReviews": 373,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270206/27019100/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2022,
+     "list": null
+    },
+    {
+     "year": 2024,
+     "list": null
+    },
+    {
+     "year": 2025,
+     "list": null
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 12,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "테이블 8석 + 카운터 4석, 작은 가게",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "medium",
+    "note": "주말엔 1시간 대기 후기, 평일 점심은 덜할 수 있음",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "철판 요리라 아이도 먹기 쉬움, 포장 가능",
+   "foreignMenu": "외국인 손님이 많고 영어가 통하는 가게로 알려짐",
+   "mustTry": "다카스가야키(소바메시를 네기야키로 감싼 메뉴)",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:30"
+     ],
+     [
+      "16:30",
+      "19:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "14:15"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "14:30"
+     ],
+     [
+      "16:30",
+      "19:30"
+     ]
+    ]
+   },
+   "closed": "화·수요일 휴무",
+   "warn": null,
+   "desc": "츠텐카쿠 남쪽 도부츠엔마에의 오코노미야키 백명점으로, 신세카이 근처에서 테이블에 앉아 오사카 철판 요리를 먹기 좋은 곳이에요. 자리가 12석뿐이고 예약이 안 되며 가게 안 촬영이 금지예요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270206/27019100/",
+    "https://tabelog.com/osaka/A2701/A270206/27019100/dtlrvwlst/B440200273/",
+    "https://tabelog.com/osaka/A2701/A270206/rank/",
+    "https://award.tabelog.com/hyakumeiten/okonomiyaki/2025"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-shinsekai",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270206/27019100/",
+    "https://tabelog.com/osaka/A2701/A270206/27019100/dtlrvwlst/B440200273/",
+    "https://tabelog.com/osaka/A2701/A270206/rank/"
+   ],
+   "hoursNote": null,
+   "near": "신세카이 · 츠텐카쿠",
+   "researchNote": "점수가 스냅샷마다 3.61(리뷰 373, 최신으로 보임)~3.66으로 엇갈림. 저녁 시간은 16:30~19:30 또는 17:00~20:00으로 자료가 다름. 결제 수단 미확인. 가게 안 촬영 금지. 츠텐카쿠에서 도보 약 7~10분(추정)."
+  },
+  {
+   "id": 282,
+   "name": "비앙 쉬르",
+   "jp": "ビアン シュール (Bien Sur)",
+   "genre": "빵",
+   "emoji": "🥐",
+   "genreJp": [
+    "パン",
+    "カフェ"
+   ],
+   "area": "신세카이·텐노지",
+   "region": "tennoji",
+   "address": "大阪府大阪市阿倍野区阿倍野筋2-4-44",
+   "lat": 34.643414,
+   "lon": 135.512427,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJTe6dQ-7dAGARDzV_NUsNxwk",
+   "tabelog": 3.66,
+   "tabelogReviews": 889,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270203/27000545/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2022,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": 18,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": "1층 판매, 2층 카페 18석",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": null,
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "빵·음료라 아이와 쉬어 가기 좋음",
+   "foreignMenu": null,
+   "mustTry": null,
+   "hours": {
+    "fri": [
+     [
+      "08:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "08:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "정기 휴일 없음(타베로그 기준)",
+   "warn": null,
+   "desc": "텐노지역에서 도보 5분, 타베로그 빵 백명점(2026)에 오른 아베노 대표 빵집이에요. 1층에서 산 빵을 2층 카페에서 먹을 수 있어 산책 중 간식·휴식에 좋지만 현금만 받아요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270203/27000545/",
+    "https://tabelog.com/osaka/A2701/A270203/27000545/dtlrvwlst/B464998789/",
+    "https://tabelog.com/osaka/A2701/A270203/rank/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-shinsekai",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270203/27000545/",
+    "https://tabelog.com/osaka/A2701/A270203/27000545/dtlrvwlst/B464998789/",
+    "https://tabelog.com/osaka/A2701/A270203/rank/"
+   ],
+   "hoursNote": "2층 카페 10:00~19:00 (L.O. 18:30)",
+   "near": "텐노지 · 아베노",
+   "researchNote": "영업시간이 매장 08:00~20:00 / 카페 10:00~19:00으로 두 가지로 나옴. 바로 옆(같은 블록)에 嶋屋 本店(대학고구마, 3.66, 백명점 2026)도 있음."
+  },
+  {
+   "id": 283,
+   "name": "시마야 본점 (대학고구마)",
+   "jp": "嶋屋 本店",
+   "genre": "카페·디저트",
+   "emoji": "🍠",
+   "genreJp": [
+    "スイーツ",
+    "和菓子",
+    "大学芋",
+    "焼き芋"
+   ],
+   "area": "신세카이·텐노지",
+   "region": "tennoji",
+   "address": "大阪府大阪市阿倍野区阿倍野筋2-4-37",
+   "lat": 34.642753,
+   "lon": 135.512252,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJf6AaXu7dAGAReb_5mW3Z9ZI",
+   "tabelog": 3.66,
+   "tabelogReviews": 662,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270203/27002721/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "unknown",
+   "seatNote": "테이크아웃 위주 가게",
+   "seatLabel": "좌석 확인",
+   "seatTag": "check",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": null,
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": "달콤한 고구마 간식이라 아이도 좋아함",
+   "foreignMenu": null,
+   "mustTry": "아베노 포테이토(대학고구마, 꿀을 직접 뿌려 먹음)",
+   "hours": {
+    "fri": [
+     [
+      "09:30",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "09:30",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "09:30",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "정기 휴일 표기 없음",
+   "warn": null,
+   "desc": "텐노지·아베노 디저트 랭킹 1위인 대학고구마 전문점으로, 겉은 바삭한 고구마에 특제 꿀을 뿌려 먹어요. 포장해서 걸으며 먹기 좋고 카드는 안 되지만 PayPay는 돼요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270203/27002721/",
+    "https://tabelog.com/osaka/A2701/A270203/27002721/dtlrvwlst/B111538109/",
+    "https://tabelog.com/sweets/osaka/A2701/A270203/rank/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-shinsekai",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270203/27002721/",
+    "https://tabelog.com/osaka/A2701/A270203/27002721/dtlrvwlst/B111538109/",
+    "https://tabelog.com/sweets/osaka/A2701/A270203/rank/"
+   ],
+   "hoursNote": null,
+   "near": "텐노지 · 아베노",
+   "researchNote": "백명점 2026 선정 부문은 확인 못 함. '예약 가능'은 전화 주문 기준으로 보임. 텐노지 MIO 플라자관 B1에도 지점(嶋屋 天王寺ミオプラザ館店, 09:00~22:00)이 있음."
+  },
+  {
+   "id": 284,
+   "name": "야키니쿠 서울 (아지노 메이몬 서울)",
+   "jp": "ソウル",
+   "genre": "야키니쿠",
+   "emoji": "🥩",
+   "genreJp": [
+    "焼肉",
+    "ホルモン",
+    "冷麺"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市浪速区元町2-7-24",
+   "lat": 34.662065,
+   "lon": 135.496378,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJHcvKh3LnAGARelbWRG54KXQ",
+   "tabelog": 3.7,
+   "tabelogReviews": 694,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27003344/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2020,
+     "list": null
+    },
+    {
+     "year": 2021,
+     "list": null
+    },
+    {
+     "year": 2024,
+     "list": null
+    },
+    {
+     "year": 2025,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥4,000～￥4,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 82,
+   "seatTypes": [
+    "table",
+    "tatami",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": "82석, 다다미석·테이블석 있고 넓어서 가족 단체도 OK",
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "전화 예약 권장",
+    "est": true
+   },
+   "ticket": false,
+   "smoking": "non_smoking",
+   "kids": "아이 동반 가능(2020년 정보), 다다미석 있음",
+   "foreignMenu": "영어 메뉴 있다는 정보 있음",
+   "mustTry": "와규 고기·호르몬, 마무리로 전복죽",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "24:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "24:00"
+     ]
+    ]
+   },
+   "closed": "목요일 휴무(공휴일이면 영업)",
+   "warn": null,
+   "desc": "타베로그 야키니쿠 백명점에 다섯 번 오른 난바의 노포 야키니쿠로, 82석에 다다미석이 있어 6명 가족 저녁(18:30)에 잘 맞아요. 금요일 저녁은 붐비니 전화 예약을 하고 가세요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27003344/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27003344/table/",
+    "https://tabelog.com/matome/17224/",
+    "https://www.hotpepper.jp/strJ000014011/",
+    "https://gurunavi.com/en/k342000/rst"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-minami",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27003344/",
+    "https://tabelog.com/en/osaka/A2701/A270202/27003344/table/",
+    "https://tabelog.com/matome/17224/"
+   ],
+   "hoursNote": "L.O. 23:30",
+   "near": "난바",
+   "researchNote": "전화번호가 자료마다 다름(타베로그 050-5590-5833 / 핫페퍼·구루나비 06-6643-3644). 핫페퍼 기준 인터넷 예약은 안 받음. 실제 1인 지출은 리뷰 기준 ¥6,000~7,999까지 나옴(가격 3~4 사이). 개별실은 8인용 1개로 보이나 자료마다 다름. 근처에 이름이 비슷한 다른 '焼肉ソウル'(大国町)이 있어 혼동 주의."
+  },
+  {
+   "id": 285,
+   "name": "교쿠세이야 (오하기)",
+   "jp": "玉製家",
+   "genre": "카페·디저트",
+   "emoji": "🍡",
+   "genreJp": [
+    "和菓子"
+   ],
+   "area": "구로몬·닛폰바시",
+   "region": "south",
+   "address": "大阪府大阪市中央区千日前1-4-4",
+   "lat": 34.667298,
+   "lon": 135.505089,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJpeK0wGrnAGARlQ_px5aRm-4",
+   "tabelog": 3.77,
+   "tabelogReviews": 1282,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27001576/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "unknown",
+   "seatNote": "테이크아웃 전용",
+   "seatLabel": "좌석 확인",
+   "seatTag": "check",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "14시 오픈 전후 1~3시간 줄 후기 다수",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "달콤한 오하기라 아이도 먹기 쉬움, 당일 소비",
+   "foreignMenu": null,
+   "mustTry": "팥(쓰부앙·코시앙)·콩고물 오하기",
+   "hours": {
+    "fri": null,
+    "sat": null,
+    "sun": []
+   },
+   "closed": "수·목·일요일·공휴일 휴무(히간·오봉 기간은 영업)",
+   "warn": null,
+   "desc": "난바 디저트 랭킹 1위(3.77)인 오하기 전문점으로, 화과자 백명점(2026)에 올랐어요. 줄이 매우 길어(1~3시간) 한 명이 줄을 서고 나머지는 구로몬 시장을 도는 식으로 가는 게 현실적이에요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27001576/",
+    "https://tabelog.com/osaka/A2701/A270202/27001576/dtlrvwlst/B468362742/",
+    "https://tabelog.com/sweets/osaka/A2701/A270202/rank/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-minami",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27001576/",
+    "https://tabelog.com/osaka/A2701/A270202/27001576/dtlrvwlst/B468362742/",
+    "https://tabelog.com/sweets/osaka/A2701/A270202/rank/"
+   ],
+   "hoursNote": "14:00 오픈, 품절되면 종료",
+   "near": "구로몬 시장",
+   "researchNote": "영업은 14:00부터 품절까지라 마감 시각이 없어 금·토 hours는 null로 둠(금요일 영업). 6개 세트 ¥1,170. 콩고물 오하기는 당일 소비. 현금만 가능."
+  },
+  {
+   "id": 286,
+   "name": "루제리 (젤라토)",
+   "jp": "ルッジェーリ (RUGGERI)",
+   "genre": "카페·디저트",
+   "emoji": "🍨",
+   "genreJp": [
+    "ジェラート",
+    "アイスクリーム"
+   ],
+   "area": "난바·도톤보리",
+   "region": "south",
+   "address": "大阪府大阪市浪速区難波中2-8-93",
+   "lat": 34.662185,
+   "lon": 135.500756,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJ0wMkGmznAGAR9XTrkkiEWa4",
+   "tabelog": 3.67,
+   "tabelogReviews": 716,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270202/27058934/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2023,
+     "list": null
+    },
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": "～￥999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 11,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": "카운터 8석 + 테라스 3석, 포장 추천",
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "not_accepted",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "점심·휴일엔 붐빔",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "아이 간식으로 좋음",
+   "foreignMenu": null,
+   "mustTry": "피스타치오 젤라토",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "20:00"
+     ]
+    ]
+   },
+   "closed": "화·수요일 휴무, 연말연시",
+   "warn": null,
+   "desc": "타베로그 아이스·젤라토 백명점(2026)에 오른 난바의 수제 젤라토 가게로, 제철 재료 맛이 13~16가지쯤 진열돼요. 싱글 ¥400 정도로 저렴하고 카드·QR도 돼서 오후 간식으로 좋지만 자리는 거의 없어요.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27058934/",
+    "https://tabelog.com/sweets/osaka/A2701/A270202/rank/",
+    "https://www.lmaga.jp/news/2026/08/1093854/",
+    "https://www.ufu-sweets.jp/ice/260727ruggeri/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-minami",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270202/27058934/",
+    "https://tabelog.com/sweets/osaka/A2701/A270202/rank/",
+    "https://www.lmaga.jp/news/2026/08/1093854/"
+   ],
+   "hoursNote": null,
+   "near": "난바",
+   "researchNote": "점수 3.67로 3.70에는 못 미치나 백명점(2023·2026)이라 기준 충족. 휴무일이 자료마다 다름(타베로그: 화·수 / 일부 기사: 설날만) — 금요일은 어느 쪽이든 영업. 주소에 건물명 미확인."
+  },
+  {
+   "id": 287,
+   "name": "블랑제리 타카기",
+   "jp": "ブーランジュリー タカギ",
+   "genre": "빵",
+   "emoji": "🥐",
+   "genreJp": [
+    "パン",
+    "サンドイッチ",
+    "洋菓子"
+   ],
+   "area": "히고바시",
+   "region": "north",
+   "address": "大阪府大阪市西区江戸堀1-5-1",
+   "lat": 34.690652,
+   "lon": 135.497141,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJ9fAKUuXmAGARXUxWAwvBrcY",
+   "tabelog": 3.74,
+   "tabelogReviews": 1045,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270102/27002376/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2022,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥1,000～￥1,999",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": true,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": "테이크아웃 전용(좌석 없음) – 사서 호텔에서 아침",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "테이크아웃이라 아이 동반 부담 없음",
+   "foreignMenu": null,
+   "mustTry": "크루아상(리뷰 호평), 바타르",
+   "hours": {
+    "fri": [
+     [
+      "08:00",
+      "19:00"
+     ]
+    ],
+    "sat": [
+     [
+      "08:00",
+      "19:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일·월요일 휴무",
+   "warn": null,
+   "desc": "기타하마·요도야바시·히고바시 지역 타베로그 빵 1위 베이커리로, 토요일 8시에 열어 토요일 아침 빵 사기에 딱 좋음. 일요일은 휴무이고 호텔에서 걸어서 약 15분(게이한 나카노시마역→와타나베바시역 1정거장도 가능).",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/osaka/A2701/A270102/27002376/",
+    "https://tabelog.com/en/osaka/A2701/A270102/27002376/",
+    "https://tabelog.com/pan/osaka/A2701/A270102/rank/",
+    "https://tabelog.com/pan/osaka/A2701/rank/",
+    "https://retty.me/restaurant/100000019951/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-hotel",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/osaka/A2701/A270102/27002376/",
+    "https://tabelog.com/en/osaka/A2701/A270102/27002376/",
+    "https://tabelog.com/pan/osaka/A2701/A270102/rank/"
+   ],
+   "hoursNote": null,
+   "near": "리가로얄 호텔",
+   "researchNote": "Tabelog 직접 열람 불가(검색 스니펫 기준). 3.74/리뷰 1045는 2026년 11월 오사카시 빵 랭킹 표기. 백명점은 2022만 확인. 영업시간(화~토 8:00-19:00, 일·월 휴무)은 Retty 기준, Tabelog 휴무일(일·월)과는 일치. 호텔에서 도보 약 15분은 지도 미사용 추정치(12분 기준 약간 초과)."
+  },
+  {
+   "id": 288,
+   "name": "파네 포르치니",
+   "jp": "パネ・ポルチーニ （PANE PORCINI）",
+   "genre": "빵",
+   "emoji": "🍞",
+   "genreJp": [
+    "パン"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島5-10-22",
+   "lat": 34.695881,
+   "lon": 135.486864,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJ2bPvD2DmAGARfjR2b3pnzpQ",
+   "tabelog": 3.75,
+   "tabelogReviews": 1909,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27049674/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "～￥999",
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": true
+   },
+   "seats": null,
+   "seatTypes": [],
+   "group6": "possible",
+   "seatNote": "테이크아웃 전용(의자 없음)",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "인기 빵은 품절 가능",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": "테이크아웃이라 아이 동반 부담 없음",
+   "foreignMenu": null,
+   "mustTry": "크림빵(리뷰에서 '마시는 크림빵'으로 언급)",
+   "hours": {
+    "fri": [
+     [
+      "09:30",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "09:30",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "09:30",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "연중무휴(나비타임 기준, 확인 필요)",
+   "warn": null,
+   "desc": "신후쿠시마역 바로 앞의 2026 빵 백명점으로, 호텔에서 걸어서 약 8~10분. 일요일 9시 반 오픈이라 일요일 아침용으로 좋지만 현금만 받음.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27049674/",
+    "https://tabelog.com/osaka/A2701/A270108/27049674/dtlmenu/",
+    "https://tabelog.com/pan/osaka/A2701/A270108/rank/",
+    "https://www.navitime.co.jp/category/0310/27103/"
+   ],
+   "confidence": "low",
+   "src": "near-itinerary-hotel",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27049674/",
+    "https://tabelog.com/osaka/A2701/A270108/27049674/dtlmenu/",
+    "https://tabelog.com/pan/osaka/A2701/A270108/rank/"
+   ],
+   "hoursNote": "품절 시 영업 종료",
+   "near": "리가로얄 호텔",
+   "researchNote": "영업시간은 나비타임 표기 '9:30-23:00(품절 시 종료), 연중무휴'뿐이고 Tabelog 영업시간 칸은 비어 있어 미확인 – 특히 밤 23시까지는 의심스러우니 금요일 밤 용도로 쓰려면 전화(06-6451-8001) 확인 필요. 9시 전 아침은 불가. 결제는 Tabelog상 카드·전자머니·QR 모두 불가. 같은 이름의 野田阪神점은 폐점, 다른 지점(上本町·新町)과 혼동 주의."
+  },
+  {
+   "id": 289,
+   "name": "라멘 코조",
+   "jp": "らーめん 小僧",
+   "genre": "라멘",
+   "emoji": "🍜",
+   "genreJp": [
+    "ラーメン"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島3-8-10",
+   "lat": 34.693534,
+   "lon": 135.48543,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJt-Rgtl_mAGAR2oe8fOANJfM",
+   "tabelog": 3.69,
+   "tabelogReviews": 1385,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27077479/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2023,
+     "list": null
+    },
+    {
+     "year": 2024,
+     "list": null
+    },
+    {
+     "year": 2025,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 12,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "hard",
+   "seatNote": "카운터 8 + 테이블 4석 – 6명은 나눠 앉아야 함",
+   "seatLabel": "6인 어려움",
+   "seatTag": "hard",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": null,
+    "est": true
+   },
+   "ticket": true,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "숟가락이 설 만큼 진한 '도로계' 돈코츠 라멘",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "연중무휴",
+   "warn": null,
+   "desc": "라멘 백명점 단골인 초진한 돈코츠 라멘집으로, 밤 10시까지 해서 금요일 20시 이후 야식에 맞음(호텔에서 도보 약 10분 추정). 가볍진 않고 12석뿐이라 6명은 나눠 앉아야 함.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27077479/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27077479/dtlrvwlst/",
+    "https://tabelog.com/ramen/osaka/A2701/A270108/rank/",
+    "https://tabelog.com/osaka/A2701/A270108/27077479/dtlrvwlst/B519275136/?type=0"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-hotel",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27077479/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27077479/dtlrvwlst/",
+    "https://tabelog.com/ramen/osaka/A2701/A270108/rank/"
+   ],
+   "hoursNote": "점심 14:30, 저녁 21:30(식사 기준)",
+   "near": "리가로얄 호텔",
+   "researchNote": "점수 3.69(리뷰 1385)는 후쿠시마 라멘 랭킹, 다른 페이지엔 3.71. 백명점 2025 확인, 2023·2024는 검색 요약 기준. 결제는 QR(PayPay·라쿠텐페이)만 표기, 현금 가능 여부 미기재(식권기라 현금 가능할 것으로 보임). 저녁 마감이 21:30 L.O./22:00 vs 21:30 마감으로 출처마다 다름."
+  },
+  {
+   "id": 290,
+   "name": "마키노",
+   "jp": "まき埜 （まきの）",
+   "genre": "소바",
+   "emoji": "🥢",
+   "genreJp": [
+    "そば"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島6-11-13 シャトー西梅田 1F",
+   "lat": 34.700194,
+   "lon": 135.489399,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJVVUVNormAGAR0gmxAykh1Rk",
+   "tabelog": 3.75,
+   "tabelogReviews": 1070,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27002682/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": null
+    }
+   ],
+   "budgetLunch": "￥1,000～￥1,999",
+   "budgetDinner": "￥5,000～￥5,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": false,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 16,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "4인 테이블 3개 + 카운터 4석 – 6명은 테이블 2개로 나눠 앉을 가능성",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "long",
+    "note": "점심은 예약 불가·개점 전 줄(리뷰: 15분 전 16명), 저녁은 예약 권장",
+    "est": false
+   },
+   "ticket": null,
+   "smoking": "non_smoking",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "스다치 소바, 주와리(100% 메밀) 2종 모둠, 새우튀김 자루소바",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "14:00"
+     ],
+     [
+      "18:00",
+      "21:30"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "14:30"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "14:30"
+     ]
+    ]
+   },
+   "closed": "수요일 휴무(토·일·공휴일은 점심만)",
+   "warn": null,
+   "desc": "'나니와 오키나' 출신 주인의 소바 백명점으로, 금요일 저녁 대체 식사로 좋고 저녁은 18:00~18:30 입장 예약 가능. 토·일은 점심만 하고 호텔에서 걸어서 약 15분이라 조금 멂.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27002682/",
+    "https://tabelog.com/osaka/A2701/A270108/27002682/dtlmenu/drink/",
+    "https://tabelog.com/osaka/A2701/A270108/27002682/dtlrvwlst/B455093453/?type=0",
+    "https://tabelog.com/soba/osaka/A2701/A270108/rank/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-hotel",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270108/27002682/",
+    "https://tabelog.com/osaka/A2701/A270108/27002682/dtlmenu/drink/",
+    "https://tabelog.com/osaka/A2701/A270108/27002682/dtlrvwlst/B455093453/?type=0"
+   ],
+   "hoursNote": "금 점심 13:45·저녁 21:00 / 토·일 14:00",
+   "near": "리가로얄 호텔",
+   "researchNote": "점수 3.73~3.77로 시점별 차이(영문 페이지 3.75/1070). 1인 1드링크 이상 주문 요청. 결제는 현금 또는 PayPay. 호텔에서 도보 약 15분(JR후쿠시마역 416m, 오사카역에서도 10분)은 지도 미사용 추정 – 12분 기준 초과."
+  },
+  {
+   "id": 291,
+   "name": "우오차이나 요",
+   "jp": "魚China YO （ウオチャイナ ヨウ）",
+   "genre": "교자·중식",
+   "emoji": "🐟",
+   "genreJp": [
+    "中華料理"
+   ],
+   "area": "후쿠시마",
+   "region": "north",
+   "address": "大阪府大阪市福島区福島7-4-25 1F",
+   "lat": 34.69734,
+   "lon": 135.485105,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJ24shCGHmAGARHjGr_SuLZxA",
+   "tabelog": 3.55,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270108/27085437/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2024,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥6,000～￥7,999",
+   "price": 3,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 25,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": "테이블 18석 + 카운터 7석 – 예약하면 6명 한 자리 가능성 높음",
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "예약하면 대기 없음",
+    "est": true
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "초등학생 가능, 단 아이도 같은 코스 주문 요청",
+   "foreignMenu": null,
+   "mustTry": "해산물 다짐육·시라코를 넣은 마파두부",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "22:00"
+     ]
+    ]
+   },
+   "closed": "수요일 휴무",
+   "warn": null,
+   "desc": "생선·해산물이 주인공인 광둥식 중식당(중국요리 백명점 2024)으로, 테이블석에 인터넷 예약도 돼서 6명 저녁 대체 식사로 가장 무난. 아이도 어른과 같은 코스(6,000~7,500엔)를 시켜야 하고 호텔에서 걸어서 약 15분.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://selection.tabelog.com/osaka/A2701/A270108/27085437/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27085437/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27085437/dtlrvwlst/",
+    "https://www.navitime.co.jp/category/0307/27103/",
+    "https://gurunavi.com/en/kdc0000/rst"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-hotel",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://selection.tabelog.com/osaka/A2701/A270108/27085437/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27085437/",
+    "https://tabelog.com/en/osaka/A2701/A270108/27085437/dtlrvwlst/"
+   ],
+   "hoursNote": null,
+   "near": "리가로얄 호텔",
+   "researchNote": "점수는 페이지별로 3.55~3.56(현재 추정), 2024 백명점 당시 3.67. 리뷰 수 약 590건(정확한 수 미확인). 저녁 마감 22:00(구루나비) vs 23:00·L.O.21:00(나비타임)으로 차이. 일요일 한정 점심 코스(2,000엔, Retty 리뷰) 언급 있으나 시간 미확인. 코스 이용 시 자릿세 1인 300엔. 호텔 도보 약 15분은 추정."
+  },
+  {
+   "id": 292,
+   "name": "에페",
+   "jp": "epais （épais）（エペ）",
+   "genre": "돈카츠",
+   "emoji": "🐖",
+   "genreJp": [
+    "とんかつ",
+    "カレー"
+   ],
+   "area": "기타신치",
+   "region": "north",
+   "address": "大阪府大阪市北区曽根崎新地1-9-3 ニュー華ビル 3F",
+   "lat": 34.697586,
+   "lon": 135.499583,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJVVWJnO3mAGAR4cEMz-VtyUU",
+   "tabelog": 3.73,
+   "tabelogReviews": 984,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27072441/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": "￥2,000～￥2,999",
+   "budgetDinner": "￥5,000～￥5,999",
+   "price": 2,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": true,
+    "cashOnly": false
+   },
+   "seats": 11,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "총 11석(테이블 8석) – 6명은 점심 전화 예약 필수",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "unknown",
+    "note": "좌석이 적어 예약 없이 가면 대기 가능성",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "두툼한 저온 조리 핑크빛 돈카츠(epais=두껍다)",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "15:00"
+     ],
+     [
+      "18:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "15:00"
+     ]
+    ],
+    "sun": []
+   },
+   "closed": "일요일·공휴일 휴무",
+   "warn": null,
+   "desc": "우메다 지역 타베로그 돈카츠 1위(2026 백명점)인 두툼한 로제 돈카츠집으로, 토요일 점심에 맞음. 11석뿐이라 6명은 미리 전화로 점심 예약해야 하고, 일요일은 휴무.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27072441/",
+    "https://tabelog.com/osaka/A2701/A270101/27072441/party/",
+    "https://tabelog.com/tonkatsu/osaka/A2701/A270101/rank/",
+    "https://tabelog.com/osaka/A2701/A270101/27125466/dtlrvwlst/B447777823/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-umeda",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27072441/",
+    "https://tabelog.com/osaka/A2701/A270101/27072441/party/",
+    "https://tabelog.com/tonkatsu/osaka/A2701/A270101/rank/"
+   ],
+   "hoursNote": "점심 14:00, 저녁 20:00",
+   "near": "오사카역",
+   "researchNote": "본점 기준. 점심 예약은 전화만(050-5890-4534 / 06-6347-6599), 당일 저녁은 좌석만 예약. 2026년 9월 임시휴업 공지는 지난 일정. 대안: 한신백화점 지하2층 'epais 阪神梅田店'(3.65, 16석, 예약 불가, 일요일 영업)은 백명점 미확인이라 별도 미선정. 오사카역에서 도보 약 8~10분(추정)."
+  },
+  {
+   "id": 293,
+   "name": "요쇼쿠 이즈미",
+   "jp": "洋食 泉",
+   "genre": "양식·오므라이스",
+   "emoji": "🍳",
+   "genreJp": [
+    "洋食"
+   ],
+   "area": "니시텐마(히가시우메다)",
+   "region": "north",
+   "address": "大阪府大阪市北区西天満4-9-20 東興ビル 1F",
+   "lat": 34.697211,
+   "lon": 135.503836,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJE6hTsmHmAGARw4-vn1Ne8Xk",
+   "tabelog": 3.95,
+   "tabelogReviews": 279,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27118018/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2025,
+     "list": null
+    }
+   ],
+   "budgetLunch": null,
+   "budgetDinner": "￥8,000～￥9,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": 15,
+   "seatTypes": [
+    "counter",
+    "table"
+   ],
+   "group6": "likely",
+   "seatNote": "카운터 9석 + 최대 6명 테이블 1개 – 그 테이블을 예약해야 함",
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "예약제로 이용 권장",
+    "est": true
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "초등학생 이상 입장 가능",
+   "foreignMenu": null,
+   "mustTry": "오므라이스, 비프카츠 샌드, 나폴리탄",
+   "hours": {
+    "fri": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "17:00",
+      "23:00"
+     ]
+    ]
+   },
+   "closed": "월요일 휴무",
+   "warn": null,
+   "desc": "제국호텔 출신 셰프의 양식 백명점으로 우메다 양식 랭킹 1위(3.95), 6인 테이블이 딱 하나 있어 토요일 저녁 가족 예약에 맞음. 1인 8,000~10,000엔으로 비싼 편이고 HEP FIVE에서 걸어서 10~15분.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27118018/",
+    "https://tabelog.com/yoshoku/osaka/A2701/A270101/rank/",
+    "https://tabelog.com/osaka/A2701/A270101/27118018/dtlrvwlst/B509485648/",
+    "https://retty.me/theme/200245120/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-umeda",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27118018/",
+    "https://tabelog.com/yoshoku/osaka/A2701/A270101/rank/",
+    "https://tabelog.com/osaka/A2701/A270101/27118018/dtlrvwlst/B509485648/"
+   ],
+   "hoursNote": "22:00(Retty 기준)",
+   "near": "HEP FIVE",
+   "researchNote": "후쿠시마구(福島7-5-16)에서 니시텐마로 이전한 가게 – 옛 Tabelog 페이지(27004326) 정보와 혼동 주의. 예약 전화 06-6362-5088. 결제수단·정확한 L.O.는 미확인(옛 매장 정보만 있음). 저녁만 영업. 코스 전용 여부 미확인. HEP FIVE·오하쓰텐진에서 도보 10~15분, 오사카역에서는 15분 안팎(추정)."
+  },
+  {
+   "id": 294,
+   "name": "샹타오 (리츠칼튼 오사카)",
+   "jp": "香桃 （シャンタオ）",
+   "genre": "교자·중식",
+   "emoji": "🥟",
+   "genreJp": [
+    "中華料理",
+    "飲茶",
+    "点心"
+   ],
+   "area": "니시우메다",
+   "region": "north",
+   "address": "大阪府大阪市北区梅田2-5-25 ザ・リッツ・カールトン大阪 5F",
+   "lat": 34.698387,
+   "lon": 135.492529,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJDX9qrozmAGARkURXJh3kR18",
+   "tabelog": 3.7,
+   "tabelogReviews": null,
+   "tabelogUrl": "https://tabelog.com/osaka/A2701/A270101/27000699/",
+   "google": null,
+   "hyakumeiten": [
+    {
+     "year": 2026,
+     "list": null
+    }
+   ],
+   "budgetLunch": "￥10,000～￥14,999",
+   "budgetDinner": "￥20,000～￥29,999",
+   "price": 4,
+   "priceEst": false,
+   "pay": {
+    "card": true,
+    "emoney": false,
+    "qr": false,
+    "cashOnly": false
+   },
+   "seats": 100,
+   "seatTypes": [
+    "table",
+    "private"
+   ],
+   "group6": "likely",
+   "seatNote": "4~8인 개별실 3개 – 예약 때 개별실 요청",
+   "seatLabel": "6인 OK",
+   "seatTag": "ok",
+   "reservation": "possible",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "예약하면 대기 없음",
+    "est": true
+   },
+   "ticket": false,
+   "smoking": "unknown",
+   "kids": "아이 동반 가능",
+   "foreignMenu": null,
+   "mustTry": "딤섬 점심 코스",
+   "hours": {
+    "fri": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:30",
+      "15:00"
+     ],
+     [
+      "17:30",
+      "21:30"
+     ]
+    ]
+   },
+   "closed": null,
+   "warn": null,
+   "desc": "리츠칼튼 오사카 5층 중식당(중국요리 백명점 2026)으로, 개별실이 있어 일요일 11시 반 딤섬 점심을 6명이 편하게 먹기 좋음. 점심도 1인 5,000~10,000엔대에 서비스료 15%가 붙고, 점심 L.O.가 13:30으로 이른 편.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27000699/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27000699/table/",
+    "https://tabelog.com/osaka/A2701/A270101/27000699/dtlmenu/photo/",
+    "https://tabelog.com/osaka/A2701/A270101/27000699/dtlrvwlst/B502539930/",
+    "https://tabelog.com/chinese/osaka/A2701/A270101/rank/"
+   ],
+   "confidence": "medium",
+   "src": "near-itinerary-umeda",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "medium",
+   "hoursSrc": [
+    "https://tabelog.com/en/osaka/A2701/A270101/27000699/",
+    "https://tabelog.com/en/osaka/A2701/A270101/27000699/table/",
+    "https://tabelog.com/osaka/A2701/A270101/27000699/dtlmenu/photo/"
+   ],
+   "hoursNote": "점심 13:30, 저녁 19:30(요리 기준)",
+   "near": "오사카역",
+   "researchNote": "점수 3.68~3.71(최근 3.70~3.71). 3.75 미만이지만 2026 백명점이라 기준 충족. 점심 예산은 Tabelog 표기 ￥10,000～￥14,999, 리뷰상 딤섬 점심은 1인 ￥5,000～￥9,999. 서비스료 15%. 전화 06-6343-7020. 리뷰 수 미확인. 오사카역에서 도보 약 7~10분(추정)."
+  },
+  {
+   "id": 278,
+   "name": "엠뱅크먼트 커피",
+   "jp": "エンバンクメントコーヒー",
+   "genre": "카페·디저트",
+   "emoji": "☕",
+   "genreJp": [
+    "カフェ",
+    "スイーツ"
+   ],
+   "area": "기타하마",
+   "region": "north",
+   "address": "大阪府大阪市中央区北浜1-1-23 北浜長屋 1F",
+   "lat": 34.691596,
+   "lon": 135.507767,
+   "coordSrc": "google",
+   "coordConf": null,
+   "placeId": "ChIJbwTvdd7mAGAR04Hp5yxfLAQ",
+   "tabelog": 3.54,
+   "tabelogReviews": 307,
+   "tabelogUrl": null,
+   "google": null,
+   "hyakumeiten": [],
+   "budgetLunch": "～￥999",
+   "budgetDinner": null,
+   "price": 1,
+   "priceEst": false,
+   "pay": {
+    "card": null,
+    "emoney": null,
+    "qr": null,
+    "cashOnly": false
+   },
+   "seats": null,
+   "seatTypes": [
+    "table"
+   ],
+   "group6": "possible",
+   "seatNote": "1층 큰 원탁+벤치, 2층 2~4인 테이블",
+   "seatLabel": "6인 가능성 있음",
+   "seatTag": "reserve",
+   "reservation": "unknown",
+   "onlineQueue": null,
+   "wait": {
+    "level": "short",
+    "note": "의외로 한산하다는 후기 많음",
+    "est": true
+   },
+   "ticket": null,
+   "smoking": "unknown",
+   "kids": null,
+   "foreignMenu": null,
+   "mustTry": "라이트 로스트 핸드드립, 캐럿케이크·시나몬 치즈케이크",
+   "hours": {
+    "fri": [
+     [
+      "12:00",
+      "18:00"
+     ]
+    ],
+    "sat": [
+     [
+      "09:00",
+      "18:00"
+     ]
+    ],
+    "sun": [
+     [
+      "09:00",
+      "18:00"
+     ]
+    ]
+   },
+   "closed": null,
+   "warn": null,
+   "desc": "100년 넘은 나가야를 고친 강변 커피집으로 창밖에 도사보리강과 나카노시마 공원이 보임. 1층 큰 원탁에 여럿이 앉기 좋지만 라이트 로스트 커피 전문이라 아이 음료는 현장 확인.",
+   "image": null,
+   "credit": null,
+   "fav": false,
+   "sources": [
+    "https://www.timeout.jp/osaka/ja/レストラン/embankment-coffee",
+    "https://co-trip.jp/article/692679",
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/",
+    "https://tabelog.com/matome/27176/"
+   ],
+   "confidence": "low",
+   "src": "near-itinerary-kitahama",
+   "coordDate": "2026-11-08",
+   "hoursChecked": "2026-11-07",
+   "hoursConf": "low",
+   "hoursSrc": [
+    "https://www.timeout.jp/osaka/ja/レストラン/embankment-coffee",
+    "https://co-trip.jp/article/692679",
+    "https://tabelog.com/cafe/osaka/A2701/A270102/rank/"
+   ],
+   "hoursNote": null,
+   "near": "기타하마",
+   "researchNote": "기존 목록의 엘머스 그린 카페 자매점. 타베로그 점수는 3.51~3.55로 페이지마다 다름, 가게 URL 미확인. 영업시간은 Time Out 표기(날짜 불명), 휴무일 미확인."
   }
  ],
  "schema": 2,
- "placesMatchedOn": "2026-11-05"
+ "placesMatchedOn": "2026-11-08"
 }
