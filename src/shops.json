@@ -1,0 +1,1538 @@
+{
+ "source": "official sites, floor guides and tourism sites via web search (no Google); coordinates from 国土地理院 address search",
+ "checked": "2026-11-09",
+ "shops": [
+  {
+   "cat": "캐릭터",
+   "name": "치이카와랜드 신사이바시 파르코점",
+   "jp": "ちいかわらんど 心斎橋パルコ店",
+   "brand": "치이카와",
+   "emoji": "🐹",
+   "building": "心斎橋PARCO",
+   "floor": "6F",
+   "address": "大阪府大阪市中央区心斎橋筋1-8-3",
+   "area": "신사이바시",
+   "route": "포켓몬센터 DX(다이마루) 바로 옆 건물. 같은 6층에 스누피타운숍·돈구리 공화국(지브리), 5층에 디즈니 스토어·키디랜드",
+   "hours": {
+    "fri": null,
+    "sat": null,
+    "sun": null
+   },
+   "taxFree": null,
+   "entry": "정리권 운영 정보는 못 찾음. 신상품 발매일엔 붐빌 수 있으니 공식 X 확인",
+   "kids": "치이카와·하치와레·우사기 인형과 문구가 많아 아이 선물 고르기 좋음",
+   "why": "키디랜드가 운영하는 치이카와 공식 숍(2024년 3월 개장). 파르코 6층 캐릭터 층과 묶어서 한 번에 돌 수 있음.",
+   "sources": [
+    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=028877",
+    "https://www.gamer.ne.jp/press/1000004167/",
+    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=028833",
+    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=026326",
+    "https://en.shinsaibashi.parco.jp/info/"
+   ],
+   "confidence": "medium",
+   "note": "파르코 매장 페이지에 '당분간 영업시간 단축' 공지가 있는데 구체 시간은 확인 못 함(파르코 기본 10:00~20:00). 금요일 18시 이후 방문이면 미리 확인 필요.",
+   "id": "chiikawa_shinsaibashi",
+   "trip": null,
+   "pin": "치이카와",
+   "lat": 34.674038,
+   "lon": 135.501312,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "기념품·잡화",
+   "name": "돈키호테 도톤보리점",
+   "jp": "ドン・キホーテ 道頓堀店",
+   "brand": "돈키호테",
+   "emoji": "🐧",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区宗右衛門町7-13",
+   "area": "난바·도톤보리",
+   "route": "도톤보리 강변, 에비스바시(글리코 간판)에서 도보 2~3분. 금요일 마지막 코스로 좋음",
+   "hours": {
+    "fri": [
+     [
+      "00:00",
+      "24:00"
+     ]
+    ],
+    "sat": [
+     [
+      "00:00",
+      "24:00"
+     ]
+    ],
+    "sun": [
+     [
+      "00:00",
+      "24:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "24시간 영업. 저녁 시간엔 계산대 줄이 길 수 있음",
+   "kids": "건물에 붙은 노란 관람차 '에비스 타워'(유료, 곤돌라당 4명)를 탈 수 있음. 운행 시간·휴무는 확인",
+   "why": "과자·약·화장품·캐릭터 잡화를 한 번에 사는 대표 기념품 쇼핑 장소. 1층에 면세 카운터와 관광안내소가 있음.",
+   "sources": [
+    "https://www.donki.com/store/shop_detail.php?shop_id=110",
+    "https://osaka-info.jp/spot/tourist-information-donki-dotonbori/",
+    "https://www.donki.com/kanransha/index_en.php",
+    "https://www.hokkaido-np.co.jp/article/1386454/",
+    "https://travel.watch.impress.co.jp/docs/news/2150250.html"
+   ],
+   "confidence": "high",
+   "note": "2026/11/1부터 면세가 환급 방식으로 바뀜(세금 포함 결제 후 출국 때 세관 확인을 거쳐 환급). 돈키호테(PPIH)는 환급 수수료 무료라고 발표. 관람차 운행 시간은 출처마다 달라 확인 필요. 근처에 '도톤보리 미도스지점'도 24시간 영업.",
+   "id": "donki_dotonbori",
+   "trip": "s7",
+   "pin": "돈키호테",
+   "lat": 34.669415,
+   "lon": 135.502563,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "캐릭터",
+   "name": "치이카와랜드 오사카 우메다점",
+   "jp": "ちいかわらんど 大阪梅田店",
+   "brand": "치이카와",
+   "emoji": "🐹",
+   "building": "阪急三番街 南館",
+   "floor": "B1F",
+   "address": "大阪府大阪市北区芝田1-1-3",
+   "area": "우메다",
+   "route": "한큐 오사카우메다역 아래 지하상가. 키디랜드(북관)까지 도보 2~3분",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": "평소엔 자유 입장이지만 주말·신상품 발매일엔 개점 전부터 줄이 생기고, 일부 날짜엔 정리권이 필요하다는 정보가 있음. 공식 X 확인",
+   "kids": "치이카와·하치와레·우사기 굿즈가 가득. 아이 선물 1순위 후보",
+   "why": "2021년 하라주쿠점과 함께 처음 문을 연 치이카와 공식 숍. 한국에서도 인기가 많아 늘 붐빔.",
+   "sources": [
+    "https://www.h-sanbangai.com/shop/detail/408",
+    "https://chiikawa-info.jp/chiikawaland/osaka/",
+    "https://www.kiddyland.co.jp/etc/umeda_to_chiikawa/",
+    "https://lifestyle.assist-all.co.jp/?p=31749",
+    "https://prtimes.jp/main/html/rd/p/000000145.000074811.html"
+   ],
+   "confidence": "medium",
+   "note": "일부 자료는 '북관'으로 잘못 적었는데 한큐산반가이 공식은 남관 B1F. 정리권 정보는 비공식 출처. 새 매장 '치이카와 파크 스토어'(루쿠아 사우스 11F)는 11/24 개장이라 이번엔 못 감. '치이카와 베이커리 OSAKA'(KITTE 오사카 3F, 2026/6 개장)는 별도 빵집.",
+   "id": "chiikawa_umeda",
+   "trip": null,
+   "pin": "치이카와",
+   "lat": 34.70414,
+   "lon": 135.499008,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "게임·애니",
+   "name": "점프숍 오사카 우메다점",
+   "jp": "JUMP SHOP 大阪梅田店",
+   "brand": "점프",
+   "emoji": "💥",
+   "building": "HEP FIVE",
+   "floor": "6F",
+   "address": "大阪府大阪市北区角田町5-15",
+   "area": "우메다",
+   "route": "빨간 관람차가 있는 HEP FIVE 안. 한큐역·오사카역에서 도보 5분 안팎",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": "원피스·귀멸의 칼날·드래곤볼 등 소년점프 작품 굿즈를 한 번에 볼 수 있음",
+   "why": "슈에이샤 공인 점프 공식 숍. 2026년 2월 27일 같은 자리에서 리뉴얼 오픈.",
+   "sources": [
+    "https://animeanime.jp/release/prtimes/20260219/271020.html",
+    "https://bestcalendar.jp/press/112249",
+    "https://bestcalendar.jp/press/162971"
+   ],
+   "confidence": "medium",
+   "note": "'JUMP SHOP 오사카 루쿠아 사우스점'은 11/24 개장이라 이번엔 못 감. 텐노지점도 있음.",
+   "id": "jumpshop_umeda",
+   "trip": "s11",
+   "pin": "점프숍",
+   "lat": 34.703846,
+   "lon": 135.499634,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "게임·애니",
+   "name": "반다이남코 크로스 스토어 우메다 (가챠·다마고치)",
+   "jp": "バンダイナムコ Cross Store 大阪梅田",
+   "brand": "반다이남코",
+   "emoji": "🥚",
+   "building": "HEP FIVE",
+   "floor": "8F",
+   "address": "大阪府大阪市北区角田町5-15",
+   "area": "우메다",
+   "route": "점프숍과 같은 HEP FIVE. 7층 관람차와 묶기 좋음",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": "캡슐토이(가챠) 기계가 잔뜩 있어 아이가 가장 좋아할 수 있는 곳. '다마고치 가게'에선 원하는 무늬로 다마고치를 고를 수 있음",
+   "why": "가챠폰 백화점·이치방쿠지 공식 숍·다마고치 공식 숍 등이 모인 반다이남코 체험형 매장.",
+   "sources": [
+    "https://www.hepfive.jp/shop_list/detail/147",
+    "https://report.iko-yo.net/articles/18131",
+    "https://www.walkerplus.com/article/1191284/",
+    "https://www.hepfive.jp/access"
+   ],
+   "confidence": "medium",
+   "note": "매장 구성(가챠폰 백화점 등)은 2023~2024년 개장 때 정보. HEP FIVE 관람차는 11:00~22:45(마지막 탑승).",
+   "id": "bandai_cross_umeda",
+   "trip": "s11",
+   "pin": "가챠·다마고치",
+   "lat": 34.703846,
+   "lon": 135.499634,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "캐릭터",
+   "name": "마지컬 치이카와 스토어 우메다 HEP FIVE점",
+   "jp": "まじかるちいかわストア 梅田HEPFIVE店",
+   "brand": "치이카와",
+   "emoji": "🪄",
+   "building": "HEP FIVE",
+   "floor": "B1F",
+   "address": "大阪府大阪市北区角田町5-15",
+   "area": "우메다",
+   "route": "점프숍·반다이남코와 같은 HEP FIVE 지하 1층",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": "마법소녀로 변신한 치이카와 굿즈 전용. 치이카와 팬이면 같이 들르기 좋음",
+   "why": "'마법소녀 치이카와' 콘셉트 전용 숍(키디랜드 운영, 2024년 10월 개장). 치이카와랜드와 상품 구성이 다름.",
+   "sources": [
+    "https://pc.watch.impress.co.jp/docs/release/newscast/1630726.html",
+    "https://www.kiddyland.co.jp/etc/magical_to_umeda/"
+   ],
+   "confidence": "medium",
+   "note": "개장 때(2024년) 정보 기준. 2026년 영업은 키디랜드 길안내 페이지로만 간접 확인.",
+   "id": "magical_chiikawa_hepfive",
+   "trip": "s11",
+   "pin": "마지컬 치이카와",
+   "lat": 34.703846,
+   "lon": 135.499634,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "백화점",
+   "name": "한큐 우메다 본점",
+   "jp": "阪急うめだ本店",
+   "brand": "한큐백화점",
+   "emoji": "🏬",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市北区角田町8-7",
+   "area": "우메다",
+   "route": "일요일 12:15~14:15 계획 그대로. 지하 식품관 → 2층 화장품 → 6층 시계 순으로 돌면 효율적",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "외국인 5% 게스트 쿠폰은 B1 해외고객 카운터·1층 면세 카운터에서 발급(여권 필요). 11월 1일부터 면세가 환급 방식으로 바뀌어, 세금 포함 가격으로 결제하고 출국 때 공항 세관 확인 후 카드로 돌려받음",
+   "kids": "지하 디저트·과자 매장 구경을 아이도 좋아함. 장난감 쇼핑용 백화점은 아님",
+   "why": "간사이 대표 백화점으로 지하 식품관(특히 디저트·과자 선물)과 2층 중심의 화장품 매장이 유명합니다. 6층 시계관에 그랜드세이코 부티크도 있습니다.",
+   "sources": [
+    "https://global.hankyu-hanshin-dept.co.jp/store/hankyuhonten/service/",
+    "https://osaka-info.jp/spot/hankyu-umeda-main-store/",
+    "https://www.gressive.jp/shop/R0400",
+    "https://www.wwdjapan.com/articles/1370467",
+    "https://www.nippon.com/ja/japan-data/h02925/"
+   ],
+   "confidence": "medium",
+   "note": "공식 사이트를 직접 열지 못해 검색 결과로 확인. 11월 이후 게스트 쿠폰과 면세 환급 절차는 현장 확인 필요. 9층 크리스마스 마켓은 11/18부터라 이번 여행 기간(11/13~15)엔 시작 전. 화장품 층 배치는 몇 년 전 기사 기준",
+   "id": "hankyu_umeda",
+   "trip": "u3",
+   "pin": "한큐",
+   "lat": 34.702087,
+   "lon": 135.49852,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "백화점",
+   "name": "한신 우메다 본점",
+   "jp": "阪神梅田本店",
+   "brand": "한신백화점",
+   "emoji": "🏬",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市北区梅田1-13-13",
+   "area": "우메다",
+   "route": "일요일 한큐 바로 길 건너편. 2층 가네코안경, 6층 우메다 로프트, 7층 무인양품까지 한 건물에서 해결",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "면세(환급) 수속은 2층 해외고객 카운터, 6층 로프트 계산대에서 가능. 11월부터 세금 포함 결제 후 출국 때 환급받는 방식",
+   "kids": "지하 스낵파크에서 이카야키 같은 오사카 간식을 서서 먹을 수 있음. 6층 로프트는 아이가 좋아할 문구·캐릭터 잡화 천국",
+   "why": "'먹거리의 한신'이라 불릴 만큼 지하·1층 식품관이 강하고, 2025년 5월부터 우메다 로프트가 6층에 들어와 문구 쇼핑까지 한 번에 됩니다.",
+   "sources": [
+    "https://global.hankyu-hanshin-dept.co.jp/store/hanshinhonten/service/",
+    "https://osaka-info.jp/spot/hanshin-department-store-umeda/",
+    "https://enjoy-osaka-kyoto-kobe.com/article/a/hanshin_department_store_food/",
+    "https://resemom.jp/release/prtimes/20250422/142680.html"
+   ],
+   "confidence": "medium",
+   "note": "7층 무인양품 구매분은 백화점 면세 카운터 대상이 아니라는 안내가 있음. 한큐 게스트 쿠폰과 같은 한신 전용 쿠폰 정보는 확인 못 함",
+   "id": "hanshin_umeda",
+   "trip": "u3",
+   "pin": "한신",
+   "lat": 34.700691,
+   "lon": 135.497528,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "백화점",
+   "name": "다이마루 우메다점",
+   "jp": "大丸梅田店",
+   "brand": "다이마루",
+   "emoji": "🏬",
+   "building": "サウスゲートビルディング",
+   "floor": null,
+   "address": "大阪府大阪市北区梅田3-1-1",
+   "area": "우메다",
+   "route": "JR 오사카역 바로 위. 토·일 지나가는 길에 지하 식품관만 짧게",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "대규모 리뉴얼 공사 중이라 일부 층(B2·4·5·9층)이 휴업 중. 10층 이상은 이제 백화점이 아니라 LUCUA SOUTH로 운영",
+   "kids": "같은 건물 위층(10~16층)은 LUCUA SOUTH로 바뀌어 캐릭터 매장은 그쪽 소관",
+   "why": "2026년 4월 지하 식품관에 카페·베이커리 존과 피에르 마르콜리니가 새로 들어와 빵·디저트 사기 좋습니다. 다만 공사로 매장이 많이 줄어 한큐·한신보다 우선순위는 낮습니다.",
+   "sources": [
+    "https://www.fashionsnap.com/article/2026-10-13/daimaru-umeda-renewal/",
+    "https://www.wwdjapan.com/?p=2526524",
+    "https://info.hands.net/news/20250826pressrelease_umedaclosed.pdf",
+    "https://bestcalendar.jp/press/122623",
+    "https://www.westjr.co.jp/press/article/2026/09/30/items/260930_00_press_lucuasouth.pdf"
+   ],
+   "confidence": "medium",
+   "note": "2030년 봄 그랜드 오픈 목표로 단계적 리뉴얼 중(4·5·9층은 2027년 봄 재개장 예정). 10~15층 철수로 핸즈 우메다점은 2025년 11월 폐점. 11월 현재 영업 층은 공식 층별 안내로 재확인 필요",
+   "id": "daimaru_umeda",
+   "trip": null,
+   "pin": "다이마루",
+   "lat": 34.701881,
+   "lon": 135.496338,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "백화점",
+   "name": "다이마루 신사이바시점",
+   "jp": "大丸心斎橋店",
+   "brand": "다이마루",
+   "emoji": "🏬",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区心斎橋筋1-7-1",
+   "area": "신사이바시",
+   "route": "금요일 16시 신사이바시역 도착 직후 첫 코스. 바로 옆이 신사이바시 파르코(핸즈)",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "본관 1층 안내 카운터에서 여권 보여주면 5% 게스트 쿠폰(세금 포함 3,000엔 이상). 면세 수속 뒤에는 쿠폰을 못 쓴다는 안내가 있어 쿠폰 먼저 받기",
+   "kids": "본관 9층에 포켓몬센터 오사카 DX·포켓몬 카페가 있음(캐릭터 담당 조사 참고)",
+   "why": "보리스 설계의 클래식한 외관을 살린 신사이바시 대표 백화점으로, 지하 식품관과 명품·화장품이 한곳에 모여 있습니다. 본관 6층 시계 매장에서 그랜드세이코 등도 볼 수 있습니다.",
+   "sources": [
+    "https://osaka-info.jp/spot/daimaru-shinsaibashi/",
+    "https://dmdepart.jp/flnews/e/services",
+    "https://www.gressive.jp/shop/R0413",
+    "https://www.likejapan.com/en/?p=60332"
+   ],
+   "confidence": "medium",
+   "note": "면세 카운터 층은 출처마다 다름(B1·1층·본관 9층 언급). 식당가·푸드홀은 11:00~22:00. 11월 환급 방식 전환 후 절차는 현장 확인",
+   "id": "daimaru_shinsaibashi",
+   "trip": null,
+   "pin": "다이마루",
+   "lat": 34.673428,
+   "lon": 135.501282,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "백화점",
+   "name": "다카시마야 오사카점",
+   "jp": "大阪髙島屋",
+   "brand": "다카시마야",
+   "emoji": "🏬",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区難波5-1-5",
+   "area": "난바·도톤보리",
+   "route": "금요일 난바 쪽에서 마무리할 때. 난카이 난바역과 붙어 있음",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "면세 카운터는 7층이라는 안내가 많음. 11월부터 환급 방식",
+   "kids": null,
+   "why": "난바역 바로 위 백화점으로 지하 식품관에 간사이·전국 과자 선물이 많습니다. 3층에 999.9(포나인즈) 매장도 있습니다.",
+   "sources": [
+    "https://en.osaka-info.jp/spot/osaka-takashimaya",
+    "https://www.tsunagujapan.com/en/osaka-takashimaya-shopping-guide/",
+    "https://www.fournines.co.jp/shops/four-nines-%E7%9B%B4%E5%96%B6%E5%BA%97%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/direct_list/"
+   ],
+   "confidence": "medium",
+   "note": "식당가는 11:00~23:00. 금요일 2시간 반 일정에선 다이마루 신사이바시와 겹치므로 선택 사항",
+   "id": "takashimaya_osaka",
+   "trip": null,
+   "pin": "다카시마야",
+   "lat": 34.664597,
+   "lon": 135.50206,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "백화점",
+   "name": "아베노 하루카스 긴테쓰 본점",
+   "jp": "あべのハルカス近鉄本店",
+   "brand": "긴테쓰백화점",
+   "emoji": "🏬",
+   "building": "あべのハルカス",
+   "floor": null,
+   "address": "大阪府大阪市阿倍野区阿倍野筋1-1-43",
+   "area": "텐노지",
+   "route": "이번 동선(신사이바시·우메다) 밖. 하루카스 전망대에 갈 때만 함께",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "윙관의 외국인 고객 살롱에서 면세 수속(층은 3.5층 등 출처마다 다름)",
+   "kids": "같은 건물 꼭대기에 전망대 하루카스300이 있음",
+   "why": "일본 최대급 매장 면적의 백화점으로 식품관과 타워관 11층 시계 살롱(카시오 프리미엄 숍 등)이 있습니다. 이번 일정에선 굳이 갈 필요는 없습니다.",
+   "sources": [
+    "https://en.osaka-info.jp/spot/abeno-harukas-kintetsu-main-store/",
+    "https://osaka-info.jp/en/page/tourist-information-abeno-harukasu",
+    "https://www.gressive.jp/send/brand/g-shock-mrg-shoplist/"
+   ],
+   "confidence": "medium",
+   "note": "지하~3.5층은 20:30까지라는 안내도 있음",
+   "id": "abeno_kintetsu",
+   "trip": null,
+   "pin": "긴테쓰",
+   "lat": 34.64645,
+   "lon": 135.513275,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "문구",
+   "name": "우메다 로프트",
+   "jp": "梅田ロフト",
+   "brand": "로프트",
+   "emoji": "✏️",
+   "building": "阪神梅田本店",
+   "floor": "6F",
+   "address": "大阪府大阪市北区梅田1-13-13",
+   "area": "우메다",
+   "route": "일요일 한신 6층. 예전 차야마치 매장은 폐점했으니 그쪽으로 가지 말 것",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "6층 로프트 계산대에서 면세(환급) 수속 가능",
+   "kids": "문구·캐릭터 잡화가 많아 초등학생이 가장 좋아할 곳",
+   "why": "한 층 약 2,200㎡에 문구·화장품·생활잡화 약 4만 종이 모여 있습니다. 일본 문구(펜·노트·스티커)를 한 번에 사기 좋습니다.",
+   "sources": [
+    "https://resemom.jp/release/prtimes/20250422/142680.html",
+    "https://www.fashionsnap.com/article/2024-09-18/loft-umeda-close/",
+    "https://enjoy-osaka-kyoto-kobe.com/article/a/umeda-loft/",
+    "https://global.hankyu-hanshin-dept.co.jp/store/hanshinhonten/service/"
+   ],
+   "confidence": "high",
+   "note": "2025년 4월 30일 차야마치 매장 폐점, 5월 21일 한신 우메다 본점 6층으로 이전",
+   "id": "loft_umeda",
+   "trip": "u3",
+   "pin": "로프트",
+   "lat": 34.700691,
+   "lon": 135.497528,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "문구",
+   "name": "핸즈 신사이바시점",
+   "jp": "ハンズ 心斎橋店",
+   "brand": "핸즈",
+   "emoji": "✏️",
+   "building": "心斎橋PARCO",
+   "floor": "9-11F",
+   "address": "大阪府大阪市中央区心斎橋筋1-8-3",
+   "area": "신사이바시",
+   "route": "금요일 다이마루 신사이바시 바로 옆 건물(파르코) 위층",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": "만들기 재료·신기한 생활용품이 많아 아이와 구경하기 좋음",
+   "why": "문구·생활잡화·DIY 용품 대형점으로, 우메다점이 폐점한 지금 오사카 시내 중심부의 대표 핸즈입니다.",
+   "sources": [
+    "https://travel.watch.impress.co.jp/docs/news/1283601.html",
+    "https://summer.walkerplus.com/odekake/detail/ar0727s455418/data.html",
+    "https://www.fashionsnap.com/article/2026-04-03/parco-shinsaibashi-renewal/",
+    "https://info.hands.net/news/20250826pressrelease_umedaclosed.pdf"
+   ],
+   "confidence": "medium",
+   "note": "층(9~11F)은 2020년 이전 오픈 때 기사 기준. 파르코가 2026년 2~10월 단계적 리뉴얼을 해서 현재 층 구성 재확인 필요. 우메다는 로프트로 충분하면 생략 가능",
+   "id": "hands_shinsaibashi",
+   "trip": null,
+   "pin": "핸즈",
+   "lat": 34.674038,
+   "lon": 135.501312,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "시계",
+   "name": "그랜드세이코 부티크 한큐 우메다 본점",
+   "jp": "グランドセイコーブティック 阪急うめだ本店",
+   "brand": "그랜드세이코",
+   "emoji": "⌚",
+   "building": "阪急うめだ本店",
+   "floor": "6F",
+   "address": "大阪府大阪市北区角田町8-7",
+   "area": "우메다",
+   "route": "일요일 한큐 6층 시계관 안",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "한큐 게스트 쿠폰·면세(환급)는 한큐 카운터 기준. 고가품이라 환급 절차를 계산 전에 확인",
+   "kids": null,
+   "why": "2026년 3월 리뉴얼 오픈했고 한큐 우메다 본점 한정 모델도 나왔습니다. 같은 6층 시계관에서 다른 고급 시계 브랜드도 함께 볼 수 있습니다.",
+   "sources": [
+    "https://www.gressive.jp/send/shop/260310-hankyuumeda-gs/index.html",
+    "https://www.gressive.jp/shop/R0400/topics/332220",
+    "https://www.gressive.jp/gmc/adv/220720-hankyu-umeda-gs"
+   ],
+   "confidence": "medium",
+   "note": "한정 모델 재고는 미확인",
+   "id": "gs_hankyu",
+   "trip": "u3",
+   "pin": "그랜드세이코",
+   "lat": 34.702087,
+   "lon": 135.49852,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "시계",
+   "name": "세이코 부티크 / 그랜드세이코 부티크 오사카 신사이바시",
+   "jp": "セイコーブティック/グランドセイコーブティック 大阪心斎橋",
+   "brand": "세이코·그랜드세이코",
+   "emoji": "⌚",
+   "building": "大阪豊田ビルディング",
+   "floor": "1F",
+   "address": "大阪府大阪市中央区南船場4-3-11",
+   "area": "신사이바시",
+   "route": "금요일 신사이바시역 3번 출구 도보 약 3분. 19시 마감이라 일찍 들르기",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "19:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "19:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "19:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": "부정기 휴무, 행사 때 시간 변경 가능",
+   "kids": null,
+   "why": "세이코와 그랜드세이코 부티크가 붙어 있는 세계 최대급 세이코 전문 매장입니다. 프레사지 등 부티크 전용 모델을 보기 좋습니다.",
+   "sources": [
+    "https://www.grand-seiko.com/jp-ja/storesinfo/ID-84525",
+    "https://livejapan.com/ja/in-kansai/in-pref-osaka/in-namba_dotonbori_shinsaibashi/spot-lj0056351/",
+    "https://www.seikowatches.com/jp-ja/news/20220128sbosakashinsaibashi"
+   ],
+   "confidence": "medium",
+   "note": "2022년 오픈 때는 평일 20시까지였으나 현재 공식·LiveJapan 표기는 11:00~19:00. 그랜드프런트 북관 2층 세이코 부티크는 2026년 5월 17일부로 그랜드세이코 취급을 끝냄",
+   "id": "seiko_shinsaibashi",
+   "trip": null,
+   "pin": "세이코",
+   "lat": 34.675999,
+   "lon": 135.499817,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "시계",
+   "name": "G-SHOCK 스토어 오사카",
+   "jp": "G-SHOCK STORE OSAKA",
+   "brand": "지샥(카시오)",
+   "emoji": "⌚",
+   "building": "グランフロント大阪 北館",
+   "floor": "1F",
+   "address": "大阪府大阪市北区大深町3-1",
+   "area": "우메다",
+   "route": "토요일 그랜드프런트 북관 1층. 무인양품(4층)과 같은 건물",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": null,
+   "why": "카시오 공식 지샥 전문점으로 일본 한정·컬래버 모델을 찾기 좋습니다. 난바에는 난바파크스 1층에 G-SHOCK STORE NAMBA가 있습니다.",
+   "sources": [
+    "https://gshock.casio.com/jp/store/",
+    "https://www.muji.com/jp/ja/shop/045589"
+   ],
+   "confidence": "medium",
+   "note": "위치는 카시오 공식 매장 목록 기준. 영업시간은 그랜드프런트 물판 시간(11:00~21:00)으로 추정, 매장별 확인 필요",
+   "id": "gshock_osaka",
+   "trip": "u2",
+   "pin": "G-SHOCK",
+   "lat": 34.705833,
+   "lon": 135.494339,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "패션",
+   "name": "유니클로 우메다",
+   "jp": "UNIQLO UMEDA",
+   "brand": "유니클로",
+   "emoji": "👕",
+   "building": "LINKS UMEDA",
+   "floor": "1-2F",
+   "address": "大阪府大阪市北区大深町1-1",
+   "area": "우메다",
+   "route": "토요일 요도바시카메라와 같은 건물 1~2층",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": "키즈·베이비 라인까지 다 있음",
+   "why": "2025년 10월 문을 연 서일본 최대 유니클로 글로벌 플래그십(약 1,300평)입니다. 일본 한정 상품이나 다양한 사이즈를 찾기 좋습니다.",
+   "sources": [
+    "https://www.uniqlo.com/jp/ja/contents/corp/press-release/2025/10/25101013_store.html",
+    "https://netshop.impress.co.jp/node/14757"
+   ],
+   "confidence": "high",
+   "note": "오사카의 글로벌 플래그십은 이제 신사이바시가 아니라 우메다. 신사이바시점(心斎橋筋1-2-14)도 영업 중이나 금요일 동선에선 우선순위 낮음",
+   "id": "uniqlo_umeda",
+   "trip": null,
+   "pin": "유니클로",
+   "lat": 34.70417,
+   "lon": 135.497269,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "전자·잡화",
+   "name": "무인양품 그랜드프런트 오사카",
+   "jp": "無印良品 グランフロント大阪",
+   "brand": "무인양품",
+   "emoji": "🛍️",
+   "building": "グランフロント大阪 北館",
+   "floor": "4F",
+   "address": "大阪府大阪市北区大深町3-1",
+   "area": "우메다",
+   "route": "토요일 그랜드프런트 북관. 지샥 스토어(1층)와 함께",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": "매장 안 카페에서 쉬어 가기 좋음",
+   "why": "2023년 리뉴얼로 면적이 약 2배가 된 간사이 최대 무인양품입니다. 일본에서만 파는 식품·생활용품을 고르기 좋습니다.",
+   "sources": [
+    "https://www.muji.com/jp/ja/shop/045589",
+    "https://www.fashionsnap.com/article/2023-08-01/muji-osaka-renewal/",
+    "https://www.ryutsuu.biz/store/p080115.html"
+   ],
+   "confidence": "medium",
+   "note": "리뉴얼 때 2~4층으로 넓혔다는 보도도 있어 층 표기 재확인 필요. 한신 7층에도 무인양품이 있음",
+   "id": "muji_gfo",
+   "trip": "u2",
+   "pin": "무인양품",
+   "lat": 34.705833,
+   "lon": 135.494339,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "쇼핑몰",
+   "name": "루쿠아 오사카",
+   "jp": "LUCUA osaka",
+   "brand": "루쿠아·루쿠아 이레",
+   "emoji": "🛍️",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市北区梅田3-1-3",
+   "area": "우메다",
+   "route": "JR 오사카역 직결. 토·일 오가며 언제든",
+   "hours": {
+    "fri": [
+     [
+      "10:30",
+      "20:30"
+     ]
+    ],
+    "sat": [
+     [
+      "10:30",
+      "20:30"
+     ]
+    ],
+    "sun": [
+     [
+      "10:30",
+      "20:30"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": "면세 여부는 매장마다 다름",
+   "kids": "같은 역 건물의 LUCUA SOUTH(10~16층)에 캐릭터 매장이 있으나, 치이카와 파크 스토어 등 2기 매장은 11/24 개장이라 이번 여행엔 아직 안 열림",
+   "why": "오사카역에 붙은 대형 패션몰로, 루쿠아 이레(1100) 7층 가네코안경, 8층 999.9 편집숍, 9층 우메다 쓰타야서점이 모여 있습니다.",
+   "sources": [
+    "https://www.walkerplus.com/spot/ar0727s04569/map.html",
+    "https://www.westjr.co.jp/press/article/2026/09/30/items/260930_00_press_lucuasouth.pdf",
+    "https://www.kaneko-optical.co.jp/en/shop_list_area/05?article_data_field_area=area_05"
+   ],
+   "confidence": "medium",
+   "note": "지하2층 푸드홀·10층 식당가는 11:00~23:00. LUCUA SOUTH 1기는 2026/4/5 개장, 2기 '캐릭터즈 월드'는 11/24부터 12월까지 순차 개장(당분간 입장 정리권)",
+   "id": "lucua_osaka",
+   "trip": "f2",
+   "pin": "루쿠아",
+   "lat": 34.701881,
+   "lon": 135.496338,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "쇼핑거리",
+   "name": "신사이바시스지 상점가 (드러그스토어 거리)",
+   "jp": "心斎橋筋商店街（マツモトキヨシ 心斎橋筋2丁目）",
+   "brand": "마츠키요·코코카라 등",
+   "emoji": "💊",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区心斎橋筋2-5-1",
+   "area": "신사이바시",
+   "route": "금요일 신사이바시스지 상점가를 따라 도톤보리까지 걸으며. 23시까지라 저녁 뒤에도 가능",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "23:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "23:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "23:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "entry": "가게마다 면세+할인 쿠폰 행사가 다름. 11월부터 면세는 환급 방식이라 여권 꼭 지참",
+   "kids": "아이 간식·젤리 구경도 함께 하기 좋음",
+   "why": "약 600m 상점가에 마츠모토키요시·코코카라파인·쓰루하 등 드러그스토어가 줄지어 있어 화장품·의약품·간식을 비교하며 사기 좋습니다.",
+   "sources": [
+    "https://www.matsukiyococokara-online.com/map?kid=10001993",
+    "https://livejapan.com/ja/in-kansai/in-pref-osaka/in-umeda_osaka-station_kitashinchi/article-a2000569/"
+   ],
+   "confidence": "low",
+   "note": "핀은 마츠모토키요시 공식 매장 검색에 나온 心斎橋筋2-5-1 매장(10~23시, 무휴) 기준이나 정확한 점포명은 미확인. 같은 거리 心斎橋筋1-5-22에도 마츠키요(10~23시)가 있음. 매장별 면세 여부는 현장 확인",
+   "id": "drug_shinsaibashisuji",
+   "trip": "s6",
+   "pin": "신사이바시스지",
+   "lat": 34.669868,
+   "lon": 135.501251,
+   "coordSrc": "gsi"
+  },
+  {
+   "id": "snoopy_shinsaibashi",
+   "cat": "캐릭터",
+   "name": "스누피 타운숍 신사이바시 파르코점",
+   "jp": "スヌーピータウンショップ 心斎橋PARCO店",
+   "brand": "스누피",
+   "emoji": "🐶",
+   "building": "心斎橋PARCO",
+   "floor": "6F",
+   "address": "大阪府大阪市中央区心斎橋筋1-8-3",
+   "area": "신사이바시",
+   "route": "치이카와랜드와 같은 신사이바시 파르코 6층",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": null,
+   "why": "스누피 공식 숍. 인형·문구·주방용품이 많고 한정 굿즈도 있어요.",
+   "sources": [
+    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=028877",
+    "https://www.gamer.ne.jp/press/1000004167/"
+   ],
+   "confidence": "medium",
+   "note": "hours = PARCO building hours",
+   "trip": null,
+   "pin": "스누피",
+   "lat": 34.674038,
+   "lon": 135.501312,
+   "coordSrc": "gsi"
+  },
+  {
+   "id": "donguri_shinsaibashi",
+   "cat": "캐릭터",
+   "name": "돈구리 공화국 (지브리) 신사이바시 파르코점",
+   "jp": "どんぐり共和国 心斎橋PARCO店",
+   "brand": "지브리",
+   "emoji": "🌳",
+   "building": "心斎橋PARCO",
+   "floor": "6F",
+   "address": "大阪府大阪市中央区心斎橋筋1-8-3",
+   "area": "신사이바시",
+   "route": "치이카와랜드와 같은 신사이바시 파르코 6층",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "entry": null,
+   "kids": null,
+   "why": "지브리 공식 숍. 토토로·마녀배달부 키키 등 지브리 굿즈를 한곳에서 볼 수 있어요.",
+   "sources": [
+    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=028877",
+    "https://www.gamer.ne.jp/press/1000004167/"
+   ],
+   "confidence": "medium",
+   "note": "hours = PARCO building hours",
+   "trip": null,
+   "pin": "지브리",
+   "lat": 34.674038,
+   "lon": 135.501312,
+   "coordSrc": "gsi"
+  },
+  {
+   "id": "kuromon",
+   "cat": "쇼핑거리",
+   "name": "구로몬 시장",
+   "jp": "黒門市場",
+   "brand": "시장",
+   "emoji": "🦀",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区日本橋2-4-1",
+   "area": "닛폰바시",
+   "route": "금요일 14:30 일정",
+   "hours": {
+    "fri": null,
+    "sat": null,
+    "sun": null
+   },
+   "taxFree": null,
+   "entry": "가게마다 달라요 · 오후 4~5시에 닫는 가게가 많아요 · 현금만 받는 곳도 많아요",
+   "kids": null,
+   "why": "오사카의 부엌이라 불리는 시장. 해산물 꼬치·과일·간식을 사 먹으며 걷기 좋아요.",
+   "sources": [
+    "https://kuromon.com/jp/access/"
+   ],
+   "confidence": "high",
+   "note": null,
+   "trip": "s5",
+   "pin": "구로몬",
+   "lat": 34.665268,
+   "lon": 135.506592,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "오운데이즈 신사이바시점",
+   "jp": "OWNDAYS 心斎橋店",
+   "brand": "오운데이즈(OWNDAYS)",
+   "emoji": "👓",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区心斎橋筋2-7-1",
+   "area": "신사이바시",
+   "route": "금요일 신사이바시스지 상점가 2초메(도톤보리 쪽). 16시대에 주문하고 20~30분 동안 상점가·도톤보리를 구경한 뒤 받으면 18:30 안에 충분. 진스 신사이바시점(2-8-8)과 같은 상점가라 비교하기 쉬움",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "fastLens": "공식 안내는 결제 후 최단 20분(혼잡·렌즈 재고에 따라 더 걸림). 시력검사 무료, 10~20분 정도. 도쿄 본사 전문가가 화면으로 검사하는 '원격 시력측정' 지원 매장. 얇은 비구면 렌즈는 도수와 상관없이 추가금 0엔이지만, 당일 수령은 표준·블루라이트 렌즈 위주이고 초박형·누진(다초점)·특수 렌즈는 7~10일 걸려 여행 중엔 어려움",
+   "entry": "예약 없이 방문 가능. 한국 안경 처방전이나 지금 쓰는 안경을 가져가면 빠름. 공식 외국인 안내에 원격 검사 외국어(영·중·한) 대응 언급이 있으나 이 매장 한국어 직원은 미확인. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": "키즈·주니어 테 있음. 중학생 이하 첫 안경은 안과 처방전을 권장하니 아이 것은 한국 안과 처방전(수치 기재)을 챙기기",
+   "why": "테 가격(세금 포함 7,000엔부터)에 얇은 비구면 렌즈가 포함돼 도수가 높아도 추가금이 없고, 최단 20분이라 여행 중 '당일 안경'으로 많이 찾습니다. 한국 언론도 진스와 함께 일본 '쇼핑 필수템' 안경점으로 소개했습니다.",
+   "sources": [
+    "https://www.owndays.com/jp/ja/shops/746",
+    "https://www.owndays.com/jp/en/shops/746",
+    "https://www.owndays.com/jp/ja/welcome",
+    "https://www.owndays.com/jp/ja/help/detail?id=33",
+    "https://www.owndays.com/jp/ja/services/remote-acuity-test",
+    "https://www.owndays.com/jp/en/lp/inbound",
+    "https://www.owndays.com/jp/ja/help/detail?id=62",
+    "https://watabi.org/en/articles/japan-glasses-shopping-guide",
+    "https://www.hankyung.com/article/202609218165g"
+   ],
+   "confidence": "medium",
+   "note": "공식 사이트 직접 접속이 막혀 검색 결과로 확인. 영업시간이 페이지마다 11:00~21:00 / 10:00~20:00로 다름(어느 쪽이든 금요일 16:00~18:30은 영업). 건물명·층 미확인. 원격 검사 한국어 대응은 매장에 확인 필요",
+   "id": "owndays_shinsaibashi",
+   "lat": 34.671017,
+   "lon": 135.501266,
+   "pin": "OWNDAYS",
+   "trip": "s6",
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "진스(JINS) 신사이바시점",
+   "jp": "JINS 心斎橋店",
+   "brand": "진스(JINS)",
+   "emoji": "👓",
+   "building": null,
+   "floor": null,
+   "address": "大阪府大阪市中央区心斎橋筋2-8-8",
+   "area": "신사이바시",
+   "route": "금요일 신사이바시스지 상점가 2초메의 대형 단독 매장(오운데이즈 신사이바시점 근처). 22시까지라 도톤보리에서 저녁 먹고 찾으러 와도 됨",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "22:00"
+     ]
+    ]
+   },
+   "taxFree": null,
+   "fastLens": "재고 렌즈 범위면 결제 후 최단 30분, 재고가 없으면 약 10일. 시력 측정 무료. 한국 처방전도 JINS 렌즈 범위 안이면 제작 가능(접수 때 '처방전으로 제작' 요청). 1.60 비구면 렌즈는 난시 포함 추가금 0엔(1.67 +3,300엔, 1.74 +5,500엔). 누진(원근 양용)은 7~10일, 고급 누진은 약 16일. 안경은 의료기기라 해외 배송·다른 매장 수령 불가 → 체류 중 수령할 수 있는 것만 주문",
+   "entry": "예약 불필요. 처방전·여권 지참. 한국어 응대 여부 미확인. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": "JINS KIDS 테 있음. 15세 미만은 매장 측정보다 안과 처방전을 권장(처방전이 있으면 측정 없이 바로 제작)",
+   "why": "한국에서 가장 잘 알려진 일본 안경 체인으로, 테+기본 렌즈 '올인원 가격'에 30분 완성이라 여행 중 맞추는 사람이 많습니다(김숙 구매 사례를 다룬 한국경제 2026년 9월 기사 등). 2013년 문을 연 JINS 간판급 로드숍입니다.",
+   "sources": [
+    "https://kyodonewsprwire.jp/release/201305221988",
+    "https://tokubai.co.jp/JINS/158245",
+    "https://faq-jp.jins.com/jp/faq/glasses/faq_detail.html?id=116&category=&page=1",
+    "https://faq-jp.jins.com/jp/faq/glasses/faq_detail.html?id=1627&category=3040&page=1",
+    "https://faq-jp.jins.com/jp/faq/glasses/faq_detail.html?id=131&category=&page=1",
+    "https://faq-jp.jins.com/jp/faq/glasses/faq_detail.html?id=123&category=20&page=1",
+    "https://www.jins.com/jp/campaign/lens/",
+    "https://www.japankuru.com/en/shopping/e1809/",
+    "https://www.hankyung.com/article/202609218165g"
+   ],
+   "confidence": "medium",
+   "note": "주소는 2013년 개점 보도자료, 영업시간은 tokubai 게재값 기준이라 현재 시간 재확인 필요. 면세 가능 여부는 공식 확인 못 함(2019년 재팬쿠루 한국어 기사엔 면세 언급). 같은 상점가에 2026년 7월 외국인 친화 플래그십으로 이전 개장한 '안경시장(眼鏡市場) 신사이바시 본점'(최단 25분 안내, 면세)도 대안",
+   "id": "jins_shinsaibashi",
+   "lat": 34.671204,
+   "lon": 135.501266,
+   "pin": "JINS",
+   "trip": "s6",
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "진스(JINS) 그랜드 프론트 오사카점",
+   "jp": "JINS グランフロント大阪店",
+   "brand": "진스(JINS)",
+   "emoji": "👓",
+   "building": "グランフロント大阪 南館",
+   "floor": "4F",
+   "address": "大阪府大阪市北区大深町4-20 グランフロント大阪 南館4F",
+   "area": "우메다",
+   "route": "토요일 그랜드프런트 동선. 오사카역에서 연결통로로 바로. 한 층 아래 남관 3층이 가네코안경이라 '고급 테 구경 → 진스에서 30분 안경'으로 묶기 좋음",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "fastLens": "재고 렌즈 범위면 결제 후 최단 30분, 재고가 없으면 약 10일. 시력 측정 무료, 한국 처방전도 렌즈 범위 안이면 가능. 누진(원근 양용)은 7~10일이라 여행 중 수령 불가. 해외 배송 불가",
+   "entry": "JINS의 외국인 대상 '30min Night Walk' 우메다 코스 출발 매장(여권+6개월 이내 입국 증빙, 3,900엔 이상 구매 시 사은품 등. 예고 없이 종료될 수 있음). 그랜드프런트 면세 카운터는 남관 3층. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": "JINS KIDS 테 있음. 아이는 안과 처방전 권장",
+   "why": "재팬쿠루 등 한국어 여행 매체가 '우메다에서 30분 만에 안경'으로 소개한 매장입니다. 2023년 리뉴얼했고, 테 가격에 기본 렌즈가 포함된 구조라 가성비 안경을 맞추기 좋습니다.",
+   "sources": [
+    "https://www.jins.com/jp/topics_detail.html?info_id=616",
+    "https://www.jins.com/jp/designproject/hilo/store/",
+    "https://www.grandfront-osaka.jp/about/",
+    "https://www.jins.com/jp/campaign/30minnightwalk/cities/umeda/",
+    "https://www.japankuru.com/ko/shopping/165486/",
+    "https://faq-jp.jins.com/jp/faq/glasses/faq_detail.html?id=1627&category=3040&page=1",
+    "https://faq-jp.jins.com/jp/faq/glasses/faq_detail.html?id=131&category=&page=1"
+   ],
+   "confidence": "medium",
+   "note": "영업시간은 그랜드프런트 쇼핑 시간(11:00~21:00) 기준. 면세 대상 여부는 한국어 매체 기사 기준이라 매장 공식 확인 필요. 우메다 다른 JINS: 한큐 산반가이 남관 B1(10:00~21:00, 면세)",
+   "id": "jins_grandfront",
+   "lat": 34.703659,
+   "lon": 135.494705,
+   "pin": "JINS",
+   "trip": "u2",
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "조프(Zoff) 루쿠아점",
+   "jp": "Zoff ルクア店",
+   "brand": "조프(Zoff)",
+   "emoji": "👓",
+   "building": "ルクア（LUCUA osaka）",
+   "floor": "5F",
+   "address": "大阪府大阪市北区梅田3-1-3 ルクア5F",
+   "area": "우메다",
+   "route": "JR 오사카역 바로 위 루쿠아 5층. 토·일 오가는 길에 주문하고 루쿠아·다이마루를 구경하다 찾으면 됨",
+   "hours": {
+    "fri": [
+     [
+      "10:30",
+      "20:30"
+     ]
+    ],
+    "sat": [
+     [
+      "10:30",
+      "20:30"
+     ]
+    ],
+    "sun": [
+     [
+      "10:30",
+      "20:30"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "fastLens": "상비 렌즈 범위면 결제 후 약 30분(혼잡에 따라 변동). 시력검사 무료(관광객 안내 페이지). 재고 밖 도수는 최대 10~14일, 누진(원근)은 약 10일이라 여행 중엔 어려움. 해외 처방전 사용 가능 여부는 공식 확인 못 함 → 지금 쓰는 안경을 가져가 측정받는 게 안전",
+   "entry": "관광객용 안내 페이지(Welcome to Zoff) 있음. 한국어 응대 미확인. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": "Zoff는 키즈 라인 있음(이 매장 취급 여부는 미확인. 그랜드프런트 북관 2층 Zoff는 키즈 취급). 아이 첫 안경은 안과 처방전 권장",
+   "why": "진스·오운데이즈와 함께 일본 3대 저가 안경 체인으로, 테+렌즈 세트 5,500엔(세금 포함)부터에 약 30분 완성이라 짧은 일정에 맞습니다. 2025년 2월 리뉴얼해 선글라스·변색 렌즈도 많습니다.",
+   "sources": [
+    "https://www.zoff.co.jp/shop/store/11126",
+    "https://www.zoff.com/news/20250206-5147/",
+    "https://www.lucua.jp/shopguide/id79.html",
+    "https://www.zoff.co.jp/shop/about/tourist.aspx",
+    "https://www.zoff.co.jp/shop/help/qa_shop_02.aspx",
+    "https://www.zoff.co.jp/shop/contents/enkin.aspx",
+    "https://www.lucua.jp/en/taxfree/",
+    "https://watabi.org/en/articles/japan-glasses-shopping-guide"
+   ],
+   "confidence": "high",
+   "note": "한국어 매체에서 조프 자체를 다룬 자료는 적음(인기 근거는 약함). 같은 우메다에 Zoff 그랜드프런트 북관 2F(11:00~21:00, 키즈 취급, 면세)도 있음",
+   "id": "zoff_lucua",
+   "lat": 34.701881,
+   "lon": 135.496338,
+   "pin": "Zoff",
+   "trip": "f2",
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "가네코안경(금자안경) 그랜드 프론트 오사카점",
+   "jp": "金子眼鏡店 グランフロント大阪店",
+   "brand": "가네코안경",
+   "emoji": "👓",
+   "building": "グランフロント大阪 南館",
+   "floor": "3F",
+   "address": "大阪府大阪市北区大深町4-20 グランフロント大阪 南館3F",
+   "area": "우메다",
+   "route": "토요일 그랜드프런트 남관 3층(진스는 바로 위 4층). 2026년 4월 2층에서 3층으로 넓혀 이전했으니 예전 정보(2F)에 주의. 일요일이면 한신 2층 '한신 우메다 본점'도 가능",
+   "hours": {
+    "fri": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sat": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ],
+    "sun": [
+     [
+      "11:00",
+      "21:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "fastLens": "이전 개장 때 최신 검사 장비를 들였다고 공지. 도수 렌즈 당일 완성 여부는 공식 정보 없음 → 방문 전 전화(06-6359-1277)로 출국 전 수령 가능 여부와 테만 구매 가능 여부를 확인하는 게 안전",
+   "entry": "결제수단에 TAX FREE·은련·알리페이·위챗페이 표기. 그랜드프런트 면세 카운터는 남관 3층. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": null,
+   "why": "'금자안경'으로 불리며 한국에서 인기가 높습니다. 강민경 착용으로 알려진 KA-52가 국내 61만 원대인데 일본 현지가는 44,000엔이라는 보도(한국경제 2026.9)가 있고, 테는 대략 4만~5만 엔대입니다.",
+   "sources": [
+    "https://www.kaneko-optical.co.jp/news/detail/osaka-renewal",
+    "https://www.kaneko-optical.co.jp/en/shop_detail/74",
+    "https://www.hankyung.com/article/202609218165g",
+    "https://www.fashionandstyle.com/posts/2025/02/01/%EA%B0%95%EB%AF%BC%EA%B2%BD-%EC%95%88%EA%B2%BD-%EC%98%88%EC%81%98%EC%9E%96%EC%95%84?id=114480",
+    "https://eomisae.co.kr/fe/94643730",
+    "https://mitsui-shopping-park.com/ko/lalaport/fukuoka/shopnews/3616302.html"
+   ],
+   "confidence": "high",
+   "note": "영문 매장 페이지엔 아직 '南館2F(A-221)'로 남아 있음(공식 공지는 2026/4/1 남관 3F 이전). 다른 오사카 매장: 한신 우메다 본점 2F(별도 후보 kaneko_hanshin), 난바 스카이오 2F(11:00~20:00, 금요일 난바 동선), 루쿠아 이레 KANEKO OPTICAL. 렌즈 가격·제작 기간 미확인",
+   "id": "kaneko_grandfront",
+   "lat": 34.703659,
+   "lon": 135.494705,
+   "pin": "가네코안경",
+   "trip": "u2",
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "포나인즈(999.9) 쿼츠 신사이바시점",
+   "jp": "フォーナインズ クオーツ心斎橋店",
+   "brand": "999.9 포나인즈",
+   "emoji": "👓",
+   "building": "クオーツ心斎橋",
+   "floor": "2F",
+   "address": "大阪府大阪市中央区南船場3-12-14 クオーツ心斎橋2F",
+   "area": "신사이바시",
+   "route": "금요일 16시 신사이바시역 도착 직후 첫 코스로 좋음(미도스지·나가호리도리 교차점의 새 복합시설). 같은 건물에 마스나가1905 신사이바시점도 있어 일본 브랜드 테를 한 번에 비교 가능. 20시 마감",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "fastLens": "시력 측정 가능(최종 접수 19:30). 당일 완성 여부는 공식 정보 없음 → 브랜드 전용 렌즈 등은 며칠 걸릴 수 있으니 '금요일 주문 → 일요일 우메다 쪽 수령' 같은 방법이 되는지 먼저 물어보기",
+   "entry": "공식 'TAX-free Shop'(5,000엔 세전 이상). 직영점. 한국어 응대 미확인. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": null,
+   "why": "착용감 좋은 일본 티타늄 테로 한국에서 인기가 많고, 일본 면세가가 한국보다 훨씬 싸다는 후기가 많습니다(예: 145T 한국 약 77만 원 vs 일본 약 45만 원). 테는 대략 4만 엔대부터입니다.",
+   "sources": [
+    "https://www.fournines.co.jp/information/quartzshinsaibashi-open/",
+    "https://www.fournines.co.jp/shop/1082/",
+    "https://travel.watch.impress.co.jp/docs/news/2096216.html",
+    "https://gall.dcinside.com/board/view/?id=fashion_acc&no=281223",
+    "https://www.hankyung.com/article/202609218165g",
+    "https://livejapan.com/ko/in-kansai/in-pref-osaka/in-umeda_osaka-station_kitashinchi/spot-lj0061772/"
+   ],
+   "confidence": "high",
+   "note": "2026년 4월 25일 개점한 직영점. 우메다엔 간사이 플래그십 '포나인즈 그랜그린 오사카점'(별도 후보 fournines_ggo)과 루쿠아 이레 8F 편집숍 '999.9 selected by glassmans 大阪 梅田'(10:30~20:30, 루쿠아 면세)도 있음. 렌즈 제작 기간 미확인. 145T 가격 비교는 1년 반 전 커뮤니티 글 기준",
+   "id": "fournines_quartz",
+   "lat": 34.6754,
+   "lon": 135.500641,
+   "pin": "999.9",
+   "trip": null,
+   "coordSrc": "gsi"
+  },
+  {
+   "cat": "안경",
+   "name": "한큐 우메다 본점 7층 메가네살롱",
+   "jp": "阪急うめだ本店 7階 メガネサロン",
+   "brand": "한큐백화점 안경 편집숍",
+   "emoji": "👓",
+   "building": "阪急うめだ本店",
+   "floor": "7F",
+   "address": "大阪府大阪市北区角田町8-7 阪急うめだ本店7F",
+   "area": "우메다",
+   "route": "일요일 한큐 쇼핑 시간(12:15~14:15)에 7층만 따로 들르면 됨. 길 건너 한신 2층엔 가네코안경 본점",
+   "hours": {
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
+   },
+   "taxFree": true,
+   "fastLens": "렌즈 재고를 갖춰 당일 가공·교환도 대응한다고 소개(LIVE JAPAN 한국어판). 안경사가 피팅·상담. 일요일 낮에 주문하면 그날 받을 수 있는지 현장 확인. 누진·특수 렌즈는 당일 어려울 수 있음",
+   "entry": "한국어·영어·중국어 응대와 통역 서비스 안내(LIVE JAPAN). 외국인 5% 게스트 쿠폰은 B1 해외고객 카운터 등에서 먼저 받기. 면세는 11/1부터 환급 방식: 세금 포함 가격으로 결제하고 매장에서 여권 제시 → 출국 때 간사이공항 키오스크에서 세관 확인(구매 90일 이내, 짐 부치기 전 안경 소지) → 매장·환급업체가 환급",
+   "kids": null,
+   "why": "999.9(포나인즈)·아이반(EYEVAN)·켄 오쿠야마·DITA·카르티에 등 일본·해외 고급 테를 한곳에서 비교할 수 있고, 한국어 응대가 된다는 점이 강점입니다. 가격은 대략 4만 엔대부터입니다.",
+   "sources": [
+    "https://livejapan.com/ko/in-kansai/in-pref-osaka/in-umeda_osaka-station_kitashinchi/spot-lj0061772/",
+    "https://livejapan.com/en/in-kansai/in-pref-osaka/in-umeda_osaka-station_kitashinchi/spot-lj0061772/",
+    "https://www.hankyu-dept.co.jp/honten/floor/floor7f.html",
+    "https://www.hankyu-dept.co.jp/honten/map/",
+    "https://website.hankyu-dept.co.jp/fl/taxrefund/"
+   ],
+   "confidence": "medium",
+   "note": "취급 브랜드·언어 지원·당일 가공은 LIVE JAPAN 게재 정보라 시기에 따라 다를 수 있음(문의 06-6361-1381). 백화점 면세·게스트 쿠폰 절차는 11월 환급 방식 전환 후 현장 확인",
+   "id": "hankyu_megane_salon",
+   "lat": 34.702087,
+   "lon": 135.49852,
+   "pin": "한큐 안경",
+   "trip": "u3",
+   "coordSrc": "gsi"
+  }
+ ]
+}

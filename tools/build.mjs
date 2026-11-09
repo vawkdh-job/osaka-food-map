@@ -20,6 +20,10 @@ html = html.split('/*__TRIP__*/').join(JSON.stringify(trip));
 const places = existsSync(url('src/places.json')) ? JSON.parse(read('src/places.json')).places : [];
 if (!html.includes('/*__PLACES__*/')) throw new Error('missing places placeholder');
 html = html.split('/*__PLACES__*/').join(JSON.stringify(places));
+// shopping places (character shops, department stores, eyewear, stationery, watches)
+const shopsSrc = existsSync(url('src/shops.json')) ? JSON.parse(read('src/shops.json')) : { shops: [] };
+if (!html.includes('/*__SHOPS__*/')) throw new Error('missing shops placeholder');
+html = html.split('/*__SHOPS__*/').join(JSON.stringify({ checked: shopsSrc.checked, shops: shopsSrc.shops }));
 // Google Maps browser key (public by design; restricted to this site + Maps JavaScript API in Google Cloud)
 const cfg = existsSync(url('src/config.json')) ? JSON.parse(read('src/config.json')) : {};
 html = html.split('__GMAPS_KEY__').join(cfg.googleMapsKey || '');

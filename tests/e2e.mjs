@@ -250,8 +250,8 @@ console.log('5. Bottom sheet drag and filters');
   // beyond walking distance each food type shows only its 10 best-rated shops; within 20 min everything shows
   const perCat = await page.evaluate(() => { const O = window.__ofm, D = APP_DATA.restaurants.filter(r => r.lat != null);
     return O.CATS.map(c => { const inT = D.filter(r => O.allCats(r).includes(c.key)), shown = inT.filter(r => O.inScope(r, c.key));
-      return { far: shown.filter(r => !O.nearRef(r) && !O.fav.has(r.id)).length, near: inT.filter(r => O.nearRef(r)).length, nearShown: shown.filter(r => O.nearRef(r)).length }; }); });
-  check(perCat.every(x => x.far <= 10 && x.near === x.nearShown), 'food types: every shop within a 20-min walk + at most 10 best-rated farther away', perCat.map(x => `${x.nearShown}+${x.far}`).join(','));
+      return { far: shown.filter(r => !O.nearRef(r) && !O.fav.has(r.id) && !O.tripShopIds().has(r.id)).length, near: inT.filter(r => O.nearRef(r)).length, nearShown: shown.filter(r => O.nearRef(r)).length }; }); });
+  check(perCat.every(x => x.far <= 10 && x.near === x.nearShown), 'food types: every shop within a 20-min walk + at most 10 best-rated farther away (+ our itinerary’s restaurants)', perCat.map(x => `${x.nearShown}+${x.far}`).join(','));
   // expand to every shop and back
   await page.locator('#filterChip').click(); await page.locator('#filterReset').click(); await page.locator('#filterApply').click(); await page.waitForTimeout(200);
   const shown0 = (await appState(page)).rows.length;
@@ -510,6 +510,48 @@ console.log('6g. Search a place (landmark, area, station) to see our shops near 
   await page.locator('#q').fill('라멘'); await page.waitForTimeout(500);
   check(await page.evaluate(() => !document.querySelector('#list .placeRow') && window.__ofm.rows().some(x => x.r)), 'a menu word (라멘) still searches shops only');
   check(log.errors.length === 0, 'no script errors in place search', log.errors.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+
+console.log('6h. Map marker kinds and the 🛍 shopping view');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T15:00:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(600);
+  const k = () => page.evaluate(() => ({ mode: window.__ofm.S.mode, it: document.querySelectorAll('.itPin').length, tag: document.querySelectorAll('.spin:not(.mini)').length, mini: document.querySelectorAll('.spin.mini').length,
+    pins: document.querySelectorAll('.pin').length, tripB: document.querySelectorAll('.pin .tripB').length, hotel: getComputedStyle(document.querySelector('.hotelPin')).borderTopColor,
+    rows: document.querySelectorAll('#list .sItem').length }));
+  let m = await k();
+  check(m.it >= 5 && m.tag === 0 && /251, 191, 36/.test(m.hotel), 'food map: itinerary places always shown as day-coloured circles; the hotel has a gold rim', JSON.stringify(m));
+  await page.evaluate(() => window.__ofm.map().jumpTo({ center: [135.4985, 34.7025], zoom: 16 })); await page.waitForTimeout(900);
+  m = await k();
+  check(m.mini > 0 && m.tripB > 0, 'zoomed in: shopping places appear as small teal squares; restaurants on the itinerary carry a 🧳 badge', JSON.stringify(m));
+  await page.locator('#shopChip').click(); await page.waitForTimeout(900);
+  m = await k();
+  const n = await page.evaluate(() => window.__ofm.SHOPS.length);
+  check(m.mode === 'shopping' && m.rows === n && m.pins === 0 && m.it >= 5 && m.tag > 0, '🛍 쇼핑: shopping list and teal name tags, restaurant pins hidden, itinerary circles still shown', JSON.stringify({ ...m, n }));
+  await page.evaluate(() => document.querySelector('[data-scat="dept"]').click()); await page.waitForTimeout(300);
+  const dept = await page.evaluate(() => [...document.querySelectorAll('#list .sItem .imeta span:first-child')].map(e => e.textContent));
+  check(dept.length >= 5 && dept.every(c => c === '백화점'), 'category tab “백화점” lists department stores only', String(dept.length));
+  await page.evaluate(() => document.querySelector('[data-scat="trip"]').click()); await page.waitForTimeout(300);
+  check(await page.evaluate(() => [...document.querySelectorAll('#list .sItem')].every(e => e.querySelector('.tripTag'))), 'tab “일정” lists the shopping places on our itinerary');
+  await page.evaluate(() => document.querySelector('[data-scat="all"]').click()); await page.waitForTimeout(300);
+  await page.locator('#q').fill('치이카와'); await page.waitForTimeout(500);
+  const q = await page.evaluate(() => [...document.querySelectorAll('#list .sItem .iname span')].map(e => e.textContent));
+  check(q.length >= 2 && q.every(t => /치이카와/.test(t)), 'search inside the shopping view (치이카와)', q.join(' / '));
+  await page.locator('#q').fill(''); await page.waitForTimeout(400);
+  await page.evaluate(() => document.querySelector('#list .sItem').click()); await page.waitForTimeout(600);
+  const d = await page.evaluate(() => ({ view: window.__ofm.S.view, dir: !!document.querySelector('#detail a.ab.primary[href*="maps/dir"]'), taxi: !!document.querySelector('#sTaxi'), hours: document.querySelectorAll('#detail .hoursT tr').length }));
+  check(d.view === 'detail' && d.dir && d.taxi && d.hours === 3, 'a shopping place opens with directions, taxi card and Fri–Sun hours', JSON.stringify(d));
+  await page.locator('#sTaxi').click(); await page.waitForTimeout(300);
+  check(await page.evaluate(() => /大阪/.test(document.querySelector('#taxiAddr').textContent)), 'its taxi card shows the Japanese address');
+  await page.goBack(); await page.waitForTimeout(300); await page.goBack(); await page.waitForTimeout(400);
+  check(await page.evaluate(() => window.__ofm.S.mode === 'shopping' && window.__ofm.S.view === 'list'), 'Back closes the taxi card, then the shop page, staying in 🛍 쇼핑');
+  await page.reload(); await ready(page); await page.waitForTimeout(800);
+  check(await page.evaluate(() => window.__ofm.S.mode === 'shopping' && document.querySelectorAll('#list .sItem').length > 0) && log.errors.length === 0, 'reopening the app in 🛍 쇼핑 works');
+  await page.goBack(); await page.waitForTimeout(500);
+  m = await k();
+  check(m.mode === 'shops' && m.rows === 0 && page.url().startsWith(URL0), 'Back from 🛍 쇼핑 returns to the restaurant list', JSON.stringify(m));
+  check(log.errors.length === 0, 'no script errors in the shopping view', log.errors.slice(0, 2).join(' | '));
   await ctx.close();
 }
 
