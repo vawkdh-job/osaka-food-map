@@ -12,27 +12,39 @@
    "floor": "6F",
    "address": "大阪府大阪市中央区心斎橋筋1-8-3",
    "area": "신사이바시",
-   "route": "포켓몬센터 DX(다이마루) 바로 옆 건물. 같은 6층에 스누피타운숍·돈구리 공화국(지브리), 5층에 디즈니 스토어·키디랜드",
+   "route": "금요일 신사이바시스지 상점가 북쪽 입구 바로 앞(파르코 6층). 포켓몬센터 DX(다이마루) 바로 옆 건물, 같은 층에 스누피타운·지브리",
    "hours": {
-    "fri": null,
-    "sat": null,
-    "sun": null
+    "fri": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sat": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ],
+    "sun": [
+     [
+      "10:00",
+      "20:00"
+     ]
+    ]
    },
-   "taxFree": null,
-   "entry": "정리권 운영 정보는 못 찾음. 신상품 발매일엔 붐빌 수 있으니 공식 X 확인",
+   "taxFree": true,
+   "entry": "면세 대상 · 문의 06-6243-0705 · 파르코 전체가 당분간 단축 영업(물판 10:00~20:00) · 신상품 발매일엔 줄이나 정리권이 있을 수 있어요(공식 X 확인)",
    "kids": "치이카와·하치와레·우사기 인형과 문구가 많아 아이 선물 고르기 좋음",
    "why": "키디랜드가 운영하는 치이카와 공식 숍(2024년 3월 개장). 파르코 6층 캐릭터 층과 묶어서 한 번에 돌 수 있음.",
    "sources": [
-    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=028877",
-    "https://www.gamer.ne.jp/press/1000004167/",
-    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=028833",
-    "https://en.shinsaibashi.parco.jp/shop/detail/?cd=026326",
-    "https://en.shinsaibashi.parco.jp/info/"
+    "https://shinsaibashi.parco.jp/shop/detail/?cd=028877",
+    "https://chiikawa-info.jp/chiikawaland/shinsaibashi/index.html",
+    "https://www.gamer.ne.jp/press/1000004167/"
    ],
-   "confidence": "medium",
-   "note": "파르코 매장 페이지에 '당분간 영업시간 단축' 공지가 있는데 구체 시간은 확인 못 함(파르코 기본 10:00~20:00). 금요일 18시 이후 방문이면 미리 확인 필요.",
+   "confidence": "high",
    "id": "chiikawa_shinsaibashi",
-   "trip": null,
+   "trip": "s6",
    "pin": "치이카와",
    "lat": 34.674038,
    "lon": 135.501312,
@@ -1060,7 +1072,7 @@
     ]
    },
    "taxFree": null,
-   "entry": null,
+   "entry": "파르코 전체가 당분간 단축 영업(물판 10:00~20:00)",
    "kids": null,
    "why": "스누피 공식 숍. 인형·문구·주방용품이 많고 한정 굿즈도 있어요.",
    "sources": [
@@ -1068,8 +1080,8 @@
     "https://www.gamer.ne.jp/press/1000004167/"
    ],
    "confidence": "medium",
-   "note": "hours = PARCO building hours",
-   "trip": null,
+   "note": null,
+   "trip": "s6",
    "pin": "스누피",
    "lat": 34.674038,
    "lon": 135.501312,
@@ -1108,7 +1120,7 @@
     ]
    },
    "taxFree": null,
-   "entry": null,
+   "entry": "파르코 전체가 당분간 단축 영업(물판 10:00~20:00)",
    "kids": null,
    "why": "지브리 공식 숍. 토토로·마녀배달부 키키 등 지브리 굿즈를 한곳에서 볼 수 있어요.",
    "sources": [
@@ -1116,8 +1128,8 @@
     "https://www.gamer.ne.jp/press/1000004167/"
    ],
    "confidence": "medium",
-   "note": "hours = PARCO building hours",
-   "trip": null,
+   "note": null,
+   "trip": "s6",
    "pin": "지브리",
    "lat": 34.674038,
    "lon": 135.501312,
