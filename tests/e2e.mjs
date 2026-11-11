@@ -409,12 +409,18 @@ console.log('5c. Poor location fixes (> 500 m): warn, keep the previous position
   const st = () => page.evaluate(() => ({ ref: window.__ofm.S.ref, sheet: window.__ofm.sheetState(), me: window.__ofm.me() && [window.__ofm.me().lat, window.__ofm.me().acc], hint: [...document.querySelectorAll('#list .hint')].map(e => e.textContent).join(' | ').slice(0, 60) }));
   const a = await st();
   check(a.ref === 'me' && a.sheet === 'peek' && /위치 부정확\(약 800m\)/.test(a.hint), 'first fix with 800 m accuracy: used, the list says “위치 부정확(약 800m)”, the sheet is not opened', JSON.stringify(a));
-  await ctx.setGeolocation({ latitude: 34.6690, longitude: 135.5015, accuracy: 20 }); await page.waitForTimeout(1500);
+  await ctx.setGeolocation({ latitude: 34.7025, longitude: 135.4959, accuracy: 1200 }); await page.waitForTimeout(1500);   // a 1.2 km-wide fix in Umeda, 4 km away (out of the subway)
+  const a2 = await st();
+  check(a2.me[0] === 34.7025 && a2.me[1] === 1200 && /위치 부정확\(약 1200m\)/.test(a2.hint) && a2.sheet === 'peek', 'a poor fix that is clearly somewhere else (4 km on) replaces the old position, keeps the warning, and still does not open the sheet', JSON.stringify(a2));
+  await ctx.setGeolocation({ latitude: 34.7030, longitude: 135.4965, accuracy: 900 }); await page.waitForTimeout(1500);
+  const a3 = await st();
+  check(a3.me[1] === 900 && a3.sheet === 'peek', 'a less poor fix replaces a poorer one (sheet still closed)', JSON.stringify(a3));
+  await ctx.setGeolocation({ latitude: 34.7028, longitude: 135.4962, accuracy: 20 }); await page.waitForTimeout(1500);
   const b = await st();
   check(b.sheet === 'half' && b.me[1] === 20 && !/부정확/.test(b.hint), 'then a good fix: the list opens and the warning goes', JSON.stringify(b));
-  await ctx.setGeolocation({ latitude: 34.7025, longitude: 135.4959, accuracy: 1200 }); await page.waitForTimeout(1500);   // a 1.2 km-wide fix in Umeda, 4 km away
+  await ctx.setGeolocation({ latitude: 34.7100, longitude: 135.4962, accuracy: 1200 }); await page.waitForTimeout(1500);   // a 1.2 km-wide fix 0.8 km away: it still agrees with the good position
   const c = await st();
-  check(c.me[0] === b.me[0] && c.me[1] === 20, 'a later fix worse than 500 m is ignored: the previous position stays the reference', JSON.stringify(c));
+  check(c.me[0] === b.me[0] && c.me[1] === 20, 'a later fix worse than 500 m that agrees with the good position is ignored: the good position stays the reference', JSON.stringify(c));
   check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
   await ctx.close();
 }
@@ -558,7 +564,7 @@ console.log('6-late. “도착 전 마감” when the walk takes longer than the
     const b = document.querySelector('#sheetBody'); for (let i = 0; i < 40; i++) { b.scrollTop = b.scrollHeight; await new Promise(res => setTimeout(res, 30)); }   // render every row
     const now = 22 * 60 + 52, wm = d => Math.max(1, Math.round(d * 1.3 / 4.5 * 60)), out = { late: [], ok: [], bad: [] };
     for (const x of O.rows().filter(x => x.r)) { const st = O.status(x.r, 'fri'), el = document.querySelector(`#list .item[data-id="${x.r.id}"] .st`); if (!el || st.end == null) continue;
-      const late = wm(x.d) >= st.end - now, txt = el.textContent;
+      const late = wm(x.d) <= 40 && wm(x.d) >= st.end - now, txt = el.textContent;
       (late ? out.late : out.ok).push(`${x.r.id} ${wm(x.d)}분 ${txt}`); if (late !== /^도착 전 마감 · \d/.test(txt) || (late && !el.classList.contains('closing'))) out.bad.push(`${x.r.id} ${wm(x.d)}분/${st.end - now} ${txt}`); }
     return out; });
   check(r.late.length > 0 && r.ok.length > 0 && r.bad.length === 0, 'rows: “도착 전 마감 · HH:MM” when the walk is as long as the time left before last order / closing', JSON.stringify({ late: r.late.slice(0, 3), ok: r.ok.slice(0, 2), bad: r.bad.slice(0, 3) }));
@@ -568,11 +574,12 @@ console.log('6-late. “도착 전 마감” when the walk takes longer than the
 
 console.log('6-bands. Live trip day ordering: 5/10/20-minute bands, open first, closed dimmed (A2-5)');
 const order = page => page.evaluate(() => { const O = window.__ofm, R = O.rows(), wm = d => Math.max(1, Math.round(d * 1.3 / 4.5 * 60));
-  const grp = r => { const st = O.status(r, O.S.day), k = st.kind; return k === 'closed' || k === 'done' || st.noOrder ? 3 : k === 'later' || k === 'resv' ? 2 : k === 'unknown' ? 1 : 0; };
+  const n0 = new Date(), now = n0.getHours() * 60 + n0.getMinutes();   // these phones run on Japan / Korea time (the same clock)
+  const grp = (r, d) => { const st = O.status(r, O.S.day), k = st.kind; return k === 'closed' || k === 'done' || st.noOrder || (st.end != null && wm(d) >= st.end - now) ? 3 : k === 'later' || k === 'resv' ? 2 : k === 'unknown' ? 1 : 0; };
   const bands = R.filter(x => x.band).map(x => x.divider); let bad = [], cur = null, prev = null;
   for (const x of R) { if (x.divider) { cur = x.band ? x.divider : null; prev = null; continue; } if (!cur) continue;
     const lim = /5분/.test(cur) ? 5 : /10분/.test(cur) ? 10 : 20, m = wm(x.d); if (m > lim || (lim > 5 && m <= (lim === 10 ? 5 : 10))) bad.push('band ' + x.r.id);
-    const g = grp(x.r); if (prev && (g < prev.g || (g === prev.g && (x.r.tabelog ?? 0) > (prev.t ?? 0)))) bad.push('order ' + x.r.id); if (!!x.dim !== (g === 3)) bad.push('dim ' + x.r.id); prev = { g, t: x.r.tabelog ?? 0 }; }
+    const g = grp(x.r, x.d); if (prev && (g < prev.g || (g === prev.g && (x.r.tabelog ?? 0) > (prev.t ?? 0)))) bad.push('order ' + x.r.id); if (!!x.dim !== (g === 3)) bad.push('dim ' + x.r.id); prev = { g, t: x.r.tabelog ?? 0 }; }
   return { bands, bad, n: R.filter(x => x.r).length, count: document.querySelector('#count').textContent }; });
 { // live Friday, Dotonbori
   const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });

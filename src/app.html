@@ -555,11 +555,13 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 /* food map: restaurant pins and groups (.rp) win taps over the itinerary circles and shop squares they overlap */
 .mk.rp{z-index:3}.itm{z-index:2}
 button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps */
-#list .item .istat i{margin:0 2px}#list .item .istat .stg{letter-spacing:-.35px}   /* room for “영업 중(추정)” / “마지막 주문 HH:MM” on one line at 390 px */
+#list .item .istat i{display:none}#list .item .istat .walk{margin-right:7px}#list .item .istat .stg{letter-spacing:-.35px}   /* room for “영업 중(추정)” / “마지막 주문 HH:MM” on one line at 390 px; the coloured dot separates, so a narrow phone never ends a line with a lone “·” */
 .st.open.est{color:#3f7a52}.st.closing.est{color:#a3562a}.dot.est{opacity:.55}   /* 영업 중(추정): our hours with low confidence */
 .st.resv{color:#1d4ed8}.dot.resv{background:#1d4ed8}.ch.resv{background:#e8f0fe;color:#1d4ed8}
 .divider.band{border-top:1px solid var(--line);padding:8px 16px 4px;font-size:12.5px}
-@media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.sheet:not([data-state=full]) #list .divider.band{display:none}}   /* like the other explanatory lines: shown when the list is full, so half keeps 2–3 rows */.item.dimmed .iname,.item.dimmed .thumb{opacity:.55}
+@media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.sheet:not([data-state=full]) #list .divider.band{display:none}}   /* like the other explanatory lines: shown when the list is full, so half keeps 2–3 rows */
+.item.dimmed .iname,.item.dimmed .thumb{opacity:.55}
+.ch.irr{background:#eef1f2;color:#52666d}   /* 부정기 휴무: a quarter of the shops have it — information, not a warning */
 .gDiff{flex-basis:100%;font-size:12.5px;color:var(--muted)}
 .conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
@@ -789,13 +791,15 @@ function status(r,day){
   return S2(next?{kind:'later',text:`${next[0]} 오픈`}:{kind:'done',text:'오늘 영업 종료'});
 }
 const loOf=(r,day,i)=>{const L=r.lo&&r.lo[day];return Array.isArray(L)&&L[i]||null};   // last order of range i (aligned with hours[day])
-const noWalkIn=st=>!!st.noOrder;   // open, but no new orders: not "영업 중" for 영업 중만 and alternatives
+const noWalkIn=st=>!!st.noOrder;
+const WALK_MAX=40;   /* up to here rows say "도보 N분"; farther ones show km (nobody walks that) */
+const tooLate=(st,d)=>st.end!=null&&walkMin(d)<=WALK_MAX&&walkMin(d)>=st.end-jstNow().min;   // closes (or stops orders) before you get there on foot   // open, but no new orders: not "영업 중" for 영업 중만 and alternatives
 const closedOn=r=>TRIP.filter(t=>Array.isArray(r.hours[t.key])&&!r.hours[t.key].length).map(t=>DAYNAME[t.key]);
 
 /* ================= geometry ================= */
 function km(a,b){const p=Math.PI/180,dLa=(b.lat-a.lat)*p,dLo=(b.lon-a.lon)*p,t=Math.sin(dLa/2)**2+Math.cos(a.lat*p)*Math.cos(b.lat*p)*Math.sin(dLo/2)**2;return 12742*Math.asin(Math.sqrt(t))}
 const walkMin=d=>Math.max(1,Math.round(d*1.3/4.5*60));
-const walkText=d=>{const m=walkMin(d);return m<=40?`도보 ${m}분`:`${d.toFixed(1)}km`};
+const walkText=d=>{const m=walkMin(d);return m<=WALK_MAX?`도보 ${m}분`:`${d.toFixed(1)}km`};
 function distText(d){const m=walkMin(d);return m<=40?`도보 ${m}분 · ${d<1?Math.round(d*1000)+'m':d.toFixed(1)+'km'}`:`${d.toFixed(1)}km · 전철 권장`}
 const NEAR_MIN=20, OSAKA_KM=30;
 
@@ -1262,9 +1266,9 @@ function compute(){
     rs.sort(isLive()?(a,b)=>shut(a)-shut(b)||nr(b)-nr(a)||waitOf(a.r).k-waitOf(b.r).k||byT(a,b)   /* live: within a 20-min walk first, closed last */
       :(a,b)=>waitOf(a.r).k-waitOf(b.r).k||byT(a,b))}
   else if(isLive()){   /* 근처 평점순 on a live trip day: within a 20-min walk, bands of 5 / 10 / 20 minutes; in each band open shops first, then later today, then closed (dimmed); rating order inside */
-    const grp=r=>{const st=status(r,S.day),k=st.kind;return k==='closed'||k==='done'||st.noOrder?3:k==='later'||k==='resv'?2:k==='unknown'?1:0};
+    const grp=(r,d)=>{const st=status(r,S.day),k=st.kind;return k==='closed'||k==='done'||st.noOrder||tooLate(st,d)?3:k==='later'||k==='resv'?2:k==='unknown'?1:0};
     const B=[[],[],[]],L=['걸어서 5분 안','걸어서 10분 안',`걸어서 ${NEAR_MIN}분 안`],far=rs.filter(x=>walkMin(x.d)>NEAR_MIN).sort((a,b)=>a.d-b.d);
-    for(const x of rs){const m=walkMin(x.d);if(m>NEAR_MIN)continue;x.g=grp(x.r);x.dim=x.g===3;B[m<=5?0:m<=10?1:2].push(x)}
+    for(const x of rs){const m=walkMin(x.d);if(m>NEAR_MIN)continue;x.g=grp(x.r,x.d);x.dim=x.g===3;B[m<=5?0:m<=10?1:2].push(x)}
     const near=B.flatMap((b,i)=>b.length?[{divider:L[i],band:true},...b.sort((a,c)=>a.g-c.g||byT(a,c))]:[]);
     rs=near.length&&far.length?[...near,{divider:`도보 ${NEAR_MIN}분 넘는 곳 (가까운 순)`},...far]:near.length?near:[{divider:`도보 ${NEAR_MIN}분 안에는 조건에 맞는 곳이 없어요 · 가까운 순`},...far]}
   else{const near=rs.filter(x=>walkMin(x.d)<=NEAR_MIN).sort(byT),far=rs.filter(x=>walkMin(x.d)>NEAR_MIN).sort((a,b)=>a.d-b.d);
@@ -1566,7 +1570,7 @@ function payTag(r){const p=r.pay||{};if(p.card===true)return '<span class="ch pa
   if(p.card===false)return `<span class="ch cash">카드 ✕ · ${p.emoney===true?'교통카드':'QR'} OK</span>`;return ''}
 const streetUrl=r=>`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${r.lat},${r.lon}`;
 function itemHtml({r,d,dim}){
-  let st=status(r,S.day);if(st.end!=null&&walkMin(d)>=st.end-jstNow().min)st={kind:'closing',text:`도착 전 마감 · ${untilT(st.endT)}`};   // closes (or stops orders) before you get there on foot
+  let st=status(r,S.day);if(tooLate(st,d))st={kind:'closing',text:`도착 전 마감 · ${untilT(st.endT)}`};
   const off=closedOn(r),w=waitOf(r);
   const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'<span class="rt tna">점수 없음</span>',gRating(r)!=null?`<span>구글 ${fmtG(gRating(r))}</span>`:'',`<span>${esc(r.genre)}</span>`,r.price?`<span>${yen(r)}</span>`:''].filter(Boolean).join('<i>·</i>');
   const chips=[...statusChips(r),w.s&&r.reservation!=='required'?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),r.group6==='likely'?'<span class="ch ok6">6인 OK</span>':'',off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
@@ -1594,7 +1598,7 @@ function renderList(){
   let hint='';
   const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const nn=rows.filter(x=>x.r&&walkMin(x.d)<=NEAR_MIN).length;
-    hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · ${isLive()?'5·10·20분 묶음별 · 여는 곳 먼저 · 평점순':'평점 높은 순'}</p>`
+    hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · ${isLive()?'걸어서 5·10·20분 거리별 · 영업 중인 곳부터 평점순':'평점 높은 순'}</p>`
       :`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
   if(S.sort==='wait'&&isLive())hint=`<p class="hint soft">도보 ${NEAR_MIN}분 안 먼저 · 대기 짧은 순 · 문 닫은 곳은 맨 뒤</p>`+hint;
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
@@ -1702,7 +1706,7 @@ function altHtml(r){
 }
 /* small facts that matter for the family: 6 people, payment, child */
 /* 예약제 · 재료 소진 시 조기 마감 · 부정기 휴무 */
-const statusChips=r=>[r.reservation==='required'?'<span class="ch resv">예약제</span>':'',r.soldOut?'<span class="ch warn">재료 소진 시 조기 마감</span>':'',/부정기|임시/.test(r.closed||'')?'<span class="ch warn">부정기 휴무</span>':''].filter(Boolean);
+const statusChips=(r,full)=>[r.reservation==='required'?'<span class="ch resv">예약제</span>':'',r.soldOut?`<span class="ch warn">${full?'재료 소진 시 조기 마감':'조기 마감 가능'}</span>`:'',/부정기|임시/.test(r.closed||'')?'<span class="ch irr">부정기 휴무</span>':''].filter(Boolean);
 function factChips(r){const p=r.pay||{},o=[];
   if(r.group6==='likely')o.push('<span class="ch ok6">6인 OK</span>');else if(r.group6==='hard')o.push('<span class="ch warn">6인 어려움</span>');
   if(p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true))o.push('<span class="ch cash">현금만</span>');else if(p.card===true)o.push('<span class="ch pay">카드</span>');else if(p.card===false)o.push('<span class="ch cash">카드 ✕</span>');
@@ -1733,7 +1737,7 @@ function renderDetail(){
     <button class="ab" id="shareBtn"><span class="ai">↗</span><span>공유</span></button>
   </div>
   <div id="alts" hidden></div>
-  <div class="dSub">${r.emoji} ${meta}</div>${factChips(r)}${statusChips(r).length?`<span class="ichips">${statusChips(r).join('')}</span>`:''}
+  <div class="dSub">${r.emoji} ${meta}</div>${factChips(r)}${statusChips(r,true).length?`<span class="ichips">${statusChips(r,true).join('')}</span>`:''}
   ${r.warn?`<div class="warnBox">⚠ ${esc(r.warn)}</div>`:''}
   <div class="photos" id="photos">${tabImg}</div>
   <div id="gLive"></div>
@@ -1961,7 +1965,9 @@ function startLocate(){
 const POOR_ACC=500;let fixOpenPending=false;   // a fix worse than 500 m (underground, indoors) never moves the list or opens the sheet
 function openForFix(){if(!isDesktop()&&sheetState==='peek'&&!sheetUserMoved&&S.view!=='detail'&&$('#phraseBig').hidden&&![...document.querySelectorAll('.modal')].some(m=>!m.hidden))setSheet('half')}
 function onPos(p){
-  const c=p.coords;if(c.accuracy>POOR_ACC&&me)return;   // keep the previous position as the reference
+  const c=p.coords;
+  /* a poor fix does not replace a better position it still agrees with; it does replace one that is clearly somewhere else (more than twice its own error away: out of the subway, 3 km on) or was even poorer */
+  if(c.accuracy>POOR_ACC&&me&&me.acc<=c.accuracy&&km(me,{lat:c.latitude,lon:c.longitude})*1000<=2*c.accuracy)return;
   me={lat:c.latitude,lon:c.longitude,acc:c.accuracy,t:p.timestamp};
   const ll=[me.lat,me.lon];whenMap(drawMe);
   setLocState(follow?'follow':'on');
@@ -1981,7 +1987,7 @@ function onPos(p){
     }
     lastListPos=me;return;
   }
-  if(fixOpenPending&&fromHotel<=OSAKA_KM){fixOpenPending=false;openForFix()}   // first good fix after a poor one
+  if(fixOpenPending&&me.acc<=POOR_ACC&&fromHotel<=OSAKA_KM){fixOpenPending=false;openForFix()}   // first good fix after a poor one
   if(fromHotel<=OSAKA_KM&&S.ref!=='me'&&!S.refTouched){S.ref='me';if(!S.sortTouched)S.sort='nearby';refresh({soft:true});lastListPos=me}
   if(follow&&fromHotel<=OSAKA_KM&&mapReady)panToVisible(ll);
   if(S.ref==='me'&&(!lastListPos||km(lastListPos,me)>0.03)){lastListPos=me;refresh({markers:false,soft:true})}
