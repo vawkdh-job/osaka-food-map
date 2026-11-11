@@ -579,6 +579,33 @@ console.log('6e. Map bubbles never cover each other when zoomed out');
   await ctx.close();
 }
 
+console.log('6e2. Food map: restaurant pins win taps over itinerary circles and shop squares; groups always zoom in');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:10:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.evaluate(() => window.__ofm.setSheet('half')); await page.waitForTimeout(600);
+  let overl = 0, wrong = [];
+  for (const [lon, lat] of [[135.5063, 34.6525], [135.5013, 34.6687], [135.4985, 34.7025], [135.4873, 34.6903], [135.5262, 34.6873]]) for (const z of [13, 14, 15, 15.5, 16, 16.5]) {
+    await page.evaluate(([c, z]) => window.__ofm.map().jumpTo({ center: c, zoom: z }), [[lon, lat], z]); await page.waitForTimeout(500);
+    const r = await page.evaluate(() => { const top = document.querySelector('#topbar').getBoundingClientRect().bottom, bot = document.querySelector('#sheet').getBoundingClientRect().top;
+      const R = s => [...document.querySelectorAll(s)].map(e => ({ e, b: e.getBoundingClientRect() })).filter(x => x.b.width && x.b.top > top && x.b.bottom < bot && x.b.left > 0 && x.b.right < innerWidth);
+      const food = R('.mk .pin, .mk .cl'), other = R('.itm .itPin, .spm .spin'); let n = 0; const bad = [];
+      for (const o of other) for (const f of food) { const x0 = Math.max(o.b.left, f.b.left), x1 = Math.min(o.b.right, f.b.right), y0 = Math.max(o.b.top, f.b.top), y1 = Math.min(o.b.bottom, f.b.bottom);
+        if (x1 - x0 < 4 || y1 - y0 < 4) continue; n++; const hit = document.elementFromPoint((x0 + x1) / 2, (y0 + y1) / 2); if (!f.e.closest('.mk').contains(hit)) bad.push(f.e.textContent.slice(0, 12) + ' under ' + (hit && hit.closest('.mk') ? hit.closest('.mk').className : hit && hit.tagName)); }
+      return { n, bad }; });
+    overl += r.n; wrong.push(...r.bad);
+  }
+  check(overl > 0 && wrong.length === 0, 'food map: where an itinerary circle or shop square overlaps a restaurant pin/group, the restaurant gets the tap', `${overl} overlaps; ${wrong.slice(0, 4).join(' / ')}`);
+  // a group whose members sit close together: tapping it must zoom in (not a no-op fitBounds)
+  await page.evaluate(() => window.__ofm.map().jumpTo({ center: [135.5013, 34.6687], zoom: 14.6 })); await page.waitForTimeout(600);
+  const res = await page.evaluate(async () => { const m = window.__ofm.map(), out = [];
+    const cls = [...document.querySelectorAll('.mk .cl')].map(e => e.closest('.mk')).filter(e => { const b = e.getBoundingClientRect(); return b.top > 130 && b.bottom < document.querySelector('#sheet').getBoundingClientRect().top && b.left > 0 && b.right < innerWidth; });
+    for (const el of cls.slice(0, 4)) { m.jumpTo({ center: [135.5013, 34.6687], zoom: 14.6 }); await new Promise(r => setTimeout(r, 500)); const z0 = m.getZoom(), t = el.textContent; if (!document.contains(el)) continue; el.click(); await new Promise(r => setTimeout(r, 900)); out.push([t, z0, +m.getZoom().toFixed(2)]); }
+    return out; });
+  check(res.length > 0 && res.every(([, a, b]) => b >= a + 1), 'tapping a group always zooms in at least one level', JSON.stringify(res));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6f. Phone held sideways: list panel on the left, map on the right');
 {
   const { ctx, page, log } = await newPhone({ device: devices['iPhone 13 landscape'], clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });

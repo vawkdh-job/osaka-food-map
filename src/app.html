@@ -551,7 +551,9 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 @media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.handle{display:block}}
 /* ✕ clears the search (the native cancel button is hidden above) */
 .qClear{position:absolute;right:49px;top:3px;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:17px;font-weight:700;display:grid;place-items:center}
-.qClear[hidden]{display:none}.searchRow.hasQ .search{padding-right:100px}
+.qClear[hidden]{display:none}
+/* food map: restaurant pins and groups (.rp) win taps over the itinerary circles and shop squares they overlap */
+.mk.rp{z-index:3}.itm{z-index:2}.searchRow.hasQ .search{padding-right:100px}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
 </style>
 </head>
@@ -1012,7 +1014,7 @@ function pinHtml(r){
 const markers=new Map(); // id → {el,m,r}
 function pinFor(r){
   let p=markers.get(r.id);if(p)return p;
-  const el=document.createElement('div');el.className='mk';el.tabIndex=0;el.setAttribute('role','button');
+  const el=document.createElement('div');el.className='mk rp';el.tabIndex=0;el.setAttribute('role','button');
   el.addEventListener('click',e=>{e.stopPropagation();select(r.id,{from:'map'})});
   el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();select(r.id,{from:'map'})}});
   p={el,r,m:mkMarker(el,[r.lon,r.lat])};markers.set(r.id,p);return p;
@@ -1049,10 +1051,13 @@ function renderMarkers(){
     }
     g.items.forEach(pt=>{const p=markers.get(pt.r.id);if(p&&p.on){p.m.remove();p.on=false}});
     const best=Math.max(...g.items.map(pt=>score(pt.r))),gq=useG(),el=document.createElement('div');
-    el.className='mk';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',`${g.items.length}곳 묶음, 눌러서 확대`);
+    el.className='mk rp';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',`${g.items.length}곳 묶음, 눌러서 확대`);
     el.innerHTML=`<div class="cl ${gq?tierG(best):tierT(best)}"><b>${g.items.length}곳</b><small>최고 ${gq?fmtG(best):fmtT(best)}</small></div>`;
     const lat=g.items[0].r.lat,lon=g.items[0].r.lon; // anchored on the best-rated member, so groups don't drift onto neighbours
-    const open=()=>fitVisible(g.items.map(pt=>[pt.r.lat,pt.r.lon]),Z.cluster);
+    const open=()=>{const P=g.items.map(pt=>map.project([pt.r.lon,pt.r.lat])),X=P.map(q=>q.x),Y=P.map(q=>q.y),c=cover(),box=map.getContainer();
+      const k=Math.min((box.clientWidth-106)/Math.max(1,Math.max(...X)-Math.min(...X)),((box.clientHeight||innerHeight)-c.top-c.bottom-74)/Math.max(1,Math.max(...Y)-Math.min(...Y)));
+      if(k<2){const n=g.items.length;panToVisible([g.items.reduce((a,pt)=>a+pt.r.lat,0)/n,g.items.reduce((a,pt)=>a+pt.r.lon,0)/n],Math.min(Z.max,map.getZoom()+1.5));return}   // fitBounds would not zoom in a full level (members close together, little map visible): zoom in +1.5
+      fitVisible(g.items.map(pt=>[pt.r.lat,pt.r.lon]),Z.cluster)};
     el.addEventListener('click',e=>{e.stopPropagation();open()});el.addEventListener('keydown',e=>{if(e.key==='Enter')open()});
     clusterMarkers.push(mkMarker(el,[lon,lat]).addTo(map));
   }
