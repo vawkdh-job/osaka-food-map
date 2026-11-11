@@ -584,6 +584,7 @@ body{word-break:keep-all;overflow-wrap:anywhere}
 /* readability: Tabelog score and the shop page's notes one step larger (row height unchanged) */
 .imeta .rt{font-size:15px;line-height:1}
 .note{font-size:14.5px}
+.tSwap{max-width:76px;line-height:1.25;padding:4px 10px}   /* “이걸로 바꾸기” on two short lines, so the alternative's name keeps its width */
 /* my-location dot: larger, white ring + blue outer ring, above every other marker (Friday's blue pins and circles hid it) */
 .me{width:22px;height:22px;border-width:3.5px;box-shadow:0 0 0 2px #1a73e8,0 2px 8px #0008}
 .mk.meWrap{z-index:9!important}
@@ -662,7 +663,7 @@ body{word-break:keep-all;overflow-wrap:anywhere}
     <label class="radio"><input type="checkbox" id="thumbToggle"><span>목록에 가게 사진 보이기 (구글 사진)<small>화면에 나온 가게만 불러와요 · 한 번 열 때 최대 20곳 · 구글 평점·영업시간도 같이 불러와요</small></span></label>
     <label class="radio"><input type="checkbox" id="poiToggle"><span>지도에 다른 가게·시설 아이콘도 표시<small>꺼 두면 맛집 핀만 또렷하게 보여요 (한글 지도)</small></span></label>
     <h3>오프라인 대비 (로밍·지하용)</h3>
-    <p style="margin:0">우메다·후쿠시마·나카노시마·난바·신세카이·덴노지·오사카성 일대의 예비 지도(한글 OpenFreeMap + 국토지리원)를 휴대폰에 저장합니다. 인터넷이 끊겨 구글 지도가 안 뜨면 이 지도로 바뀝니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
+    <p style="margin:0">우메다·후쿠시마·나카노시마·난바·신세카이·덴노지·오사카성 일대의 예비 지도(한글 OpenFreeMap + 국토지리원)를 휴대폰에 저장해요. 인터넷이 끊겨 구글 지도가 안 뜨면 이 지도로 바뀌어요. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
     <button class="btn wide" id="precacheBtn">지도 미리 저장</button>
     <div class="progress" id="precacheBar" hidden><i></i></div>
     <p id="precacheText" style="font-size:12.5px;margin:6px 0 0"></p>
@@ -672,7 +673,7 @@ body{word-break:keep-all;overflow-wrap:anywhere}
       <dt><em class="hyb">百名店 '25</em></dt><dd><b>백명점</b> — 타베로그가 장르마다 뽑는 ‘100대 맛집’. 숫자는 뽑힌 해예요 ('25 = 2025년).</dd>
       <dt><span class="gTag">구글 4.4</span></dt><dd><b>구글 평점</b> (5점 만점). 관광객 리뷰가 많아 타베로그보다 높게 나와요. 가게를 열 때 실시간으로 불러와요.</dd>
       <dt><span class="ch ok6">6인 OK</span></dt><dd>6명이 한 테이블이나 개별실에 함께 앉을 수 있는 곳. ‘6인 어려움’은 카운터·작은 가게라 나눠 앉아야 해요.</dd>
-      <dt><span class="ch w3">대기 김</span></dt><dd>후기로 본 평소 줄 서는 시간 (어림값). 짧음 · 보통 · 김.</dd>
+      <dt><span class="ch w3">줄 김</span></dt><dd>후기로 본 평소 줄 서는 시간 (어림값). 짧음 · 보통 · 김.</dd>
       <dt><b>¥ ~ ¥¥¥¥</b></dt><dd>1인 예산: ¥ 1,500엔까지 · ¥¥ 4,000엔까지 · ¥¥¥ 8,000엔까지 · ¥¥¥¥ 8,000엔 이상.</dd>
       <dt><span class="mini static">⌂ 호텔 기준</span></dt><dd>거리를 재는 출발점이에요. ‘근처 평점순’은 여기서 걸어서 20분 안의 가게를 평점 높은 순으로 먼저 보여 줘요.</dd>
     </dl>
@@ -687,9 +688,9 @@ body{word-break:keep-all;overflow-wrap:anywhere}
     <p>음식점 핀에 🧳가 붙어 있으면 일정에 있는 식당이에요.</p>
     <h3>핀 색깔 (타베로그 점수)</h3>
     <div class="legend"><span style="background:var(--t1)">3.75 이상</span><span style="background:var(--t2)">3.65 이상</span><span style="background:#fff;color:#92400e;box-shadow:inset 0 0 0 2px #d97706">3.55 이상</span><span style="background:#fff;color:#334155;box-shadow:inset 0 0 0 2.5px #64748b">그 외</span><span style="background:#e2e8f0;color:#475569;box-shadow:inset 0 0 0 2px #94a3b8">영업 안 함</span></div>
-    <p>핀의 <b>百</b>는 타베로그 백명점, <b>휴</b>나 회색은 고른 요일에 쉬는 날(또는 오늘 영업이 끝난) 가게, ★는 찜한 곳입니다.</p>
+    <p>핀의 <b>百</b>는 타베로그 백명점, <b>휴</b>나 회색은 고른 요일에 쉬는 날(또는 오늘 영업이 끝난) 가게, ★는 찜한 곳이에요.</p>
     <h3>데이터 안내</h3>
-    <p>타베로그 점수·백명점·영업시간·좌석·결제 정보는 2026-11-05 웹 조사 기준 참고값이고, 구글 평점·지금 영업 여부·사진은 가게를 열 때 Google에서 실시간으로 불러옵니다. 위치는 Google 지도 기준입니다. 방문 전 Google 지도·타베로그에서 한 번 더 확인하세요. 거리는 직선거리, 도보 시간은 직선거리×1.3을 시속 4.5km로 계산한 어림값입니다.</p>
+    <p>타베로그 점수·백명점·영업시간·좌석·결제 정보는 2026-11-05 웹 조사 기준 참고값이고, 구글 평점·지금 영업 여부·사진은 가게를 열 때 Google에서 실시간으로 불러와요. 위치는 Google 지도 기준이에요. 방문 전 Google 지도·타베로그에서 한 번 더 확인해 주세요. 거리는 직선거리, 도보 시간은 직선거리×1.3을 시속 4.5km로 계산한 어림값이에요.</p>
     <p class="foot" id="buildInfo"></p>
   </div>
 </div>
@@ -745,9 +746,9 @@ body{word-break:keep-all;overflow-wrap:anywhere}
       <li>Chrome 주소창 왼쪽 아이콘 → 권한(사이트 설정) → <b>위치 → 허용</b></li>
     </ol>
     <h3>카카오톡·라인 안에서 열었다면</h3>
-    <p>앱 안의 브라우저는 위치 권한이 막힐 때가 많습니다. 오른쪽 위 메뉴에서 <b>다른 브라우저로 열기</b>를 눌러 Safari·Chrome에서 여세요. 홈 화면에 추가해 두면 앱처럼 바로 열 수 있습니다.</p>
+    <p>앱 안의 브라우저는 위치 권한이 막힐 때가 많아요. 오른쪽 위 메뉴에서 <b>다른 브라우저로 열기</b>를 눌러 Safari·Chrome에서 열어 주세요. 홈 화면에 추가해 두면 앱처럼 바로 열 수 있어요.</p>
     <h3>지하상가·건물 안</h3>
-    <p>GPS가 약해서 위치가 수십~수백 m 틀릴 수 있습니다(파란 원이 클수록 부정확). 지상으로 나오면 금방 정확해집니다. 그동안은 정렬 기준을 <b>지도 중심</b>으로 바꾸고 지도를 원하는 곳으로 옮겨 쓰세요.</p>
+    <p>GPS가 약해서 위치가 수십~수백 m 틀릴 수 있어요(파란 원이 클수록 부정확). 지상으로 나오면 금방 정확해져요. 그동안은 정렬 기준을 <b>지도 중심</b>으로 바꾸고 지도를 원하는 곳으로 옮겨 쓰세요.</p>
     <button class="btn primary wide" id="locRetry">다시 시도</button>
   </div>
 </div>
@@ -904,7 +905,7 @@ function mapUnavailable(){showMapStatus('이 기기(브라우저)에서는 지�
 function checkTiles(){
   // switch only on repeated hard errors with nothing loaded; slowness alone never switches
   if(tileStats.ok>0||tileStats.err<6)return;
-  if(!navigator.onLine){showMapStatus('오프라인 상태예요. 연결되면 지도를 다시 불러옵니다.');return}
+  if(!navigator.onLine){showMapStatus('오프라인 상태예요. 연결되면 지도를 다시 불러와요.');return}
   const next=ORDER.find(k=>!tried.has(k));
   if(next){toast(PROVIDERS[S.provider].type==='vector'?`한글 지도를 불러오지 못해 「${PROVIDERS[next].name}」로 보여 줘요.`:`지도 서버가 응답하지 않아 「${PROVIDERS[next].name}」로 바꿨어요.`);setProvider(next,true)}
   else showMapStatus('지도를 불러오지 못했어요. 데이터 연결을 확인해 주세요. 목록·길찾기는 그대로 쓸 수 있어요.');
@@ -921,7 +922,7 @@ window.addEventListener('online',()=>{clearTimeout(offTimer);hideMapStatus();
 window.addEventListener('offline',()=>{
   // Google cannot be saved: switch to the pre-saved backup map — but only if still offline 4 s later (a lift or a tunnel drops the signal for a moment)
   if(engine==='gm'&&LS.get('ofm.precached',null)){clearTimeout(offTimer);offTimer=setTimeout(()=>{if(navigator.onLine===false&&engine==='gm')googleFailed('offline')},4000);return}
-  toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.')});
+  toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보여요.')});
 $('#retryBtn').onclick=retryTiles;
 
 /* events shared by both engines */
@@ -1204,8 +1205,8 @@ function setShowAll(on){S.showAll=!!on;LS.set('ofm.showAll',S.showAll);$('#showA
 const pickOf=k=>CATS.find(c=>c.key===k)||GENRES.find(g=>g.key===k)||null;
 const matchPick=(r,k)=>k==='all'||(k.startsWith('c-')?allCats(r).includes(k):genreOf(r).key===k);
 const REGIONS={all:'지역 전체',north:'키타 (우메다·덴마·후쿠시마·나카노시마)',south:'미나미 (난바·신사이바시·도톤보리)',tennoji:'신세카이·덴노지',bay:'오사카항 (가이유칸)'};
-const WAIT={none:{t:'대기 거의 없음',s:'대기 없음',k:0},short:{t:'대기 짧음 (~15분)',s:'대기 짧음',k:1},medium:{t:'대기 보통 (15~40분)',s:'대기 보통',k:2},
-  unknown:{t:'대기 정보 없음',s:'',k:2.5},long:{t:'대기 김 (40분~)',s:'대기 김',k:3},very_long:{t:'대기 매우 김 (1시간~)',s:'대기 매우 김',k:4}};
+const WAIT={none:{t:'줄 거의 없음',s:'줄 없음',k:0},short:{t:'줄 짧음 (~15분)',s:'줄 짧음',k:1},medium:{t:'줄 보통 (15~40분)',s:'줄 보통',k:2},
+  unknown:{t:'줄 정보 없음',s:'',k:2.5},long:{t:'줄 김 (40분~)',s:'줄 김',k:3},very_long:{t:'줄 매우 김 (1시간~)',s:'줄 매우 김',k:4}};
 const waitOf=r=>WAIT[(r.wait&&r.wait.level)||'unknown']||WAIT.unknown;
 const PRICE=['','¥ ~1,500','¥¥ ~4,000','¥¥¥ ~8,000','¥¥¥¥ 8,000~'];
 const yen=r=>r.price?'¥'.repeat(r.price):'';
@@ -1343,7 +1344,7 @@ function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.ti
       ${p.swapped?`<p class="tRec">🔁 바꾼 곳이에요 · 원래 일정: ${esc(s.name)} <button class="lnk" data-unswap="${s.id}">되돌리기</button></p>`:''}
       ${p.placeId?`<div class="tLive" data-live="${day.key}:${s.id}"></div>`:''}
       ${p.address&&!p.shop?`<div class="tAddr" lang="ja">📍 ${esc(p.address)}</div>`:''}
-      ${s.tips&&s.tips.length&&!p.swapped?`<ul class="tTips">${s.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:''}
+      ${s.tips&&s.tips.length&&!p.swapped?`<ul class="tTips">${s.tips.map(t=>`<li>${esc(koLO(t))}</li>`).join('')}</ul>`:''}
       <div class="tActs"><a class="tBtn primary" href="${esc(tripDir(p,s.leg&&s.leg.travel))}" target="_blank" rel="noopener">🧭 여기로 길찾기</a>
         <a class="tBtn" href="${esc(gUrl(p))}" target="_blank" rel="noopener">🗺️ 구글 지도</a>
         <button class="tBtn" data-taxi="${day.key}:${s.id}">🚕 택시</button>
@@ -1351,7 +1352,7 @@ function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.ti
       ${prev&&s.leg?`<a class="tLink" href="${esc(tripDir(p,s.leg.travel,prev))}" target="_blank" rel="noopener">이전 장소에서 가는 경로 보기 ›</a>`:''}
       ${s.meal?`<div class="tAltH">근처 대안 <small>도보 12분 안 · 6명 앉기 쉬운 곳·카드 먼저</small></div>${alts.length?alts.map(x=>`<div class="tAlt"><span class="ae">${x.r.emoji}</span>
         <button class="ta lnk" data-shop="${x.r.id}"><b>${esc(x.r.name)}</b><small>${x.r.tabelog!=null?`★ ${fmtT(x.r.tabelog)} · `:''}도보 ${walkMin(x.d)}분 · ${x.o?'그 시간 영업':'영업시간 확인 필요'}</small>${factChips(x.r)}</button>
-        <button class="tSwap" data-swap="${s.id}:${x.r.id}">이걸로</button></div>`).join(''):'<p class="note">근처에 조건에 맞는 곳이 목록에 없어요.</p>'}`:''}
+        <button class="tSwap" data-swap="${s.id}:${x.r.id}">이걸로 바꾸기</button></div>`).join(''):'<p class="note">근처에 조건에 맞는 곳이 목록에 없어요.</p>'}`:''}
     </div>`}
   return leg+`<div class="tStop${open?' open':''}${isNow?' now':''}${s.optional?' optional':''}" data-stop="${day.key}:${s.id}" style="--c:${day.color}">
     <div class="tTime">${s.time}${end&&end!==s.time?`<small>~${end}</small>`:''}</div><div class="tNum">${i+1}</div>
@@ -1591,7 +1592,7 @@ function thumbPump(){while(thumbBusy<3&&thumbQ.length&&thumbsOn()){
     .finally(()=>{thumbBusy--;thumbPump()})}}
 function payTag(r){const p=r.pay||{};if(p.card===true)return '<span class="ch pay">카드 OK</span>';
   if(p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true))return '<span class="ch cash">현금만</span>';
-  if(p.card===false)return `<span class="ch cash">카드 ✕ · ${p.emoney===true?'교통카드':'QR'} OK</span>`;return ''}
+  if(p.card===false)return `<span class="ch cash">카드 불가 · ${p.emoney===true?'교통카드':'QR'} 가능</span>`;return ''}
 const streetUrl=r=>`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${r.lat},${r.lon}`;
 function itemHtml({r,d,dim}){
   let st=status(r,S.day);if(tooLate(st,d))st={kind:'closing',text:`도착 전 마감 · ${untilT(st.endT)}`};
@@ -1690,13 +1691,14 @@ const gNearUrl=(word,c)=>`https://www.google.com/maps/search/${encodeURIComponen
 const ytUrl=q=>`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
 const naverUrl=q=>`https://search.naver.com/search.naver?where=blog&query=${encodeURIComponent(q)}`;
 const tabelogPhotos=r=>r.tabelogUrl?r.tabelogUrl.replace(/\/$/,'')+'/dtlphotolst/':`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(r.jp)}`;
-const YN=v=>v===true?'○':v===false?'✕':'?';
+const koLO=s=>String(s??'').replace(/L\.\s?O\.로/g,'마지막 주문으로').replace(/L\.\s?O\.\s*(?=\d)/g,'마지막 주문 ').replace(/L\.\s?O\./g,'마지막 주문');   // research notes say "L.O."
+const YN=v=>v===true?'가능':v===false?'불가':'모름';
 function infoRows(r){
   const p=r.pay||{},w=waitOf(r),rows=[];
   const price=[r.budgetLunch&&`점심 ${r.budgetLunch}`,r.budgetDinner&&`저녁 ${r.budgetDinner}`].filter(Boolean).join(' · ')||(r.price?`${PRICE[r.price]}${r.priceEst?' (메뉴 종류로 추정)':''}`:'정보 없음');
   rows.push(['💴 가격 (1인)',price]);
   const pay=p.card==null&&p.emoney==null&&p.qr==null&&p.cashOnly==null?'정보 없음 · 현금을 준비하세요':
-    p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true)?'<b class="bad">현금만</b>':`카드 ${YN(p.card)} · 교통카드/전자화폐 ${YN(p.emoney)} · QR ${YN(p.qr)}`;
+    p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true)?'<b class="bad">현금만</b>':`카드 ${YN(p.card)} · 교통카드 ${YN(p.emoney)} · QR ${YN(p.qr)}`;
   rows.push(['💳 결제',pay]);
   const seat=[r.seats?`${r.seats}석`:'',(r.seatTypes||[]).map(t=>({counter:'카운터',table:'테이블',tatami:'다다미',private:'개별실',standing:'서서 먹기'}[t]||t)).join('·'),r.seatLabel].filter(Boolean).join(' · ');
   rows.push(['🪑 좌석',esc(seat||'정보 없음')+(r.seatNote?`<br><small>${esc(r.seatNote)}</small>`:'')]);
@@ -1733,7 +1735,7 @@ function altHtml(r){
 const statusChips=(r,full)=>[r.reservation==='required'?'<span class="ch resv">예약제</span>':'',r.soldOut?`<span class="ch warn">${full?'재료 소진 시 조기 마감':'조기 마감 가능'}</span>`:'',/부정기|임시/.test(r.closed||'')?'<span class="ch irr">부정기 휴무</span>':''].filter(Boolean);
 function factChips(r){const p=r.pay||{},o=[];
   if(r.group6==='likely')o.push('<span class="ch ok6">6인 OK</span>');else if(r.group6==='hard')o.push('<span class="ch warn">6인 어려움</span>');
-  if(p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true))o.push('<span class="ch cash">현금만</span>');else if(p.card===true)o.push('<span class="ch pay">카드</span>');else if(p.card===false)o.push('<span class="ch cash">카드 ✕</span>');
+  if(p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true))o.push('<span class="ch cash">현금만</span>');else if(p.card===true)o.push('<span class="ch pay">카드</span>');else if(p.card===false)o.push('<span class="ch cash">카드 불가</span>');
   if(r.kids&&/의자|유아|아이 ?환영|키즈|가족/.test(r.kids)&&!/비추|어렵|불가/.test(r.kids))o.push('<span class="ch kid">👶 아이 OK</span>');
   return o.length?`<span class="ichips">${o.join('')}</span>`:''}
 function renderDetail(){
@@ -1767,8 +1769,8 @@ function renderDetail(){
   <div id="gLive"></div>
   <section class="sec"><h3>가게 정보</h3><table class="info"><tbody>${infoRows(r)}</tbody></table></section>
   <section class="sec"><h3>영업시간 <small>${r.hoursChecked?`${esc(hoursSrcName(r))} · ${esc(mdKo(r.hoursChecked))} 확인`:'조사값'}</small></h3><table class="hoursT"><tbody>${rowsH}</tbody></table>
-    <p class="note">정기휴무: ${esc(r.closed||'정보 없음')}${r.hoursNote?`<br>${esc(r.hoursNote)}`:''}${r.hoursConf==='low'||r.hoursConf==null?'<br><small>출처가 하나뿐이거나 오래된 정보예요. 구글 영업시간도 같이 보세요.</small>':''}</p></section>
-  ${r.desc?`<section class="sec"><h3>소개</h3><p class="note">${esc(r.desc)}</p></section>`:''}
+    <p class="note">정기휴무: ${esc(r.closed||'정보 없음')}${r.hoursNote?`<br>${esc(koLO(r.hoursNote))}`:''}${r.hoursConf==='low'||r.hoursConf==null?'<br><small>출처가 하나뿐이거나 오래된 정보예요. 구글 영업시간도 같이 보세요.</small>':''}</p></section>
+  ${r.desc?`<section class="sec"><h3>소개</h3><p class="note">${esc(koLO(r.desc))}</p></section>`:''}
   <section class="sec"><h3>주소</h3><button class="addr" id="copyAddr" lang="ja"><small lang="ko">눌러서 복사 · 크게 보려면 🚕 택시 버튼</small>${esc(r.jp)}<br>${esc(addrOf(r)||'')}${addrOf(r)?'':'<small lang="ko">주소 정보가 없어요 · 🚕 택시 버튼에서 지도를 보여 주세요</small>'}</button>
     ${r.coordConf==='low'&&r.coordSrc!=='google'?'<div class="warnBox">📍 핀 위치가 건물 단위라 조금 다를 수 있어요. 구글 지도 결과를 따르세요.</div>':''}</section>
   <section class="sec"><h3>더 보기</h3><div class="links">
@@ -1866,7 +1868,7 @@ async function googleLive(r){
       else if(gNow&&cur&&ourCur&&Math.abs(toMin(cur[1])-toMin(ourCur[1]))>=30)$('#gOpen').innerHTML=` <span class="ch w2">구글 기준 ${untilT(cur[1])} 마감</span>`}
     TRIP.forEach(t=>{const c=$('#hr-'+t.key);if(c&&r.hours[t.key]==null){const gh=gDayRanges(p,t.key);if(gh)c.innerHTML=(gh.length?esc(fmtRanges(gh)):'<b style="color:var(--closed)">휴무</b>')+' <small>(구글)</small>'}});
     const pay=p.pay,bits=[];
-    if(pay){if(pay.acceptsCreditCards!=null)bits.push(`카드 ${pay.acceptsCreditCards?'○':'✕'}`);if(pay.acceptsNfc!=null)bits.push(`터치결제 ${pay.acceptsNfc?'○':'✕'}`);if(pay.acceptsCashOnly)bits.push('<b class="bad">현금만</b>')}
+    if(pay){if(pay.acceptsCreditCards!=null)bits.push(`카드 ${pay.acceptsCreditCards?'가능':'불가'}`);if(pay.acceptsNfc!=null)bits.push(`터치결제 ${pay.acceptsNfc?'가능':'불가'}`);if(pay.acceptsCashOnly)bits.push('<b class="bad">현금만</b>')}
     const closed=p.status&&p.status!=='OPERATIONAL'?`<div class="warnBox">⚠ 구글 표시: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'} — 다른 곳을 고르세요.</div>`:'';
     const ph=p.photos[0];
     const photo=ph?`<a class="ph" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(ph.getURI({maxHeight:400}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진${p.photos.length>1?` · ${p.photos.length}장 더 보기 ›`:''}</small></a>`:'';
@@ -2201,7 +2203,7 @@ $('#precacheBtn').onclick=async()=>{
   let urls;
   try{urls=P.type==='vector'?[...await vectorUrls(P),...tileUrls('gsi')]:tileUrls()}catch(e){txt.textContent='지도 정보를 받지 못했어요. 연결이 좋을 때 다시 눌러 주세요.';return}
   if(P.noPrecache){txt.textContent='OpenStreetMap은 지도를 한꺼번에 내려받는 것이 금지돼 있어요. 지도 종류를 국토지리원으로 바꾼 뒤 눌러 주세요.';return}
-  if(!navigator.serviceWorker||!navigator.serviceWorker.controller){txt.textContent='이 브라우저(또는 이 주소)에서는 미리 저장을 쓸 수 없어요. 한 번 둘러본 지도는 브라우저가 어느 정도 기억합니다.';return}
+  if(!navigator.serviceWorker||!navigator.serviceWorker.controller){txt.textContent='이 브라우저(또는 이 주소)에서는 미리 저장을 쓸 수 없어요. 한 번 둘러본 지도는 브라우저가 어느 정도 기억해요.';return}
   try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
   bar.hidden=false;let done=0,fail=0;const btn=$('#precacheBtn');btn.disabled=true;
   const q=urls.slice();

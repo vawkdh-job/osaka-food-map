@@ -551,7 +551,7 @@ console.log('6-resv. Reservation-only shops and the status badges (A2-3)');
     return { req: /예약제/.test(await ch(133)), so: /재료 소진 시 조기 마감/.test(await ch(so.id)), irr: /부정기 휴무/.test(await ch(irr.id)) }; });
   check(chips.req && chips.so && chips.irr, 'shop page badges: 예약제 · 재료 소진 시 조기 마감 · 부정기 휴무', JSON.stringify(chips));
   const rowChips = await page.evaluate(async () => { const O = window.__ofm; O.S.q = '사이히'; O.refresh(); await new Promise(res => setTimeout(res, 200)); const e = document.querySelector('#list .item[data-id="133"]'); const t = e ? e.innerText : null; O.S.q = ''; O.refresh(); return t; });
-  check(/예약제/.test(rowChips || '') && !/대기/.test(rowChips || ''), 'list row: 예약제 badge, no queue (대기) chip', rowChips && rowChips.replace(/\s+/g, ' '));
+  check(/예약제/.test(rowChips || '') && !/대기|줄 (없음|짧음|보통|김|매우 김)/.test(rowChips || ''), 'list row: 예약제 badge, no queue (줄/대기) chip', rowChips && rowChips.replace(/\s+/g, ' '));
   check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
   await ctx.close();
 }
@@ -1043,6 +1043,27 @@ console.log('6q. Polish: larger score, my-location dot above every marker, 320 p
   await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
   const m = await page.evaluate(() => ({ row: Math.round(document.querySelector('.headRow').getBoundingClientRect().height), gaps: ['#refMini', '#sortMini'].map(s => { const l = document.querySelector(s), t = l.querySelector('span').getBoundingClientRect(), c = getComputedStyle(l, '::after'); return Math.round(l.getBoundingClientRect().right - parseFloat(c.right) - 9 - t.right); }) }));
   check(m.row <= 44 && m.gaps.every(g => g >= 2), '320 px: the 기준/정렬 selectors keep a gap before their caret, on one row', JSON.stringify(m));
+  await ctx.close();
+}
+
+console.log('6r. Microcopy: 줄 chips, 마지막 주문, payment in words, 이걸로 바꾸기, 해요체 (A3-6)');
+{
+  const { ctx, page, log } = await newPhone({ device: devices['iPhone SE'], geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
+  await page.evaluate(() => window.__ofm.setSheet('full')); await page.waitForTimeout(300);
+  const list = await page.evaluate(() => document.querySelector('#list').innerText);
+  check(/줄 (김|보통|짧음)/.test(list) && !/대기 (김|보통|짧음|없음)/.test(list), 'list rows: “줄 김 / 줄 보통 / 줄 짧음” chips (no “대기 김”)');
+  const id = await page.evaluate(() => APP_DATA.restaurants.find(r => r.lat != null && /L\.\s?O\./.test(r.hoursNote || '') && r.pay && r.pay.card != null && !r.pay.cashOnly && (r.pay.card || r.pay.emoney || r.pay.qr)).id);
+  await page.evaluate(id => window.__ofm.select(id), id); await page.waitForTimeout(500);
+  await page.locator('#crowdBtn').click(); await page.waitForTimeout(300);
+  const d = await page.evaluate(() => document.querySelector('#detail').innerText);
+  check(/마지막 주문/.test(d) && !/L\.\s?O\./.test(d) && /카드 (가능|불가|모름) · 교통카드 (가능|불가|모름) · QR (가능|불가|모름)/.test(d) && !/[○✕]/.test(d) && !/대기 (김|보통|짧음|없음)/.test(d), 'shop page: “마지막 주문” instead of L.O., “카드 가능 · 교통카드 불가 · QR 모름” wording, 줄 chips in the alternatives', String(id));
+  await page.evaluate(() => { window.__ofm.closeDetail(); window.__ofm.enterTrip(); window.__ofm.openTripStop('fri', 's8'); }); await page.waitForTimeout(600);
+  const sw = await page.evaluate(() => { const b = document.querySelector('.tStop.open .tSwap').getBoundingClientRect(), row = document.querySelector('.tStop.open .tAlt').getBoundingClientRect(); return { t: document.querySelector('.tStop.open .tSwap').textContent, h: Math.round(b.height), inRow: b.right <= row.right + 1, tips: document.querySelector('.tStop.open .tTips') ? document.querySelector('.tStop.open .tTips').innerText : '' }; });
+  check(sw.t === '이걸로 바꾸기' && sw.h >= 44 && sw.inRow && !/L\.O\./.test(sw.tips), '320 px itinerary: “이걸로 바꾸기” fits its row (≥44px); stop tips say 마지막 주문', JSON.stringify({ ...sw, tips: sw.tips.slice(0, 60) }));
+  const menu = await page.evaluate(() => document.querySelector('#menu').innerText + document.querySelector('#locHelp').innerText);
+  check(!/[습합]니다|입니다|있습니다|됩니다/.test(menu), 'menu and location help read in 해요체');
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
   await ctx.close();
 }
 
