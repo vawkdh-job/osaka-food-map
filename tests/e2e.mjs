@@ -721,6 +721,20 @@ console.log('6h. Map marker kinds and the 🛍 shopping view');
   await ctx.close();
 }
 
+console.log('6h2. Reopening the app: 🛍 쇼핑 only if it was left less than 10 minutes ago');
+{
+  const res = {};
+  for (const [k, ago] of [['2min', 2], ['11min', 11], ['noStamp', null]]) {
+    const { ctx, page, log } = await newPhone({ clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+    await ctx.addInitScript(ago => { if (sessionStorage.getItem('s')) return; sessionStorage.setItem('s', 1); localStorage.setItem('ofm.mode', '"shopping"'); if (ago != null) localStorage.setItem('ofm.modeAt', String(Date.now() - ago * 60000)); else localStorage.removeItem('ofm.modeAt'); }, ago);
+    await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+    res[k] = await page.evaluate(() => ({ mode: window.__ofm.S.mode, items: document.querySelectorAll('#list .item:not(.sItem)').length, shops: document.querySelectorAll('#list .sItem').length }));
+    if (log.errors.length) res[k].err = log.errors[0];
+    await ctx.close();
+  }
+  check(res['2min'].mode === 'shopping' && res['2min'].shops > 0 && res['11min'].mode === 'shops' && res['11min'].items > 0 && res['noStamp'].mode === 'shops' && !Object.values(res).some(x => x.err), '🛍 쇼핑 reopens only if left less than 10 minutes ago; otherwise the food list', JSON.stringify(res));
+}
+
 console.log('6d. Back button (Android back / iOS swipe) never leaves the app by surprise');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T13:20:00+09:00', tz: 'Asia/Tokyo' });

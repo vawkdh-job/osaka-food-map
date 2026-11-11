@@ -778,7 +778,8 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:LS.get('ofm.openOnly',false)===true,genre:'all',list:'all',f:{region:'all',minT:0,prices:[],card:false,ic:false,shortWait:false,group6:false,reserve:false,nonSmoking:false,morning:false,late:false},
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true),mode:LS.get('ofm.mode','shops'),tripDay:null,tripOpen:null,shopCat:'all',shopSel:null};
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true),mode:(m=>m==='shopping'&&!(Date.now()-(+LS.get('ofm.modeAt',0)||0)<10*60e3)?'shops':m)(LS.get('ofm.mode','shops')),   /* 🛍 쇼핑 is restored only within 10 minutes; later the app opens on the food list */
+  tripDay:null,tripOpen:null,shopCat:'all',shopSel:null};
 const fav=new Set((v=>Array.isArray(v)?v:DATA.filter(r=>r.fav).map(r=>r.id))(LS.get('ofm.fav.v5',null)));   // a corrupted value must not stop the app
 const setOpenOnly=v=>{S.openOnly=!!v;LS.set('ofm.openOnly',S.openOnly)};   // 영업 중만 is remembered on the phone
 let me=null; // {lat,lon,acc,t}
@@ -1497,7 +1498,7 @@ function renderShopMap(force){   // teal squares: name tags in the shopping view
 }
 const pushShop=()=>{if(!(history.state&&history.state.shopMode))hPush({shopMode:1})};
 function fitShops(){const R=shopRows().map(x=>x.s).filter(s=>S.shopCat!=='all'||s.area!=='텐노지');if(R.length)fitVisible(R.map(s=>[s.lat,s.lon]),16)}
-function enterShop(quiet){if(S.mode==='trip')exitTrip(true);S.mode='shopping';LS.set('ofm.mode','shopping');pushShop();if(S.view==='detail')closeDetail();
+function enterShop(quiet){if(S.mode==='trip')exitTrip(true);S.mode='shopping';LS.set('ofm.mode','shopping');LS.set('ofm.modeAt',Date.now());pushShop();if(S.view==='detail')closeDetail();
   sheet.classList.add('shopping');if(!isDesktop()&&sheetState==='peek')setSheet('half');refresh();$('#sheetBody').scrollTop=0;if(!quiet)whenMap(()=>setTimeout(fitShops,330))}
 function exitShop(quiet,fromPop){if(S.mode!=='shopping')return;if(!fromPop&&history.state&&history.state.shopMode)hBack();
   if(S.view==='detail')closeDetail();S.mode='shops';LS.set('ofm.mode','shops');sheet.classList.remove('shopping');
