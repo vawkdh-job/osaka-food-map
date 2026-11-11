@@ -844,6 +844,33 @@ console.log('10. Saved map works with no connection (service worker)');
   await ctx.close();
 }
 
+console.log('10b. Offline at start, back online, corrupted storage, pre-save areas');
+{ // (a) phone offline at start, Google script would hang: backup map at once; (b) back online → Google tried again
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  let gm = 0; await ctx.route(/maps\.googleapis\.com\/maps\/api\/js/, () => { gm++; });   // never answers (weak signal)
+  await ctx.addInitScript(() => { window.__on = false; Object.defineProperty(Navigator.prototype, 'onLine', { get: () => window.__on, configurable: true }); });
+  const t0 = Date.now(); await page.goto(URL0);
+  await page.waitForFunction(() => window.__ofm && window.__ofm.engine() === 'ml', null, { timeout: 20000 }).catch(() => {});
+  const ms = Date.now() - t0, st = await page.evaluate(() => ({ e: window.__ofm.engine(), why: window.__ofm.gmFail(), toast: window.__ofm.toasts.join(' | ') }));
+  check(st.e === 'ml' && st.why === 'offline' && ms < 4000 && gm === 0 && /인터넷이 끊겨/.test(st.toast), 'offline at start: backup map right away (no 12–15 s wait for Google)', JSON.stringify({ ms, gm, ...st }));
+  await page.evaluate(() => { window.__on = true; window.dispatchEvent(new Event('online')); }); await page.waitForTimeout(600);
+  check(gm === 1 && await page.evaluate(() => window.__ofm.gmFail()) == null, 'back online: Google map is tried again', JSON.stringify({ gm }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+{ // (d) corrupted saved values do not stop the app; (c) pre-save covers Shinsekai–Tennoji and Osaka Castle too
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await ctx.addInitScript(() => { if (!sessionStorage.getItem('seeded')) { sessionStorage.setItem('seeded', 1); localStorage.setItem('ofm.fav.v5', '5'); localStorage.setItem('ofm.tripSwap.v1', 'null'); localStorage.setItem('ofm.tripCheck.v1', '[1,2]'); } });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+  await page.locator('#tripChip').click(); await page.waitForTimeout(500);
+  const r = await page.evaluate(() => ({ ready: window.__ofm.ready(), rows: document.querySelectorAll('.tStop, .item').length, mode: window.__ofm.S.mode, fav: window.__ofm.fav.size }));
+  check(r.ready && r.mode === 'trip' && r.rows > 0 && log.errors.length === 0, 'corrupted 찜 / itinerary values in storage: the app still starts and the itinerary opens', JSON.stringify(r) + ' ' + log.errors.slice(0, 1).join(''));
+  const t = await page.evaluate(() => { const U = window.__ofm.tileUrls('gsi'), has = (lat, lon) => { const z = 16, n = 2 ** z, s = Math.sin(lat * Math.PI / 180), x = Math.floor((lon + 180) / 360 * n), y = Math.floor((.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * n); return U.some(u => u.endsWith(`/${z}/${x}/${y}.png`)); };
+    return { n: U.length, tsutenkaku: has(34.6525, 135.5063), tennoji: has(34.6465, 135.5135), castle: has(34.6873, 135.5262), morinomiya: has(34.6806, 135.5340) }; });
+  check(t.n === 662 && t.tsutenkaku && t.tennoji && t.castle && t.morinomiya, 'map pre-save also covers Shinsekai/Tsutenkaku–Tennoji and Osaka Castle–Morinomiya', JSON.stringify(t));
+  await ctx.close();
+}
+
 console.log('11. Google rejects the key (gm_authFailure)');
 {
   const { ctx, page, log } = await newPhone({ google: 'authfail' });

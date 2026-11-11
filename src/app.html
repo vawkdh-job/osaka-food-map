@@ -628,7 +628,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
     <label class="radio"><input type="checkbox" id="thumbToggle"><span>목록에 가게 사진 보이기 (구글 사진)<small>화면에 나온 가게만 불러와요 · 한 번 열 때 최대 20곳 · 구글 평점·영업시간도 같이 불러와요</small></span></label>
     <label class="radio"><input type="checkbox" id="poiToggle"><span>지도에 다른 가게·시설 아이콘도 표시<small>꺼 두면 맛집 핀만 또렷하게 보여요 (한글 지도)</small></span></label>
     <h3>오프라인 대비 (로밍·지하용)</h3>
-    <p style="margin:0">우메다·후쿠시마·나카노시마·난바 일대의 예비 지도(한글 OpenFreeMap + 국토지리원)를 휴대폰에 저장합니다. 인터넷이 끊겨 구글 지도가 안 뜨면 이 지도로 바뀝니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
+    <p style="margin:0">우메다·후쿠시마·나카노시마·난바·신세카이·덴노지·오사카성 일대의 예비 지도(한글 OpenFreeMap + 국토지리원)를 휴대폰에 저장합니다. 인터넷이 끊겨 구글 지도가 안 뜨면 이 지도로 바뀝니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
     <button class="btn wide" id="precacheBtn">지도 미리 저장</button>
     <div class="progress" id="precacheBar" hidden><i></i></div>
     <p id="precacheText" style="font-size:12.5px;margin:6px 0 0"></p>
@@ -779,7 +779,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:LS.get('ofm.openOnly',false)===true,genre:'all',list:'all',f:{region:'all',minT:0,prices:[],card:false,ic:false,shortWait:false,group6:false,reserve:false,nonSmoking:false,morning:false,late:false},
   sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true),mode:LS.get('ofm.mode','shops'),tripDay:null,tripOpen:null,shopCat:'all',shopSel:null};
-const fav=new Set(LS.get('ofm.fav.v5',DATA.filter(r=>r.fav).map(r=>r.id)));
+const fav=new Set((v=>Array.isArray(v)?v:DATA.filter(r=>r.fav).map(r=>r.id))(LS.get('ofm.fav.v5',null)));   // a corrupted value must not stop the app
 const setOpenOnly=v=>{S.openOnly=!!v;LS.set('ofm.openOnly',S.openOnly)};   // 영업 중만 is remembered on the phone
 let me=null; // {lat,lon,acc,t}
 let rows=[];
@@ -862,8 +862,12 @@ let mapSlowShown=false;
 setTimeout(()=>{if(!mapReady&&$('#mapStatus').hidden&&navigator.onLine!==false){mapSlowShown=true;showMapStatus('지도를 불러오는 중이에요. 신호가 약하면 조금 걸려요 · 목록과 길찾기는 바로 쓸 수 있어요.')}},5000);
 function showMapStatus(t){$('#mapStatusText').textContent=t;$('#mapStatus').hidden=false}
 function hideMapStatus(){$('#mapStatus').hidden=true}
-window.addEventListener('online',()=>{hideMapStatus();if(!map||tileStats.ok===0)retryTiles();else map.triggerRepaint()});
-window.addEventListener('offline',()=>toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.'));
+window.addEventListener('online',()=>{hideMapStatus();
+  if(S.gmFail&&['offline','load','timeout'].includes(S.gmFail)&&LS.get(PROV_KEY,DEFAULT_PROVIDER)==='google'){S.gmFail=null;tried=new Set();setProvider('google',true);return}   // back online: try Google again (once per reconnection)
+  if(!map||tileStats.ok===0)retryTiles();else map.triggerRepaint()});
+window.addEventListener('offline',()=>{
+  if(engine==='gm'&&LS.get('ofm.precached',null)){googleFailed('offline');return}   // Google cannot be saved: switch to the pre-saved backup map
+  toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.')});
 $('#retryBtn').onclick=retryTiles;
 
 /* events shared by both engines */
@@ -913,11 +917,12 @@ window.gm_authFailure=()=>googleFailed('auth');
 function googleFailed(why,token){
   if(token!=null&&token!==provToken)return;
   if(!PROVIDERS[S.provider]||PROVIDERS[S.provider].type!=='google')return;
-  S.gmFail=why;toast('구글 지도를 불러오지 못해 한글 지도(OpenFreeMap)로 보여 줘요.',5500);
+  S.gmFail=why;toast(why==='offline'?(LS.get('ofm.precached',null)?'인터넷이 끊겨 저장해 둔 한글 지도로 보여 줘요. 연결되면 구글 지도로 돌아가요.':'인터넷이 끊겨 구글 지도를 불러올 수 없어요. 연결되면 다시 불러와요.'):'구글 지도를 불러오지 못해 한글 지도(OpenFreeMap)로 보여 줘요.',5500);
   setProvider('ko',true);
 }
 async function startGoogle(token){
   if(!GMAPS_KEY)return googleFailed('nokey',token);
+  if(navigator.onLine===false)return googleFailed('offline',token);   // no connection: the backup map at once, not after a 12–15 s wait
   try{await loadGoogle()}catch(e){return googleFailed('load',token)}
   if(token!==provToken)return;
   destroyMap();
@@ -1237,7 +1242,8 @@ function compute(){
 function thumb(r,cls='thumb'){return `<div class="${cls}" data-th="${r.id}" aria-hidden="true">${r.emoji}${r.image?`<img src="${esc(r.image)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">`:''}</div>`}
 /* ================= 📅 itinerary ================= */
 const LEG_ICON={walk:'🚶',train:'🚆',subway:'🚇',bus:'🚌',taxi:'🚕'};
-const tripSwap=LS.get('ofm.tripSwap.v1',{}),tripCheck=LS.get('ofm.tripCheck.v1',{});
+const lsObj=k=>{const v=LS.get(k,{});return v&&typeof v==='object'&&!Array.isArray(v)?v:{}};   // corrupted values → start empty
+const tripSwap=lsObj('ofm.tripSwap.v1'),tripCheck=lsObj('ofm.tripCheck.v1');
 const tripDayOf=k=>TRIP_DATA.days.find(d=>d.key===k);
 const defaultTripDay=()=>{const t=todayKey();return t&&tripDayOf(t)?t:'all'};
 const tm=t=>toMin(t);
@@ -2088,7 +2094,8 @@ $('#poiToggle').onchange=e=>{S.showPoi=e.target.checked;LS.set('ofm.showPoi',S.s
   if(engine==='gm')map.gm.setOptions({styles:gStyles()});else if(PROVIDERS[S.provider].type==='vector'){tried=new Set();setProvider(S.provider,true)}};
 
 /* ---- offline: pre-save map tiles (served later by the service worker) ---- */
-const AREAS=[{s:34.681,w:135.472,n:34.717,e:135.514},{s:34.658,w:135.493,n:34.675,e:135.512}];
+const AREAS=[{s:34.681,w:135.472,n:34.717,e:135.514},{s:34.658,w:135.493,n:34.675,e:135.512},
+  {s:34.643,w:135.500,n:34.657,e:135.518},{s:34.679,w:135.517,n:34.693,e:135.537}];   // Umeda–Nakanoshima, Namba, Shinsekai/Tsutenkaku–Tennoji, Osaka Castle–Morinomiya
 function tileXY(lat,lon,z){const n=2**z,s=Math.sin(lat*Math.PI/180);return[Math.floor((lon+180)/360*n),Math.floor((.5-Math.log((1+s)/(1-s))/(4*Math.PI))*n)]}
 function tileUrls(key=S.provider){
   const P=PROVIDERS[key];if(P.type==='vector')return[];const set=new Set();
