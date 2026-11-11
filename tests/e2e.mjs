@@ -1103,6 +1103,16 @@ console.log('6s. 🗣 on the shop page, labelled menu button, menu order, hotel 
   await ctx.close();
 }
 
+console.log('6t. Icon emoji in colour (A3-9)');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(400);
+  const t = await page.evaluate(() => ['#shopChip', '#filterChip', '#genreChip'].map(s => document.querySelector(s).textContent).concat(document.querySelector('#catBar .cat').textContent));
+  check(t.every(x => /\uFE0F/.test(x)), 'icon emoji carry U+FE0F so they draw in colour like 🧳 (🛍 ⚙ 🍽)', JSON.stringify(t));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('7. Tile server failures');
 {
   const { ctx, page, log } = await newPhone({ tiles: { ofm: 'fail' } });

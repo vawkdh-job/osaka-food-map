@@ -607,10 +607,10 @@ body{word-break:keep-all;overflow-wrap:anywhere}
   </div>
   <div class="chips" id="chips">
     <button class="chip tripc" id="tripChip" aria-pressed="false">🧳 일정</button>
-    <button class="chip shopc" id="shopChip" aria-pressed="false">🛍 쇼핑</button>
+    <button class="chip shopc" id="shopChip" aria-pressed="false">🛍️ 쇼핑</button>
     <button class="chip" id="openChip" aria-pressed="false">휴무 제외</button>
-    <button class="chip" id="filterChip" aria-label="필터">⚙ 필터</button>
-    <button class="chip big" id="genreChip">🍽 뭐 먹지?</button>
+    <button class="chip" id="filterChip" aria-label="필터">⚙️ 필터</button>
+    <button class="chip big" id="genreChip">🍽️ 뭐 먹지?</button>
     <label class="chip sel" id="dayChip"><span id="dayText">금 11/13</span><select id="day" aria-label="요일 선택"></select></label>
     <label class="chip sel" id="listChip"><span id="listText">전체 목록</span><select id="listSel" aria-label="목록">
       <option value="all">전체 목록</option><option value="top">🏆 타베로그 TOP 100</option><option value="hyaku">百 백명점</option><option value="fav">♥ 찜</option></select></label>
@@ -658,7 +658,7 @@ body{word-break:keep-all;overflow-wrap:anywhere}
     <div class="actions" style="margin:8px 0">
       <a class="btn" id="hotelDir" target="_blank" rel="noopener">🧭 호텔로 돌아가는 길</a>
       <button class="btn" id="locHelpBtn">📍 내 위치 도움말</button>
-      <button class="btn" id="phraseBtn">🗣 일본어 회화 카드</button>
+      <button class="btn" id="phraseBtn">🗣️ 일본어 회화 카드</button>
       <button class="btn" id="hotelTaxiBtn">🚕 호텔 택시 카드</button>
     </div>
     <h3>보여 줄 식당</h3>
@@ -678,7 +678,7 @@ body{word-break:keep-all;overflow-wrap:anywhere}
       <span><i class="lg pinL">🍜 3.75</i> 음식점 — 알약 모양, 색은 타베로그 점수</span>
       <span><i class="lg itL">🏯</i> 우리 일정 장소 — 동그라미, 날짜 색 (금 파랑 · 토 주황 · 일 초록), 항상 보여요</span>
       <span><i class="lg hoL">🏨 호텔</i> 숙소 — 금색 테두리</span>
-      <span><i class="lg shL">🛍 쇼핑</i> 쇼핑 — 청록 네모 (맛집 지도에서는 확대하면 보여요)</span>
+      <span><i class="lg shL">🛍️ 쇼핑</i> 쇼핑 — 청록 네모 (맛집 지도에서는 확대하면 보여요)</span>
       <span><i class="lg plL">📍 장소</i> 검색으로 고른 기준 장소</span>
     </div>
     <p>음식점 핀에 🧳가 붙어 있으면 일정에 있는 식당이에요.</p>
@@ -718,7 +718,7 @@ body{word-break:keep-all;overflow-wrap:anywhere}
 <div class="modal" id="phrases" hidden>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="phraseTitle">
     <button class="closeX" data-close aria-label="닫기">×</button>
-    <h2 id="phraseTitle">🗣 일본어 회화 카드</h2>
+    <h2 id="phraseTitle">🗣️ 일본어 회화 카드</h2>
     <p style="margin-top:0">누르면 크게 보여 줘요. 가게 직원에게 화면을 보여 주세요.</p>
     <div id="phraseList"></div>
   </div>
@@ -835,7 +835,7 @@ const NEAR_MIN=20, OSAKA_KM=30;
 
 /* ================= state ================= */
 const S={q:'',day:todayKey()||'fri',openOnly:LS.get('ofm.openOnly',false)===true,genre:'all',list:'all',f:{region:'all',minT:0,prices:[],card:false,ic:false,shortWait:false,group6:false,reserve:false,nonSmoking:false,morning:false,late:false},
-  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true),mode:(m=>m==='shopping'&&!(Date.now()-(+LS.get('ofm.modeAt',0)||0)<10*60e3)?'shops':m)(LS.get('ofm.mode','shops')),   /* 🛍 쇼핑 is restored only within 10 minutes; later the app opens on the food list */
+  sort:'tabelog',sortTouched:false,ref:'hotel',refTouched:false,selected:null,view:'list',provider:LS.get('ofm.provider.v4','google'),showPoi:LS.get('ofm.showPoi',false),showAll:LS.get('ofm.showAll',false),thumbs:LS.get('ofm.thumbs',true),mode:(m=>m==='shopping'&&!(Date.now()-(+LS.get('ofm.modeAt',0)||0)<10*60e3)?'shops':m)(LS.get('ofm.mode','shops')),   /* 🛍️ 쇼핑 is restored only within 10 minutes; later the app opens on the food list */
   tripDay:null,tripOpen:null,shopCat:'all',shopSel:null};
 const fav=new Set((v=>Array.isArray(v)?v:DATA.filter(r=>r.fav).map(r=>r.id))(LS.get('ofm.fav.v5',null)));   // a corrupted value must not stop the app
 const setOpenOnly=v=>{S.openOnly=!!v;LS.set('ofm.openOnly',S.openOnly)};   // 영업 중만 is remembered on the phone
@@ -1167,7 +1167,7 @@ const GENRES=[
   {key:'yakiniku',label:'야키니쿠',emoji:'🥩',g:['야키니쿠']},{key:'izakaya',label:'야키토리·이자카야',emoji:'🍶',g:['야키토리','이자카야','오뎅']},
   {key:'sushi',label:'스시·해산물',emoji:'🍣',g:['스시','해산물·덮밥']},{key:'tonkatsu',label:'돈카츠',emoji:'🐖',g:['돈카츠']},{key:'curry',label:'카레',emoji:'🍛',g:['카레']},
   {key:'yoshoku',label:'양식·오므라이스',emoji:'🍳',g:['양식·오므라이스']},{key:'chinese',label:'교자·중식',emoji:'🥟',g:['교자·중식']},
-  {key:'cafe',label:'카페·디저트·빵',emoji:'☕',g:['카페·디저트','킷사텐','빵']},{key:'etc',label:'기타',emoji:'🍽',g:['기타']}];
+  {key:'cafe',label:'카페·디저트·빵',emoji:'☕',g:['카페·디저트','킷사텐','빵']},{key:'etc',label:'기타',emoji:'🍽️',g:['기타']}];
 const genreOf=r=>GENRES.find(x=>x.g.includes(r.genre))||GENRES[GENRES.length-1];
 /* broad food types on top of the detailed menus; Japanese tags (genreJp) let a shop sit in several */
 const tagsOf=r=>r.genreJp||[],hasTag=(r,l)=>tagsOf(r).some(t=>l.includes(t)),isG=(r,l)=>l.includes(r.genre);
@@ -1353,7 +1353,7 @@ function stopHtml(day,s,i){const p=tripPlace(s),open=S.tripOpen===s.id,a=tm(s.ti
       <div class="tActs"><a class="tBtn primary" href="${esc(tripDir(p,s.leg&&s.leg.travel))}" target="_blank" rel="noopener">🧭 여기로 길찾기</a>
         <a class="tBtn" href="${esc(gUrl(p))}" target="_blank" rel="noopener">🗺️ 구글 지도</a>
         <button class="tBtn" data-taxi="${day.key}:${s.id}">🚕 택시</button>
-        ${shop?`<button class="tBtn" data-shop="${shop.id}">🍽 가게 정보</button>`:''}</div>
+        ${shop?`<button class="tBtn" data-shop="${shop.id}">🍽️ 가게 정보</button>`:''}</div>
       ${prev&&s.leg?`<a class="tLink" href="${esc(tripDir(p,s.leg.travel,prev))}" target="_blank" rel="noopener">이전 장소에서 가는 경로 보기 ›</a>`:''}
       ${s.meal?`<div class="tAltH">근처 대안 <small>도보 12분 안 · 6명 앉기 쉬운 곳·카드 먼저</small></div>${alts.length?alts.map(x=>`<div class="tAlt"><span class="ae">${x.r.emoji}</span>
         <button class="ta lnk" data-shop="${x.r.id}"><b>${esc(x.r.name)}</b><small>${x.r.tabelog!=null?`★ ${fmtT(x.r.tabelog)} · `:''}도보 ${walkMin(x.d)}분 · ${x.o?'그 시간 영업':'영업시간 확인 필요'}</small>${factChips(x.r)}</button>
@@ -1482,9 +1482,9 @@ function renderItinMarks(){   // day-coloured circles: restaurants are pills, sh
     itGfx.marks.push(mkMarker(el,[g.p.lon,g.p.lat]).addTo(map))}
 }
 
-/* ================= 🛍 shopping: character shops, department stores, eyewear, stationery, watches ================= */
+/* ================= 🛍️ shopping: character shops, department stores, eyewear, stationery, watches ================= */
 const SHOPS=(SHOPS_SRC.shops||[]).filter(s=>s.lat!=null),SHOPS_CHECKED=SHOPS_SRC.checked||'';
-const SHOP_GROUPS=[['all','전체','🛍'],['trip','일정','🧳'],['chara','캐릭터','🧸'],['dept','백화점','🏬'],['glasses','안경','👓'],['stationery','문구','✏️'],['watch','시계','⌚'],['etc','잡화·기타','🛒']];
+const SHOP_GROUPS=[['all','전체','🛍️'],['trip','일정','🧳'],['chara','캐릭터','🧸'],['dept','백화점','🏬'],['glasses','안경','👓'],['stationery','문구','✏️'],['watch','시계','⌚'],['etc','잡화·기타','🛒']];
 const shopGroup=s=>({'캐릭터':'chara','게임·애니':'chara','백화점':'dept','안경':'glasses','문구':'stationery','시계':'watch'}[s.cat]||'etc');
 const inGroup=(s,k)=>k==='all'||(k==='trip'?!!s.trip:shopGroup(s)===k);
 const shopHay=s=>s._hay||(s._hay=kf(nfk([s.name,s.name.replace(/\s+/g,''),s.jp,s.brand,s.cat,s.building,s.area,s.why,s.pin].join(' | '))));
@@ -1493,7 +1493,7 @@ function shopRows(){const ref=refPoint(),q=S.q?nfk(S.q).split(/\s+/).filter(Bool
 const entryChip=s=>/정리권|추첨/.test(s.entry||'')?'정리권 있을 수 있음':/줄/.test(s.entry||'')?'줄 생길 수 있음':'';
 const tripStopOf=id=>{for(const d of TRIP_DATA.days){const s=d.stops.find(x=>x.id===id);if(s)return{d,s}}return null};
 function renderShopList(){
-  const R=shopRows();$('#count').textContent=`🛍 쇼핑 ${R.length}곳`;
+  const R=shopRows();$('#count').textContent=`🛍️ 쇼핑 ${R.length}곳`;
   const tabs=`<div class="tTabs sTabs" role="tablist">${SHOP_GROUPS.map(([k,l,e])=>{const n=SHOPS.filter(s=>inGroup(s,k)).length;
     return n||k==='all'?`<button class="tTab${S.shopCat===k?' on':''}" role="tab" aria-selected="${S.shopCat===k}" data-scat="${k}">${e} ${l} <small>${n}</small></button>`:''}).join('')}</div>`;
   const hint=`<p class="hint">${esc(refName())}에서 가까운 순${S.q?` · ‘${esc(S.q)}’ 검색 중`:''} · 면세는 11/1부터 <b>환급 방식</b>(계산 때 세금 포함 → 출국할 때 돌려받기, 여권 필요)</p>`;
@@ -1543,7 +1543,7 @@ function renderShopMap(force){   // teal squares: name tags in the shopping view
   const key=[mode,engine,S.shopCat,S.q,S.shopSel,R.length,mode==='full'?Math.round(z*2):''].join('|');if(!force&&key===shopGfx.key)return;
   clearShopGfx();shopGfx.key=key;const at=new Map();
   let items=R;
-  if(mode==='full'&&z<17){   // name tags that would collide become one "🛍 N곳" tag; tapping it zooms in
+  if(mode==='full'&&z<17){   // name tags that would collide become one "🛍️ N곳" tag; tapping it zooms in
     const pts=R.map(s=>({s,p:map.project([s.lon,s.lat])})),groups=[];
     for(const pt of pts){const g=groups.find(g=>Math.abs(g.p.x-pt.p.x)<90&&Math.abs(g.p.y-pt.p.y)<38);if(g)g.items.push(pt.s);else groups.push({p:pt.p,items:[pt.s]})}
     items=[];
@@ -1551,7 +1551,7 @@ function renderShopMap(force){   // teal squares: name tags in the shopping view
       if(g.items.length===1||(same&&g.items.length<=2)||g.items.some(x=>x.id===S.shopSel)){items.push(...g.items);continue}
       const f=g.items[0],el=document.createElement('div');el.className='mk spm';el.tabIndex=0;el.setAttribute('role','button');
       el.setAttribute('aria-label',`쇼핑 ${g.items.length}곳 묶음: ${g.items.map(x=>x.name).join(', ')}`);
-      el.innerHTML=`<div class="spin grp"><span>🛍</span>${g.items.length}곳 <small>${esc(f.pin||f.brand||'')} 외</small></div>`;
+      el.innerHTML=`<div class="spin grp"><span>🛍️</span>${g.items.length}곳 <small>${esc(f.pin||f.brand||'')} 외</small></div>`;
       const open=e=>{e&&e.stopPropagation();if(same)map.easeTo({center:[f.lon,f.lat],zoom:17.2,duration:400});else fitVisible(g.items.map(x=>[x.lat,x.lon]),17.2)};
       el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter')open(e)});
       shopGfx.marks.push(mkMarker(el,[f.lon,f.lat]).addTo(map))}
@@ -1673,7 +1673,7 @@ let catShown=null;
 function renderCats(){
   const bar=$('#catBar'),sl=bar.scrollLeft,base=DATA.filter(r=>passes(r,'genre')),sc=scoped();
   const cur=S.genre!=='all'&&!S.genre.startsWith('c-')?pickOf(S.genre):null;   // a detailed menu picked in "뭐 먹지?"
-  const items=[{key:'all',label:'전체',emoji:'🍽'},...(cur?[cur]:[]),...CATS];
+  const items=[{key:'all',label:'전체',emoji:'🍽️'},...(cur?[cur]:[]),...CATS];
   bar.innerHTML=items.map(c=>{const n=base.filter(r=>matchPick(r,c.key)&&(!sc||inScope(r,c.key))).length,on=S.genre===c.key;
     return `<button class="cat${on?' on':''}" data-cat="${c.key}" aria-pressed="${on}" ${n||on||c.key==='all'?'':'disabled'}><span class="ce">${c.emoji}</span>${esc(c.label)}${on&&c.key!=='all'?' ✕':''}<small>${n}</small></button>`}).join('');
   bar.scrollLeft=sl;
@@ -1707,8 +1707,8 @@ function infoRows(r){
   rows.push(['💳 결제',pay]);
   const seat=[r.seats?`${r.seats}석`:'',(r.seatTypes||[]).map(t=>({counter:'카운터',table:'테이블',tatami:'다다미',private:'개별실',standing:'서서 먹기'}[t]||t)).join('·'),r.seatLabel].filter(Boolean).join(' · ');
   rows.push(['🪑 좌석',esc(seat||'정보 없음')+(r.seatNote?`<br><small>${esc(r.seatNote)}</small>`:'')]);
-  rows.push(['☎ 예약',{possible:'예약 가능',required:'예약 필수',not_accepted:'예약 안 받음 (줄 서기)',unknown:'정보 없음'}[r.reservation]||'정보 없음']);
-  rows.push(['⏱ 대기',`${esc(w.t)}${r.wait&&r.wait.note?`<br><small>${esc(r.wait.note)}</small>`:''}${r.wait&&r.wait.est?'<br><small>좌석 정보로 추정</small>':''}${r.onlineQueue?`<br><small>온라인 줄서기: ${esc(r.onlineQueue)}</small>`:''}`]);
+  rows.push(['☎️ 예약',{possible:'예약 가능',required:'예약 필수',not_accepted:'예약 안 받음 (줄 서기)',unknown:'정보 없음'}[r.reservation]||'정보 없음']);
+  rows.push(['⏱️ 대기',`${esc(w.t)}${r.wait&&r.wait.note?`<br><small>${esc(r.wait.note)}</small>`:''}${r.wait&&r.wait.est?'<br><small>좌석 정보로 추정</small>':''}${r.onlineQueue?`<br><small>온라인 줄서기: ${esc(r.onlineQueue)}</small>`:''}`]);
   if(r.ticket!=null)rows.push(['🎫 식권 자판기',r.ticket?'있음 (먼저 표를 사요)':'없음']);
   if(r.smoking&&r.smoking!=='unknown')rows.push(['🚭 흡연',{non_smoking:'전석 금연',separated:'분연 (흡연석 따로)',smoking:'흡연 가능'}[r.smoking]]);
   if(r.kids)rows.push(['👶 아이 동반',esc(r.kids)]);
@@ -1763,14 +1763,14 @@ function renderDetail(){
     <a class="ab primary btn" href="${esc(gDirUrl(r,dirKm(r)))}" target="_blank" rel="noopener"><span class="ai">🧭</span><span>길찾기</span></a>
     <button class="ab" id="crowdBtn"><span class="ai">🏃</span><span>줄이 길어요</span></button>
     <button class="ab" id="taxiBtn"><span class="ai">🚕</span><span>택시</span></button>
-    <button class="ab" id="phraseBtn3"><span class="ai">🗣</span><span>회화 카드</span></button>
+    <button class="ab" id="phraseBtn3"><span class="ai">🗣️</span><span>회화 카드</span></button>
     <a class="ab" id="gmapBtn" href="${esc(gUrl(r))}" target="_blank" rel="noopener"><span class="ai">🗺️</span><span>구글 지도</span></a>
     <a class="ab" href="${esc(streetUrl(r))}" target="_blank" rel="noopener"><span class="ai">👀</span><span>거리뷰</span></a>
     <button class="ab" id="shareBtn"><span class="ai">↗</span><span>공유</span></button>
   </div>
   <div id="alts" hidden></div>
   <div class="dSub">${r.emoji} ${meta}</div>${factChips(r)}${statusChips(r,true).length?`<span class="ichips">${statusChips(r,true).join('')}</span>`:''}
-  ${r.warn?`<div class="warnBox">⚠ ${esc(r.warn)}</div>`:''}
+  ${r.warn?`<div class="warnBox">⚠️ ${esc(r.warn)}</div>`:''}
   <div class="photos" id="photos">${tabImg}</div>
   <div id="gLive"></div>
   <section class="sec"><h3>가게 정보</h3><table class="info"><tbody>${infoRows(r)}</tbody></table></section>
@@ -1786,7 +1786,7 @@ function renderDetail(){
     <a href="${esc(naverUrl(r.name+' 오사카'))}" target="_blank" rel="noopener">N 네이버 블로그 후기</a>
     <a href="${esc(gNearUrl((r.genreJp&&r.genreJp[0])||g.label.split('·')[0],r))}" target="_blank" rel="noopener">🔎 이 근처 ${esc(g.label)}</a>
     <a href="${esc(gDirUrl(r,9).replace('dir/?api=1','dir/?api=1&origin='+encodeURIComponent(HOTEL.jp+' '+HOTEL.address)))}" target="_blank" rel="noopener">⌂ 호텔에서 가는 길</a>
-    <button class="lk" id="phraseBtn2">🗣 일본어 회화 카드</button></div></section>
+    <button class="lk" id="phraseBtn2">🗣️ 일본어 회화 카드</button></div></section>
   <p class="foot">타베로그 점수·영업시간·좌석·결제 정보는 2026년 11월에 웹에서 모은 참고값이에요. 출처마다 게시 시점이 달라 바뀌었을 수 있어요. 구글 정보(G)는 실시간으로 불러와요.</p>`;
   $('#backBtn').onclick=()=>{if(history.state&&history.state.detail)history.back();else closeDetail()};
   $('#copyAddr').onclick=()=>{const a=addrOf(r);if(a)copy(`${r.jp} ${a}`,'가게 이름과 주소를 복사했어요');else copy(r.jp,'가게 이름만 복사했어요 (주소 정보 없음)')};
@@ -1875,7 +1875,7 @@ async function googleLive(r){
     TRIP.forEach(t=>{const c=$('#hr-'+t.key);if(c&&r.hours[t.key]==null){const gh=gDayRanges(p,t.key);if(gh)c.innerHTML=(gh.length?esc(fmtRanges(gh)):'<b style="color:var(--closed)">휴무</b>')+' <small>(구글)</small>'}});
     const pay=p.pay,bits=[];
     if(pay){if(pay.acceptsCreditCards!=null)bits.push(`카드 ${pay.acceptsCreditCards?'가능':'불가'}`);if(pay.acceptsNfc!=null)bits.push(`터치결제 ${pay.acceptsNfc?'가능':'불가'}`);if(pay.acceptsCashOnly)bits.push('<b class="bad">현금만</b>')}
-    const closed=p.status&&p.status!=='OPERATIONAL'?`<div class="warnBox">⚠ 구글 표시: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'} — 다른 곳을 고르세요.</div>`:'';
+    const closed=p.status&&p.status!=='OPERATIONAL'?`<div class="warnBox">⚠️ 구글 표시: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'} — 다른 곳을 고르세요.</div>`:'';
     const ph=p.photos[0];
     const photo=ph?`<a class="ph" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(ph.getURI({maxHeight:400}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진${p.photos.length>1?` · ${p.photos.length}장 더 보기 ›`:''}</small></a>`:'';
     if(photo&&$('#photos')&&!$('#photos [data-g]'))$('#photos').insertAdjacentHTML('afterbegin',photo.replace('class="ph"','class="ph" data-g'));
@@ -2054,11 +2054,11 @@ function selText(sel){return sel.options[sel.selectedIndex]?.text||''}
 function updateChips(){
   $('#day').value=S.day;$('#dayText').textContent=selText($('#day'));
   const oc=$('#openChip');oc.textContent=isLive()?(S.openOnly?'🟢 영업 중만 ✓':'영업 중만'):(S.openOnly?'휴무 제외 ✓':'휴무 제외');oc.classList.toggle('on',S.openOnly);oc.setAttribute('aria-pressed',S.openOnly);
-  const g=S.genre!=='all'?pickOf(S.genre):null;$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
-  const sc=$('#shopChip');sc.classList.toggle('on',S.mode==='shopping');sc.setAttribute('aria-pressed',S.mode==='shopping');sc.textContent=S.mode==='shopping'?'🛍 쇼핑 ✕':'🛍 쇼핑';
+  const g=S.genre!=='all'?pickOf(S.genre):null;$('#genreChip').textContent=g?`${g.emoji} ${g.label}`:'🍽️ 뭐 먹지?';$('#genreChip').classList.toggle('on',!!g);
+  const sc=$('#shopChip');sc.classList.toggle('on',S.mode==='shopping');sc.setAttribute('aria-pressed',S.mode==='shopping');sc.textContent=S.mode==='shopping'?'🛍️ 쇼핑 ✕':'🛍️ 쇼핑';
   const tc=$('#tripChip');tc.classList.toggle('on',S.mode==='trip');tc.setAttribute('aria-pressed',S.mode==='trip');tc.textContent=S.mode==='trip'?'🧳 일정 ✕':'🧳 일정';
   $('#listSel').value=S.list;$('#listText').textContent=selText($('#listSel'));$('#listChip').classList.toggle('on',S.list!=='all');
-  const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
+  const n=filterCount();$('#filterChip').textContent=n?`⚙️ 필터 ${n}`:'⚙️ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
   $('#ref').value=S.ref;$('#refText').textContent=selText($('#ref'));$('#refMini').classList.toggle('isMe',S.ref==='me');
   $('#q').placeholder='가게·메뉴·장소 검색 (예: 오사카성, 라멘)';syncQClear();
@@ -2099,7 +2099,7 @@ $('#zoomIn').onclick=()=>map&&map.zoomIn();$('#zoomOut').onclick=()=>map&&map.zo
 function renderGenres(){
   const base=DATA.filter(r=>passes(r,'genre')),sc=scoped(),cnt=k=>base.filter(r=>matchPick(r,k)&&(!sc||inScope(r,k))).length;
   const btn=g=>{const n=cnt(g.key);return `<button class="gBtn${S.genre===g.key?' on':''}" data-genre="${g.key}" ${n||g.key==='all'?'':'disabled'}><span>${g.emoji}</span><b>${g.label.replace(/·/g,'·<wbr>')}</b><small>${n}곳</small></button>`};
-  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류 <small>${S.showAll?'모든 식당':`근처는 모두 · 먼 곳은 평점 상위 ${CAT_MAX}곳`}</small></h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽'},...CATS].map(btn).join('')}</div>
+  $('#genreGrid').innerHTML=`<h3 class="gH">음식 종류 <small>${S.showAll?'모든 식당':`근처는 모두 · 먼 곳은 평점 상위 ${CAT_MAX}곳`}</small></h3><div class="gGrid">${[{key:'all',label:'전체',emoji:'🍽️'},...CATS].map(btn).join('')}</div>
     <h3 class="gH">세부 메뉴</h3><div class="gGrid">${GENRES.map(btn).join('')}</div>`;
 }
 $('#genreChip').onclick=()=>{renderGenres();openModal('#genres')};
@@ -2117,7 +2117,7 @@ function renderFilters(){
   <h3>타베로그 점수</h3><div class="seg">${[0,3.5,3.6,3.7,3.8].map(v=>`<button data-mint="${v}" class="${f.minT===v?'on':''}">${v?v.toFixed(1)+'+':'전체'}</button>`).join('')}</div>
   <h3>가격 (1인)</h3><div class="seg">${[1,2,3,4].map(v=>`<button data-price="${v}" class="${f.prices.includes(v)?'on':''}">${PRICE[v]}</button>`).join('')}</div>
   <h3>결제</h3>${ck('card','💳 카드 결제 확인된 곳만','현금만 받는 가게가 많아요')}${ck('ic','🚃 교통카드·전자화폐 가능')}
-  <h3>대기·좌석</h3>${ck('shortWait','⏱ 대기 짧은 곳만','줄 서기 싫을 때')}${ck('group6','👨‍👩‍👧‍👦 6명이 함께 앉을 수 있는 곳','‘6인 OK’와 ‘가능성 있음’ 포함')}${ck('reserve','📅 예약 가능한 곳')}
+  <h3>대기·좌석</h3>${ck('shortWait','⏱️ 대기 짧은 곳만','줄 서기 싫을 때')}${ck('group6','👨‍👩‍👧‍👦 6명이 함께 앉을 수 있는 곳','‘6인 OK’와 ‘가능성 있음’ 포함')}${ck('reserve','📅 예약 가능한 곳')}
   <h3>가족</h3>${ck('nonSmoking','🚭 전석 금연')}
   <h3>시간 (고른 요일 기준)</h3>${ck('morning','🌅 아침 9시 전에 여는 곳')}${ck('late','🌙 밤 10시 넘어서도 영업','22:30 이후까지 하는 곳')}
   <h3>지역</h3><div class="seg col">${Object.entries(REGIONS).map(([k,v])=>`<button data-region="${k}" class="${f.region===k?'on':''}">${v}</button>`).join('')}</div>`;
