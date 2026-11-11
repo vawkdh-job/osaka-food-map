@@ -226,6 +226,29 @@ console.log('2d. Directions: walking or transit from where the phone is, not fro
   await ctx.close();
 }
 
+console.log('2e. 🌙 late filter, 줄이 길어요 keeps filters, no double-tap zoom on buttons');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T19:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  await page.locator('#filterChip').click(); await page.locator('[data-f="late"]').check(); await page.waitForTimeout(200);
+  const late = await page.evaluate(() => { const O = window.__ofm, t = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; }, R = O.rows().filter(x => x.r);
+    const at22 = APP_DATA.restaurants.filter(r => Array.isArray(r.hours.fri) && r.hours.fri.length && Math.max(...r.hours.fri.map(([, b]) => t(b))) === 22 * 60).map(r => r.id);
+    return { n: R.length, ok: R.every(x => x.r.hours.fri.some(([, b]) => t(b) >= 22 * 60 + 30)), at22: at22.length, at22shown: R.filter(x => at22.includes(x.r.id)).length, label: [...document.querySelectorAll('#filterBody .fchk')].map(e => e.innerText).find(t => /🌙/.test(t)) }; });
+  check(late.n > 0 && late.ok && late.at22 > 0 && late.at22shown === 0 && /밤 10시 넘어서도 영업/.test(late.label), '🌙 filter: only places open until 22:30 or later (closing at 22:00 is not “after 10 pm”)', JSON.stringify(late));
+  await page.locator('#filterReset').click(); await page.locator('[data-f="card"]').check(); await page.locator('#filterApply').click(); await page.waitForTimeout(200);
+  await page.locator('#genreChip').click(); await page.locator('#genreGrid [data-genre="ramen"]').click(); await page.waitForTimeout(400);
+  await page.evaluate(() => window.__ofm.select(window.__ofm.rows().find(x => x.r).r.id)); await page.waitForTimeout(500);
+  await page.locator('#crowdBtn').click(); await page.waitForTimeout(300);
+  const other = await page.evaluate(() => { const O = window.__ofm, inRows = new Set(O.rows().filter(x => x.r).map(x => x.r.id)); const b = [...document.querySelectorAll('#alts .alt')].find(e => !inRows.has(+e.dataset.go)); if (!b) return null; const id = +b.dataset.go; b.click(); return id; });
+  await page.waitForTimeout(500);
+  const st = await page.evaluate(() => ({ sel: window.__ofm.S.selected, view: window.__ofm.S.view, card: window.__ofm.S.f.card, genre: window.__ofm.S.genre }));
+  check(other != null && st.sel === other && st.view === 'detail' && st.card === true && st.genre === 'ramen', '줄이 길어요 → an alternative outside the current list opens it and keeps the filters and menu', JSON.stringify({ other, ...st }));
+  const ta = await page.evaluate(() => ['#openChip', '#locBtn', '#detail .ab.primary', '#handle'].map(s => getComputedStyle(document.querySelector(s)).touchAction));
+  check(ta.slice(0, 3).every(t => t === 'manipulation') && ta[3] === 'none', 'buttons, links and chips: touch-action manipulation (no double-tap zoom); the drag handle keeps none', ta.join(','));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('3. Location in Seoul (testing before the trip)');
 {
   const { ctx, page, log } = await newPhone({ geo: { latitude: 37.5665, longitude: 126.978, accuracy: 30 } });

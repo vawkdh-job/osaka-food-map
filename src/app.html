@@ -553,7 +553,8 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .qClear{position:absolute;right:49px;top:3px;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:17px;font-weight:700;display:grid;place-items:center}
 .qClear[hidden]{display:none}
 /* food map: restaurant pins and groups (.rp) win taps over the itinerary circles and shop squares they overlap */
-.mk.rp{z-index:3}.itm{z-index:2}.searchRow.hasQ .search{padding-right:100px}
+.mk.rp{z-index:3}.itm{z-index:2}
+button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps */.searchRow.hasQ .search{padding-right:100px}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
 </style>
 </head>
@@ -1200,7 +1201,7 @@ function fPass(r){const f=S.f;
   if(f.reserve&&!['possible','required'].includes(r.reservation))return false;
   if(f.nonSmoking&&r.smoking!=='non_smoking')return false;
   if(f.morning&&!opensBy(r,S.day,9*60))return false;
-  if(f.late&&!openAfter(r,S.day,22*60))return false;
+  if(f.late&&!openAfter(r,S.day,22*60+30))return false;   // later than 10 pm: open until 22:30 or past midnight
   return true}
 function passes(r,ignore){
   const f=S.f;
@@ -1818,7 +1819,7 @@ function select(id,{from='list'}={}){
   $('#list').hidden=true;$('#detail').hidden=false;sheet.classList.add('detailing');renderDetail();$('#sheetBody').scrollTop=0;
   if(!isDesktop()&&sheetState!=='half')setSheet('half');
   if(prev&&prev!==id)refreshIcon(prev);
-  if(S.mode!=='trip'&&!rows.some(x=>x.r&&x.r.id===id)){ // filtered out → clear filters so the pin can be shown
+  if(S.mode!=='trip'&&from!=='alt'&&!rows.some(x=>x.r&&x.r.id===id)){ // filtered out → clear filters so the pin can be shown (not for a 줄이 길어요 alternative: the family's filters stay)
     S.q='';setOpenOnly(false);S.genre='all';S.list='all';S.f=defaultFilters();$('#q').value='';refresh();
   }
   refreshIcon(id);
@@ -2032,7 +2033,7 @@ function renderFilters(){
   <h3>결제</h3>${ck('card','💳 카드 결제 확인된 곳만','현금만 받는 가게가 많아요')}${ck('ic','🚃 교통카드·전자화폐 가능')}
   <h3>대기·좌석</h3>${ck('shortWait','⏱ 대기 짧은 곳만','줄 서기 싫을 때')}${ck('group6','👨‍👩‍👧‍👦 6명이 함께 앉을 수 있는 곳','‘6인 OK’와 ‘가능성 있음’ 포함')}${ck('reserve','📅 예약 가능한 곳')}
   <h3>가족</h3>${ck('nonSmoking','🚭 전석 금연')}
-  <h3>시간 (고른 요일 기준)</h3>${ck('morning','🌅 아침 9시 전에 여는 곳')}${ck('late','🌙 밤 10시 이후까지 하는 곳')}
+  <h3>시간 (고른 요일 기준)</h3>${ck('morning','🌅 아침 9시 전에 여는 곳')}${ck('late','🌙 밤 10시 넘어서도 영업','22:30 이후까지 하는 곳')}
   <h3>지역</h3><div class="seg col">${Object.entries(REGIONS).map(([k,v])=>`<button data-region="${k}" class="${f.region===k?'on':''}">${v}</button>`).join('')}</div>`;
   const n=DATA.filter(r=>passes(r)).length;$('#filterApply').textContent=`${n}곳 보기`;
 }
