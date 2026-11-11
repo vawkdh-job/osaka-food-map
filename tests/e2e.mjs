@@ -588,6 +588,28 @@ console.log('6g. Search a place (landmark, area, station) to see our shops near 
   await ctx.close();
 }
 
+console.log('6g2. Search box: ✕ clear button, spelling variants and synonyms');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page);
+  const n = q => page.evaluate(q => { const i = document.querySelector('#q'); i.value = q; i.dispatchEvent(new Event('input', { bubbles: true })); return new Promise(res => setTimeout(() => res(window.__ofm.rows().filter(x => x.r).length), 260)); }, q);
+  const R = {}; for (const q of ['타코야끼', '타코야키', '오코노미야끼', '오코노미야키', '야끼니꾸', '야키니쿠', '만두', '국수', '맥주', 'sushi', 'ramen', 'udon', 'curry', 'cafe', '돈까스', '맥도날드']) R[q] = await n(q);
+  check(R['타코야끼'] === R['타코야키'] && R['오코노미야끼'] === R['오코노미야키'] && R['야끼니꾸'] === R['야키니쿠'] && R['타코야키'] > 0 && R['야키니쿠'] > 0, '끼/꾸 spellings find the same shops as 키/쿠', JSON.stringify(R));
+  check(['만두', '국수', '맥주', 'sushi', 'ramen', 'udon', 'curry', 'cafe', '돈까스'].every(q => R[q] > 0) && R['맥도날드'] === 0, 'synonyms (만두→교자, 국수→면, 맥주→이자카야, English menu words) find shops; 맥도날드 still finds none', JSON.stringify(R));
+  await n('');
+  const vis0 = await page.locator('#qClear').isVisible();
+  await page.evaluate(() => window.__ofm.setPlace(window.__ofm.placeHits('오사카성')[0])); await page.waitForTimeout(500);
+  await page.locator('#q').fill('라멘'); await page.waitForTimeout(400);
+  const b = await page.locator('#qClear').boundingBox(), qb = await page.locator('#q').boundingBox();
+  const n1 = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).length);
+  await page.locator('#qClear').click(); await page.waitForTimeout(400);
+  const after = await page.evaluate(() => ({ q: document.querySelector('#q').value, S: window.__ofm.S.q, ref: window.__ofm.S.ref, place: window.__ofm.S.place && window.__ofm.S.place.name, focus: document.activeElement.id, vis: !document.querySelector('#qClear').hidden, n: window.__ofm.rows().filter(x => x.r).length }));
+  check(!vis0 && b.width >= 44 && b.height >= 44 && b.x + b.width <= qb.x + qb.width && after.q === '' && after.S === '' && after.ref === 'place' && /오사카성/.test(after.place) && after.focus === 'q' && !after.vis && after.n > n1,
+    '✕ (only shown with text) clears the search, keeps the picked place and puts the cursor back', JSON.stringify({ vis0, b, n1, after }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6h. Map marker kinds and the 🛍 shopping view');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T15:00:00+09:00', tz: 'Asia/Tokyo' });

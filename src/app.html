@@ -549,6 +549,10 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .handle::before{content:"";position:absolute;left:50%;top:9px;width:38px;height:5px;margin-left:-19px;border-radius:3px;background:#d0d7de}
 .sheet:not([data-state=full]) .handle::after{content:"";position:absolute;left:50%;top:-16px;width:180px;height:16px;margin-left:-90px}
 @media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.handle{display:block}}
+/* ✕ clears the search (the native cancel button is hidden above) */
+.qClear{position:absolute;right:49px;top:3px;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:17px;font-weight:700;display:grid;place-items:center}
+.qClear[hidden]{display:none}.searchRow.hasQ .search{padding-right:100px}
+@media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
 </style>
 </head>
 <body>
@@ -557,6 +561,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 <header class="topbar" id="topbar">
   <div class="searchRow">
     <input id="q" class="search" type="search" placeholder="가게·메뉴·장소 검색 (예: 오사카성, 라멘)" enterkeyhint="search" autocomplete="off" aria-label="가게·메뉴·지역 검색">
+    <button id="qClear" class="qClear" aria-label="검색어 지우기" hidden>✕</button>
     <button id="menuBtn" class="iconBtn" aria-label="메뉴 열기">⋯</button>
   </div>
   <div class="chips" id="chips">
@@ -1149,9 +1154,13 @@ const openAfter=(r,day,min)=>Array.isArray(r.hours[day])&&r.hours[day].some(([,b
 let frozenRef=null;
 function refPoint(){if(S.ref==='place'&&S.place)return S.place;if(S.ref==='me'&&me)return me;if(S.ref==='center'&&map)return frozenRef||visibleCenter();return HOTEL}
 const nfk=s=>String(s||'').normalize('NFKC').toLowerCase();
-const hayOf=r=>r._hay||(r._hay=nfk([r.name,r.name.replace(/\s+/g,''),r.jp,r.genre,genreOf(r).label,allCats(r).map(k=>pickOf(k).label).join(' '),r.area,r.desc,r.address,r.mustTry,(r.genreJp||[]).join(' '),isHyaku(r)?'백명점 백명 百名店':'',
-  r.region==='north'?'키타 기타 북쪽':r.region==='south'?'미나미 남쪽':''].join(' | ')));
-const SYN={'라맨':['라멘'],'라면':['라멘','ラーメン'],'돈까스':['돈카츠'],'돈가스':['돈카츠'],'초밥':['스시','寿司'],'오꼬노미':['오코노미'],'다코야키':['타코야키'],'쿠시까스':['쿠시카츠'],'쿠시카쓰':['쿠시카츠'],'장어':['장어','うなぎ','우나'],'커피':['커피','카페','珈琲','コーヒー'],'빵집':['빵'],'백명점':['백명점']};
+const hayOf=r=>r._hay||(r._hay=kf(nfk([r.name,r.name.replace(/\s+/g,''),r.jp,r.genre,genreOf(r).label,allCats(r).map(k=>pickOf(k).label).join(' '),r.area,r.desc,r.address,r.mustTry,(r.genreJp||[]).join(' '),isHyaku(r)?'백명점 백명 百名店':'',
+  r.region==='north'?'키타 기타 북쪽':r.region==='south'?'미나미 남쪽':''].join(' | '))));
+/* spelling tolerance: 타코야끼/오코노미야끼/야끼니꾸/돈까스/쿠시카쓰 … match the 키/쿠/카/케/츠 spelling (applied to shop text and query alike) */
+const KFOLD=[[/끼/g,'키'],[/꾸/g,'쿠'],[/까/g,'카'],[/께/g,'케'],[/쓰/g,'츠'],[/다코/g,'타코']];
+const kf=s=>KFOLD.reduce((a,[re,v])=>a.replace(re,v),s);
+const SYN={'만두':['만두','교자','餃子'],'국수':['국수','면','우동','소바','라멘'],'맥주':['맥주','이자카야','비어','ビール'],
+  'sushi':['스시','寿司','sushi'],'ramen':['라멘','ラーメン','ramen'],'udon':['우동','うどん','udon'],'curry':['카레','カレー','curry'],'cafe':['카페','カフェ','cafe'],'라맨':['라멘'],'라면':['라멘','ラーメン'],'돈까스':['돈카츠'],'돈가스':['돈카츠'],'초밥':['스시','寿司'],'오꼬노미':['오코노미'],'다코야키':['타코야키'],'쿠시까스':['쿠시카츠'],'쿠시카쓰':['쿠시카츠'],'장어':['장어','うなぎ','우나'],'커피':['커피','카페','珈琲','コーヒー'],'빵집':['빵'],'백명점':['백명점']};
 /* ---- place search: landmarks, areas and stations (Wikidata, offline) + the hotel and the itinerary's places ---- */
 const nn=s=>nfk(s).replace(/[\s·・()（）]/g,'');
 const PLACES=(()=>{let L=PLACES_DATA.map(p=>({...p,al:[...(p.al||[])]}));
@@ -1169,7 +1178,7 @@ function placeHits(q){const t=nn(q);if(t.length<2)return[];const tq=t.replace(/�
   const sc=p=>p.nn.some(n=>n===t||n===tq||n===tq+'역')?3:p.nn.some(n=>n.startsWith(t))?2:p.nn.some(n=>n.includes(t)||(tq.length>=2&&n.includes(tq)))?1:0;
   return PLACES.map(p=>({p,s:sc(p)})).filter(x=>x.s).map(x=>({...x,s:x.s+(x.p.t==='sight'?.3:x.p.t==='area'?.2:0)})).sort((a,b)=>b.s-a.s).slice(0,4).map(x=>x.p)}
 const nearCount=p=>DATA.filter(r=>r.lat!=null&&walkMin(km(p,r))<=NEAR_MIN).length;
-let _qk='',_qt=[];const qTokens=()=>{if(S.q!==_qk){_qk=S.q;_qt=nfk(S.q).split(/\s+/).filter(Boolean).map(t=>SYN[t]||[t])}return _qt};
+let _qk='',_qt=[];const qTokens=()=>{if(S.q!==_qk){_qk=S.q;_qt=nfk(S.q).split(/\s+/).filter(Boolean).map(t=>(SYN[t]||SYN[kf(t)]||[t]).map(kf))}return _qt};
 function fPass(r){const f=S.f;
   if(f.minT&&(r.tabelog==null||r.tabelog<f.minT))return false;
   if(f.prices.length&&!f.prices.includes(r.price))return false;
@@ -1399,8 +1408,8 @@ const SHOPS=(SHOPS_SRC.shops||[]).filter(s=>s.lat!=null),SHOPS_CHECKED=SHOPS_SRC
 const SHOP_GROUPS=[['all','전체','🛍'],['trip','일정','🧳'],['chara','캐릭터','🧸'],['dept','백화점','🏬'],['glasses','안경','👓'],['stationery','문구','✏️'],['watch','시계','⌚'],['etc','잡화·기타','🛒']];
 const shopGroup=s=>({'캐릭터':'chara','게임·애니':'chara','백화점':'dept','안경':'glasses','문구':'stationery','시계':'watch'}[s.cat]||'etc');
 const inGroup=(s,k)=>k==='all'||(k==='trip'?!!s.trip:shopGroup(s)===k);
-const shopHay=s=>s._hay||(s._hay=nfk([s.name,s.name.replace(/\s+/g,''),s.jp,s.brand,s.cat,s.building,s.area,s.why,s.pin].join(' | ')));
-function shopRows(){const ref=refPoint(),q=S.q?nfk(S.q).split(/\s+/).filter(Boolean):[];
+const shopHay=s=>s._hay||(s._hay=kf(nfk([s.name,s.name.replace(/\s+/g,''),s.jp,s.brand,s.cat,s.building,s.area,s.why,s.pin].join(' | '))));
+function shopRows(){const ref=refPoint(),q=S.q?nfk(S.q).split(/\s+/).filter(Boolean).map(kf):[];
   return SHOPS.filter(s=>inGroup(s,S.shopCat)&&q.every(t=>shopHay(s).includes(t))).map(s=>({s,d:km(ref,s)})).sort((a,b)=>a.d-b.d)}
 const entryChip=s=>/정리권|추첨/.test(s.entry||'')?'정리권 있을 수 있음':/줄/.test(s.entry||'')?'줄 생길 수 있음':'';
 const tripStopOf=id=>{for(const d of TRIP_DATA.days){const s=d.stops.find(x=>x.id===id);if(s)return{d,s}}return null};
@@ -1946,14 +1955,16 @@ function updateChips(){
   const n=filterCount();$('#filterChip').textContent=n?`⚙ 필터 ${n}`:'⚙ 필터';$('#filterChip').classList.toggle('on',n>0);
   $('#sort').value=S.sort;$('#sortText').textContent=selText($('#sort'));
   $('#ref').value=S.ref;$('#refText').textContent=selText($('#ref'));$('#refMini').classList.toggle('isMe',S.ref==='me');
-  $('#q').placeholder='가게·메뉴·장소 검색 (예: 오사카성, 라멘)';
+  $('#q').placeholder='가게·메뉴·장소 검색 (예: 오사카성, 라멘)';syncQClear();
 }
+function syncQClear(){const has=!!$('#q').value;$('#qClear').hidden=!has;$('.searchRow').classList.toggle('hasQ',has)}
+$('#qClear').onclick=()=>{clearTimeout(qTimer);$('#q').value='';syncQClear();S.q='';refresh();$('#q').focus()};   // a picked place (S.place) stays the reference
 $('#day').onchange=e=>{S.day=e.target.value;S.dayTouched=true;refresh()};
 $('#openChip').onclick=()=>{setOpenOnly(!S.openOnly);refresh()};
 $('#listSel').onchange=e=>{S.list=e.target.value;if(S.list!=='all'&&!S.sortTouched)S.sort='tabelog';refresh();if(S.ref!=='me')fitRows()};
 $('#sort').onchange=e=>{S.sort=e.target.value;S.sortTouched=true;if(S.view==='detail')closeDetail();refresh();$('#sheetBody').scrollTop=0};
 $('#ref').onchange=e=>{S.ref=e.target.value;if(S.ref==='place'&&S.place)whenMap(()=>panToVisible([S.place.lat,S.place.lon],15));S.refTouched=true;if(S.ref==='me'&&!me)startLocate();refresh({markers:false});$('#sheetBody').scrollTop=0};
-let qTimer=0;$('#q').addEventListener('input',e=>{clearTimeout(qTimer);qTimer=setTimeout(()=>{S.q=e.target.value.trim();if(S.view==='detail')closeDetail();refresh();if(!isDesktop()&&sheetState!=='full')setSheet('full')},150)});   // results stay above the keyboard
+let qTimer=0;$('#q').addEventListener('input',e=>{syncQClear();clearTimeout(qTimer);qTimer=setTimeout(()=>{S.q=e.target.value.trim();if(S.view==='detail')closeDetail();refresh();if(!isDesktop()&&sheetState!=='full')setSheet('full')},150)});   // results stay above the keyboard
 $('#q').addEventListener('keydown',e=>{if(e.key!=='Enter')return;
   const q=e.target.value.trim(),ph=placeHits(q);S.q=q;
   if(ph.length&&(ph[0].nn.includes(nn(q))||!DATA.some(r=>passes(r)))){setPlace(ph[0]);return}   // Enter on a place name: go there
