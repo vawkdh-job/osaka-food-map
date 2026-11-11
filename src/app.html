@@ -625,7 +625,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
     <label class="radio"><input type="checkbox" id="showAllToggle"><span>모든 식당 보기<small>끄면 음식 종류마다 평점 상위 10곳만 보여요 (찜한 가게와 검색 결과는 항상 보여요)</small></span></label>
     <h3>지도 종류</h3>
     <div id="providers"></div>
-    <label class="radio"><input type="checkbox" id="thumbToggle"><span>목록에 가게 사진 보이기 (구글 사진)<small>화면에 나온 가게만 불러와요 · 한 번 열 때 최대 40곳 · 구글 평점·영업시간도 같이 불러와요</small></span></label>
+    <label class="radio"><input type="checkbox" id="thumbToggle"><span>목록에 가게 사진 보이기 (구글 사진)<small>화면에 나온 가게만 불러와요 · 한 번 열 때 최대 20곳 · 구글 평점·영업시간도 같이 불러와요</small></span></label>
     <label class="radio"><input type="checkbox" id="poiToggle"><span>지도에 다른 가게·시설 아이콘도 표시<small>꺼 두면 맛집 핀만 또렷하게 보여요 (한글 지도)</small></span></label>
     <h3>오프라인 대비 (로밍·지하용)</h3>
     <p style="margin:0">우메다·후쿠시마·나카노시마·난바 일대의 예비 지도(한글 OpenFreeMap + 국토지리원)를 휴대폰에 저장합니다. 인터넷이 끊겨 구글 지도가 안 뜨면 이 지도로 바뀝니다. 숙소 Wi-Fi에서 한 번 눌러 두세요.</p>
@@ -1503,7 +1503,7 @@ $('#list').addEventListener('click',e=>{if(S.mode!=='shopping')return;const t=e.
 $('#list').addEventListener('keydown',e=>{if(S.mode!=='shopping'||e.key!=='Enter')return;const t=e.target.closest('[data-shopid]');if(t){e.preventDefault();e.stopPropagation();selectShop(t.dataset.shopid)}},true);
 
 /* ---- list photos: Google place photos for rows that come into view (live, in memory only, with the author credit) ---- */
-const THUMB_MAX=40;let thumbUsed=0,thumbOff=false,thumbIO=null;const thumbEls=new Map(),thumbQ=[],thumbFail=new Set();let thumbBusy=0;
+const THUMB_MAX=20;let thumbUsed=0,thumbOff=false,thumbIO=null;const thumbEls=new Map(),thumbQ=[],thumbFail=new Set();let thumbBusy=0;
 function thumbsOn(){return S.thumbs&&!thumbOff&&GMAPS_KEY&&!S.gmFail&&engine==='gm'}
 function placeThumb(id){const el=document.querySelector(`#list [data-th="${id}"]`),n=thumbEls.get(id);if(el&&n&&n.parentNode!==el){el.appendChild(n)}}
 function thumbsAttach(){thumbEls.forEach((n,id)=>placeThumb(id));
@@ -1559,7 +1559,7 @@ function renderList(){
   renderTripLine();
   if(S.sort==='google'&&(!GMAPS_KEY||S.gmFail))hint=`<p class="hint">구글에 연결되지 않아 구글 평점을 불러올 수 없어요. 타베로그순을 써 주세요.</p>`+hint;
   else if(S.sort==='google'){const known=rows.filter(x=>x.r&&gRating(x.r)!=null).length,more=rows.filter(x=>x.r&&gRating(x.r)==null&&x.r.placeId).length;
-    hint=`<p class="hint">구글 평점은 실시간으로 불러와요 (가까운 곳부터 ${G_BATCH}곳씩)${gBusy?' · 불러오는 중…':` · ${known}곳 확인`}${more&&!gBusy?` · <button class="linkBtn" id="gMore">${Math.min(G_BATCH,more)}곳 더 불러오기</button>`:''}</p>`+hint}
+    hint=`<p class="hint">구글 평점은 실시간으로 불러와요 (가까운 곳부터 ${G_BATCH}곳씩)${gBackoff()?' · 구글 정보를 불러오지 못했어요':gBusy?' · 불러오는 중…':` · ${known}곳 확인`}${more&&!gBusy&&!gBackoff()?` · <button class="linkBtn" id="gMore">${Math.min(G_BATCH,more)}곳 더 불러오기</button>`:''}</p>`+hint}
   const plainList=!S.q&&S.list==='all',hidden=scoped()?DATA.filter(r=>passes(r,'vis')).length-n:0;
   const expand=hidden>0?`<button class="expand" data-expand="1">▾ ${hidden}곳 더 보기 <small>먼 곳 중 평점 ${CAT_MAX}위 밖</small></button>`
     :S.showAll&&plainList?`<button class="expand" data-expand="0">▴ 종류별 상위 ${CAT_MAX}곳만 보기</button>`:'';
@@ -1759,16 +1759,17 @@ const gLive=r=>r.placeId?gCache.get(r.placeId):null;
 const gRating=r=>{const p=gLive(r);return p&&p.rating!=null?p.rating:r.google??null};
 const gCount=r=>{const p=gLive(r);return (p&&p.count)||0};
 /* Google sort: fetch ratings for the nearest shops in the current list, G_BATCH at a time (each is one Google request) */
-const G_BATCH=20;let gWant=G_BATCH,gBusy=false,gSortKey='',gFailToast=false;
+const G_BATCH=20;let gWant=G_BATCH,gBusy=false,gSortKey='',gFailToast=false,gFailUntil=0;
+const gBackoff=()=>performance.now()<gFailUntil;   // after a batch where every call failed: no retry for 5 minutes
 function gPending(){const ref=refPoint();return DATA.filter(r=>passes(r)&&r.placeId).map(r=>({r,d:km(ref,r)})).sort((a,b)=>a.d-b.d).slice(0,gWant).filter(x=>!gCache.has(x.r.placeId)).map(x=>x.r)}
 function queueGoogleRatings(){
   const key=[S.genre,S.list,S.q,S.ref,S.showAll,filterCount()].join('|');if(key!==gSortKey){gSortKey=key;gWant=G_BATCH}
-  if(gBusy||!GMAPS_KEY||S.gmFail)return;
+  if(gBusy||!GMAPS_KEY||S.gmFail||gBackoff())return;
   const todo=gPending();if(!todo.length)return;
   gBusy=true;let i=0,failed=0;
   const worker=async()=>{while(i<todo.length){const r=todo[i++];try{await fetchG(r)}catch(e){failed++}}};
   Promise.all([worker(),worker(),worker(),worker()]).then(()=>{gBusy=false;
-    if(failed&&failed===todo.length){if(!gFailToast){gFailToast=true;toast('구글 평점을 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.',3500)}return}
+    if(failed&&failed===todo.length){gFailUntil=performance.now()+5*60e3;if(!gFailToast){gFailToast=true;toast('구글 평점을 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.',3500)}if(S.sort==='google')refresh({soft:true});return}
     if(S.sort==='google'){const keep=$('#sheetBody').scrollTop;refresh({soft:true});$('#sheetBody').scrollTop=keep}});
 }
 async function googleLive(r){
@@ -1790,7 +1791,8 @@ async function googleLive(r){
     if(pay){if(pay.acceptsCreditCards!=null)bits.push(`카드 ${pay.acceptsCreditCards?'○':'✕'}`);if(pay.acceptsNfc!=null)bits.push(`터치결제 ${pay.acceptsNfc?'○':'✕'}`);if(pay.acceptsCashOnly)bits.push('<b class="bad">현금만</b>')}
     const closed=p.status&&p.status!=='OPERATIONAL'?`<div class="warnBox">⚠ 구글 표시: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'} — 다른 곳을 고르세요.</div>`:'';
     const ph=p.photos[0];
-    const photo=ph?`<a class="ph" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(ph.getURI({maxHeight:400}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진${p.photos.length>1?` · ${p.photos.length}장 더 보기 ›`:''}</small></a>`:'';
+    const thImg=ph&&thumbEls.has(r.id)&&thumbEls.get(r.id).querySelector('img');   // the list photo already fetched for this shop: reuse it (one photo request, not two)
+    const photo=ph?`<a class="ph" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(thImg&&thImg.src?thImg.src:ph.getURI({maxHeight:400}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진${p.photos.length>1?` · ${p.photos.length}장 더 보기 ›`:''}</small></a>`:'';
     if(photo&&$('#photos')&&!$('#photos [data-g]'))$('#photos').insertAdjacentHTML('afterbegin',photo.replace('class="ph"','class="ph" data-g'));
     const hrs=p.periods&&p.periods.length?`<p class="note">🕘 구글 영업시간 (최신)<br>${TRIP.map(t=>{const gh=gDayRanges(p,t.key);return `${t.label} · ${gh==null?'정보 없음':gh.length?esc(fmtRanges(gh)):'휴무'}`}).join('<br>')}</p>`:'';
     $('#gLive').innerHTML=closed+hrs+(bits.length?`<p class="note">💳 구글 결제 정보: ${bits.join(' · ')}</p>`:'');

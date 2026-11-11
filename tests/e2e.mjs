@@ -854,6 +854,24 @@ console.log('11. Google rejects the key (gm_authFailure)');
   await ctx.close();
 }
 
+console.log('11b. Google ratings failing (quota): no retry storm, the list says so');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await ctx.addInitScript(() => {   // a stand-in Places library that always fails (quota); never reaches Google
+    window.__pl = 0; class Place { constructor(o) { this.id = o.id; } async fetchFields() { window.__pl++; throw new Error('MapsRequestError: PLACES_GET_PLACE: RESOURCE_EXHAUSTED'); } }
+    window.google = { maps: { OverlayView: function () {}, importLibrary: async n => { if (n === 'places') return { Place }; throw new Error('no ' + n); } } };
+  });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+  await page.evaluate(() => { window.__ofm.S.gmFail = null; });   // as if the map loaded but Places calls fail
+  await page.locator('#sort').selectOption('google'); await page.waitForTimeout(800);
+  const d0 = await page.evaluate(() => window.__pl);
+  for (let i = 0; i < 5; i++) { await page.evaluate(() => window.__ofm.minuteTick()); await page.evaluate(() => window.__ofm.refresh()); await page.waitForTimeout(150); }
+  const r = await page.evaluate(() => ({ n: window.__pl, hint: document.querySelector('#list .hint').textContent, more: !!document.querySelector('#gMore') }));
+  check(d0 > 0 && d0 <= 20 && r.n === d0 && /구글 정보를 불러오지 못했어요/.test(r.hint) && !/불러오는 중/.test(r.hint) && !r.more, 'Places failing: one batch, then no retries on later refreshes, and the list says it could not load', JSON.stringify({ d0, ...r }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('12. Real Google Maps (best effort, never fails the suite)');
 {
   const { ctx, page, log } = await newPhone({ google: 'real' });
