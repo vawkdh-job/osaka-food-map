@@ -682,7 +682,7 @@ console.log('6b. Trip scenarios after the review fixes');
   const far = await page.evaluate(() => { const R = window.__ofm.rows().filter(x => x.r); return R[R.length - 1].r.id; });
   await page.evaluate(id => window.__ofm.select(id), far); await page.waitForTimeout(1500);
   const dist = await page.locator('#dStatus .dDist').innerText();
-  check(!/ 0m\b|· 0m/.test(dist), 'map-centre distance stays put while a shop is open', dist);
+  check(!/(^| )0m\b|· 0m/.test(dist), 'map-centre distance stays put while a shop is open', dist);
   await ctx.close();
 }
 

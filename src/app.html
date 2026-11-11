@@ -1513,7 +1513,7 @@ function renderShopDetail(s){
     ['🧾 면세',(s.taxFree===true?'면세(환급) 대상':s.taxFree===false?'면세 안 됨':'면세 여부는 매장에서 확인')+' · 11/1부터 계산 때 세금 포함 → 출국할 때 환급(여권 실물 필요)']].filter(Boolean);
   $('#detail').innerHTML=`<div class="dHead"><button class="round" id="backBtn" aria-label="목록으로 돌아가기">←</button>
     <div class="dTitle"><h2 class="dName">${s.emoji} ${esc(s.name)}</h2><div class="dJp" lang="ja">${esc(s.jp)}</div></div><span></span></div>
-  <div class="dStatus"><span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(st.text)}</span><span class="dDist">· ${S.ref==='me'&&me?'':esc(refName())+'에서 '}${distText(d)}</span></div>
+  <div class="dStatus"><span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(st.text)}</span><span class="dDist">${S.ref==='me'&&me?'':esc(refName())+'에서 '}${distText(d)}</span></div>
   <div class="abar">
     <a class="ab primary btn" href="${esc(dirUrl(s.jp+' '+s.address,dirKm(s)))}" target="_blank" rel="noopener"><span class="ai">🧭</span><span>길찾기</span></a>
     <button class="ab" id="sTaxi"><span class="ai">🚕</span><span>택시</span></button>
@@ -1801,7 +1801,7 @@ function renderDetail(){
 }
 /* one line under the shop name: status · distance (+ a Google note when Google disagrees) */
 function statusLine(r){const st=status(r,S.day),live=isLive(),d=km(refPoint(),r);
-  return `<span class="dot ${st.kind}${st.est?' est':''}"></span><span class="st ${st.kind}${st.est?' est':''}">${esc(detailStatus(r,st,live))}</span><span class="dDist">· ${S.ref==='me'&&me?'':refName()+'에서 '}${distText(d)}</span><span id="gOpen"></span>${st.gDiff?'<span class="gDiff">구글 영업시간과 달라요 — 구글 기준으로 표시</span>':''}`}
+  return `<span class="dot ${st.kind}${st.est?' est':''}"></span><span class="st ${st.kind}${st.est?' est':''}">${esc(detailStatus(r,st,live))}</span><span class="dDist">${S.ref==='me'&&me?'':refName()+'에서 '}${distText(d)}</span><span id="gOpen"></span>${st.gDiff?'<span class="gDiff">구글 영업시간과 달라요 — 구글 기준으로 표시</span>':''}`}
 const mdKo=d=>{const m=/^\d{4}-(\d{2})-(\d{2})$/.exec(d||'');return m?`${+m[1]}월 ${+m[2]}일`:d};
 const hoursSrcName=r=>{const u=(r.hoursSrc||[])[0]||'';return /tabelog/.test(u)?'타베로그':/hotpepper/.test(u)?'핫페퍼':/retty/.test(u)?'Retty':/gnavi/.test(u)?'구루나비':u?'공식·웹':'웹 조사'};
 const jaAddr=a=>String(a||'').replace(/^日本、?\s*/,'').replace(/^〒\d{3}-\d{4}\s*/,'').trim();
