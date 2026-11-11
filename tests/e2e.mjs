@@ -376,6 +376,26 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
   await ctx.close();
 }
 
+console.log('6a. “영업 중만” chip: on screen without scrolling, and remembered on the phone');
+for (const dev of [devices['iPhone 13'], devices['iPhone SE']]) {
+  const { ctx, page, log } = await newPhone({ device: dev, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+  const W = dev.viewport.width;
+  const chips = await page.evaluate(() => [...document.querySelectorAll('#chips .chip')].map(c => { const b = c.getBoundingClientRect(); return { id: c.id, l: Math.round(b.left), r: Math.round(b.right) }; }));
+  const oc = chips.find(c => c.id === 'openChip');
+  check(chips.map(c => c.id).join(',') === 'tripChip,shopChip,openChip,filterChip,genreChip,dayChip,listChip' && oc.r <= W * 0.86, `${W}px: chips 일정 · 쇼핑 · 영업 중만 · 필터 · 뭐 먹지? · 날짜 · 목록, 영업 중만 fully visible`, chips.map(c => `${c.id}@${c.l}-${c.r}`).join(' '));
+  const on0 = await page.evaluate(() => window.__ofm.S.openOnly);
+  await page.locator('#openChip').click(); await page.waitForTimeout(300);
+  const n1 = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).length);
+  await page.reload(); await ready(page); await page.waitForTimeout(500);
+  const re = await page.evaluate(() => ({ on: window.__ofm.S.openOnly, n: window.__ofm.rows().filter(x => x.r).length, label: document.querySelector('#openChip').textContent }));
+  await page.locator('#openChip').click(); await page.waitForTimeout(300); await page.reload(); await ready(page); await page.waitForTimeout(500);
+  const off = await page.evaluate(() => window.__ofm.S.openOnly);
+  check(!on0 && re.on && re.n === n1 && /✓/.test(re.label) && !off, `${W}px: 영업 중만 starts off and is remembered across reloads (on, then off)`, JSON.stringify({ on0, n1, re, off }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6b. Trip scenarios after the review fixes');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo', geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 } });
