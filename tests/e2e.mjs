@@ -555,13 +555,52 @@ console.log('6-late. “도착 전 마감” when the walk takes longer than the
   const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T22:52:00+09:00', tz: 'Asia/Tokyo' });
   await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
   const r = await page.evaluate(async () => { const O = window.__ofm; O.setSheet('full'); await new Promise(res => setTimeout(res, 300));
+    const b = document.querySelector('#sheetBody'); for (let i = 0; i < 40; i++) { b.scrollTop = b.scrollHeight; await new Promise(res => setTimeout(res, 30)); }   // render every row
     const now = 22 * 60 + 52, wm = d => Math.max(1, Math.round(d * 1.3 / 4.5 * 60)), out = { late: [], ok: [], bad: [] };
-    for (const x of O.rows().filter(x => x.r).slice(0, 30)) { const st = O.status(x.r, 'fri'), el = document.querySelector(`#list .item[data-id="${x.r.id}"] .st`); if (!el || st.end == null) continue;
+    for (const x of O.rows().filter(x => x.r)) { const st = O.status(x.r, 'fri'), el = document.querySelector(`#list .item[data-id="${x.r.id}"] .st`); if (!el || st.end == null) continue;
       const late = wm(x.d) >= st.end - now, txt = el.textContent;
       (late ? out.late : out.ok).push(`${x.r.id} ${wm(x.d)}분 ${txt}`); if (late !== /^도착 전 마감 · \d/.test(txt) || (late && !el.classList.contains('closing'))) out.bad.push(`${x.r.id} ${wm(x.d)}분/${st.end - now} ${txt}`); }
     return out; });
   check(r.late.length > 0 && r.ok.length > 0 && r.bad.length === 0, 'rows: “도착 전 마감 · HH:MM” when the walk is as long as the time left before last order / closing', JSON.stringify({ late: r.late.slice(0, 3), ok: r.ok.slice(0, 2), bad: r.bad.slice(0, 3) }));
   check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
+console.log('6-bands. Live trip day ordering: 5/10/20-minute bands, open first, closed dimmed (A2-5)');
+const order = page => page.evaluate(() => { const O = window.__ofm, R = O.rows(), wm = d => Math.max(1, Math.round(d * 1.3 / 4.5 * 60));
+  const grp = r => { const st = O.status(r, O.S.day), k = st.kind; return k === 'closed' || k === 'done' || st.noOrder ? 3 : k === 'later' || k === 'resv' ? 2 : k === 'unknown' ? 1 : 0; };
+  const bands = R.filter(x => x.band).map(x => x.divider); let bad = [], cur = null, prev = null;
+  for (const x of R) { if (x.divider) { cur = x.band ? x.divider : null; prev = null; continue; } if (!cur) continue;
+    const lim = /5분/.test(cur) ? 5 : /10분/.test(cur) ? 10 : 20, m = wm(x.d); if (m > lim || (lim > 5 && m <= (lim === 10 ? 5 : 10))) bad.push('band ' + x.r.id);
+    const g = grp(x.r); if (prev && (g < prev.g || (g === prev.g && (x.r.tabelog ?? 0) > (prev.t ?? 0)))) bad.push('order ' + x.r.id); if (!!x.dim !== (g === 3)) bad.push('dim ' + x.r.id); prev = { g, t: x.r.tabelog ?? 0 }; }
+  return { bands, bad, n: R.filter(x => x.r).length, count: document.querySelector('#count').textContent }; });
+{ // live Friday, Dotonbori
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const o = await order(page);
+  check(o.bands.join('|') === '걸어서 5분 안|걸어서 10분 안|걸어서 20분 안' && o.bad.length === 0 && o.count === `${o.n}곳`, 'live trip day, 근처 평점순: 5 / 10 / 20-minute bands; in each, open first, then later, then closed (dimmed), by rating', JSON.stringify(o).slice(0, 300));
+  const vis = await page.evaluate(() => { const b = document.querySelector('#sheetBody').getBoundingClientRect(); return [...document.querySelectorAll('#list .item')].filter(e => { const r = e.getBoundingClientRect(); return r.top >= b.top - 1 && r.bottom <= Math.min(b.bottom, innerHeight) + 1; }).length; });
+  check(vis >= 2, 'half sheet (iPhone 13): still two whole rows visible (band dividers show once the list is full)', String(vis));
+  const dom = await page.evaluate(async () => { const O = window.__ofm; O.setSheet('full'); const b = document.querySelector('#sheetBody'); for (let i = 0; i < 40; i++) { b.scrollTop = b.scrollHeight; await new Promise(r => setTimeout(r, 30)); }
+    const ds = [...document.querySelectorAll('#list .divider.band')].filter(e => e.offsetHeight > 0).map(e => e.textContent), items = document.querySelectorAll('#list .item').length, dimmed = document.querySelectorAll('#list .item.dimmed').length; return { ds, items, rows: O.rows().filter(x => x.r).length, dimmed }; });
+  check(dom.ds.length === 3 && dom.items === dom.rows && dom.dimmed > 0, 'full list: every row and the three band dividers are shown once scrolled to the end (lazy rendering intact)', JSON.stringify(dom));
+  await page.evaluate(() => window.__ofm.setPlace(window.__ofm.placeHits('오사카성')[0])); await page.waitForTimeout(600);
+  const p = await order(page);
+  check(p.bands.length >= 1 && p.bad.length === 0, 'a picked place uses the same bands', JSON.stringify(p).slice(0, 200));
+  await page.evaluate(() => window.__ofm.clearPlace()); await page.locator('#sort').selectOption('wait'); await page.waitForTimeout(300);
+  const w = await page.evaluate(() => { const O = window.__ofm, R = O.rows().filter(x => x.r), wm = d => Math.max(1, Math.round(d * 1.3 / 4.5 * 60)), shut = r => { const st = O.status(r, O.S.day); return st.kind === 'closed' || st.kind === 'done' || !!st.noOrder; };
+    const s = R.map(x => shut(x.r)), first = s.indexOf(true), open = R.filter(x => !shut(x.r)), nf = open.findIndex(x => wm(x.d) > 20);
+    return { n: R.length, closedLast: first < 0 || s.slice(first).every(Boolean), nearFirst: nf < 0 || open.slice(nf).every(x => wm(x.d) > 20), hint: document.querySelector('#list .hint').textContent }; });
+  check(w.closedLast && w.nearFirst && /문 닫은 곳은 맨 뒤/.test(w.hint), '대기 짧은 순 on a live day: within a 20-min walk first, closed places last, and the hint says so', JSON.stringify(w));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+{ // not a trip day: unchanged ordering, no bands
+  const { ctx, page } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-11T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const o = await order(page);
+  const sc = await page.evaluate(() => window.__ofm.rows().filter(x => x.r).slice(0, 8).map(x => x.r.tabelog ?? 0));
+  check(o.bands.length === 0 && sc.every((v, i) => !i || v <= sc[i - 1]), 'outside the trip days: no bands, the near-me group is plain rating order', JSON.stringify({ bands: o.bands, sc }));
   await ctx.close();
 }
 

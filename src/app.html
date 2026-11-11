@@ -558,6 +558,8 @@ button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps 
 #list .item .istat i{margin:0 2px}#list .item .istat .stg{letter-spacing:-.35px}   /* room for “영업 중(추정)” / “마지막 주문 HH:MM” on one line at 390 px */
 .st.open.est{color:#3f7a52}.st.closing.est{color:#a3562a}.dot.est{opacity:.55}   /* 영업 중(추정): our hours with low confidence */
 .st.resv{color:#1d4ed8}.dot.resv{background:#1d4ed8}.ch.resv{background:#e8f0fe;color:#1d4ed8}
+.divider.band{border-top:1px solid var(--line);padding:8px 16px 4px;font-size:12.5px}
+@media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.sheet:not([data-state=full]) #list .divider.band{display:none}}   /* like the other explanatory lines: shown when the list is full, so half keeps 2–3 rows */.item.dimmed .iname,.item.dimmed .thumb{opacity:.55}
 .gDiff{flex-basis:100%;font-size:12.5px;color:var(--muted)}
 .conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
@@ -1256,7 +1258,15 @@ function compute(){
     rs=known.length&&unk.length?[...known,{divider:'구글 평점을 아직 안 불러온 곳 (가까운 순)'},...unk]:known.length?known:unk;
     queueGoogleRatings()}
   else if(S.sort==='distance')rs.sort((a,b)=>a.d-b.d);
-  else if(S.sort==='wait')rs.sort((a,b)=>waitOf(a.r).k-waitOf(b.r).k||byT(a,b));
+  else if(S.sort==='wait'){const shut=x=>{const st=status(x.r,S.day);return st.kind==='closed'||st.kind==='done'||!!st.noOrder},nr=x=>walkMin(x.d)<=NEAR_MIN;
+    rs.sort(isLive()?(a,b)=>shut(a)-shut(b)||nr(b)-nr(a)||waitOf(a.r).k-waitOf(b.r).k||byT(a,b)   /* live: within a 20-min walk first, closed last */
+      :(a,b)=>waitOf(a.r).k-waitOf(b.r).k||byT(a,b))}
+  else if(isLive()){   /* 근처 평점순 on a live trip day: within a 20-min walk, bands of 5 / 10 / 20 minutes; in each band open shops first, then later today, then closed (dimmed); rating order inside */
+    const grp=r=>{const st=status(r,S.day),k=st.kind;return k==='closed'||k==='done'||st.noOrder?3:k==='later'||k==='resv'?2:k==='unknown'?1:0};
+    const B=[[],[],[]],L=['걸어서 5분 안','걸어서 10분 안',`걸어서 ${NEAR_MIN}분 안`],far=rs.filter(x=>walkMin(x.d)>NEAR_MIN).sort((a,b)=>a.d-b.d);
+    for(const x of rs){const m=walkMin(x.d);if(m>NEAR_MIN)continue;x.g=grp(x.r);x.dim=x.g===3;B[m<=5?0:m<=10?1:2].push(x)}
+    const near=B.flatMap((b,i)=>b.length?[{divider:L[i],band:true},...b.sort((a,c)=>a.g-c.g||byT(a,c))]:[]);
+    rs=near.length&&far.length?[...near,{divider:`도보 ${NEAR_MIN}분 넘는 곳 (가까운 순)`},...far]:near.length?near:[{divider:`도보 ${NEAR_MIN}분 안에는 조건에 맞는 곳이 없어요 · 가까운 순`},...far]}
   else{const near=rs.filter(x=>walkMin(x.d)<=NEAR_MIN).sort(byT),far=rs.filter(x=>walkMin(x.d)>NEAR_MIN).sort((a,b)=>a.d-b.d);
     rs=near.length&&far.length?[...near,{divider:`도보 ${NEAR_MIN}분 넘는 곳 (가까운 순)`},...far]:near.length?near:[{divider:`도보 ${NEAR_MIN}분 안에는 조건에 맞는 곳이 없어요 · 가까운 순`},...far]}
   if(S.openOnly&&isLive()){const unk=rs.filter(x=>x.r&&status(x.r,S.day).kind==='unknown');
@@ -1555,13 +1565,13 @@ function payTag(r){const p=r.pay||{};if(p.card===true)return '<span class="ch pa
   if(p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true))return '<span class="ch cash">현금만</span>';
   if(p.card===false)return `<span class="ch cash">카드 ✕ · ${p.emoney===true?'교통카드':'QR'} OK</span>`;return ''}
 const streetUrl=r=>`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${r.lat},${r.lon}`;
-function itemHtml({r,d}){
+function itemHtml({r,d,dim}){
   let st=status(r,S.day);if(st.end!=null&&walkMin(d)>=st.end-jstNow().min)st={kind:'closing',text:`도착 전 마감 · ${untilT(st.endT)}`};   // closes (or stops orders) before you get there on foot
   const off=closedOn(r),w=waitOf(r);
   const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'<span class="rt tna">점수 없음</span>',gRating(r)!=null?`<span>구글 ${fmtG(gRating(r))}</span>`:'',`<span>${esc(r.genre)}</span>`,r.price?`<span>${yen(r)}</span>`:''].filter(Boolean).join('<i>·</i>');
   const chips=[...statusChips(r),w.s&&r.reservation!=='required'?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),r.group6==='likely'?'<span class="ch ok6">6인 OK</span>':'',off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
   const from=S.ref==='me'&&!me?'호텔에서 ':'';   // the 기준 menu right above already says 호텔/지도 중심 — only say it when 내 위치 fell back to the hotel
-  return `<div class="item${S.selected===r.id?' sel':''}" role="listitem" data-id="${r.id}" tabindex="0">${thumb(r)}
+  return `<div class="item${S.selected===r.id?' sel':''}${dim?' dimmed':''}" role="listitem" data-id="${r.id}" tabindex="0">${thumb(r)}
   <div class="ib"><div class="iname"><span>${esc(r.name)}</span>${isHyaku(r)?`<em class="hyb">百名店${hyakuText(r)?`<small> ${hyakuText(r)}</small>`:''}</em>`:''}</div>
   <div class="imeta">${meta}</div>
   <div class="istat"><span class="walk">${from}${walkText(d)}</span><i>·</i><span class="stg"><span class="dot ${st.kind}${st.est?' est':''}"></span><span class="st ${st.kind}${st.est?' est':''}">${esc(st.text)}</span></span></div>
@@ -1571,7 +1581,7 @@ function itemHtml({r,d}){
 }
 const LIST_STEP=30;let listMore=[],listTail='';
 function moreList(){const el=$('#listMore');if(!el||!listMore.length)return;
-  const next=listMore.splice(0,LIST_STEP);el.insertAdjacentHTML('beforebegin',next.map(x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x)).join(''));
+  const next=listMore.splice(0,LIST_STEP);el.insertAdjacentHTML('beforebegin',next.map(x=>x.divider?`<div class="divider${x.band?' band':''}">${esc(x.divider)}</div>`:itemHtml(x)).join(''));
   if(!listMore.length){el.insertAdjacentHTML('afterend',listTail);el.remove()}thumbsAttach()}
 $('#sheetBody').addEventListener('scroll',()=>{const b=$('#sheetBody');if(listMore.length&&b.scrollTop+b.clientHeight>b.scrollHeight-600)moreList();
   if(S.view==='detail'){const h=document.querySelector('#detail .dHead'),on=!!h&&b.scrollTop>h.offsetTop+h.offsetHeight;if(on!==sheet.classList.contains('dScrolled')){sheet.classList.toggle('dScrolled',on);if(on){const r=DATA.find(x=>x.id===S.selected);$('#dMiniName').textContent=r?r.name:''}}}},{passive:true});
@@ -1584,8 +1594,9 @@ function renderList(){
   let hint='';
   const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const nn=rows.filter(x=>x.r&&walkMin(x.d)<=NEAR_MIN).length;
-    hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · 평점 높은 순</p>`
+    hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · ${isLive()?'5·10·20분 묶음별 · 여는 곳 먼저 · 평점순':'평점 높은 순'}</p>`
       :`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
+  if(S.sort==='wait'&&isLive())hint=`<p class="hint soft">도보 ${NEAR_MIN}분 안 먼저 · 대기 짧은 순 · 문 닫은 곳은 맨 뒤</p>`+hint;
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
   else if(S.ref==='me'&&me.acc>POOR_ACC)hint=`<p class="hint">📍 위치 부정확(약 ${Math.round(me.acc)}m) · 지상으로 나오면 정확해져요</p>`+hint;
   renderTripLine();
@@ -1609,7 +1620,7 @@ function renderList(){
   const conds=nc?`<div class="conds"><span>조건 <b>${nc}개</b></span>·<button class="linkBtn" id="condsOff">모두 지우기</button></div>`:'';
   const body=$('#sheetBody'),keep=body.scrollTop;
   // render the first rows now and the rest as the list is scrolled (keeps filter taps fast on slower phones)
-  const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
+  const chunk=x=>x.divider?`<div class="divider${x.band?' band':''}">${esc(x.divider)}</div>`:itemHtml(x);
   listMore=rows.slice(LIST_STEP);listTail=expand+gLink+'<button class="linkBtn legendLink" data-legend="1">📖 ★ 점수 · 百名店 · 6인 OK 읽는 법</button>';
   $('#list').innerHTML=conds+(n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
     :S.q&&placeHtml?hint+`<p class="note">이름이 ‘${esc(S.q)}’인 가게는 없어요. 위 장소를 고르면 그 근처 맛집을 보여 줘요.</p>`
