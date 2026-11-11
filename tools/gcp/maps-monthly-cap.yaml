@@ -14,8 +14,8 @@ main:
           - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
           - targets:
               - {service: "maps-backend.googleapis.com", metric: "maps-backend.googleapis.com/billable_default", monthly: 9000, daily: 1000}
-              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPlaceRequest", monthly: 1500, daily: 500}
-              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPhotoMediaRequest", monthly: 1500, daily: 500}
+              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPlaceRequest", monthly: 4500, daily: 1500}
+              - {service: "places.googleapis.com", metric: "places.googleapis.com/GetPhotoMediaRequest", monthly: 4500, daily: 1500}
           - testLimit: ${map.get(args, "monthlyLimit")}
           - now: ${sys.now()}
           - nowText: ${time.format(now, "UTC")}
