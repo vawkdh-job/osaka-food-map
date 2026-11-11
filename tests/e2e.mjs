@@ -1006,6 +1006,29 @@ console.log('6d. Back button (Android back / iOS swipe) never leaves the app by 
   await ctx.close();
 }
 
+console.log('6p. Polish: Korean line breaking, pressed feedback, no doubled empty message, shop name in the slim header (A3-1…3)');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(400);
+  const wb = await page.evaluate(() => ({ body: getComputedStyle(document.body).wordBreak, ja: getComputedStyle(document.querySelector('[lang=ja]')).wordBreak, hs: document.documentElement.scrollWidth > innerWidth }));
+  check(wb.body === 'keep-all' && wb.ja === 'normal' && !wb.hs, 'Korean words are not split (keep-all), Japanese may wrap anywhere', JSON.stringify(wb));
+  const b = await page.locator('#openChip').boundingBox();
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2); await page.mouse.down(); await page.waitForTimeout(150);
+  const tr = await page.evaluate(() => getComputedStyle(document.querySelector('#openChip')).transform); await page.mouse.up();
+  check(tr && tr !== 'none', 'a pressed chip shows feedback (scales down)', tr);
+  const far = await page.evaluate(() => { const O = window.__ofm, p = O.PLACES.find(p => !APP_DATA.restaurants.some(r => r.lat != null && Math.max(1, Math.round(Math.hypot(r.lat - p.lat, (r.lon - p.lon) * 0.82) * 111 * 1.3 / 4.5 * 60)) <= 22)); O.setPlace(p); return p.ko; });
+  await page.evaluate(() => window.__ofm.setSheet('full')); await page.waitForTimeout(500);
+  const n = await page.evaluate(() => (document.querySelector('#list').innerText.match(/도보 20분 안에는/g) || []).length);
+  check(n === 1, 'a place with nothing within a 20-min walk says so once (not twice)', `${far}: ${n}`);
+  await page.evaluate(() => { window.__ofm.clearPlace(); window.__ofm.enterShop(true); }); await page.waitForTimeout(300);
+  await page.evaluate(() => document.querySelector('#list .sItem').click()); await page.waitForTimeout(500);
+  await page.evaluate(() => { window.__ofm.setSheet('full'); const b = document.querySelector('#sheetBody'); b.scrollTop = 400; b.dispatchEvent(new Event('scroll')); }); await page.waitForTimeout(300);
+  const mini = await page.evaluate(() => ({ name: document.querySelector('#dMiniName').textContent, title: document.querySelector('#detail .dName').textContent }));
+  check(mini.name && mini.title.includes(mini.name), 'a scrolled 🛍 shop page shows the shop name in the slim header', JSON.stringify(mini));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('7. Tile server failures');
 {
   const { ctx, page, log } = await newPhone({ tiles: { ofm: 'fail' } });

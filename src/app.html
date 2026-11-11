@@ -565,6 +565,22 @@ button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps 
 .gDiff{flex-basis:100%;font-size:12.5px;color:var(--muted)}
 .conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
+/* ---- A3 polish (design review, Nov 2026) ---- */
+/* Korean line breaking: never split a word; Japanese text may still wrap anywhere */
+body{word-break:keep-all;overflow-wrap:anywhere}
+[lang=ja]{word-break:normal;overflow-wrap:anywhere}
+/* inline text links must not inflate the line (tap area stays 44px) */
+.hint .linkBtn{min-height:44px;margin:-13px 0;vertical-align:baseline}
+/* pressed feedback on everything tappable */
+.chip,.cat,.tTab,.ab,.btn,.tBtn,.mini,.fab,.gBtn,.seg button,.phr,.alt,.placeRow,.round,.gmBtn,.favBtn,.expand,.tSwap,.tripLine,.back,.dMini button,.iconBtn{transition:transform .08s,filter .08s}
+.chip:active,.cat:active,.tTab:active,.ab:active,.btn:active,.tBtn:active,.mini:active,.fab:active,.gBtn:active,.seg button:active,.phr:active,.alt:active,.placeRow:active,.round:active,.gmBtn:active,.favBtn:active,.expand:active,.tSwap:active,.tripLine:active,.back:active,.dMini button:active,.iconBtn:active{transform:scale(.96);filter:brightness(.92)}
+@media (prefers-reduced-motion:reduce){.chip:active,.cat:active,.tTab:active,.ab:active,.btn:active,.tBtn:active,.mini:active,.fab:active,.gBtn:active,.seg button:active,.phr:active,.alt:active,.placeRow:active,.round:active,.gmBtn:active,.favBtn:active,.expand:active,.tSwap:active,.tripLine:active,.back:active,.dMini button:active,.iconBtn:active{transform:none}}
+/* empty-state gutters and the "더 불러오는 중…" row */
+#list>.btn.wide{width:calc(100% - 32px);margin:6px 16px}
+#list>.note{margin:10px 16px}
+#list>.more{padding:16px;text-align:center;color:var(--muted);font-size:13.5px}
+/* calmer focus ring on the search box */
+.search:focus-visible{outline:0;box-shadow:var(--shadow-md),0 0 0 2px var(--brand)}
 </style>
 </head>
 <body>
@@ -1588,7 +1604,7 @@ function moreList(){const el=$('#listMore');if(!el||!listMore.length)return;
   const next=listMore.splice(0,LIST_STEP);el.insertAdjacentHTML('beforebegin',next.map(x=>x.divider?`<div class="divider${x.band?' band':''}">${esc(x.divider)}</div>`:itemHtml(x)).join(''));
   if(!listMore.length){el.insertAdjacentHTML('afterend',listTail);el.remove()}thumbsAttach()}
 $('#sheetBody').addEventListener('scroll',()=>{const b=$('#sheetBody');if(listMore.length&&b.scrollTop+b.clientHeight>b.scrollHeight-600)moreList();
-  if(S.view==='detail'){const h=document.querySelector('#detail .dHead'),on=!!h&&b.scrollTop>h.offsetTop+h.offsetHeight;if(on!==sheet.classList.contains('dScrolled')){sheet.classList.toggle('dScrolled',on);if(on){const r=DATA.find(x=>x.id===S.selected);$('#dMiniName').textContent=r?r.name:''}}}},{passive:true});
+  if(S.view==='detail'){const h=document.querySelector('#detail .dHead'),on=!!h&&b.scrollTop>h.offsetTop+h.offsetHeight;if(on!==sheet.classList.contains('dScrolled')){sheet.classList.toggle('dScrolled',on);if(on){const r=DATA.find(x=>x.id===S.selected)||SHOPS.find(x=>x.id===S.shopSel);$('#dMiniName').textContent=r?r.name:''}}}},{passive:true});
 $('#dMiniBack').onclick=e=>{e.stopPropagation();if(history.state&&history.state.detail)history.back();else closeDetail()};
 function renderList(){
   if(S.mode==='trip'){renderTrip();return}
@@ -1599,7 +1615,7 @@ function renderList(){
   const gp=S.genre!=='all'?pickOf(S.genre):null,gname=gp?gp.label:'';
   if(S.sort==='nearby'){const nn=rows.filter(x=>x.r&&walkMin(x.d)<=NEAR_MIN).length;
     hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · ${isLive()?'걸어서 5·10·20분 거리별 · 영업 중인 곳부터 평점순':'평점 높은 순'}</p>`
-      :`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
+      :''}   /* nothing within a 20-min walk: the list's own divider already says so (no second copy of the message) */
   if(S.sort==='wait'&&isLive())hint=`<p class="hint soft">도보 ${NEAR_MIN}분 안 먼저 · 대기 짧은 순 · 문 닫은 곳은 맨 뒤</p>`+hint;
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
   else if(S.ref==='me'&&me.acc>POOR_ACC)hint=`<p class="hint">📍 위치 부정확(약 ${Math.round(me.acc)}m) · 지상으로 나오면 정확해져요</p>`+hint;
