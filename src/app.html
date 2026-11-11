@@ -1448,7 +1448,7 @@ function renderShopDetail(s){
     <div class="dTitle"><h2 class="dName">${s.emoji} ${esc(s.name)}</h2><div class="dJp" lang="ja">${esc(s.jp)}</div></div><span></span></div>
   <div class="dStatus"><span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(st.text)}</span><span class="dDist">· ${S.ref==='me'&&me?'':esc(refName())+'에서 '}${distText(d)}</span></div>
   <div class="abar">
-    <a class="ab primary btn" href="${esc(dirUrl(s.jp+' '+s.address,d))}" target="_blank" rel="noopener"><span class="ai">🧭</span><span>길찾기</span></a>
+    <a class="ab primary btn" href="${esc(dirUrl(s.jp+' '+s.address,dirKm(s)))}" target="_blank" rel="noopener"><span class="ai">🧭</span><span>길찾기</span></a>
     <button class="ab" id="sTaxi"><span class="ai">🚕</span><span>택시</span></button>
     <a class="ab" href="${esc(gUrl(s))}" target="_blank" rel="noopener"><span class="ai">🗺️</span><span>구글 지도</span></a>
     <a class="ab" href="${esc(streetUrl(s))}" target="_blank" rel="noopener"><span class="ai">👀</span><span>거리뷰</span></a></div>
@@ -1614,6 +1614,7 @@ function refresh({markers:withMarkers=true,soft=false}={}){compute();renderCats(
 function detailTick(){const r=DATA.find(x=>x.id===S.selected),el=$('#dStatus');if(!r||!el)return;const go=$('#gOpen'),keep=go?go.innerHTML:'';el.innerHTML=statusLine(r);if(keep)$('#gOpen').innerHTML=keep}
 
 /* ================= detail ================= */
+const dirKm=p=>km(me||HOTEL,p);   // walking or transit is decided from where the phone is (else the hotel), not from the list's reference point
 function dirUrl(dest,dk){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=${dk<1.6?'walking':'transit'}`}
 const gUrl=r=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((r.jp+' '+(r.address||'')).trim())}${r.placeId?'&query_place_id='+encodeURIComponent(r.placeId):''}`;
 const gDirUrl=(r,d)=>dirUrl(r.jp+' '+r.address,d)+(r.placeId?'&destination_place_id='+encodeURIComponent(r.placeId):'');
@@ -1682,7 +1683,7 @@ function renderDetail(){
   </div>
   <div class="dStatus" id="dStatus">${statusLine(r)}</div>
   <div class="abar">
-    <a class="ab primary btn" href="${esc(gDirUrl(r,d))}" target="_blank" rel="noopener"><span class="ai">🧭</span><span>길찾기</span></a>
+    <a class="ab primary btn" href="${esc(gDirUrl(r,dirKm(r)))}" target="_blank" rel="noopener"><span class="ai">🧭</span><span>길찾기</span></a>
     <button class="ab" id="crowdBtn"><span class="ai">🏃</span><span>줄이 길어요</span></button>
     <button class="ab" id="taxiBtn"><span class="ai">🚕</span><span>택시</span></button>
     <a class="ab" id="gmapBtn" href="${esc(gUrl(r))}" target="_blank" rel="noopener"><span class="ai">🗺️</span><span>구글 지도</span></a>

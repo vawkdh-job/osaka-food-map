@@ -212,6 +212,20 @@ console.log('2c. An open shop page survives the minute tick and walking (only st
   await ctx.close();
 }
 
+console.log('2d. Directions: walking or transit from where the phone is, not from the picked place');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  await page.evaluate(() => window.__ofm.setPlace(window.__ofm.placeHits('오사카성')[0])); await page.waitForTimeout(600);
+  const far = await page.evaluate(() => { const O = window.__ofm, x = O.rows().find(x => x.r && x.d < 1.0); O.select(x.r.id); return x.r.name; }); await page.waitForTimeout(500);   // near the castle, ~3 km from me
+  const a = await page.evaluate(() => ({ href: document.querySelector('#detail .ab.primary').href, dist: document.querySelector('.dDist').textContent }));
+  await page.evaluate(() => window.__ofm.closeDetail());
+  const b = await page.evaluate(() => { const O = window.__ofm, me = O.me(), r = APP_DATA.restaurants.find(r => r.lat != null && Math.hypot(r.lat - me.lat, (r.lon - me.lon) * 0.82) * 111 < 0.4); O.select(r.id); return new Promise(res => setTimeout(() => res({ name: r.name, href: document.querySelector('#detail .ab.primary').href }), 400)); });
+  check(/travelmode=transit/.test(a.href) && /travelmode=walking/.test(b.href), 'directions: transit to a shop near the picked place but 3 km from me; walking to one next to me', JSON.stringify({ far, a: a.href.split('travelmode=')[1], dist: a.dist, near: b.name, b: b.href.split('travelmode=')[1] }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('3. Location in Seoul (testing before the trip)');
 {
   const { ctx, page, log } = await newPhone({ geo: { latitude: 37.5665, longitude: 126.978, accuracy: 30 } });
