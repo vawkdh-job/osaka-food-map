@@ -193,6 +193,25 @@ console.log('2b. GPS fix arriving right after start-up: the first near-me list a
   await ctx.close();
 }
 
+console.log('2c. An open shop page survives the minute tick and walking (only status and distance update)');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  await page.evaluate(() => window.__ofm.select(window.__ofm.rows().find(x => x.r).r.id)); await page.waitForTimeout(800);
+  await page.locator('#crowdBtn').click(); await page.waitForTimeout(300);
+  await page.evaluate(() => { window.__ofm.setSheet('full'); document.querySelector('#photos').insertAdjacentHTML('afterbegin', '<a class="ph" data-g id="fakeG"><small>Google 사진</small></a>'); window.__alts = document.querySelector('#alts'); }); await page.waitForTimeout(400);
+  await page.evaluate(() => { document.querySelector('#sheetBody').scrollTop = 220; });
+  const before = await page.evaluate(() => ({ dist: document.querySelector('.dDist').textContent, top: document.querySelector('#sheetBody').scrollTop }));
+  await page.evaluate(() => window.__ofm.minuteTick()); await page.waitForTimeout(300);
+  await ctx.setGeolocation({ latitude: 34.6705, longitude: 135.5013, accuracy: 20 }); await page.waitForTimeout(2500);   // ~200 m north
+  const after = await page.evaluate(() => ({ alts: !document.querySelector('#alts').hidden && document.querySelector('#alts') === window.__alts && document.querySelectorAll('#alts .alt').length, photo: !!document.querySelector('#fakeG'), top: document.querySelector('#sheetBody').scrollTop, dist: document.querySelector('.dDist').textContent, view: window.__ofm.S.view }));
+  check(after.view === 'detail' && after.alts > 0 && after.photo && Math.abs(after.top - before.top) < 2 && after.dist !== before.dist, 'minute tick + walking 200 m: the 줄이 길어요 panel, photo and scroll position stay; the distance updates', JSON.stringify({ before, after }));
+  await page.locator('.round.fav').click(); await page.waitForTimeout(300);
+  check(await page.evaluate(() => !document.querySelector('#fakeG')), 'a user action (찜) still re-renders the shop page');
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('3. Location in Seoul (testing before the trip)');
 {
   const { ctx, page, log } = await newPhone({ geo: { latitude: 37.5665, longitude: 126.978, accuracy: 30 } });

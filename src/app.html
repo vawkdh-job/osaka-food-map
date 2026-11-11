@@ -869,7 +869,7 @@ function wireMap(){
   map.on('zoomend',()=>{renderMarkers();updateMeAcc()});
   map.on('zoom',updateMeAcc);
   map.on('dragstart',()=>{if(follow){follow=false;if(me)setLocState('on')}});
-  let centerTimer=0;map.on('moveend',()=>{if(S.ref==='center'){clearTimeout(centerTimer);centerTimer=setTimeout(()=>refresh({markers:false}),250)}});
+  let centerTimer=0;map.on('moveend',()=>{if(S.ref==='center'){clearTimeout(centerTimer);centerTimer=setTimeout(()=>refresh({markers:false,soft:true}),250)}});
   map.on('click',e=>{const t=e.originalEvent&&e.originalEvent.target;if(t&&t.closest&&t.closest('.mk'))return;if(!isDesktop()&&sheetState==='full')setSheet('half')});
 }
 function onMapLoaded(){
@@ -1596,7 +1596,10 @@ function renderCats(){
 function activeFilterNames(){const f=S.f,o=[];if(S.openOnly)o.push(isLive()?'지금 영업 중':'휴무 제외');if(f.minT)o.push(`타베로그 ${f.minT}+`);if(f.prices.length)o.push('가격대');if(f.card)o.push('카드');if(f.ic)o.push('교통카드');
   if(f.shortWait)o.push('대기 짧음');if(f.group6)o.push('6명');if(f.reserve)o.push('예약');if(f.nonSmoking)o.push('금연');if(f.morning)o.push('아침');if(f.late)o.push('밤늦게');if(f.region!=='all')o.push('지역');return o}
 function refName(){return S.ref==='place'&&S.place?S.place.name:S.ref==='me'&&me?'내 위치':S.ref==='center'?'지도 중심':'호텔'}
-function refresh({markers:withMarkers=true}={}){compute();renderCats();renderList();if(withMarkers)renderMarkers();if(S.view==='detail'&&S.selected)renderDetail();updateChips()}
+/* soft: a timer/GPS-driven refresh — an open shop page only gets its status line and distance updated in place
+   (keeps the 줄이 길어요 panel, scroll position and Google photo); user-driven changes re-render it */
+function refresh({markers:withMarkers=true,soft=false}={}){compute();renderCats();renderList();if(withMarkers)renderMarkers();if(S.view==='detail'&&S.selected){if(soft)detailTick();else renderDetail()}updateChips()}
+function detailTick(){const r=DATA.find(x=>x.id===S.selected),el=$('#dStatus');if(!r||!el)return;const go=$('#gOpen'),keep=go?go.innerHTML:'';el.innerHTML=statusLine(r);if(keep)$('#gOpen').innerHTML=keep}
 
 /* ================= detail ================= */
 function dirUrl(dest,dk){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=${dk<1.6?'walking':'transit'}`}
@@ -1761,7 +1764,7 @@ function queueGoogleRatings(){
   const worker=async()=>{while(i<todo.length){const r=todo[i++];try{await fetchG(r)}catch(e){failed++}}};
   Promise.all([worker(),worker(),worker(),worker()]).then(()=>{gBusy=false;
     if(failed&&failed===todo.length){if(!gFailToast){gFailToast=true;toast('구글 평점을 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.',3500)}return}
-    if(S.sort==='google'){const keep=$('#sheetBody').scrollTop;refresh();$('#sheetBody').scrollTop=keep}});
+    if(S.sort==='google'){const keep=$('#sheetBody').scrollTop;refresh({soft:true});$('#sheetBody').scrollTop=keep}});
 }
 async function googleLive(r){
   if(!r.placeId||!GMAPS_KEY)return;
@@ -1908,20 +1911,20 @@ function onPos(p){
     if(fromHotel<=OSAKA_KM){
       if(!S.refTouched||S.ref==='me'){S.ref='me'}
       if(!S.sortTouched){S.sort='nearby'}
-      refresh();
+      refresh({soft:true});
       // the list is what the family came for: open it to half once, unless they moved the sheet themselves or something else is open
       if(!isDesktop()&&sheetState==='peek'&&!sheetUserMoved&&S.view!=='detail'&&$('#phraseBig').hidden&&![...document.querySelectorAll('.modal')].some(m=>!m.hidden))setSheet('half');
       whenMap(()=>panToVisible(ll,Z.me));
       toast(`📍 내 위치를 찾았어요 (오차 약 ${Math.round(me.acc)}m). 근처 맛집을 평점순으로 보여 줘요.`);
     }else{
       farToast(fromHotel);
-      if(S.ref==='me'&&!S.refTouched)S.ref='hotel';refresh({markers:false});
+      if(S.ref==='me'&&!S.refTouched)S.ref='hotel';refresh({markers:false,soft:true});
     }
     lastListPos=me;return;
   }
-  if(fromHotel<=OSAKA_KM&&S.ref!=='me'&&!S.refTouched){S.ref='me';if(!S.sortTouched)S.sort='nearby';refresh();lastListPos=me}
+  if(fromHotel<=OSAKA_KM&&S.ref!=='me'&&!S.refTouched){S.ref='me';if(!S.sortTouched)S.sort='nearby';refresh({soft:true});lastListPos=me}
   if(follow&&fromHotel<=OSAKA_KM&&mapReady)panToVisible(ll);
-  if(S.ref==='me'&&(!lastListPos||km(lastListPos,me)>0.03)){lastListPos=me;refresh({markers:false})}
+  if(S.ref==='me'&&(!lastListPos||km(lastListPos,me)>0.03)){lastListPos=me;refresh({markers:false,soft:true})}
 }
 function onPosErr(e){
   if(e.code===1){navigator.geolocation.clearWatch(watchId);watchId=null;setLocState(null);LS.set('ofm.locOn',false);
@@ -2138,7 +2141,8 @@ setSheet('peek');
 refresh();
 precacheInfo();
 $('#buildInfo').textContent=`버전 ${APP_BUILD} · 지도: Google Maps / MapLibre ${window.maplibregl?(maplibregl.getVersion?maplibregl.getVersion():''):'(불러오지 못함)'}`;
-setInterval(()=>{const k=todayKey();if(k&&S.day!==k&&!S.dayTouched){S.day=k}if(isLive())refresh({markers:true})},60000);
+function minuteTick(){const k=todayKey();let dayChanged=false;if(k&&S.day!==k&&!S.dayTouched){S.day=k;dayChanged=true}if(isLive())refresh({markers:true,soft:!dayChanged})}
+setInterval(minuteTick,60000);
 $('#day').addEventListener('change',()=>{S.dayTouched=true});
 // resume location automatically if the user already granted it
 (async()=>{try{const p=navigator.permissions&&await navigator.permissions.query({name:'geolocation'});if(p&&p.state==='granted'){startLocate();return}}catch(e){}
@@ -2148,7 +2152,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={SHOPS,enterShop,exitShop,selectShop,shopRows,tripShopIds,PLACES,placeHits,setPlace,clearPlace,primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx,refresh};
+window.__ofm={SHOPS,enterShop,exitShop,selectShop,shopRows,tripShopIds,PLACES,placeHits,setPlace,clearPlace,primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx,refresh,minuteTick};
 })();
 </script>
 </body>
