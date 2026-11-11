@@ -1112,7 +1112,8 @@ const CAT_TOP=Object.fromEntries(CATS.map(c=>[c.key,new Set(DATA.filter(r=>r.lat
 const TOPSET=new Set(DATA.filter(r=>CATS.some(c=>CAT_TOP[c.key].has(r.id))).map(r=>r.id));
 const GEN_TOP=Object.fromEntries(GENRES.map(g=>[g.key,new Set(DATA.filter(r=>r.lat!=null&&genreOf(r).key===g.key).sort(byRating).slice(0,CAT_MAX).map(r=>r.id))]));
 const isTop=r=>TOPSET.has(r.id);
-let _rp=null,_rpT=0;const refP=()=>{const t=performance.now();if(!_rp||t-_rpT>150){_rp=refPoint();_rpT=t}return _rp};
+/* refPoint() cached briefly (nearRef runs for every shop several times per refresh); never reused once the reference itself changed */
+let _rp=null,_rpT=0,_rpK=[];const refP=()=>{const t=performance.now(),k=_rpK;if(!_rp||t-_rpT>150||k[0]!==S.ref||k[1]!==me||k[2]!==S.place||k[3]!==frozenRef){_rp=refPoint();_rpT=t;_rpK=[S.ref,me,S.place,frozenRef]}return _rp};
 const nearRef=r=>r.lat!=null&&walkMin(km(refP(),r))<=NEAR_MIN;
 const topFor=(r,k)=>k==='all'?TOPSET.has(r.id):k.startsWith('c-')?CAT_TOP[k].has(r.id):(GEN_TOP[k]||TOPSET).has(r.id);
 /* in the default view a shop shows if it is saved, within a 20-minute walk of the reference point, or in the top 10 of the picked food type */
@@ -1191,6 +1192,7 @@ function passes(r,ignore){
 }
 const filterCount=()=>{const f=S.f;return(f.region!=='all')+!!f.minT+(f.prices.length>0)+f.card+f.ic+f.shortWait+f.group6+f.reserve+f.nonSmoking+f.morning+f.late};
 function compute(){
+  _rp=null;   // a fresh reference point for every list (the map centre may have moved since the last one)
   if(S.mode==='shopping'){rows=[];return}   // the shopping view has its own list and pins
   if(S.mode==='trip'){const sel=S.selected&&DATA.find(x=>x.id===S.selected);rows=sel?[{r:sel,d:km(refPoint(),sel)}]:[];return}
   const ref=refPoint();
@@ -2124,7 +2126,7 @@ if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='fi
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-window.__ofm={SHOPS,enterShop,exitShop,selectShop,shopRows,tripShopIds,PLACES,placeHits,setPlace,clearPlace,primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx};
+window.__ofm={SHOPS,enterShop,exitShop,selectShop,shopRows,tripShopIds,PLACES,placeHits,setPlace,clearPlace,primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx,refresh};
 })();
 </script>
 </body>

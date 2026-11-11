@@ -180,6 +180,19 @@ console.log('2. Location granted, standing at Dotonbori');
   await ctx.close();
 }
 
+console.log('2b. GPS fix arriving right after start-up: the first near-me list already counts from my location');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const near = () => page.evaluate(() => { const O = window.__ofm, R = O.rows().filter(x => x.r); return { ref: O.S.ref, total: R.length, near: R.filter(x => Math.max(1, Math.round(x.d * 1.3 / 4.5 * 60)) <= 20).length, hint: (document.querySelector('#list .hint') || {}).textContent }; });
+  const a = await near();
+  await page.evaluate(() => window.__ofm.refresh()); await page.waitForTimeout(300);
+  const b = await near();
+  check(a.ref === 'me' && a.near === b.near && a.total === b.total && a.near >= 100 && a.hint.includes(`${a.near}곳`), 'Dotonbori, instant fix: the first list has the same near-me set as a forced refresh (not the hotel’s)', JSON.stringify([a.total, a.near, b.total, b.near]));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('3. Location in Seoul (testing before the trip)');
 {
   const { ctx, page, log } = await newPhone({ geo: { latitude: 37.5665, longitude: 126.978, accuracy: 30 } });
