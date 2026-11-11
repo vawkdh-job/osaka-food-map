@@ -557,6 +557,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps */
 #list .item .istat i{margin:0 2px}#list .item .istat .stg{letter-spacing:-.35px}   /* room for “영업 중(추정)” / “마지막 주문 HH:MM” on one line at 390 px */
 .st.open.est{color:#3f7a52}.st.closing.est{color:#a3562a}.dot.est{opacity:.55}   /* 영업 중(추정): our hours with low confidence */
+.st.resv{color:#1d4ed8}.dot.resv{background:#1d4ed8}.ch.resv{background:#e8f0fe;color:#1d4ed8}
 .gDiff{flex-basis:100%;font-size:12.5px;color:var(--muted)}
 .conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
@@ -763,6 +764,10 @@ function status(r,day){
   let h=r.hours[day],src='',gDiff=false;const live=isLive()&&day===S.day,now=live?jstNow().min:0;
   if(h==null){const gh=gDayRanges(gLive(r),day);if(gh){h=gh;src=' (구글)'}}
   else if(live){const gh=gDayRanges(gLive(r),day);if(gh&&!sameRanges(gh,h)){h=gh;src=' (구글)';gDiff=true}}   // live Google hours (in memory) disagree with ours today: follow Google
+  /* reservation-only (예약제): kind 'resv' instead of open / closing / later / hours — never "영업 중", left out of 영업 중만 and alternatives */
+  const RV=(o,carryB)=>{if(r.reservation!=='required'||!['open','closing','later','hours'].includes(o.kind))return o;
+    const cur=carryB||(live&&h&&(h.find(([a,b])=>toMin(a)<=now&&now<toMin(b))||[])[1]);
+    return{kind:'resv',text:o.kind==='later'?`예약제 · ${o.text.replace(/ 오픈.*$/,'')}~`:cur?`예약제 · ${untilT(cur)}까지`:`예약제 · ${DAYNAME[day]} ${h[0][0]}~`}};
   /* our hours with low or no confidence: 영업 중(추정) / 곧 마감(추정) (restaurants only; Google-sourced hours are never 추정) */
   const est=DATASET.has(r)&&r.hoursConf!=='high'&&r.hoursConf!=='medium',E=o=>{if(est&&(o.kind==='open'||o.kind==='closing')&&!o.noOrder){o.text=o.text.replace(/^(영업 중|곧 마감)/,'$1(추정)');o.est=true}return o};
   /* B: closing minute, L/lt: last order (same clock as now) — between last order and closing the shop is open but takes no orders:
@@ -771,9 +776,9 @@ function status(r,day){
     :now>=L?{kind:'closing',noOrder:true,text:`주문 마감 · ${untilT(b)}까지 영업`}
     :L-now<=45?{kind:'closing',text:`곧 마감 · 마지막 주문 ${untilT(lt)}`}:{kind:'open',text:`영업 중 · 마지막 주문 ${untilT(lt)}`};
   if(live){const pd=PREV_DAY[day],prev=pd&&r.hours[pd];   // still open from last night (Fri 18:00–28:00 at Sat 00:30)
-    if(prev)for(let i=0;i<prev.length;i++){const b=prev[i][1],B=toMin(b)-1440,lt=loOf(r,pd,i);if(B>0&&now<B)return E(openSt(B,b,lt?toMin(lt)-1440:null,lt))}}
+    if(prev)for(let i=0;i<prev.length;i++){const b=prev[i][1],B=toMin(b)-1440,lt=loOf(r,pd,i);if(B>0&&now<B)return RV(E(openSt(B,b,lt?toMin(lt)-1440:null,lt)),b)}}
   if(h==null)return{kind:'unknown',text:'영업시간 확인 필요'};
-  const S2=o=>{if(!src)E(o);o.text+=src;if(gDiff)o.gDiff=true;return o};
+  const S2=o=>{if(!src)E(o);o.text+=src;if(gDiff)o.gDiff=true;return RV(o)};
   if(!h.length)return S2({kind:'closed',text:`${DAYNAME[day]}요일 휴무`});
   if(!live)return S2({kind:'hours',text:`${DAYNAME[day]} ${fmtRanges(h)}`});
   for(let i=0;i<h.length;i++){const[a,b]=h[i],A=toMin(a),B=toMin(b),lt=src?null:loOf(r,day,i);if(now>=A&&now<B)return S2(openSt(B,b,lt?toMin(lt):null,lt))}
@@ -1031,7 +1036,7 @@ const useG=()=>false;
 const fmtT=v=>v==null?'–':v.toFixed(2), fmtG=v=>v==null?'–':v.toFixed(1);
 const score=r=>(useG()?r.google:r.tabelog)??0;
 function pinHtml(r){
-  const g=useG(),v=g?r.google:r.tabelog,st=status(r,S.day),dim=st.kind==='closed'||st.kind==='done'||noWalkIn(st);
+  const g=useG(),v=g?r.google:r.tabelog,st=status(r,S.day),dim=st.kind==='closed'||st.kind==='done'||st.kind==='resv'||noWalkIn(st);
   return `<div class="pin ${g?tierG(v):tierT(v)}${dim?' closed':''}${fav.has(r.id)?' fav':''}${S.selected===r.id?' sel':''}"><span class="pe">${r.emoji}</span>${v!=null?`<b>${fmtT(v)}</b>`:''}${isHyaku(r)?'<u>百</u>':''}${st.kind==='closed'?'<i>휴</i>':''}${tripShopIds().has(r.id)?`<em class="tripB" style="--c:${tripShopIds().get(r.id)}" title="일정에 있는 곳">🧳</em>`:''}</div>`;
 }
 const markers=new Map(); // id → {el,m,r}
@@ -1229,7 +1234,7 @@ function passes(r,ignore){
   if(S.genre!=='all'&&ignore!=='genre'&&!matchPick(r,S.genre))return false;
   if(f.region!=='all'&&r.region!==f.region)return false;
   if(!fPass(r))return false;
-  if(S.openOnly){const st=status(r,S.day),k=st.kind;if(isLive()?!(k==='open'||k==='closing'||k==='unknown')||noWalkIn(st):k==='closed')return false}
+  if(S.openOnly){const st=status(r,S.day),k=st.kind;if(isLive()?!(k==='open'||k==='closing'||k==='unknown')||noWalkIn(st):k==='closed'||k==='resv')return false}
   if(S.q){const hay=hayOf(r);if(!qTokens().every(t=>t.some(v=>hay.includes(v))))return false}
   return true;
 }
@@ -1275,7 +1280,7 @@ function tripNow(){const n=jstNow(),day=TRIP_DATA.days.find(d=>d.date===n.date);
   return{day,cur,next,mins:next?tm(next.time)-m:null}}
 function openAt(r,day,m){const h=r.hours&&r.hours[day];if(h==null)return null;return h.some(([a,b],i)=>{const lt=loOf(r,day,i);return toMin(a)<=m&&m<(lt?toMin(lt):toMin(b)-30)})}   // arrive before the last order
 function tripAlts(s,day){const a=tm(s.time),cats=s.meal.cats;
-  const near=DATA.filter(r=>r.lat!=null&&allCats(r).some(c=>cats.includes(c))&&!(s.placeId&&r.placeId===s.placeId)).map(r=>({r,d:km(s,r)})).filter(x=>walkMin(x.d)<=12)
+  const near=DATA.filter(r=>r.lat!=null&&r.reservation!=='required'&&allCats(r).some(c=>cats.includes(c))&&!(s.placeId&&r.placeId===s.placeId)).map(r=>({r,d:km(s,r)})).filter(x=>walkMin(x.d)<=12)
     .map(x=>({...x,o:openAt(x.r,day.key,a)})).filter(x=>x.o!==false);
   let cand=filterCount()?near.filter(x=>fPass(x.r)):near;if(cand.length<2)cand=near;   // follow 6명·카드 etc. when they are on
   const g6=r=>r.group6==='likely'?0:r.group6==='hard'?2:1,card=r=>r.pay&&r.pay.card?0:1;
@@ -1552,7 +1557,7 @@ const streetUrl=r=>`https://www.google.com/maps/@?api=1&map_action=pano&viewpoin
 function itemHtml({r,d}){
   const st=status(r,S.day),off=closedOn(r),w=waitOf(r);
   const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'<span class="rt tna">점수 없음</span>',gRating(r)!=null?`<span>구글 ${fmtG(gRating(r))}</span>`:'',`<span>${esc(r.genre)}</span>`,r.price?`<span>${yen(r)}</span>`:''].filter(Boolean).join('<i>·</i>');
-  const chips=[w.s?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),r.group6==='likely'?'<span class="ch ok6">6인 OK</span>':'',off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
+  const chips=[...statusChips(r),w.s&&r.reservation!=='required'?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),r.group6==='likely'?'<span class="ch ok6">6인 OK</span>':'',off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
   const from=S.ref==='me'&&!me?'호텔에서 ':'';   // the 기준 menu right above already says 호텔/지도 중심 — only say it when 내 위치 fell back to the hotel
   return `<div class="item${S.selected===r.id?' sel':''}" role="listitem" data-id="${r.id}" tabindex="0">${thumb(r)}
   <div class="ib"><div class="iname"><span>${esc(r.name)}</span>${isHyaku(r)?`<em class="hyb">百名店${hyakuText(r)?`<small> ${hyakuText(r)}</small>`:''}</em>`:''}</div>
@@ -1667,7 +1672,7 @@ const primaryCat=r=>{const ac=allCats(r);if(ac.length<2)return ac[0]||null;const
 function alternatives(r){
   const day=S.day,live=isLive(),pc=primaryCat(r);
   const near=DATA.filter(x=>x.id!==r.id&&x.lat!=null).map(x=>({r:x,d:km(r,x)})).filter(x=>x.d<=1.0).filter(x=>{
-    const st=status(x.r,day),k=st.kind;return live?(k==='open'||k==='closing'||k==='unknown')&&!noWalkIn(st):k!=='closed'});
+    const st=status(x.r,day),k=st.kind;return live?(k==='open'||k==='closing'||k==='unknown')&&!noWalkIn(st):k!=='closed'&&k!=='resv'});
   let cand=near.filter(x=>fPass(x.r)),relaxed=false;
   if(cand.length<2&&filterCount()){cand=near;relaxed=true}
   const rank=(a,b)=>(status(a.r,day).kind==='unknown')-(status(b.r,day).kind==='unknown')||waitOf(a.r).k-waitOf(b.r).k||(b.r.tabelog??0)-(a.r.tabelog??0);
@@ -1682,6 +1687,8 @@ function altHtml(r){
     (same.length?`<div class="altH">같은 ${esc(pc?pickOf(pc).label:genreOf(r).label)}</div>`+same.map(x=>c(x,false)).join(''):'')+(other.length?`<div class="altH">다른 메뉴</div>`+other.map(x=>c(x,true)).join(''):'');
 }
 /* small facts that matter for the family: 6 people, payment, child */
+/* 예약제 · 재료 소진 시 조기 마감 · 부정기 휴무 */
+const statusChips=r=>[r.reservation==='required'?'<span class="ch resv">예약제</span>':'',r.soldOut?'<span class="ch warn">재료 소진 시 조기 마감</span>':'',/부정기|임시/.test(r.closed||'')?'<span class="ch warn">부정기 휴무</span>':''].filter(Boolean);
 function factChips(r){const p=r.pay||{},o=[];
   if(r.group6==='likely')o.push('<span class="ch ok6">6인 OK</span>');else if(r.group6==='hard')o.push('<span class="ch warn">6인 어려움</span>');
   if(p.cashOnly===true||(p.card===false&&p.emoney!==true&&p.qr!==true))o.push('<span class="ch cash">현금만</span>');else if(p.card===true)o.push('<span class="ch pay">카드</span>');else if(p.card===false)o.push('<span class="ch cash">카드 ✕</span>');
@@ -1712,7 +1719,7 @@ function renderDetail(){
     <button class="ab" id="shareBtn"><span class="ai">↗</span><span>공유</span></button>
   </div>
   <div id="alts" hidden></div>
-  <div class="dSub">${r.emoji} ${meta}</div>${factChips(r)}
+  <div class="dSub">${r.emoji} ${meta}</div>${factChips(r)}${statusChips(r).length?`<span class="ichips">${statusChips(r).join('')}</span>`:''}
   ${r.warn?`<div class="warnBox">⚠ ${esc(r.warn)}</div>`:''}
   <div class="photos" id="photos">${tabImg}</div>
   <div id="gLive"></div>
@@ -1810,7 +1817,7 @@ async function googleLive(r){
     $('#gScore b').textContent=p.rating!=null?p.rating.toFixed(1):'–';$('#gCount').textContent=p.count?`리뷰 ${p.count.toLocaleString()} · 실시간`:'실시간';
     $('#dStatus').innerHTML=statusLine(r);   // our hours, or Google's when ours are unknown
     const gNow=googleOpenNow(p),ourKnown=r.hours[S.day]!=null;
-    if(gNow!=null&&isLive()&&ourKnown&&!status(r,S.day).gDiff){   /* (when Google's hours already replaced ours, the status line says so) */const k=status(r,S.day).kind,oursOpen=k==='open'||k==='closing';
+    if(gNow!=null&&isLive()&&ourKnown&&!status(r,S.day).gDiff&&r.reservation!=='required'){   /* (when Google's hours already replaced ours, the status line says so) */const k=status(r,S.day).kind,oursOpen=k==='open'||k==='closing';
       const gh=gDayRanges(p,S.day)||[],now=jstNow().min,cur=gh.find(([a,b])=>now>=toMin(a)&&now<toMin(b));
       const ourCur=(r.hours[S.day]||[]).find(([a,b])=>now>=toMin(a)&&now<toMin(b));
       if(oursOpen!==gNow)$('#gOpen').innerHTML=` <span class="ch ${gNow?'w1':'warn'}">구글: ${gNow?'지금 영업 중':'지금 영업 안 함'} · 구글 기준을 따르세요</span>`;

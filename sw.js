@@ -2,7 +2,7 @@
    - The page (./, index.html): network first (so updates arrive), but the cached copy wins after 2.5 s or on an error status.
    - Other app files (vendor, icons, manifest): cache first from this build's cache; they only change with a build.
    - Map tiles and restaurant photos: cache first, so viewed or pre-saved areas work offline. */
-const VERSION = '2026-11-11-d50e698f';
+const VERSION = '2026-11-11-11cbfe34';
 const APP_CACHE = 'ofm-app-' + VERSION;
 const TILE_CACHE = 'ofm-tiles-v3'; // v1: CARTO "API KEY REQUIRED" tiles; v2: opaque (no-cors) tiles MapLibre can't use
 const IMG_CACHE = 'ofm-img-v1';

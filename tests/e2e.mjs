@@ -503,6 +503,36 @@ console.log('6-est. Estimated hours and Google hours that disagree (A2-2)');
   await ctx.close();
 }
 
+console.log('6-resv. Reservation-only shops and the status badges (A2-3)');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T19:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(400);
+  const R = await page.evaluate(() => { const O = window.__ofm, g = id => APP_DATA.restaurants.find(x => x.id === id), st = (id, d) => O.status(g(id), d);
+    const out = { s133: st(133, 'fri'), s142: st(142, 'fri'), s148sat: st(148, 'sat'), s133sat: st(133, 'sat') };
+    O.S.openOnly = true; O.refresh(); out.inOpen = O.rows().filter(x => x.r && [133, 142, 148].includes(x.r.id)).length;
+    O.S.day = 'sat'; O.refresh(); out.inOpenSat = O.rows().filter(x => x.r && [133, 142, 148].includes(x.r.id)).length; O.S.day = 'fri'; O.S.openOnly = false; O.refresh();
+    return out; });
+  check(R.s133.kind === 'resv' && R.s133.text === '예약제 · 21:30까지' && R.s148sat.kind === 'resv' && /^예약제 · 토 18:00~$/.test(R.s148sat.text) && !/영업 중/.test(JSON.stringify(R)) && R.inOpen === 0 && R.inOpenSat === 0,
+    'reservation-only shops: “예약제 · 21:30까지 / 예약제 · 토 18:00~”, never “영업 중”, not in 영업 중만 (today or another day)', JSON.stringify(R));
+  // alternatives of a shop next to a reservation-only one never offer it
+  const alt = await page.evaluate(() => { const O = window.__ofm, D = APP_DATA.restaurants, req = D.filter(r => r.reservation === 'required');
+    const near = D.find(r => r.id !== 133 && r.reservation !== 'required' && r.lat != null && Math.hypot(r.lat - req[0].lat, (r.lon - req[0].lon) * .82) * 111 < 0.4);
+    O.select(near.id); document.querySelector('#crowdBtn').click(); return new Promise(res => setTimeout(() => { const ids = [...document.querySelectorAll('#alts .alt')].map(e => +e.dataset.go); O.closeDetail(); res({ near: near.id, ids, hasReq: ids.some(i => req.some(r => r.id === i)) }); }, 300)); });
+  check(alt.ids.length > 0 && !alt.hasReq, '줄이 길어요 alternatives never offer a reservation-only shop', JSON.stringify(alt));
+  const pin = await page.evaluate(async () => { const O = window.__ofm, r = APP_DATA.restaurants.find(x => x.id === 133); O.S.showAll = true; O.refresh(); O.map().jumpTo({ center: [r.lon, r.lat], zoom: 17.5 }); await new Promise(res => setTimeout(res, 900)); const p = O.markers.get(133); return p && p.on ? p.el.querySelector('.pin').classList.contains('closed') : null; });
+  check(pin === true, 'a reservation-only pin is drawn like a closed one (not as open)', String(pin));
+  const chips = await page.evaluate(async () => { const O = window.__ofm, D = APP_DATA.restaurants, so = D.find(r => r.soldOut && r.lat != null), irr = D.find(r => /부정기/.test(r.closed || '') && r.lat != null);
+    const ch = async id => { O.select(id); await new Promise(res => setTimeout(res, 300)); const t = document.querySelector('#detail').innerText; O.closeDetail(); return t; };
+    O.S.showAll = true; O.refresh(); O.setSheet('full'); await new Promise(res => setTimeout(res, 300));
+    const row = id => { const e = document.querySelector(`#list .item[data-id="${id}"]`); return e ? e.innerText : '(row not rendered)'; };
+    return { req: /예약제/.test(await ch(133)), so: /재료 소진 시 조기 마감/.test(await ch(so.id)), irr: /부정기 휴무/.test(await ch(irr.id)) }; });
+  check(chips.req && chips.so && chips.irr, 'shop page badges: 예약제 · 재료 소진 시 조기 마감 · 부정기 휴무', JSON.stringify(chips));
+  const rowChips = await page.evaluate(async () => { const O = window.__ofm; O.S.q = '사이히'; O.refresh(); await new Promise(res => setTimeout(res, 200)); const e = document.querySelector('#list .item[data-id="133"]'); const t = e ? e.innerText : null; O.S.q = ''; O.refresh(); return t; });
+  check(/예약제/.test(rowChips || '') && !/대기/.test(rowChips || ''), 'list row: 예약제 badge, no queue (대기) chip', rowChips && rowChips.replace(/\s+/g, ' '));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6a. “영업 중만” chip: on screen without scrolling, and remembered on the phone');
 for (const dev of [devices['iPhone 13'], devices['iPhone SE']]) {
   const { ctx, page, log } = await newPhone({ device: dev, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
