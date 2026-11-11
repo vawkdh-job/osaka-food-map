@@ -544,6 +544,11 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
   .panel{max-height:94vh}
 }
 @media (orientation:landscape) and (max-height:500px) and (max-width:700px){.hyb small{display:none}}
+/* the grab strip is a real 44px tap target: 28px inside the sheet + 16px over the map edge (not when the list is full — the chips sit there) */
+.handle{position:relative;width:calc(100% + 28px);height:28px;margin:-7px -14px 0;padding:0;border:0;border-radius:0;background:none;touch-action:none}
+.handle::before{content:"";position:absolute;left:50%;top:9px;width:38px;height:5px;margin-left:-19px;border-radius:3px;background:#d0d7de}
+.sheet:not([data-state=full]) .handle::after{content:"";position:absolute;left:50%;top:-16px;width:180px;height:16px;margin-left:-90px}
+@media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.handle{display:block}}
 </style>
 </head>
 <body>
@@ -580,7 +585,7 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 
 <section class="sheet" id="sheet" data-state="peek" aria-label="식당 목록">
   <div class="sheetHead" id="sheetHead">
-    <div class="handle" aria-hidden="true"></div>
+    <button class="handle" id="handle" aria-label="목록 펼치기·접기"></button>
     <div class="dMini" id="dMini"><button id="dMiniBack" aria-label="목록으로 돌아가기">← 목록</button><b id="dMiniName"></b></div>
     <button class="tripLine" id="tripLine" hidden></button>
     <div class="headRow">
@@ -1827,7 +1832,7 @@ function nextToast(){const n=toastQ.shift(),el=$('#toast');if(!n){toastBusy=fals
   toastTimer=setTimeout(()=>{if(toastQ.length){el.classList.remove('show');setTimeout(nextToast,250)}else nextToast()},toastQ.length?Math.min(n[1],3500):n[1])}
 
 /* ================= bottom sheet ================= */
-const sheet=$('#sheet');let sheetState='peek',sheetPx=0;
+const sheet=$('#sheet');let sheetState='peek',sheetPx=0,sheetUserMoved=false,dragEndT=0;   // sheetUserMoved: the user dragged or tapped the sheet this session
 if(S.mode==='trip'){sheet.classList.add('tripping');pushTrip()}   // reopened while the itinerary was showing (Back → shop list)
 else if(S.mode==='shopping'){sheet.classList.add('shopping');pushShop()}
 const safeProbe=document.createElement('div');safeProbe.style.cssText='position:fixed;left:0;bottom:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(safeProbe);
@@ -1853,8 +1858,8 @@ function setSheet(state){
   const move=(y,t)=>{const dy=y-y0;if(!moved&&Math.abs(dy)>6){moved=true;sheet.classList.add('dragging')}if(!moved)return false;
     const H=heights();applySheet(Math.max(H.peek*.75,Math.min(H.full,h0-dy)));const dt=t-lastT;if(dt>0)vel=(y-lastY)/dt;lastY=y;lastT=t;return true};
   const finish=tap=>{sheet.classList.remove('dragging');
-    if(!moved){if(tap)setSheet(sheetState==='peek'?'half':sheetState==='half'?'full':'half');return}
-    moved=false;const H=heights(),proj=sheetPx-vel*180;setSheet(Object.keys(H).reduce((a,k)=>Math.abs(H[k]-proj)<Math.abs(H[a]-proj)?k:a,'peek'))};
+    if(!moved){if(tap){sheetUserMoved=true;setSheet(sheetState==='peek'?'half':sheetState==='half'?'full':'half')}return}
+    moved=false;sheetUserMoved=true;dragEndT=performance.now();const H=heights(),proj=sheetPx-vel*180;setSheet(Object.keys(H).reduce((a,k)=>Math.abs(H[k]-proj)<Math.abs(H[a]-proj)?k:a,'peek'))};
   head.addEventListener('pointerdown',e=>{if(isDesktop()||e.button>0)return;active=true;pid=e.pointerId;begin(e.clientY,e.timeStamp)});
   // follow the pointer over the whole window (a mouse leaves the strip at once); capture only after it really moves
   window.addEventListener('pointermove',e=>{if(!active||e.pointerId!==pid)return;const was=moved;if(move(e.clientY,e.timeStamp)&&!was)try{head.setPointerCapture(pid)}catch(_){}});
@@ -1868,6 +1873,8 @@ function setSheet(state){
   const tend=()=>{if(tmode==='drag')finish(false);tmode=null};
   body.addEventListener('touchend',tend);body.addEventListener('touchcancel',tend);
 })();
+// the handle: a tap toggles peek ↔ half (full → half); dragging it still moves the sheet (above)
+$('#handle').addEventListener('click',e=>{e.stopPropagation();if(isDesktop()||performance.now()-dragEndT<400)return;sheetUserMoved=true;setSheet(sheetState==='peek'?'half':sheetState==='half'?'peek':'half')});
 window.addEventListener('resize',()=>{setSheet(sheetState==='desk'?'peek':sheetState);document.documentElement.style.setProperty('--top-h',$('#topbar').getBoundingClientRect().bottom+'px');if(map)map.resize()});
 
 /* ================= geolocation ================= */
@@ -1891,7 +1898,10 @@ function onPos(p){
     if(fromHotel<=OSAKA_KM){
       if(!S.refTouched||S.ref==='me'){S.ref='me'}
       if(!S.sortTouched){S.sort='nearby'}
-      refresh();whenMap(()=>panToVisible(ll,Z.me));
+      refresh();
+      // the list is what the family came for: open it to half once, unless they moved the sheet themselves or something else is open
+      if(!isDesktop()&&sheetState==='peek'&&!sheetUserMoved&&S.view!=='detail'&&$('#phraseBig').hidden&&![...document.querySelectorAll('.modal')].some(m=>!m.hidden))setSheet('half');
+      whenMap(()=>panToVisible(ll,Z.me));
       toast(`📍 내 위치를 찾았어요 (오차 약 ${Math.round(me.acc)}m). 근처 맛집을 평점순으로 보여 줘요.`);
     }else{
       farToast(fromHotel);

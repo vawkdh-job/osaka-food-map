@@ -200,6 +200,7 @@ console.log('3. Location in Seoul (testing before the trip)');
   const st = await appState(page);
   check(!!st.me && st.ref === 'hotel', 'location shown but distances stay hotel-based');
   check((await page.evaluate(() => window.__ofm.toasts.join(' | '))).includes('오사카에서 약'), 'explains it will switch once in Osaka');
+  check(await page.evaluate(() => window.__ofm.sheetState()) === 'peek', 'a fix outside Osaka leaves the list folded (peek)');
   check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
   await ctx.close();
 }
@@ -301,6 +302,47 @@ console.log('5. Bottom sheet drag and filters');
   check(/구글 평점은 실시간|구글에 연결되지 않아/.test(await page.locator('#list').innerText()), '구글 평점순 explains how ratings load (or that Google is unreachable)');
   await page.locator('#sort').selectOption('tabelog'); await page.waitForTimeout(200);
   await page.screenshot({ path: join(SHOTS, '05_iphone_sheet_full_filtered.png') });
+  await ctx.close();
+}
+
+console.log('5b. Sheet: the grab handle is a real tap target, and the list opens once my location is found');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T12:10:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(800);
+  const st = () => page.evaluate(() => ({ sheet: window.__ofm.sheetState(), mode: window.__ofm.S.mode }));
+  const top = await page.evaluate(() => document.querySelector('#sheet').getBoundingClientRect().top);
+  const hb = await page.locator('#handle').boundingBox();
+  const cdp = await ctx.newCDPSession(page);
+  const tap = async (x, y, r = 12) => { await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, radiusX: r, radiusY: r }] }); await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await page.waitForTimeout(450); return st(page); };
+  const res = [];
+  for (const dy of [-12, 2, 10, 16, 22, 26]) for (const r of [0, 12]) {   // finger taps on and just around the handle, with and without a touch radius
+    const a = await tap(195, top + dy, r); res.push(`${dy}/${r}:${a.sheet}/${a.mode}`);
+    if (a.mode !== 'shops') await page.evaluate(() => window.__ofm.exitTrip(true));
+    await page.evaluate(() => window.__ofm.setSheet('peek')); await page.waitForTimeout(350);
+  }
+  check(hb.height >= 28 && res.every(x => /half\/shops/.test(x)), 'taps from 12px above to 26px below the sheet top open the list — not the 🧳 next-stop line', res.join(' '));
+  await tap(195, top + 10); const top2 = await page.evaluate(() => document.querySelector('#sheet').getBoundingClientRect().top);
+  check((await tap(195, top2 + 10)).sheet === 'peek', 'tapping the handle again folds the list back down');
+  const tl = await page.evaluate(() => { const b = document.querySelector('#tripLine').getBoundingClientRect(); return { x: b.left + b.width / 2, y: b.top + b.height / 2, h: b.height }; });
+  const t = await tap(tl.x, tl.y);
+  check(t.mode === 'trip' && tl.h >= 44, 'the 🧳 next-stop line itself still opens the itinerary', JSON.stringify({ ...t, h: tl.h }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await cdp.detach(); await ctx.close();
+}
+{
+  const { ctx, page } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  check(await page.evaluate(() => window.__ofm.sheetState()) === 'half', 'first location fix in Osaka opens the list to half');
+  await ctx.close();
+}
+{
+  const { ctx, page } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await ctx.addInitScript(() => { const g = navigator.geolocation, w = g.watchPosition.bind(g); g.watchPosition = (ok, err, o) => w(p => setTimeout(() => ok(p), 2500), err, o); });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(300);
+  await page.locator('#handle').click(); await page.waitForTimeout(350); await page.locator('#handle').click(); await page.waitForTimeout(350);
+  const a = await page.evaluate(() => window.__ofm.sheetState()); await page.waitForTimeout(3000);
+  const b = await page.evaluate(() => ({ sheet: window.__ofm.sheetState(), me: !!window.__ofm.me() }));
+  check(a === 'peek' && b.me && b.sheet === 'peek', 'a list the user folded away stays folded when the fix arrives later', JSON.stringify([a, b]));
   await ctx.close();
 }
 
