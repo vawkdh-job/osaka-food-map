@@ -693,6 +693,22 @@ console.log('6g2. Search box: ✕ clear button, spelling variants and synonyms')
   await ctx.close();
 }
 
+console.log('6g3. ◎ makes “내 위치” the reference again');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  await page.evaluate(() => window.__ofm.setPlace(window.__ofm.placeHits('오사카성')[0])); await page.waitForTimeout(600);
+  const a = await page.evaluate(() => ({ ref: window.__ofm.S.ref, pin: !!document.querySelector('.placePin') }));
+  await page.locator('#locBtn').click(); await page.waitForTimeout(600);
+  const b = await page.evaluate(() => ({ ref: window.__ofm.S.ref, pin: !!document.querySelector('.placePin'), opt: !!document.querySelector('#ref option[value=place]'), refText: document.querySelector('#refText').textContent, toast: window.__ofm.toasts.slice(-1)[0], first: window.__ofm.rows().find(x => x.r).d }));
+  await page.evaluate(() => { const s = document.querySelector('#ref'); s.value = 'hotel'; s.dispatchEvent(new Event('change', { bubbles: true })); }); await page.waitForTimeout(300);
+  await page.locator('#locBtn').click(); await page.waitForTimeout(400);
+  const c = await page.evaluate(() => window.__ofm.S.ref);
+  check(a.ref === 'place' && a.pin && b.ref === 'me' && !b.pin && !b.opt && /내 위치/.test(b.refText) && b.toast === '내 위치 기준으로 바꿨어요' && b.first < 1 && c === 'me', '◎ with a searched place (or the hotel) as reference goes back to “내 위치” and removes the place marker', JSON.stringify({ a, b, c }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6h. Map marker kinds and the 🛍 shopping view');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T15:00:00+09:00', tz: 'Asia/Tokyo' });

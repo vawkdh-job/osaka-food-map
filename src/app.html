@@ -1951,6 +1951,7 @@ locBtn.onclick=()=>{
   startHeading(); // compass permission must be asked from a tap (iPhone)
   if(watchId==null||!me){startLocate();return}
   const d=km(me,HOTEL);if(d>OSAKA_KM){farToast(d);return} // the Japan map has no detail outside Japan
+  if(S.ref!=='me'){S.place=null;syncPlaceOpt();S.ref='me';refresh();toast('내 위치 기준으로 바꿨어요',2500)}   // a searched place / hotel / map centre was the reference: ◎ means "from where I am"
   follow=true;setLocState('follow');whenMap(()=>panToVisible([me.lat,me.lon],Math.max(map.getZoom(),Z.me)));
 };
 function showLocHelp(reason){const p=$('#locReason');p.hidden=!reason;p.textContent=reason||'';openModal('#locHelp')}
