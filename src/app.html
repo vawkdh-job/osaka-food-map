@@ -555,6 +555,9 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 /* food map: restaurant pins and groups (.rp) win taps over the itinerary circles and shop squares they overlap */
 .mk.rp{z-index:3}.itm{z-index:2}
 button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps */
+#list .item .istat i{margin:0 2px}#list .item .istat .stg{letter-spacing:-.35px}   /* room for “영업 중(추정)” / “마지막 주문 HH:MM” on one line at 390 px */
+.st.open.est{color:#3f7a52}.st.closing.est{color:#a3562a}.dot.est{opacity:.55}   /* 영업 중(추정): our hours with low confidence */
+.gDiff{flex-basis:100%;font-size:12.5px;color:var(--muted)}
 .conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
 </style>
@@ -725,7 +728,7 @@ button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps 
 <script>
 (function(){
 'use strict';
-const DATA=APP_DATA.restaurants, HOTEL=APP_DATA.hotel;
+const DATA=APP_DATA.restaurants, HOTEL=APP_DATA.hotel, DATASET=new Set(DATA);
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
@@ -755,18 +758,22 @@ const hhmm=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padSta
 function gDayRanges(p,day){const P=p&&p.periods;if(!P||!P.length)return null;
   if(P.length===1&&P[0].cd==null&&P[0].o===0)return [['00:00','24:00']];
   const d=G_DOW[day];return P.filter(x=>x.od===d&&x.cd!=null).map(x=>[hhmm(x.o),hhmm(x.c+1440*((x.cd-x.od+7)%7))])}
+const sameRanges=(x,y)=>x.length===y.length&&x.every(([a,b],i)=>toMin(a)===toMin(y[i][0])&&toMin(b)===toMin(y[i][1]));
 function status(r,day){
-  let h=r.hours[day],src='';const live=isLive()&&day===S.day,now=live?jstNow().min:0;
+  let h=r.hours[day],src='',gDiff=false;const live=isLive()&&day===S.day,now=live?jstNow().min:0;
   if(h==null){const gh=gDayRanges(gLive(r),day);if(gh){h=gh;src=' (구글)'}}
+  else if(live){const gh=gDayRanges(gLive(r),day);if(gh&&!sameRanges(gh,h)){h=gh;src=' (구글)';gDiff=true}}   // live Google hours (in memory) disagree with ours today: follow Google
+  /* our hours with low or no confidence: 영업 중(추정) / 곧 마감(추정) (restaurants only; Google-sourced hours are never 추정) */
+  const est=DATASET.has(r)&&r.hoursConf!=='high'&&r.hoursConf!=='medium',E=o=>{if(est&&(o.kind==='open'||o.kind==='closing')&&!o.noOrder){o.text=o.text.replace(/^(영업 중|곧 마감)/,'$1(추정)');o.est=true}return o};
   /* B: closing minute, L/lt: last order (same clock as now) — between last order and closing the shop is open but takes no orders:
      kind 'closing' + noOrder (영업 중만 and the alternatives leave these out, the pin is drawn like a closed one) */
   const openSt=(B,b,L,lt)=>L==null||L>=B?(B-now<=45?{kind:'closing',text:`곧 마감 · ${untilT(b)}까지`}:{kind:'open',text:`영업 중 · ${untilT(b)}까지`})
     :now>=L?{kind:'closing',noOrder:true,text:`주문 마감 · ${untilT(b)}까지 영업`}
     :L-now<=45?{kind:'closing',text:`곧 마감 · 마지막 주문 ${untilT(lt)}`}:{kind:'open',text:`영업 중 · 마지막 주문 ${untilT(lt)}`};
   if(live){const pd=PREV_DAY[day],prev=pd&&r.hours[pd];   // still open from last night (Fri 18:00–28:00 at Sat 00:30)
-    if(prev)for(let i=0;i<prev.length;i++){const b=prev[i][1],B=toMin(b)-1440,lt=loOf(r,pd,i);if(B>0&&now<B)return openSt(B,b,lt?toMin(lt)-1440:null,lt)}}
+    if(prev)for(let i=0;i<prev.length;i++){const b=prev[i][1],B=toMin(b)-1440,lt=loOf(r,pd,i);if(B>0&&now<B)return E(openSt(B,b,lt?toMin(lt)-1440:null,lt))}}
   if(h==null)return{kind:'unknown',text:'영업시간 확인 필요'};
-  const S2=o=>(o.text+=src,o);
+  const S2=o=>{if(!src)E(o);o.text+=src;if(gDiff)o.gDiff=true;return o};
   if(!h.length)return S2({kind:'closed',text:`${DAYNAME[day]}요일 휴무`});
   if(!live)return S2({kind:'hours',text:`${DAYNAME[day]} ${fmtRanges(h)}`});
   for(let i=0;i<h.length;i++){const[a,b]=h[i],A=toMin(a),B=toMin(b),lt=src?null:loOf(r,day,i);if(now>=A&&now<B)return S2(openSt(B,b,lt?toMin(lt):null,lt))}
@@ -1061,7 +1068,7 @@ function renderMarkers(){
   for(const g of groups){
     if(z>=Z.cluster||g.items.length===1){ // single pins; pins in the same building are spread sideways
       g.items.forEach((pt,i)=>{const p=pinFor(pt.r);p.el.innerHTML=pinHtml(pt.r);p.el.style.zIndex=S.selected===pt.r.id?'5':'';
-        p.el.setAttribute('aria-label',`${pt.r.name} 타베로그 ${fmtT(pt.r.tabelog)}`);
+        p.el.setAttribute('aria-label',`${pt.r.name} 타베로그 ${fmtT(pt.r.tabelog)} · ${status(pt.r,S.day).text}`);
         p.m.setOffset([(i-(g.items.length-1)/2)*62,0]);if(!p.on){p.m.addTo(map);p.on=true}});
       continue;
     }
@@ -1550,7 +1557,7 @@ function itemHtml({r,d}){
   return `<div class="item${S.selected===r.id?' sel':''}" role="listitem" data-id="${r.id}" tabindex="0">${thumb(r)}
   <div class="ib"><div class="iname"><span>${esc(r.name)}</span>${isHyaku(r)?`<em class="hyb">百名店${hyakuText(r)?`<small> ${hyakuText(r)}</small>`:''}</em>`:''}</div>
   <div class="imeta">${meta}</div>
-  <div class="istat"><span class="walk">${from}${walkText(d)}</span><i>·</i> <span class="stg"><span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(st.text)}</span></span></div>
+  <div class="istat"><span class="walk">${from}${walkText(d)}</span><i>·</i><span class="stg"><span class="dot ${st.kind}${st.est?' est':''}"></span><span class="st ${st.kind}${st.est?' est':''}">${esc(st.text)}</span></span></div>
   ${chips?`<div class="ichips">${chips}</div>`:''}</div>
   <div class="iact"><button class="favBtn${fav.has(r.id)?' on':''}" data-fav="${r.id}" aria-label="${esc(r.name)} 찜하기" aria-pressed="${fav.has(r.id)}">${fav.has(r.id)?'♥':'♡'}</button>
     <a class="gmBtn" href="${esc(gUrl(r))}" target="_blank" rel="noopener" aria-label="${esc(r.name)} 구글 지도에서 보기">지도</a></div></div>`;
@@ -1711,7 +1718,7 @@ function renderDetail(){
   <div id="gLive"></div>
   <section class="sec"><h3>가게 정보</h3><table class="info"><tbody>${infoRows(r)}</tbody></table></section>
   <section class="sec"><h3>영업시간 <small>${r.hoursChecked?`${esc(hoursSrcName(r))} · ${esc(mdKo(r.hoursChecked))} 확인`:'조사값'}</small></h3><table class="hoursT"><tbody>${rowsH}</tbody></table>
-    <p class="note">정기휴무: ${esc(r.closed||'정보 없음')}${r.hoursNote?`<br>${esc(r.hoursNote)}`:''}${r.hoursConf==='low'?'<br><small>출처가 하나뿐이거나 오래된 정보예요. 구글 영업시간도 같이 보세요.</small>':''}</p></section>
+    <p class="note">정기휴무: ${esc(r.closed||'정보 없음')}${r.hoursNote?`<br>${esc(r.hoursNote)}`:''}${r.hoursConf==='low'||r.hoursConf==null?'<br><small>출처가 하나뿐이거나 오래된 정보예요. 구글 영업시간도 같이 보세요.</small>':''}</p></section>
   ${r.desc?`<section class="sec"><h3>소개</h3><p class="note">${esc(r.desc)}</p></section>`:''}
   <section class="sec"><h3>주소</h3><button class="addr" id="copyAddr" lang="ja"><small lang="ko">눌러서 복사 · 크게 보려면 🚕 택시 버튼</small>${esc(r.jp)}<br>${esc(addrOf(r)||'')}${addrOf(r)?'':'<small lang="ko">주소 정보가 없어요 · 🚕 택시 버튼에서 지도를 보여 주세요</small>'}</button>
     ${r.coordConf==='low'&&r.coordSrc!=='google'?'<div class="warnBox">📍 핀 위치가 건물 단위라 조금 다를 수 있어요. 구글 지도 결과를 따르세요.</div>':''}</section>
@@ -1737,7 +1744,7 @@ function renderDetail(){
 }
 /* one line under the shop name: status · distance (+ a Google note when Google disagrees) */
 function statusLine(r){const st=status(r,S.day),live=isLive(),d=km(refPoint(),r);
-  return `<span class="dot ${st.kind}"></span><span class="st ${st.kind}">${esc(detailStatus(r,st,live))}</span><span class="dDist">· ${S.ref==='me'&&me?'':refName()+'에서 '}${distText(d)}</span><span id="gOpen"></span>`}
+  return `<span class="dot ${st.kind}${st.est?' est':''}"></span><span class="st ${st.kind}${st.est?' est':''}">${esc(detailStatus(r,st,live))}</span><span class="dDist">· ${S.ref==='me'&&me?'':refName()+'에서 '}${distText(d)}</span><span id="gOpen"></span>${st.gDiff?'<span class="gDiff">구글 영업시간과 달라요 — 구글 기준으로 표시</span>':''}`}
 const mdKo=d=>{const m=/^\d{4}-(\d{2})-(\d{2})$/.exec(d||'');return m?`${+m[1]}월 ${+m[2]}일`:d};
 const hoursSrcName=r=>{const u=(r.hoursSrc||[])[0]||'';return /tabelog/.test(u)?'타베로그':/hotpepper/.test(u)?'핫페퍼':/retty/.test(u)?'Retty':/gnavi/.test(u)?'구루나비':u?'공식·웹':'웹 조사'};
 const jaAddr=a=>String(a||'').replace(/^日本、?\s*/,'').replace(/^〒\d{3}-\d{4}\s*/,'').trim();
@@ -1803,7 +1810,7 @@ async function googleLive(r){
     $('#gScore b').textContent=p.rating!=null?p.rating.toFixed(1):'–';$('#gCount').textContent=p.count?`리뷰 ${p.count.toLocaleString()} · 실시간`:'실시간';
     $('#dStatus').innerHTML=statusLine(r);   // our hours, or Google's when ours are unknown
     const gNow=googleOpenNow(p),ourKnown=r.hours[S.day]!=null;
-    if(gNow!=null&&isLive()&&ourKnown){const k=status(r,S.day).kind,oursOpen=k==='open'||k==='closing';
+    if(gNow!=null&&isLive()&&ourKnown&&!status(r,S.day).gDiff){   /* (when Google's hours already replaced ours, the status line says so) */const k=status(r,S.day).kind,oursOpen=k==='open'||k==='closing';
       const gh=gDayRanges(p,S.day)||[],now=jstNow().min,cur=gh.find(([a,b])=>now>=toMin(a)&&now<toMin(b));
       const ourCur=(r.hours[S.day]||[]).find(([a,b])=>now>=toMin(a)&&now<toMin(b));
       if(oursOpen!==gNow)$('#gOpen').innerHTML=` <span class="ch ${gNow?'w1':'warn'}">구글: ${gNow?'지금 영업 중':'지금 영업 안 함'} · 구글 기준을 따르세요</span>`;

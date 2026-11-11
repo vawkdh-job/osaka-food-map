@@ -479,6 +479,30 @@ console.log('6-lo. Last orders (A2-1)');
   await ctx.close();
 }
 
+console.log('6-est. Estimated hours and Google hours that disagree (A2-2)');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T19:00:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(400);
+  const r1 = await page.evaluate(() => { const O = window.__ofm, D = APP_DATA.restaurants, openNow = r => { const st = O.status(r, 'fri'); return st.kind === 'open' && !st.noOrder; };
+    const low = D.find(r => (r.hoursConf === 'low' || r.hoursConf == null) && openNow(r)), high = D.find(r => (r.hoursConf === 'high' || r.hoursConf === 'medium') && openNow(r));
+    const shop = O.SHOPS.map(s => O.status(s, 'fri')).find(st => st.kind === 'open');
+    return { low: [low.id, O.status(low, 'fri')], high: [high.id, O.status(high, 'fri')], shop }; });
+  check(/^영업 중\(추정\)/.test(r1.low[1].text) && r1.low[1].est && !/추정/.test(r1.high[1].text) && !r1.high[1].est && r1.shop && !/추정/.test(r1.shop.text), 'low/unknown-confidence hours: “영업 중(추정)”; confident hours and 🛍 shops unchanged', JSON.stringify(r1));
+  await page.evaluate(() => window.__ofm.setSheet('half')); await page.waitForTimeout(400);
+  const rowsEst = await page.evaluate(() => [...document.querySelectorAll('#list .item')].filter(e => e.querySelector('.st.est')).map(e => { const s = e.querySelector('.istat'); return Math.round(s.getBoundingClientRect().height / parseFloat(getComputedStyle(s).lineHeight)); }));
+  check(rowsEst.length > 0 && rowsEst.every(n => n === 1), '390 px: “영업 중(추정)” rows keep their status on one line (row height unchanged)', JSON.stringify(rowsEst));
+  await page.evaluate(id => window.__ofm.select(id), r1.low[0]); await page.waitForTimeout(500);
+  const d1 = await page.evaluate(() => ({ st: document.querySelector('#dStatus .st').className + ' ' + document.querySelector('#dStatus .st').textContent, note: /출처가 하나뿐/.test(document.querySelector('#detail').innerText) }));
+  check(/est/.test(d1.st) && /추정/.test(d1.st) && d1.note, 'shop page: muted “(추정)” status and the hours caveat (low or unknown confidence)', JSON.stringify(d1));
+  await page.evaluate(() => window.__ofm.closeDetail());
+  // live Google hours in memory that disagree with ours for today → Google's, with a note; never 추정
+  const g = await page.evaluate(id => { const O = window.__ofm, r = APP_DATA.restaurants.find(x => x.id === id); O.gCache.set(r.placeId, { periods: [{ od: 5, o: 17 * 60, cd: 5, c: 22 * 60 }], photos: [] });
+    O.select(r.id); return new Promise(res => setTimeout(() => res({ st: O.status(r, 'fri'), line: document.querySelector('#dStatus').innerText }), 400)); }, r1.low[0]);
+  check(g.st.gDiff && /22:00까지 \(구글\)$/.test(g.st.text) && !/추정/.test(g.st.text) && /구글 영업시간과 달라요/.test(g.line), 'live Google hours that differ today: Google’s shown, “구글 영업시간과 달라요 — 구글 기준으로 표시”', JSON.stringify(g));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6a. “영업 중만” chip: on screen without scrolling, and remembered on the phone');
 for (const dev of [devices['iPhone 13'], devices['iPhone SE']]) {
   const { ctx, page, log } = await newPhone({ device: dev, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
