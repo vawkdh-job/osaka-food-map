@@ -1805,8 +1805,7 @@ async function googleLive(r){
     if(pay){if(pay.acceptsCreditCards!=null)bits.push(`카드 ${pay.acceptsCreditCards?'○':'✕'}`);if(pay.acceptsNfc!=null)bits.push(`터치결제 ${pay.acceptsNfc?'○':'✕'}`);if(pay.acceptsCashOnly)bits.push('<b class="bad">현금만</b>')}
     const closed=p.status&&p.status!=='OPERATIONAL'?`<div class="warnBox">⚠ 구글 표시: ${p.status==='CLOSED_TEMPORARILY'?'임시 휴업':'폐업'} — 다른 곳을 고르세요.</div>`:'';
     const ph=p.photos[0];
-    const thImg=ph&&thumbEls.has(r.id)&&thumbEls.get(r.id).querySelector('img');   // the list photo already fetched for this shop: reuse it (one photo request, not two)
-    const photo=ph?`<a class="ph" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(thImg&&thImg.src?thImg.src:ph.getURI({maxHeight:400}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진${p.photos.length>1?` · ${p.photos.length}장 더 보기 ›`:''}</small></a>`:'';
+    const photo=ph?`<a class="ph" href="${esc(p.uri||gUrl(r))}" target="_blank" rel="noopener"><img src="${esc(ph.getURI({maxHeight:400}))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><small>${esc(((ph.authorAttributions||[])[0]||{}).displayName||'Google')} · Google 사진${p.photos.length>1?` · ${p.photos.length}장 더 보기 ›`:''}</small></a>`:'';
     if(photo&&$('#photos')&&!$('#photos [data-g]'))$('#photos').insertAdjacentHTML('afterbegin',photo.replace('class="ph"','class="ph" data-g'));
     const hrs=p.periods&&p.periods.length?`<p class="note">🕘 구글 영업시간 (최신)<br>${TRIP.map(t=>{const gh=gDayRanges(p,t.key);return `${t.label} · ${gh==null?'정보 없음':gh.length?esc(fmtRanges(gh)):'휴무'}`}).join('<br>')}</p>`:'';
     $('#gLive').innerHTML=closed+hrs+(bits.length?`<p class="note">💳 구글 결제 정보: ${bits.join(' · ')}</p>`:'');

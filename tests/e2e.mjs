@@ -990,6 +990,19 @@ console.log('11b. Google ratings failing (quota): no retry storm, the list says 
   await ctx.close();
 }
 
+{ // the shop page asks Google for its own full-size photo (sharp on 3x phones), not the small list thumbnail
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await ctx.addInitScript(() => {   // stand-in Places library (never reaches Google); photo URLs record the size asked for
+    class Place { constructor(o) { this.id = o.id; } async fetchFields() { this.rating = 4.2; this.userRatingCount = 10; this.photos = [{ authorAttributions: [{ displayName: 't' }], getURI: o => { (window.__uris = window.__uris || []).push(o); return 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='; } }]; } async isOpen() { return true; } }
+    window.google = { maps: { OverlayView: function () {}, importLibrary: async n => { if (n === 'places') return { Place }; throw new Error('no ' + n); } } };
+  });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+  await page.evaluate(() => { window.__ofm.S.gmFail = null; const r = window.__ofm.rows().find(x => x.r && x.r.placeId).r; window.__ofm.select(r.id); }); await page.waitForTimeout(800);
+  const asked = await page.evaluate(() => ({ uris: window.__uris || [], shown: !!document.querySelector('#photos [data-g] img') }));
+  check(asked.shown && asked.uris.some(o => o.maxHeight === 400), 'shop page photo is requested at full size (maxHeight 400)', JSON.stringify(asked));
+  await ctx.close();
+}
+
 console.log('12. Real Google Maps (best effort, never fails the suite)');
 {
   const { ctx, page, log } = await newPhone({ google: 'real' });
