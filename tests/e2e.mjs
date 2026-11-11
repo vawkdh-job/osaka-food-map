@@ -1029,6 +1029,23 @@ console.log('6p. Polish: Korean line breaking, pressed feedback, no doubled empt
   await ctx.close();
 }
 
+console.log('6q. Polish: larger score, my-location dot above every marker, 320 px selectors (A3-4, A3-5, A3-10)');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const a = await page.evaluate(() => { const rt = document.querySelector('#list .item .imeta .rt'), im = rt.closest('.imeta'), me = document.querySelector('.meWrap'), z = e => parseInt(getComputedStyle(e).zIndex) || 0;
+    const others = [...document.querySelectorAll('.mk:not(.meWrap)')].map(z); return { rt: getComputedStyle(rt).fontSize, imeta: Math.round(im.getBoundingClientRect().height), meZ: z(me), maxOther: Math.max(...others), dot: Math.round(document.querySelector('.meWrap .me').getBoundingClientRect().width) }; });
+  check(a.rt === '15px' && a.imeta <= 20 && a.meZ > a.maxOther && a.dot >= 22, 'score 15px without a taller line; the my-location dot (22px, ringed) is above every other marker', JSON.stringify(a));
+  await ctx.close();
+}
+{
+  const { ctx, page } = await newPhone({ device: devices['iPhone SE'], geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1200);
+  const m = await page.evaluate(() => ({ row: Math.round(document.querySelector('.headRow').getBoundingClientRect().height), gaps: ['#refMini', '#sortMini'].map(s => { const l = document.querySelector(s), t = l.querySelector('span').getBoundingClientRect(), c = getComputedStyle(l, '::after'); return Math.round(l.getBoundingClientRect().right - parseFloat(c.right) - 9 - t.right); }) }));
+  check(m.row <= 44 && m.gaps.every(g => g >= 2), '320 px: the 기준/정렬 selectors keep a gap before their caret, on one row', JSON.stringify(m));
+  await ctx.close();
+}
+
 console.log('7. Tile server failures');
 {
   const { ctx, page, log } = await newPhone({ tiles: { ofm: 'fail' } });

@@ -581,6 +581,14 @@ body{word-break:keep-all;overflow-wrap:anywhere}
 #list>.more{padding:16px;text-align:center;color:var(--muted);font-size:13.5px}
 /* calmer focus ring on the search box */
 .search:focus-visible{outline:0;box-shadow:var(--shadow-md),0 0 0 2px var(--brand)}
+/* readability: Tabelog score and the shop page's notes one step larger (row height unchanged) */
+.imeta .rt{font-size:15px;line-height:1}
+.note{font-size:14.5px}
+/* my-location dot: larger, white ring + blue outer ring, above every other marker (Friday's blue pins and circles hid it) */
+.me{width:22px;height:22px;border-width:3.5px;box-shadow:0 0 0 2px #1a73e8,0 2px 8px #0008}
+.mk.meWrap{z-index:9!important}
+/* 320 px: the 기준/정렬 selectors were squeezed so their text ran under the caret */
+@media (max-width:340px){.headRow{gap:4px}.headRow .mini{padding:0 21px 0 8px}.headRow .mini::after{right:8px}}
 </style>
 </head>
 <body>
