@@ -1067,6 +1067,42 @@ console.log('6r. Microcopy: 줄 chips, 마지막 주문, payment in words, 이�
   await ctx.close();
 }
 
+console.log('6s. 🗣 on the shop page, labelled menu button, menu order, hotel taxi card, hotel popup (A3-7, A3-8)');
+{
+  const { ctx, page, log } = await newPhone({ device: devices['iPhone SE'], clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(800);
+  const box = s => page.evaluate(s => { const e = document.querySelector(s), b = e.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), t: e.textContent.trim(), tag: e.tagName }; }, s);
+  // shop page: 🗣 after 🚕, opens the existing phrase card; reachable by keyboard
+  await page.evaluate(() => window.__ofm.select(window.__ofm.rows().find(x => x.r).r.id)); await page.waitForTimeout(500);
+  const ab = await page.evaluate(() => [...document.querySelectorAll('#detail .abar .ab')].map(e => e.id || e.textContent.trim()));
+  const pb = await box('#phraseBtn3');
+  await page.focus('#phraseBtn3'); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
+  const ph = await page.evaluate(() => !document.querySelector('#phrases').hidden && document.querySelectorAll('#phraseList .phr').length);
+  check(ab.indexOf('phraseBtn3') === ab.indexOf('taxiBtn') + 1 && pb.h >= 44 && pb.w >= 44 && ph > 5, 'shop page: 🗣 회화 카드 right after 🚕 택시 (≥44px, Enter opens the phrase card)', JSON.stringify({ pb, ph }));
+  await page.goBack(); await page.waitForTimeout(300); await page.evaluate(() => window.__ofm.closeDetail()); await page.waitForTimeout(200);
+  // ⋯ menu: labelled button; legend above the map settings; map list folded; hotel taxi card
+  const mb = await box('#menuBtn');
+  await page.locator('#menuBtn').click(); await page.waitForTimeout(300);
+  const m = await page.evaluate(() => { const hs = [...document.querySelectorAll('#menu h3')].map(h => h.textContent); const det = document.querySelector('#menu details.provDet'); return { hs, legendFirst: hs.findIndex(t => /표시 읽는 법/.test(t)) < hs.findIndex(t => t === '지도'), folded: !!det && !det.open && det.contains(document.querySelector('#providers')), sum: det && Math.round(det.querySelector('summary').getBoundingClientRect().height) }; });
+  check(mb.t === '메뉴' && mb.h >= 44 && m.legendFirst && m.folded && m.sum >= 44, 'menu button says “메뉴”; inside, 📖 표시 읽는 법 comes before the map settings and the map list folds under “지도 종류 바꾸기”', JSON.stringify({ mb, m }));
+  const tb = await box('#hotelTaxiBtn');
+  await page.focus('#hotelTaxiBtn'); await page.keyboard.press('Enter'); await page.waitForTimeout(400);
+  const tx = await page.evaluate(() => ({ open: !document.querySelector('#taxi').hidden, menu: !document.querySelector('#menu').hidden, name: document.querySelector('#taxiName').textContent, addr: document.querySelector('#taxiAddr').textContent }));
+  await page.goBack(); await page.waitForTimeout(400);
+  const back = await page.evaluate(() => [...document.querySelectorAll('.modal')].filter(m => !m.hidden).map(m => m.id));
+  check(tb.h >= 44 && tx.open && !tx.menu && /リーガロイヤル/.test(tx.name) && /中之島5-3-68/.test(tx.addr) && back.length === 0 && page.url().startsWith(URL0), '⋯ → 🚕 호텔 택시 카드 (keyboard): the hotel’s existing taxi card; Back closes it', JSON.stringify({ tb, tx, back }));
+  // ⌂ hotel popup: close button clear of the chips; its taxi card button
+  await page.evaluate(() => window.__ofm.setSheet('peek')); await page.waitForTimeout(300);
+  await page.locator('#hotelBtn').click(); await page.waitForTimeout(1500);
+  const pop = await page.evaluate(() => { const x = document.querySelector('.maplibregl-popup-close-button'), t = document.querySelector('[data-hoteltaxi]'), chips = document.querySelector('#chips').getBoundingClientRect().bottom;
+    if (!x || !t) return null; const xb = x.getBoundingClientRect(), tb = t.getBoundingClientRect(), hit = document.elementFromPoint(xb.left + xb.width / 2, xb.top + xb.height / 2); return { xTop: Math.round(xb.top), chips: Math.round(chips), xFree: x.contains(hit), tH: Math.round(tb.height) }; });
+  check(pop && pop.xTop > pop.chips && pop.xFree && pop.tH >= 44, '⌂ hotel popup: its close button is below the chip row and tappable; 🚕 호텔 택시 카드 button ≥44px', JSON.stringify(pop));
+  await page.locator('[data-hoteltaxi]').click(); await page.waitForTimeout(400);
+  check(await page.evaluate(() => !document.querySelector('#taxi').hidden && /リーガロイヤル/.test(document.querySelector('#taxiName').textContent)), '… which opens the same hotel taxi card');
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('7. Tile server failures');
 {
   const { ctx, page, log } = await newPhone({ tiles: { ofm: 'fail' } });
