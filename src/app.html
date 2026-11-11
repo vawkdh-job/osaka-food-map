@@ -865,11 +865,13 @@ let mapSlowShown=false;
 setTimeout(()=>{if(!mapReady&&$('#mapStatus').hidden&&navigator.onLine!==false){mapSlowShown=true;showMapStatus('지도를 불러오는 중이에요. 신호가 약하면 조금 걸려요 · 목록과 길찾기는 바로 쓸 수 있어요.')}},5000);
 function showMapStatus(t){$('#mapStatusText').textContent=t;$('#mapStatus').hidden=false}
 function hideMapStatus(){$('#mapStatus').hidden=true}
-window.addEventListener('online',()=>{hideMapStatus();
+let offTimer=0;
+window.addEventListener('online',()=>{clearTimeout(offTimer);hideMapStatus();
   if(S.gmFail&&['offline','load','timeout'].includes(S.gmFail)&&LS.get(PROV_KEY,DEFAULT_PROVIDER)==='google'){S.gmFail=null;tried=new Set();setProvider('google',true);return}   // back online: try Google again (once per reconnection)
   if(!map||tileStats.ok===0)retryTiles();else map.triggerRepaint()});
 window.addEventListener('offline',()=>{
-  if(engine==='gm'&&LS.get('ofm.precached',null)){googleFailed('offline');return}   // Google cannot be saved: switch to the pre-saved backup map
+  // Google cannot be saved: switch to the pre-saved backup map — but only if still offline 4 s later (a lift or a tunnel drops the signal for a moment)
+  if(engine==='gm'&&LS.get('ofm.precached',null)){clearTimeout(offTimer);offTimer=setTimeout(()=>{if(navigator.onLine===false&&engine==='gm')googleFailed('offline')},4000);return}
   toast('오프라인이에요. 미리 저장했거나 이미 본 지도만 보입니다.')});
 $('#retryBtn').onclick=retryTiles;
 

@@ -968,6 +968,8 @@ console.log('10b. Offline at start, back online, corrupted storage, pre-save are
   check(st.e === 'ml' && st.why === 'offline' && ms < 4000 && gm === 0 && /인터넷이 끊겨/.test(st.toast), 'offline at start: backup map right away (no 12–15 s wait for Google)', JSON.stringify({ ms, gm, ...st }));
   await page.evaluate(() => { window.__on = true; window.dispatchEvent(new Event('online')); }); await page.waitForTimeout(600);
   check(gm === 1 && await page.evaluate(() => window.__ofm.gmFail()) == null, 'back online: Google map is tried again', JSON.stringify({ gm }));
+  await page.evaluate(() => { window.__on = false; window.dispatchEvent(new Event('offline')); window.__on = true; window.dispatchEvent(new Event('online')); }); await page.waitForTimeout(600);   // a blip while Google is (re)loading
+  check(gm === 1, 'a second online event while Google is already being used does not start another Google load', JSON.stringify({ gm }));
   check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
   await ctx.close();
 }
