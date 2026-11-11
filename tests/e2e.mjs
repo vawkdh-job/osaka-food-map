@@ -916,6 +916,28 @@ console.log('9. Service worker: app opens with no connection');
   await ctx.close();
 }
 
+console.log('9b. New version while a shop page is open: reload waits until the page is hidden');
+{
+  const { ctx, page, log } = await newPhone({ sw: true, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0);
+  await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 10000 }).catch(() => {});
+  await page.reload(); await ready(page); await page.waitForTimeout(500);
+  await page.evaluate(() => { window.__marker = 1; window.__ofm.select(window.__ofm.rows().find(x => x.r).r.id); navigator.serviceWorker.addEventListener('controllerchange', () => { window.__cc = 1; }); });
+  // a new version is deployed: a service worker under a new script URL takes over (skipWaiting + clients.claim → controllerchange)
+  await page.evaluate(() => navigator.serviceWorker.register('sw.js?e2e-next').catch(e => { window.__regErr = String(e); }));
+  await page.waitForFunction(() => window.__cc, null, { timeout: 15000 }).catch(() => {});
+  await page.waitForTimeout(1500);
+  const a = await page.evaluate(() => ({ cc: !!window.__cc, marker: window.__marker || null, view: window.__ofm.S.view }));
+  check(a.cc && a.marker === 1 && a.view === 'detail', 'new version installed while a shop page is open: no reload, the page stays', JSON.stringify(a));
+  const nav = page.waitForEvent('load', { timeout: 10000 }).then(() => true).catch(() => false);
+  await page.evaluate(() => { Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' }); document.dispatchEvent(new Event('visibilitychange')); });   // the user switches apps (headless pages cannot really be hidden)
+  const reloaded = await nav; await ready(page);
+  const b = await page.evaluate(() => ({ marker: window.__marker || null, ready: !!(window.__ofm && window.__ofm.ready()) }));
+  check(reloaded && b.marker === null && b.ready, 'once the page is hidden it reloads into the new version', JSON.stringify({ reloaded, ...b }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('10. Saved map works with no connection (service worker)');
 {
   const { ctx, page } = await newPhone({ sw: true });

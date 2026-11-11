@@ -2179,8 +2179,10 @@ $('#day').addEventListener('change',()=>{S.dayTouched=true});
 (async()=>{try{const p=navigator.permissions&&await navigator.permissions.query({name:'geolocation'});if(p&&p.state==='granted'){startLocate();return}}catch(e){}
   if(LS.get('ofm.locOn',false))startLocate();else setTimeout(()=>{if(!$('#toast').classList.contains('show'))toast('오른쪽 아래 ◎ 위치 버튼을 누르면 내 주변 맛집을 평점순으로 보여 줘요.',5000)},900)})();
 if('serviceWorker' in navigator&&window.isSecureContext&&location.protocol!=='file:'){
-  const hadCtrl=!!navigator.serviceWorker.controller;let reloaded=false;
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}}); // new version → reload once
+  const hadCtrl=!!navigator.serviceWorker.controller;let newVersion=false;
+  const reloadIfHidden=()=>{if(newVersion&&document.visibilityState==='hidden')location.reload()}; // reload only while nobody is looking, so an open shop page is never thrown away
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl){newVersion=true;reloadIfHidden()}}); // new version → reload once the page is hidden
+  document.addEventListener('visibilitychange',reloadIfHidden);
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
 window.__ofm={SHOPS,enterShop,exitShop,selectShop,shopRows,tripShopIds,PLACES,placeHits,setPlace,clearPlace,primaryCat,sheetState:()=>sheetState,TRIP_DATA,tripNow,tripPlace,tripAlts,enterTrip,exitTrip,openTripStop,tripGfx:()=>tripGfx,tripSwap,thumbEls,thumbUsed:()=>thumbUsed,inScope,nearRef,gCache,gRating,G_BATCH,CATS,catsOf,allCats,CAT_TOP,CAT_MAX,ALL_SHOPS,shownCount,setShowAll,isTop,visible,engine:()=>engine,gmFail:()=>S.gmFail,toasts,tiles:()=>tileStats,glStyle:()=>map&&map.getStyle(),map:()=>map,ready:()=>mapReady,S,rows:()=>rows,markers,fav,me:()=>me,status,setSheet,select,closeDetail,tileUrls,PROVIDERS,provider:()=>S.provider,sheetPx:()=>sheetPx,refresh,minuteTick};
