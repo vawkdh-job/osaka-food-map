@@ -758,17 +758,23 @@ function gDayRanges(p,day){const P=p&&p.periods;if(!P||!P.length)return null;
 function status(r,day){
   let h=r.hours[day],src='';const live=isLive()&&day===S.day,now=live?jstNow().min:0;
   if(h==null){const gh=gDayRanges(gLive(r),day);if(gh){h=gh;src=' (구글)'}}
-  const openSt=(B,b)=>B-now<=45?{kind:'closing',text:`곧 마감 · ${untilT(b)}까지`}:{kind:'open',text:`영업 중 · ${untilT(b)}까지`};
-  if(live){const prev=PREV_DAY[day]&&r.hours[PREV_DAY[day]];   // still open from last night (Fri 18:00–28:00 at Sat 00:30)
-    if(prev)for(const[,b]of prev){const B=toMin(b)-1440;if(B>0&&now<B)return openSt(B,b)}}
+  /* B: closing minute, L/lt: last order (same clock as now) — between last order and closing the shop is open but takes no orders:
+     kind 'closing' + noOrder (영업 중만 and the alternatives leave these out, the pin is drawn like a closed one) */
+  const openSt=(B,b,L,lt)=>L==null||L>=B?(B-now<=45?{kind:'closing',text:`곧 마감 · ${untilT(b)}까지`}:{kind:'open',text:`영업 중 · ${untilT(b)}까지`})
+    :now>=L?{kind:'closing',noOrder:true,text:`주문 마감 · ${untilT(b)}까지 영업`}
+    :L-now<=45?{kind:'closing',text:`곧 마감 · 마지막 주문 ${untilT(lt)}`}:{kind:'open',text:`영업 중 · 마지막 주문 ${untilT(lt)}`};
+  if(live){const pd=PREV_DAY[day],prev=pd&&r.hours[pd];   // still open from last night (Fri 18:00–28:00 at Sat 00:30)
+    if(prev)for(let i=0;i<prev.length;i++){const b=prev[i][1],B=toMin(b)-1440,lt=loOf(r,pd,i);if(B>0&&now<B)return openSt(B,b,lt?toMin(lt)-1440:null,lt)}}
   if(h==null)return{kind:'unknown',text:'영업시간 확인 필요'};
   const S2=o=>(o.text+=src,o);
   if(!h.length)return S2({kind:'closed',text:`${DAYNAME[day]}요일 휴무`});
   if(!live)return S2({kind:'hours',text:`${DAYNAME[day]} ${fmtRanges(h)}`});
-  for(const[a,b]of h){const A=toMin(a),B=toMin(b);if(now>=A&&now<B)return S2(openSt(B,b))}
+  for(let i=0;i<h.length;i++){const[a,b]=h[i],A=toMin(a),B=toMin(b),lt=src?null:loOf(r,day,i);if(now>=A&&now<B)return S2(openSt(B,b,lt?toMin(lt):null,lt))}
   const next=h.find(([a])=>toMin(a)>now);
   return S2(next?{kind:'later',text:`${next[0]} 오픈`}:{kind:'done',text:'오늘 영업 종료'});
 }
+const loOf=(r,day,i)=>{const L=r.lo&&r.lo[day];return Array.isArray(L)&&L[i]||null};   // last order of range i (aligned with hours[day])
+const noWalkIn=st=>!!st.noOrder;   // open, but no new orders: not "영업 중" for 영업 중만 and alternatives
 const closedOn=r=>TRIP.filter(t=>Array.isArray(r.hours[t.key])&&!r.hours[t.key].length).map(t=>DAYNAME[t.key]);
 
 /* ================= geometry ================= */
@@ -1018,7 +1024,7 @@ const useG=()=>false;
 const fmtT=v=>v==null?'–':v.toFixed(2), fmtG=v=>v==null?'–':v.toFixed(1);
 const score=r=>(useG()?r.google:r.tabelog)??0;
 function pinHtml(r){
-  const g=useG(),v=g?r.google:r.tabelog,st=status(r,S.day),dim=st.kind==='closed'||st.kind==='done';
+  const g=useG(),v=g?r.google:r.tabelog,st=status(r,S.day),dim=st.kind==='closed'||st.kind==='done'||noWalkIn(st);
   return `<div class="pin ${g?tierG(v):tierT(v)}${dim?' closed':''}${fav.has(r.id)?' fav':''}${S.selected===r.id?' sel':''}"><span class="pe">${r.emoji}</span>${v!=null?`<b>${fmtT(v)}</b>`:''}${isHyaku(r)?'<u>百</u>':''}${st.kind==='closed'?'<i>휴</i>':''}${tripShopIds().has(r.id)?`<em class="tripB" style="--c:${tripShopIds().get(r.id)}" title="일정에 있는 곳">🧳</em>`:''}</div>`;
 }
 const markers=new Map(); // id → {el,m,r}
@@ -1216,7 +1222,7 @@ function passes(r,ignore){
   if(S.genre!=='all'&&ignore!=='genre'&&!matchPick(r,S.genre))return false;
   if(f.region!=='all'&&r.region!==f.region)return false;
   if(!fPass(r))return false;
-  if(S.openOnly){const k=status(r,S.day).kind;if(isLive()?!(k==='open'||k==='closing'||k==='unknown'):k==='closed')return false}
+  if(S.openOnly){const st=status(r,S.day),k=st.kind;if(isLive()?!(k==='open'||k==='closing'||k==='unknown')||noWalkIn(st):k==='closed')return false}
   if(S.q){const hay=hayOf(r);if(!qTokens().every(t=>t.some(v=>hay.includes(v))))return false}
   return true;
 }
@@ -1260,7 +1266,7 @@ function tripPlace(s){const sw=tripSwap[s.id]&&DATA.find(r=>r.id===tripSwap[s.id
 function tripNow(){const n=jstNow(),day=TRIP_DATA.days.find(d=>d.date===n.date);if(!day)return null;const m=n.min,st=day.stops;let cur=null,next=null;
   for(let i=0;i<st.length;i++){const a=tm(st[i].time);if(a<=m&&(i+1>=st.length||m<tm(st[i+1].time)))cur=st[i];if(a>m){next=st[i];break}}
   return{day,cur,next,mins:next?tm(next.time)-m:null}}
-function openAt(r,day,m){const h=r.hours&&r.hours[day];if(h==null)return null;return h.some(([a,b])=>toMin(a)<=m&&m<toMin(b)-30)}
+function openAt(r,day,m){const h=r.hours&&r.hours[day];if(h==null)return null;return h.some(([a,b],i)=>{const lt=loOf(r,day,i);return toMin(a)<=m&&m<(lt?toMin(lt):toMin(b)-30)})}   // arrive before the last order
 function tripAlts(s,day){const a=tm(s.time),cats=s.meal.cats;
   const near=DATA.filter(r=>r.lat!=null&&allCats(r).some(c=>cats.includes(c))&&!(s.placeId&&r.placeId===s.placeId)).map(r=>({r,d:km(s,r)})).filter(x=>walkMin(x.d)<=12)
     .map(x=>({...x,o:openAt(x.r,day.key,a)})).filter(x=>x.o!==false);
@@ -1654,7 +1660,7 @@ const primaryCat=r=>{const ac=allCats(r);if(ac.length<2)return ac[0]||null;const
 function alternatives(r){
   const day=S.day,live=isLive(),pc=primaryCat(r);
   const near=DATA.filter(x=>x.id!==r.id&&x.lat!=null).map(x=>({r:x,d:km(r,x)})).filter(x=>x.d<=1.0).filter(x=>{
-    const k=status(x.r,day).kind;return live?(k==='open'||k==='closing'||k==='unknown'):k!=='closed'});
+    const st=status(x.r,day),k=st.kind;return live?(k==='open'||k==='closing'||k==='unknown')&&!noWalkIn(st):k!=='closed'});
   let cand=near.filter(x=>fPass(x.r)),relaxed=false;
   if(cand.length<2&&filterCount()){cand=near;relaxed=true}
   const rank=(a,b)=>(status(a.r,day).kind==='unknown')-(status(b.r,day).kind==='unknown')||waitOf(a.r).k-waitOf(b.r).k||(b.r.tabelog??0)-(a.r.tabelog??0);

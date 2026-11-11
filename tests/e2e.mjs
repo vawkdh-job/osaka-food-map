@@ -455,6 +455,30 @@ console.log('6-day. A tab left open overnight switches back to today');
   await ctx.close();
 }
 
+console.log('6-lo. Last orders (A2-1)');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T21:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(400);
+  const at = async (t, id, extra) => { await page.clock.setFixedTime(new Date(t)); await page.waitForTimeout(1100); return page.evaluate(([id, extra]) => { const O = window.__ofm, r = APP_DATA.restaurants.find(x => x.id === id); O.S.day = O.S.day; const st = O.status(r, O.S.day);
+    const out = { kind: st.kind, text: st.text };
+    if (extra) { O.S.openOnly = true; O.refresh(); out.inOpenOnly = O.rows().some(x => x.r && x.r.id === id); O.S.openOnly = false; O.refresh();
+      const p = O.markers.get(id); out.pinDim = p && p.on ? p.el.querySelector('.pin').classList.contains('closed') : null; }
+    return out; }, [id, extra]); };
+  // id 11: Fri 16:00–23:00, last order 22:30
+  const a = await at('2026-11-13T21:30:00+09:00', 11), b = await at('2026-11-13T21:50:00+09:00', 11), c = await at('2026-11-13T22:40:00+09:00', 11, true);
+  check(a.kind === 'open' && a.text === '영업 중 · 마지막 주문 22:30' && b.kind === 'closing' && b.text === '곧 마감 · 마지막 주문 22:30', 'before last order: “영업 중 · 마지막 주문 22:30”, 곧 마감 from 45 min before it', JSON.stringify([a, b]));
+  await page.evaluate(() => { const r = APP_DATA.restaurants.find(x => x.id === 11); window.__ofm.map().jumpTo({ center: [r.lon, r.lat], zoom: 17 }); }); await page.waitForTimeout(900);
+  c.pinDim = await page.evaluate(() => { const p = window.__ofm.markers.get(11); return p && p.on ? p.el.querySelector('.pin').classList.contains('closed') : null; });
+  check(c.kind === 'closing' && c.text === '주문 마감 · 23:00까지 영업' && c.inOpenOnly === false && c.pinDim === true, 'between last order and closing: “주문 마감 · 23:00까지 영업”, not in 영업 중만, pin drawn like a closed one', JSON.stringify(c));
+  const noLo = await page.evaluate(() => { const O = window.__ofm, r = APP_DATA.restaurants.find(x => !x.lo && Array.isArray(x.hours.fri) && x.hours.fri.some(([a, b]) => a <= '22:00' && b >= '23:30')); return { id: r.id, st: O.status(r, 'fri') }; });
+  check(noLo.st.kind === 'open' && /까지$/.test(noLo.st.text) && !/주문/.test(noLo.st.text), 'no last order in the data: unchanged wording', JSON.stringify(noLo));
+  await page.evaluate(() => { window.__ofm.S.day = 'sat'; });
+  const d = await at('2026-11-14T03:00:00+09:00', 132), e = await at('2026-11-14T04:30:00+09:00', 132);   // id 132: Fri 17:00–29:00, last order 28:00
+  check(d.kind === 'open' && /마지막 주문 새벽 4:00/.test(d.text) && e.kind === 'closing' && /주문 마감 · 새벽 5:00까지 영업/.test(e.text), 'past midnight (Fri 17:00–29:00 seen on Sat): the last order 28:00 counts too', JSON.stringify([d, e]));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6a. “영업 중만” chip: on screen without scrolling, and remembered on the phone');
 for (const dev of [devices['iPhone 13'], devices['iPhone SE']]) {
   const { ctx, page, log } = await newPhone({ device: dev, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
