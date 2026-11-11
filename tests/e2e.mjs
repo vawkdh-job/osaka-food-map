@@ -732,6 +732,30 @@ console.log('6g3. ◎ makes “내 위치” the reference again');
   await ctx.close();
 }
 
+console.log('6g4. “조건 N개 · 모두 지우기” line on top of a narrowed list');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const line = () => page.evaluate(() => { const c = document.querySelector('#list .conds'), b = c && c.querySelector('button').getBoundingClientRect(); return c ? { text: c.innerText.replace(/\s+/g, ' '), first: document.querySelector('#list').firstElementChild === c, h: b.height, w: b.width, vis: b.bottom <= innerHeight && b.top >= document.querySelector('#sheet').getBoundingClientRect().top } : null; });
+  const none = await line();
+  const sort0 = await page.evaluate(() => window.__ofm.S.sort);
+  await page.locator('#openChip').click(); await page.waitForTimeout(200);
+  await page.evaluate(() => { window.__ofm.S.f.card = true; window.__ofm.refresh(); });
+  await page.locator('#catBar [data-cat="c-noodle"]').click(); await page.waitForTimeout(300);
+  await page.evaluate(() => window.__ofm.setPlace(window.__ofm.placeHits('도톤보리')[0])); await page.waitForTimeout(500);
+  await page.locator('#catBar [data-cat="c-noodle"]').click(); await page.waitForTimeout(300);   // setPlace reset the food type: pick it again
+  await page.locator('#q').fill('라멘'); await page.waitForTimeout(400);
+  await page.evaluate(() => window.__ofm.setSheet('half')); await page.waitForTimeout(400);
+  const on = await line();
+  await page.locator('#sort').selectOption('distance'); await page.waitForTimeout(300);
+  await page.locator('#condsOff').click(); await page.waitForTimeout(500);
+  const after = await page.evaluate(() => { const S = window.__ofm.S; return { q: S.q, box: document.querySelector('#q').value, card: S.f.card, open: S.openOnly, genre: S.genre, ref: S.ref, place: S.place, sort: S.sort, mode: S.mode, line: !!document.querySelector('#list .conds'), pin: !!document.querySelector('.placePin') }; });
+  check(none === null && on && on.first && /조건 5개/.test(on.text) && on.h >= 44 && on.vis, 'with search, card filter, 영업 중만, food type and a picked place: “조건 5개 · 모두 지우기” tops the list (half sheet)', JSON.stringify({ none, on }));
+  check(after.q === '' && after.box === '' && !after.card && !after.open && after.genre === 'all' && after.ref === 'me' && !after.place && !after.pin && after.sort === 'distance' && after.mode === 'shops' && !after.line, '“모두 지우기” clears them all, keeps the sort and the mode', JSON.stringify({ sort0, after }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6h. Map marker kinds and the 🛍 shopping view');
 {
   const { ctx, page, log } = await newPhone({ clock: '2026-11-13T15:00:00+09:00', tz: 'Asia/Tokyo' });

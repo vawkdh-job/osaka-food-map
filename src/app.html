@@ -554,7 +554,8 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 .qClear[hidden]{display:none}
 /* food map: restaurant pins and groups (.rp) win taps over the itinerary circles and shop squares they overlap */
 .mk.rp{z-index:3}.itm{z-index:2}
-button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps */.searchRow.hasQ .search{padding-right:100px}
+button,a,.chip{touch-action:manipulation}
+.conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}   /* no double-tap zoom delay on taps */.searchRow.hasQ .search{padding-right:100px}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
 </style>
 </head>
@@ -1580,14 +1581,18 @@ function renderList(){
   if(S.q&&S.genre!=='all')hint=`<p class="hint">‘${esc(gname)}’ 안에서 검색 중 · <button class="linkBtn" id="qGenreOff">전체에서 찾기</button></p>`+hint;
   const c=refPoint(),gq=gp;
   const gLink=gq?`<a class="gmore" href="${esc(gNearUrl(gq.q||gq.label.split('·')[0],c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ${refName()} 근처 ${esc(gq.label)} 더 찾기</a>`:'';
+  // one compact line whenever something narrows the list: search, filters, 영업 중만, food type / menu, picked place
+  const nc=(S.q?1:0)+filterCount()+(S.openOnly?1:0)+(S.genre!=='all'?1:0)+(S.ref==='place'&&S.place?1:0);
+  const conds=nc?`<div class="conds"><span>조건 <b>${nc}개</b></span>·<button class="linkBtn" id="condsOff">모두 지우기</button></div>`:'';
   const body=$('#sheetBody'),keep=body.scrollTop;
   // render the first rows now and the rest as the list is scrolled (keeps filter taps fast on slower phones)
   const chunk=x=>x.divider?`<div class="divider">${esc(x.divider)}</div>`:itemHtml(x);
   listMore=rows.slice(LIST_STEP);listTail=expand+gLink+'<button class="linkBtn legendLink" data-legend="1">📖 ★ 점수 · 百名店 · 6인 OK 읽는 법</button>';
-  $('#list').innerHTML=n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
+  $('#list').innerHTML=conds+(n?hint+rows.slice(0,LIST_STEP).map(chunk).join('')+(listMore.length?'<div class="more" id="listMore">더 불러오는 중…</div>':listTail)
     :S.q&&placeHtml?hint+`<p class="note">이름이 ‘${esc(S.q)}’인 가게는 없어요. 위 장소를 고르면 그 근처 맛집을 보여 줘요.</p>`
     :S.q?`<p class="empty">‘${esc(S.q)}’ 검색 결과가 없어요.</p>${hint.includes('qGenreOff')?hint:''}<button class="btn wide" id="clearQ">검색어 지우기</button><p class="note">목록에 없는 장소라면: 지도를 그곳으로 옮긴 뒤 위의 기준을 ‘✛ 지도 중심 기준’으로 바꾸면 그 근처 맛집을 보여 줘요.</p><a class="gmore" href="${esc(gNearUrl(S.q,c))}" target="_blank" rel="noopener">🔎 구글 지도에서 ‘${esc(S.q)}’ 찾기</a>`
-    :`<p class="empty">조건에 맞는 식당이 없어요.${filterCount()||S.openOnly?' 켜 둔 조건: '+esc(activeFilterNames().join(', '))+'.':''}</p>${expand}${filterCount()||S.openOnly?'<button class="btn wide" id="clearFilters">조건 모두 끄기</button>':''}${gLink}`;
+    :`<p class="empty">조건에 맞는 식당이 없어요.${filterCount()||S.openOnly?' 켜 둔 조건: '+esc(activeFilterNames().join(', '))+'.':''}</p>${expand}${filterCount()||S.openOnly?'<button class="btn wide" id="clearFilters">조건 모두 끄기</button>':''}${gLink}`);
+  const co=$('#condsOff');if(co)co.onclick=e=>{e.stopPropagation();clearConds()};
   const cf=$('#clearFilters');if(cf)cf.onclick=resetFilters;
   const cq=$('#clearQ');if(cq)cq.onclick=()=>{S.q='';$('#q').value='';refresh()};
   const qg=$('#qGenreOff');if(qg)qg.onclick=e=>{e.stopPropagation();setGenre('all')};
@@ -2044,6 +2049,9 @@ $('#filterBody').addEventListener('click',e=>{const b=e.target.closest('button')
   else if(b.dataset.region)f.region=b.dataset.region;
   refresh();renderFilters()});
 $('#filterBody').addEventListener('change',e=>{const i=e.target.closest('[data-f]');if(!i)return;S.f[i.dataset.f]=i.checked;refresh();renderFilters()});
+/* "모두 지우기": search, filters, 영업 중만, food type/menu and the picked place — not the sort, not the mode */
+function clearConds(){const hadPlace=!!S.place;S.q='';$('#q').value='';S.f=defaultFilters();setOpenOnly(false);S.genre='all';
+  if(hadPlace){S.place=null;if(S.ref==='place')S.ref=me?'me':'hotel';syncPlaceOpt()}refresh();$('#sheetBody').scrollTop=0;if(hadPlace)fitNearOrAll()}
 function resetFilters(){S.f=defaultFilters();S.genre='all';S.list='all';setOpenOnly(false);refresh();if(!$('#filters').hidden)renderFilters()}
 $('#filterReset').onclick=resetFilters;
 $('#filterApply').onclick=()=>{closeModal('#filters');if(!isDesktop()&&sheetState==='peek')setSheet('half');fitNearOrAll()};
