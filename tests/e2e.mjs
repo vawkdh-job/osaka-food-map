@@ -395,6 +395,29 @@ console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
   await ctx.close();
 }
 
+console.log('6-day. A tab left open overnight switches back to today');
+{
+  const { ctx, page, log } = await newPhone({ clock: '2026-11-13T21:30:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(500);
+  await page.selectOption('#day', 'sun'); await page.waitForTimeout(300);
+  const s0 = await page.evaluate(() => ({ day: window.__ofm.S.day, touched: window.__ofm.S.dayTouched }));
+  await page.clock.setFixedTime(new Date('2026-11-14T12:30:00+09:00'));   // the same tab, next day
+  await page.evaluate(() => window.__ofm.minuteTick()); await page.waitForTimeout(300);
+  const s1 = await page.evaluate(() => ({ day: window.__ofm.S.day, touched: !!window.__ofm.S.dayTouched, opts: [...document.querySelectorAll('#day option')].map(o => o.textContent), chip: document.querySelector('#dayText').textContent, toast: window.__ofm.toasts.slice(-1)[0], tl: document.querySelector('#tripLine').textContent }));
+  check(s0.day === 'sun' && s1.day === 'sat' && !s1.touched && /토 11\/14 \(오늘\)/.test(s1.chip) && s1.opts.filter(o => /오늘/.test(o)).length === 1 && s1.toast === '오늘(토) 기준으로 바꿨어요', 'next morning (minute tick): a hand-picked day goes back to today, “(오늘)” moves, toast', JSON.stringify({ s0, s1 }));
+  await page.selectOption('#day', 'fri'); await page.waitForTimeout(300);
+  const tl0 = await page.evaluate(() => document.querySelector('#tripLine').textContent);
+  await page.clock.setFixedTime(new Date('2026-11-14T12:40:00+09:00'));
+  await page.evaluate(() => window.__ofm.minuteTick()); await page.waitForTimeout(200);
+  const tl1 = await page.evaluate(() => ({ t: document.querySelector('#tripLine').textContent, day: window.__ofm.S.day }));
+  check(tl1.day === 'fri' && tl0 !== tl1.t, 'same day, another day picked: the 🧳 next-stop line still counts down', JSON.stringify({ tl0, tl1 }));
+  await page.clock.setFixedTime(new Date('2026-11-15T09:00:00+09:00'));
+  await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange'))); await page.waitForTimeout(300);
+  check(await page.evaluate(() => window.__ofm.S.day) === 'sun', 'tab brought back to the front on Sunday → Sunday');
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6a. “영업 중만” chip: on screen without scrolling, and remembered on the phone');
 for (const dev of [devices['iPhone 13'], devices['iPhone SE']]) {
   const { ctx, page, log } = await newPhone({ device: dev, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });

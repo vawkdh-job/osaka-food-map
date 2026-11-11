@@ -2141,8 +2141,14 @@ setSheet('peek');
 refresh();
 precacheInfo();
 $('#buildInfo').textContent=`버전 ${APP_BUILD} · 지도: Google Maps / MapLibre ${window.maplibregl?(maplibregl.getVersion?maplibregl.getVersion():''):'(불러오지 못함)'}`;
-function minuteTick(){const k=todayKey();let dayChanged=false;if(k&&S.day!==k&&!S.dayTouched){S.day=k;dayChanged=true}if(isLive())refresh({markers:true,soft:!dayChanged})}
+/* a tab left open overnight: when the Japan date changes, go back to today (even if a day was picked by hand) */
+let lastDate=jstNow().date;
+function checkDate(){const d=jstNow().date;if(d===lastDate)return false;lastDate=d;fillSelects();S.dayTouched=false;const k=todayKey();
+  if(k&&S.day!==k){S.day=k;refresh();toast(`오늘(${DAYNAME[k]}) 기준으로 바꿨어요`,3500)}else refresh();return true}
+function minuteTick(){if(!checkDate()){const k=todayKey();let dayChanged=false;if(k&&S.day!==k&&!S.dayTouched){S.day=k;dayChanged=true}if(isLive())refresh({markers:true,soft:!dayChanged})}renderTripLine()}
 setInterval(minuteTick,60000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&checkDate())renderTripLine()});
+window.addEventListener('pageshow',()=>{if(checkDate())renderTripLine()});
 $('#day').addEventListener('change',()=>{S.dayTouched=true});
 // resume location automatically if the user already granted it
 (async()=>{try{const p=navigator.permissions&&await navigator.permissions.query({name:'geolocation'});if(p&&p.state==='granted'){startLocate();return}}catch(e){}
