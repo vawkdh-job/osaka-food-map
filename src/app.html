@@ -551,11 +551,11 @@ table.info td:first-child{width:112px;white-space:nowrap;font-weight:700;color:v
 @media (max-width:899px) and (orientation:portrait), (max-width:899px) and (min-height:501px){.handle{display:block}}
 /* ✕ clears the search (the native cancel button is hidden above) */
 .qClear{position:absolute;right:49px;top:3px;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:17px;font-weight:700;display:grid;place-items:center}
-.qClear[hidden]{display:none}
+.qClear[hidden]{display:none}.searchRow.hasQ .search{padding-right:100px}
 /* food map: restaurant pins and groups (.rp) win taps over the itinerary circles and shop squares they overlap */
 .mk.rp{z-index:3}.itm{z-index:2}
-button,a,.chip{touch-action:manipulation}
-.conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}   /* no double-tap zoom delay on taps */.searchRow.hasQ .search{padding-right:100px}
+button,a,.chip{touch-action:manipulation}   /* no double-tap zoom delay on taps */
+.conds{display:flex;align-items:center;gap:6px;margin:0 16px 2px;font-size:13.5px;color:var(--ink2)}.conds b{font-weight:800}
 @media (orientation:landscape) and (max-height:500px){.qClear{top:0;right:44px}}
 </style>
 </head>
