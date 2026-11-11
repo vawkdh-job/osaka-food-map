@@ -402,6 +402,23 @@ console.log('5b. Sheet: the grab handle is a real tap target, and the list opens
   await ctx.close();
 }
 
+console.log('5c. Poor location fixes (> 500 m): warn, keep the previous position, never open the sheet (A2-6)');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 800 }, clock: '2026-11-13T17:40:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const st = () => page.evaluate(() => ({ ref: window.__ofm.S.ref, sheet: window.__ofm.sheetState(), me: window.__ofm.me() && [window.__ofm.me().lat, window.__ofm.me().acc], hint: [...document.querySelectorAll('#list .hint')].map(e => e.textContent).join(' | ').slice(0, 60) }));
+  const a = await st();
+  check(a.ref === 'me' && a.sheet === 'peek' && /위치 부정확\(약 800m\)/.test(a.hint), 'first fix with 800 m accuracy: used, the list says “위치 부정확(약 800m)”, the sheet is not opened', JSON.stringify(a));
+  await ctx.setGeolocation({ latitude: 34.6690, longitude: 135.5015, accuracy: 20 }); await page.waitForTimeout(1500);
+  const b = await st();
+  check(b.sheet === 'half' && b.me[1] === 20 && !/부정확/.test(b.hint), 'then a good fix: the list opens and the warning goes', JSON.stringify(b));
+  await ctx.setGeolocation({ latitude: 34.7025, longitude: 135.4959, accuracy: 1200 }); await page.waitForTimeout(1500);   // a 1.2 km-wide fix in Umeda, 4 km away
+  const c = await st();
+  check(c.me[0] === b.me[0] && c.me[1] === 20, 'a later fix worse than 500 m is ignored: the previous position stays the reference', JSON.stringify(c));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6. Sunday 11/15 12:00 in Japan (live opening hours)');
 {
   const { ctx, page } = await newPhone({ clock: '2026-11-15T12:00:00+09:00' });

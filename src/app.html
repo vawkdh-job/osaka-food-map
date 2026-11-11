@@ -1587,6 +1587,7 @@ function renderList(){
     hint=nn?`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안 ${gname?esc(gname)+' ':''}<b>${nn}곳</b> · 평점 높은 순</p>`
       :`<p class="hint soft">${refName()}에서 도보 ${NEAR_MIN}분 안에는 ${gname?esc(gname)+'이(가) ':''}없어요 · 가까운 순</p>`}
   if(S.ref==='me'&&!me)hint=`<p class="hint">📍 위치를 찾는 중이에요. 그동안은 호텔 기준으로 보여 줘요.</p>`+hint;
+  else if(S.ref==='me'&&me.acc>POOR_ACC)hint=`<p class="hint">📍 위치 부정확(약 ${Math.round(me.acc)}m) · 지상으로 나오면 정확해져요</p>`+hint;
   renderTripLine();
   if(S.sort==='google'&&(!GMAPS_KEY||S.gmFail))hint=`<p class="hint">구글에 연결되지 않아 구글 평점을 불러올 수 없어요. 타베로그순을 써 주세요.</p>`+hint;
   else if(S.sort==='google'){const known=rows.filter(x=>x.r&&gRating(x.r)!=null).length,more=rows.filter(x=>x.r&&gRating(x.r)==null&&x.r.placeId).length;
@@ -1942,12 +1943,15 @@ function startLocate(){
   if(!('geolocation' in navigator))return showLocHelp('이 브라우저는 위치 기능을 지원하지 않아요.');
   if(!window.isSecureContext)return showLocHelp('내 위치는 https:// 주소로 열었을 때만 동작해요. 파일로 열었다면 공유받은 인터넷 주소로 열어 주세요.');
   if(watchId!=null)navigator.geolocation.clearWatch(watchId);
-  setLocState('searching');firstFix=true;follow=true;warned=false;
+  setLocState('searching');firstFix=true;fixOpenPending=false;follow=true;warned=false;
   watchId=navigator.geolocation.watchPosition(onPos,onPosErr,{enableHighAccuracy:true,maximumAge:5000,timeout:20000});
   LS.set('ofm.locOn',true);
 }
+const POOR_ACC=500;let fixOpenPending=false;   // a fix worse than 500 m (underground, indoors) never moves the list or opens the sheet
+function openForFix(){if(!isDesktop()&&sheetState==='peek'&&!sheetUserMoved&&S.view!=='detail'&&$('#phraseBig').hidden&&![...document.querySelectorAll('.modal')].some(m=>!m.hidden))setSheet('half')}
 function onPos(p){
-  const c=p.coords;me={lat:c.latitude,lon:c.longitude,acc:c.accuracy,t:p.timestamp};
+  const c=p.coords;if(c.accuracy>POOR_ACC&&me)return;   // keep the previous position as the reference
+  me={lat:c.latitude,lon:c.longitude,acc:c.accuracy,t:p.timestamp};
   const ll=[me.lat,me.lon];whenMap(drawMe);
   setLocState(follow?'follow':'on');
   const fromHotel=km(me,HOTEL);
@@ -1956,8 +1960,8 @@ function onPos(p){
       if(!S.refTouched||S.ref==='me'){S.ref='me'}
       if(!S.sortTouched){S.sort='nearby'}
       refresh({soft:true});
-      // the list is what the family came for: open it to half once, unless they moved the sheet themselves or something else is open
-      if(!isDesktop()&&sheetState==='peek'&&!sheetUserMoved&&S.view!=='detail'&&$('#phraseBig').hidden&&![...document.querySelectorAll('.modal')].some(m=>!m.hidden))setSheet('half');
+      // the list is what the family came for: open it to half once, unless they moved the sheet themselves or something else is open (not on a poor fix: wait for a good one)
+      if(me.acc<=POOR_ACC)openForFix();else fixOpenPending=true;
       whenMap(()=>panToVisible(ll,Z.me));
       toast(`📍 내 위치를 찾았어요 (오차 약 ${Math.round(me.acc)}m). 근처 맛집을 평점순으로 보여 줘요.`);
     }else{
@@ -1966,6 +1970,7 @@ function onPos(p){
     }
     lastListPos=me;return;
   }
+  if(fixOpenPending&&fromHotel<=OSAKA_KM){fixOpenPending=false;openForFix()}   // first good fix after a poor one
   if(fromHotel<=OSAKA_KM&&S.ref!=='me'&&!S.refTouched){S.ref='me';if(!S.sortTouched)S.sort='nearby';refresh({soft:true});lastListPos=me}
   if(follow&&fromHotel<=OSAKA_KM&&mapReady)panToVisible(ll);
   if(S.ref==='me'&&(!lastListPos||km(lastListPos,me)>0.03)){lastListPos=me;refresh({markers:false,soft:true})}
