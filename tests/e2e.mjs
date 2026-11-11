@@ -533,6 +533,21 @@ console.log('6-resv. Reservation-only shops and the status badges (A2-3)');
   await ctx.close();
 }
 
+console.log('6-late. “도착 전 마감” when the walk takes longer than the time left (A2-4)');
+{
+  const { ctx, page, log } = await newPhone({ geo: { latitude: 34.6687, longitude: 135.5013, accuracy: 20 }, clock: '2026-11-13T22:52:00+09:00', tz: 'Asia/Tokyo' });
+  await page.goto(URL0); await ready(page); await page.waitForTimeout(1500);
+  const r = await page.evaluate(async () => { const O = window.__ofm; O.setSheet('full'); await new Promise(res => setTimeout(res, 300));
+    const now = 22 * 60 + 52, wm = d => Math.max(1, Math.round(d * 1.3 / 4.5 * 60)), out = { late: [], ok: [], bad: [] };
+    for (const x of O.rows().filter(x => x.r).slice(0, 30)) { const st = O.status(x.r, 'fri'), el = document.querySelector(`#list .item[data-id="${x.r.id}"] .st`); if (!el || st.end == null) continue;
+      const late = wm(x.d) >= st.end - now, txt = el.textContent;
+      (late ? out.late : out.ok).push(`${x.r.id} ${wm(x.d)}분 ${txt}`); if (late !== /^도착 전 마감 · \d/.test(txt) || (late && !el.classList.contains('closing'))) out.bad.push(`${x.r.id} ${wm(x.d)}분/${st.end - now} ${txt}`); }
+    return out; });
+  check(r.late.length > 0 && r.ok.length > 0 && r.bad.length === 0, 'rows: “도착 전 마감 · HH:MM” when the walk is as long as the time left before last order / closing', JSON.stringify({ late: r.late.slice(0, 3), ok: r.ok.slice(0, 2), bad: r.bad.slice(0, 3) }));
+  check(log.errors.length === 0, 'no JS errors', log.errors.join(' | '));
+  await ctx.close();
+}
+
 console.log('6a. “영업 중만” chip: on screen without scrolling, and remembered on the phone');
 for (const dev of [devices['iPhone 13'], devices['iPhone SE']]) {
   const { ctx, page, log } = await newPhone({ device: dev, clock: '2026-11-14T12:30:00+09:00', tz: 'Asia/Tokyo' });

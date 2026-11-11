@@ -772,9 +772,10 @@ function status(r,day){
   const est=DATASET.has(r)&&r.hoursConf!=='high'&&r.hoursConf!=='medium',E=o=>{if(est&&(o.kind==='open'||o.kind==='closing')&&!o.noOrder){o.text=o.text.replace(/^(영업 중|곧 마감)/,'$1(추정)');o.est=true}return o};
   /* B: closing minute, L/lt: last order (same clock as now) — between last order and closing the shop is open but takes no orders:
      kind 'closing' + noOrder (영업 중만 and the alternatives leave these out, the pin is drawn like a closed one) */
-  const openSt=(B,b,L,lt)=>L==null||L>=B?(B-now<=45?{kind:'closing',text:`곧 마감 · ${untilT(b)}까지`}:{kind:'open',text:`영업 중 · ${untilT(b)}까지`})
+  /* end/endT: the deadline for arriving (last order, else closing) — list rows say "도착 전 마감" when walking takes longer */
+  const openSt=(B,b,L,lt)=>L==null||L>=B?(B-now<=45?{kind:'closing',text:`곧 마감 · ${untilT(b)}까지`,end:B,endT:b}:{kind:'open',text:`영업 중 · ${untilT(b)}까지`,end:B,endT:b})
     :now>=L?{kind:'closing',noOrder:true,text:`주문 마감 · ${untilT(b)}까지 영업`}
-    :L-now<=45?{kind:'closing',text:`곧 마감 · 마지막 주문 ${untilT(lt)}`}:{kind:'open',text:`영업 중 · 마지막 주문 ${untilT(lt)}`};
+    :L-now<=45?{kind:'closing',text:`곧 마감 · 마지막 주문 ${untilT(lt)}`,end:L,endT:lt}:{kind:'open',text:`영업 중 · 마지막 주문 ${untilT(lt)}`,end:L,endT:lt};
   if(live){const pd=PREV_DAY[day],prev=pd&&r.hours[pd];   // still open from last night (Fri 18:00–28:00 at Sat 00:30)
     if(prev)for(let i=0;i<prev.length;i++){const b=prev[i][1],B=toMin(b)-1440,lt=loOf(r,pd,i);if(B>0&&now<B)return RV(E(openSt(B,b,lt?toMin(lt)-1440:null,lt)),b)}}
   if(h==null)return{kind:'unknown',text:'영업시간 확인 필요'};
@@ -1555,7 +1556,8 @@ function payTag(r){const p=r.pay||{};if(p.card===true)return '<span class="ch pa
   if(p.card===false)return `<span class="ch cash">카드 ✕ · ${p.emoney===true?'교통카드':'QR'} OK</span>`;return ''}
 const streetUrl=r=>`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${r.lat},${r.lon}`;
 function itemHtml({r,d}){
-  const st=status(r,S.day),off=closedOn(r),w=waitOf(r);
+  let st=status(r,S.day);if(st.end!=null&&walkMin(d)>=st.end-jstNow().min)st={kind:'closing',text:`도착 전 마감 · ${untilT(st.endT)}`};   // closes (or stops orders) before you get there on foot
+  const off=closedOn(r),w=waitOf(r);
   const meta=[r.tabelog!=null?`<b class="rt ${tierT(r.tabelog)}">★ ${fmtT(r.tabelog)}</b>`:'<span class="rt tna">점수 없음</span>',gRating(r)!=null?`<span>구글 ${fmtG(gRating(r))}</span>`:'',`<span>${esc(r.genre)}</span>`,r.price?`<span>${yen(r)}</span>`:''].filter(Boolean).join('<i>·</i>');
   const chips=[...statusChips(r),w.s&&r.reservation!=='required'?`<span class="ch w${w.k|0}">${w.s}</span>`:'',payTag(r),r.group6==='likely'?'<span class="ch ok6">6인 OK</span>':'',off.length&&st.kind!=='closed'?`<span class="ch warn">${off.join('·')} 휴무</span>`:''].filter(Boolean).join('');
   const from=S.ref==='me'&&!me?'호텔에서 ':'';   // the 기준 menu right above already says 호텔/지도 중심 — only say it when 내 위치 fell back to the hotel
